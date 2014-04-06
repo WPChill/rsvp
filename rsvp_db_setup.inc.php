@@ -6,6 +6,7 @@
 		`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 		`firstName` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 		`lastName` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+		`email` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 		`rsvpDate` DATE NULL ,
 		`rsvpStatus` ENUM( 'Yes', 'No', 'NoResponse' ) NOT NULL DEFAULT 'NoResponse',
 		`note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
@@ -43,7 +44,14 @@
 		$wpdb->query($sql);
 		update_option( "rsvp_db_version", RSVP_DB_VERSION);
 	}
-	
+
+	if((int)$installed_ver < 10) {
+        $table = $wpdb->prefix."attendees";
+        $sql = "ALTER TABLE ".$table." ADD `email` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ;";
+        $wpdb->query($sql);
+        update_option( "rsvp_db_version", RSVP_DB_VERSION);
+	}
+
 	$table = $wpdb->prefix."rsvpCustomQuestions";
 	if($wpdb->get_var("SHOW TABLES LIKE '$table'") != $table) {
 		$sql = " CREATE TABLE $table (
