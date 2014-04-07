@@ -809,6 +809,7 @@ License: GPL
 				$wpdb->update(ATTENDEES_TABLE,
 											array("firstName" => trim($_POST['firstName']),
 											      "lastName" => trim($_POST['lastName']),
+											      "email" => trim($_POST['email']),
 											      "personalGreeting" => trim($_POST['personalGreeting']),
 														"rsvpStatus" => trim($_POST['rsvpStatus'])),
 											array("id" => $_SESSION[EDIT_SESSION_KEY]),
@@ -820,6 +821,7 @@ License: GPL
 			} else {
 				$wpdb->insert(ATTENDEES_TABLE, array("firstName" => trim($_POST['firstName']),
 				                                     "lastName" => trim($_POST['lastName']),
+				                                     "email" => trim($_POST['email']),
 																						 "personalGreeting" => trim($_POST['personalGreeting']),
 																						 "rsvpStatus" => trim($_POST['rsvpStatus'])),
 				                               array('%s', '%s', '%s', '%s'));
@@ -860,16 +862,18 @@ License: GPL
 			$associatedAttendees = array();
 			$firstName = "";
 			$lastName = "";
+			$email = "";
 			$personalGreeting = "";
 			$rsvpStatus = "NoResponse";
 			$passcode = "";
 
 			if(isset($_GET['id']) && is_numeric($_GET['id'])) {
-				$attendee = $wpdb->get_row("SELECT id, firstName, lastName, personalGreeting, rsvpStatus, passcode FROM ".ATTENDEES_TABLE." WHERE id = ".$_GET['id']);
+				$attendee = $wpdb->get_row("SELECT id, firstName, lastName, email, personalGreeting, rsvpStatus, passcode FROM ".ATTENDEES_TABLE." WHERE id = ".$_GET['id']);
 				if($attendee != null) {
 					$_SESSION[EDIT_SESSION_KEY] = $attendee->id;
 					$firstName = stripslashes($attendee->firstName);
 					$lastName = stripslashes($attendee->lastName);
+					$email = stripslashes($attendee->email);
 					$personalGreeting = stripslashes($attendee->personalGreeting);
 					$rsvpStatus = $attendee->rsvpStatus;
 					$passcode = stripslashes($attendee->passcode);
@@ -897,6 +901,10 @@ License: GPL
 					<tr valign="top">
 						<th scope="row"><label for="lastName"><?php echo __("Last Name", 'rsvp-plugin'); ?>:</label></th>
 						<td align="left"><input type="text" name="lastName" id="lastName" size="30" value="<?php echo htmlspecialchars($lastName); ?>" /></td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><label for="email"><?php echo __("Email", 'rsvp-plugin'); ?>:</label></th>
+						<td align="left"><input type="email" name="email" id="email" size="30" value="<?php echo htmlspecialchars($email); ?>" /></td>
 					</tr>
 					<?php
 					if(rsvp_require_passcode()) {
@@ -949,7 +957,7 @@ License: GPL
 				<?php
 				if(($attendee != null) && ($attendee->id > 0)) {
 					$sql = "SELECT question, answer FROM ".ATTENDEE_ANSWERS." ans
-						INNER JOIN ".QUESTIONS_TABLE." q ON q.id = ans.questionID 
+						INNER JOIN ".QUESTIONS_TABLE." q ON q.id = ans.questionID
 						WHERE attendeeID = %d 
 						ORDER BY q.sortOrder";
 					$aRs = $wpdb->get_results($wpdb->prepare($sql, $attendee->id));
