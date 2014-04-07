@@ -827,6 +827,9 @@ License: GPL
 				                               array('%s', '%s', '%s', '%s'));
 				rsvp_printQueryDebugInfo();
 
+                //TODO Verify that this is the best place for this code and replace $_POST queries with predefined variables
+                attendee_email_notification(trim($_POST['email']), trim($_POST['firstName'])." ".trim($_POST['lastName']));
+
 				$attendeeId = $wpdb->insert_id;
 			}
 
@@ -1476,6 +1479,27 @@ License: GPL
      }
      return $pageURL;
   }
+
+/*
+ * Sends an email to the attendee with a notification to RSVP
+ */
+function attendee_email_notification ($email, $name) {
+    global $user_ID;
+
+    $userdetails = get_userdata($user_ID);
+    $user_email = $userdetails->user_email;
+    $displayname = $userdetails->display_name ;
+
+    $subject_content = "RSVP Invitation";
+
+    $message_content = "Hello ".$name.", \r\n\r\n";
+    $message_content .= "Please, feel free to RSVP here: ".get_bloginfo('url')."/rsvp\r";
+    $message_content .= "Att. ".$displayname;
+
+    $message_headers = "MIME-Version: 1.0\n" . "From: " . get_site_option( "site_name" ) .  " <{$user_email}>\n" . "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\n";
+
+    wp_mail($email, $subject_content, $message_content, $message_headers);
+}
 
 	add_action('admin_menu', 'rsvp_modify_menu');
 	add_action('admin_init', 'rsvp_register_settings');
