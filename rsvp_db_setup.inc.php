@@ -106,7 +106,7 @@
 	}
 	
 	if((int)$installed_ver < 5) {
-		$table = QUESTIONS_TABLE;
+		$table = $wpdb->prefix."rsvpCustomQuestions";
 		$sql = "ALTER TABLE `$table` ADD `permissionLevel` ENUM( 'public', 'private' ) NOT NULL DEFAULT 'public';";
 		$wpdb->query($sql);
 	}
@@ -115,8 +115,8 @@
 		rsvp_install_passcode_field();
 	}
   
-  if((int)$installed_ver < 10) {
-		$table = ATTENDEES_TABLE;
+  $table = $wpdb->prefix."attendees";
+  if((int)$installed_ver < 11 || ($wpdb->get_var("SHOW COLUMNS FROM `$table` LIKE 'email'") != "email")) {
 		$sql = "ALTER TABLE ".$table." ADD `email` VARCHAR( 250 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 		$wpdb->query($sql);
 		update_option( "rsvp_db_version", RSVP_DB_VERSION);
