@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.8.0
+ * @version 1.8.1
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.8.0
+Version: 1.8.1
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -59,7 +59,9 @@ License: GPL
   define("OPTION_RSVP_OPEN_REGISTRATION", "rsvp_open_registration");
   define("OPTION_RSVP_DONT_USE_HASH", "rsvp_dont_use_has");
   define("OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE", "rsvp_add_additional_verbiage");
-	define("RSVP_DB_VERSION", "9");
+  define("OPTION_RSVP_GUEST_EMAIL_CONFIRMATION", "rsvp_guest_email_confirmation");
+  define("OPTION_RSVP_NUM_ADDITIONAL_GUESTS", "rsvp_num_additional_guests");
+	define("RSVP_DB_VERSION", "10");
 	define("QT_SHORT", "shortAnswer");
 	define("QT_MULTI", "multipleChoice");
 	define("QT_LONG", "longAnswer");
@@ -169,6 +171,10 @@ License: GPL
 						<td align="left"><input type="text" name="rsvp_deadline" id="rsvp_deadline" value="<?php echo htmlspecialchars(get_option(OPTION_DEADLINE)); ?>" /></td>
 					</tr>
 					<tr valign="top">
+						<th scope="row"><label for="rsvp_num_additional_guests">Number of Additional Guests Allowed (default is three):</label></th>
+						<td align="left"><input type="text" name="rsvp_num_additional_guests" id="rsvp_num_additional_guests" value="<?php echo htmlspecialchars(get_option(OPTION_RSVP_NUM_ADDITIONAL_GUESTS)); ?>" /></td>
+					</tr>
+					<tr valign="top">
 						<th scope="row"><label for="rsvp_custom_greeting">Custom Greeting:</label></th>
 						<td align="left"><textarea name="rsvp_custom_greeting" id="rsvp_custom_greeting" rows="5" cols="60"><?php echo htmlspecialchars(get_option(OPTION_GREETING)); ?></textarea></td>
 					</tr>
@@ -261,6 +267,11 @@ License: GPL
 						<th scope="row"><label for="rsvp_notify_email_address">Email address to notify</label></th>
 						<td align="left"><input type="text" name="rsvp_notify_email_address" id="rsvp_notify_email_address" value="<?php echo htmlspecialchars(get_option(OPTION_NOTIFY_EMAIL)); ?>"/></td>
 					</tr>
+          <tr valign="top">
+            <th scope="row"><label for="rsvp_guest_email_confirmation">Send email to main guest when they RSVP</label></th>
+            <td align="left"><input type="checkbox" name="rsvp_guest_email_confirmation" id="rsvp_guest_email_confirmation" value="Y" 
+              <?php echo ((get_option(OPTION_RSVP_GUEST_EMAIL_CONFIRMATION) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
+          </tr>
 					<tr>
 						<th scope="ropw"><label for="<?php echo OPTION_RSVP_PASSCODE; ?>">Require a Passcode to RSVP:</label></th>
 						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_PASSCODE; ?>" id="<?php echo OPTION_RSVP_PASSCODE; ?>" value="Y" 
@@ -310,7 +321,7 @@ License: GPL
 			}
 		}
 		
-		$sql = "SELECT id, firstName, lastName, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, personalGreeting, passcode FROM ".ATTENDEES_TABLE;
+		$sql = "SELECT id, firstName, lastName, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, personalGreeting, passcode, email FROM ".ATTENDEES_TABLE;
 		$orderBy = " lastName, firstName";
 		if(isset($_GET['sort'])) {
 			if(strToLower($_GET['sort']) == "rsvpstatus") {
@@ -385,7 +396,7 @@ License: GPL
 				<thead>
 					<tr>
 						<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox" id="cb" /></th>
-						<th scope="col" id="attendeeName" class="manage-column column-title" style="">Attendee</a> &nbsp;
+						<th scope="col" id="attendeeName" class="manage-column column-title" style="">Attendee<br />
 							<a href="admin.php?page=rsvp-top-level&amp;sort=attendee&amp;sortDirection=asc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php 
 									echo ((($sort == "attendee") && ($sortDirection == "asc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
@@ -395,7 +406,8 @@ License: GPL
 									echo ((($sort == "attendee") && ($sortDirection == "desc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
 									alt="Sort Descending Attendee Status" title="Sort Descending Attendee Status" border="0"></a>
 						</th>			
-						<th scope="col" id="rsvpStatus" class="manage-column column-title" style="">RSVP Status &nbsp;
+            <th scope="col" id="rsvpEmail" class="manage-column column-title">Email</th>
+						<th scope="col" id="rsvpStatus" class="manage-column column-title" style="">RSVP Status<br />
 							<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpStatus&amp;sortDirection=asc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php 
 									echo ((($sort == "rsvpStatus") && ($sortDirection == "asc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
@@ -406,7 +418,7 @@ License: GPL
 									alt="Sort Descending RSVP Status" title="Sort Descending RSVP Status" border="0"></a>
 						</th>
 						<?php if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {?>
-						<th scope="col" id="kidsMeal" class="manage-column column-title" style="">Kids Meal	 &nbsp;
+						<th scope="col" id="kidsMeal" class="manage-column column-title" style="">Kids Meal<br />
 								<a href="admin.php?page=rsvp-top-level&amp;sort=kidsMeal&amp;sortDirection=asc">
 									<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php 
 										echo ((($sort == "kidsMeal") && ($sortDirection == "asc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
@@ -417,7 +429,7 @@ License: GPL
 										alt="Sort Descending Kids Meal Status" title="Sort Descending Kids Meal Status" border="0"></a>
 						</th>
 						<?php } ?>
-						<th scope="col" id="additionalAttendee" class="manage-column column-title" style="">Additional Attendee		 &nbsp;
+						<th scope="col" id="additionalAttendee" class="manage-column column-title" style="">Additional Attendee <br />
 									<a href="admin.php?page=rsvp-top-level&amp;sort=additional&amp;sortDirection=asc">
 										<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php 
 											echo ((($sort == "additional") && ($sortDirection == "asc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
@@ -428,7 +440,7 @@ License: GPL
 											alt="Sort Descending Additional Attendees Status" title="Sort Descending Additional Atttendees Status" border="0"></a>
 						</th>
 						<?php if(get_option(OPTION_HIDE_VEGGIE) != "Y") {?>
-						<th scope="col" id="veggieMeal" class="manage-column column-title" style="">Vegetarian			 &nbsp;
+						<th scope="col" id="veggieMeal" class="manage-column column-title" style="">Vegetarian <br />
 										<a href="admin.php?page=rsvp-top-level&amp;sort=vegetarian&amp;sortDirection=asc">
 											<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php 
 												echo ((($sort == "vegetarian") && ($sortDirection == "asc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
@@ -474,6 +486,7 @@ License: GPL
 							<td>
 								<a href="<?php echo get_option("siteurl"); ?>/wp-admin/admin.php?page=rsvp-admin-guest&amp;id=<?php echo $attendee->id; ?>"><?php echo htmlspecialchars(stripslashes($attendee->firstName)." ".stripslashes($attendee->lastName)); ?></a>
 							</td>
+              <td><?php echo htmlspecialchars(stripslashes($attendee->email)); ?></td>
 							<td><?php echo $attendee->rsvpStatus; ?></td>
 							<?php if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {?>
 							<td><?php 
@@ -547,7 +560,7 @@ License: GPL
 	
 	function rsvp_admin_export() {
 		global $wpdb;
-			$sql = "SELECT id, firstName, lastName, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, passcode 
+			$sql = "SELECT id, firstName, lastName, email, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, passcode 
 							FROM ".ATTENDEES_TABLE;
 							
 							$orderBy = " lastName, firstName";
@@ -567,7 +580,7 @@ License: GPL
 							}
 							$sql .= " ORDER BY ".$orderBy;
 			$attendees = $wpdb->get_results($sql);
-			$csv = "\"Attendee\",\"RSVP Status\",";
+			$csv = "\"Attendee\",\"Email\",\"RSVP Status\",";
 			
 			if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
 				$csv .= "\"Kids Meal\",";
@@ -591,7 +604,7 @@ License: GPL
 			
 			$csv .= "\r\n";
 			foreach($attendees as $a) {
-				$csv .= "\"".stripslashes($a->firstName." ".$a->lastName)."\",\"".($a->rsvpStatus)."\",";
+				$csv .= "\"".stripslashes($a->firstName." ".$a->lastName)."\",\"".stripslashes($a->email)."\",\"".($a->rsvpStatus)."\",";
 				
 				if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
 					$csv .= "\"".(($a->kidsMeal == "Y") ? "Yes" : "No")."\",";
@@ -662,8 +675,9 @@ License: GPL
 				for ($i; $i <= $data->sheets[0]['numRows']; $i++) {
 					$fName = trim($data->sheets[0]['cells'][$i][1]);
 					$lName = trim($data->sheets[0]['cells'][$i][2]);
-					$personalGreeting = (isset($data->sheets[0]['cells'][$i][4])) ? $personalGreeting = $data->sheets[0]['cells'][$i][4] : "";
-          $passcode = (isset($data->sheets[0]['cells'][$i][5])) ? $data->sheets[0]['cells'][$i][5] : "";
+          $email = trim($data->sheets[0]['cells'][$i][3]);
+					$personalGreeting = (isset($data->sheets[0]['cells'][$i][5])) ? $personalGreeting = $data->sheets[0]['cells'][$i][5] : "";
+          $passcode = (isset($data->sheets[0]['cells'][$i][6])) ? $data->sheets[0]['cells'][$i][6] : "";
 					if(!empty($fName) && !empty($lName)) {
 						$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
 						 	WHERE firstName = %s AND lastName = %s ";
@@ -671,6 +685,7 @@ License: GPL
 						if(count($res) == 0) {
 							$wpdb->insert(ATTENDEES_TABLE, array("firstName" 				=> $fName, 
 																									 "lastName" 				=> $lName,
+                                                   "email"            => $email, 
 																									 "personalGreeting" => $personalGreeting, 
                                                    "passcode"         => $passcode), 
 																						 array('%s', '%s', '%s', '%s'));
@@ -679,7 +694,7 @@ License: GPL
 					}
 				}
 				
-				if($data->sheets[0]['numCols'] >= 3) {
+				if($data->sheets[0]['numCols'] >= 4) {
 					// There must be associated users so let's associate them
           $i = ($skipFirstRow) ? 2 : 1;
 					for ($i; $i <= $data->sheets[0]['numRows']; $i++) {
@@ -690,11 +705,11 @@ License: GPL
 							$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
 							 	WHERE firstName = %s AND lastName = %s ";
 							$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
-							if((count($res) > 0) && isset($data->sheets[0]['cells'][$i][3])) {
+							if((count($res) > 0) && isset($data->sheets[0]['cells'][$i][4])) {
 								$userId = $res[0]->id;
 								
 								// Deal with the assocaited users...
-								$associatedUsers = explode(",", trim($data->sheets[0]['cells'][$i][3]));
+								$associatedUsers = explode(",", trim($data->sheets[0]['cells'][$i][4]));
 								if(is_array($associatedUsers)) {
 									foreach($associatedUsers as $au) {
 										$user = explode(" ", trim($au), 2);
@@ -770,7 +785,8 @@ License: GPL
 			<form name="rsvp_import" method="post" enctype="multipart/form-data">
 				<?php wp_nonce_field('rsvp-import'); ?>
 				<p>Select an excel file (only xls please, xlsx is not supported....yet) in the following format:<br />
-				<strong>First Name</strong> | <strong>Last Name</strong> | <strong>Associated Attendees*</strong> | <strong>Custom Message</strong> | <strong>Passcode</strong> | <strong>Private Question Association**</strong>
+				<strong>First Name</strong> | <strong>Last Name</strong> | <strong>Email</strong> | 
+        <strong>Associated Attendees*</strong> | <strong>Custom Message</strong> | <strong>Passcode</strong> | <strong>Private Question Association**</strong>
 				</p>
 				<p>
 				* associated attendees should be separated by a comma it is assumed that the first space encountered will separate the first and last name.
@@ -807,10 +823,11 @@ License: GPL
 				$wpdb->update(ATTENDEES_TABLE, 
 											array("firstName" => trim($_POST['firstName']), 
 											      "lastName" => trim($_POST['lastName']), 
+                            "email" => trim($_POST['email']), 
 											      "personalGreeting" => trim($_POST['personalGreeting']), 
 														"rsvpStatus" => trim($_POST['rsvpStatus'])), 
 											array("id" => $_SESSION[EDIT_SESSION_KEY]), 
-											array("%s", "%s", "%s", "%s"), 
+											array("%s", "%s", "%s", "%s", "%s"), 
 											array("%d"));
 				rsvp_printQueryDebugInfo();
 				$attendeeId = $_SESSION[EDIT_SESSION_KEY];
@@ -818,9 +835,10 @@ License: GPL
 			} else {
 				$wpdb->insert(ATTENDEES_TABLE, array("firstName" => trim($_POST['firstName']), 
 				                                     "lastName" => trim($_POST['lastName']),
+                                             "email" => trim($_POST['email']), 
 																						 "personalGreeting" => trim($_POST['personalGreeting']), 
 																						 "rsvpStatus" => trim($_POST['rsvpStatus'])), 
-				                               array('%s', '%s', '%s', '%s'));
+				                               array('%s', '%s', '%s', '%s', '%s'));
 				rsvp_printQueryDebugInfo();
 					
 				$attendeeId = $wpdb->insert_id;
@@ -858,16 +876,18 @@ License: GPL
 			$associatedAttendees = array();
 			$firstName = "";
 			$lastName = "";
+      $email = "";
 			$personalGreeting = "";
 			$rsvpStatus = "NoResponse";
 			$passcode = "";
 			
 			if(isset($_GET['id']) && is_numeric($_GET['id'])) {
-				$attendee = $wpdb->get_row("SELECT id, firstName, lastName, personalGreeting, rsvpStatus, passcode FROM ".ATTENDEES_TABLE." WHERE id = ".$_GET['id']);
+				$attendee = $wpdb->get_row("SELECT id, firstName, lastName, email, personalGreeting, rsvpStatus, passcode FROM ".ATTENDEES_TABLE." WHERE id = ".$_GET['id']);
 				if($attendee != null) {
 					$_SESSION[EDIT_SESSION_KEY] = $attendee->id;
 					$firstName = stripslashes($attendee->firstName);
 					$lastName = stripslashes($attendee->lastName);
+          $email = stripslashes($attendee->email);
 					$personalGreeting = stripslashes($attendee->personalGreeting);
 					$rsvpStatus = $attendee->rsvpStatus;
 					$passcode = stripslashes($attendee->passcode);
@@ -895,6 +915,10 @@ License: GPL
 					<tr valign="top">
 						<th scope="row"><label for="lastName"><?php echo __("Last Name", 'rsvp-plugin'); ?>:</label></th>
 						<td align="left"><input type="text" name="lastName" id="lastName" size="30" value="<?php echo htmlspecialchars($lastName); ?>" /></td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><label for="email"><?php echo __("Email", 'rsvp-plugin'); ?>:</label></th>
+						<td align="left"><input type="text" name="email" id="email" size="30" value="<?php echo htmlspecialchars($email); ?>" /></td>
 					</tr>
 					<?php
 					if(rsvp_require_passcode()) {
@@ -1406,6 +1430,8 @@ License: GPL
     register_setting('rsvp-option-group', OPTION_RSVP_OPEN_REGISTRATION);
     register_setting('rsvp-option-group', OPTION_RSVP_DONT_USE_HASH);
     register_setting('rsvp-option-group', OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE);
+    register_setting('rsvp-option-group', OPTION_RSVP_GUEST_EMAIL_CONFIRMATION);
+    register_setting('rsvp-option-group', OPTION_RSVP_NUM_ADDITIONAL_GUESTS);
 		
 		wp_register_script('jquery_table_sort', plugins_url('jquery.tablednd_0_5.js',RSVP_PLUGIN_FILE));
 		wp_register_script('jquery_ui', rsvp_getHttpProtocol()."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.js");
@@ -1414,7 +1440,6 @@ License: GPL
 	
 	function rsvp_admin_scripts() {
     wp_enqueue_script("jquery");
-		//wp_enqueue_script("jquery_ui");
     wp_enqueue_script("jquery-ui-datepicker");
     wp_enqueue_script("jquery_table_sort");
 		wp_enqueue_style( 'jquery_ui_stylesheet');

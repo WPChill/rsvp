@@ -114,5 +114,12 @@
 	if((int)$installed_ver < 9) {
 		rsvp_install_passcode_field();
 	}
+  
+  if((int)$installed_ver < 10) {
+		$table = ATTENDEES_TABLE;
+		$sql = "ALTER TABLE ".$table." ADD `email` VARCHAR( 250 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+		$wpdb->query($sql);
+		update_option( "rsvp_db_version", RSVP_DB_VERSION);
+  }
 	update_option( "rsvp_db_version", RSVP_DB_VERSION);
 ?>
