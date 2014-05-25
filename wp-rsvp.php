@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.8.2
+ * @version 1.8.3
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.8.2
+Version: 1.8.3
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -61,6 +61,7 @@ License: GPL
   define("OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE", "rsvp_add_additional_verbiage");
   define("OPTION_RSVP_GUEST_EMAIL_CONFIRMATION", "rsvp_guest_email_confirmation");
   define("OPTION_RSVP_NUM_ADDITIONAL_GUESTS", "rsvp_num_additional_guests");
+  define("OPTION_RSVP_HIDE_EMAIL_FIELD", "rsvp_hide_email_field");
 	define("RSVP_DB_VERSION", "11");
 	define("QT_SHORT", "shortAnswer");
 	define("QT_MULTI", "multipleChoice");
@@ -287,6 +288,11 @@ License: GPL
             <td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_DONT_USE_HASH; ?>" id="<?php echo OPTION_RSVP_DONT_USE_HASH; ?>" value="Y" 
                <?php echo ((get_option(OPTION_RSVP_DONT_USE_HASH) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
           </tr>
+					<tr valign="top">
+						<th scope="row"><label for="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>">Hide email field on rsvp form:</label></th>
+						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>" id="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>" 
+							value="Y" <?php echo ((get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
+					</tr>
 					<tr valign="top">
 						<th scope="row"><label for="rsvp_debug_queries">Debug RSVP Queries:</label></th>
 						<td align="left"><input type="checkbox" name="rsvp_debug_queries" id="rsvp_debug_queries" 
@@ -1401,8 +1407,16 @@ License: GPL
 										 "publish_posts", 
 										 "rsvp-admin-custom-question",
 										 "rsvp_admin_custom_question");
-										 
-        add_action('admin_print_scripts-' . $page, 'rsvp_admin_scripts'); 
+    add_action('admin_print_scripts-' . $page, 'rsvp_admin_scripts'); 
+    
+		$page = add_submenu_page("rsvp-top-level",
+                     'RSVP Options',	//page title
+	                   'RSVP Options',	//subpage title
+	                   'manage_options',	//access
+	                   'rsvp-options',		//current file
+	                   'rsvp_admin_guestlist_options'	//options function above
+	                   );
+    add_action('admin_print_scripts-' . $page, 'rsvp_admin_scripts'); 
 	}
 	
 	function rsvp_register_settings() {
@@ -1432,6 +1446,7 @@ License: GPL
     register_setting('rsvp-option-group', OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE);
     register_setting('rsvp-option-group', OPTION_RSVP_GUEST_EMAIL_CONFIRMATION);
     register_setting('rsvp-option-group', OPTION_RSVP_NUM_ADDITIONAL_GUESTS);
+    register_setting('rsvp-option-group', OPTION_RSVP_HIDE_EMAIL_FIELD);
 		
 		wp_register_script('jquery_table_sort', plugins_url('jquery.tablednd_0_5.js',RSVP_PLUGIN_FILE));
 		wp_register_script('jquery_ui', rsvp_getHttpProtocol()."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.js");

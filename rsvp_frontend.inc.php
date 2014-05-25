@@ -231,10 +231,12 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp") {
       RSVP_END_FORM_FIELD;
 	}
   
-  $form .= rsvp_BeginningFormField("", "rsvpBorderTop").
-    RSVP_START_PARA."<label for=\"mainEmail\">".__("Email Address", 'rsvp-plugin')."</label>".RSVP_END_PARA.
-      "<input type=\"text\" name=\"mainEmail\" id=\"mainEmail\" value=\"".htmlspecialchars($attendee->email)."\" />".
-    RSVP_END_FORM_FIELD;
+  if(get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) != "Y") {
+    $form .= rsvp_BeginningFormField("", "rsvpBorderTop").
+      RSVP_START_PARA."<label for=\"mainEmail\">".__("Email Address", 'rsvp-plugin')."</label>".RSVP_END_PARA.
+        "<input type=\"text\" name=\"mainEmail\" id=\"mainEmail\" value=\"".htmlspecialchars($attendee->email)."\" />".
+      RSVP_END_FORM_FIELD;
+  }
 	
 	$form .= rsvp_buildAdditionalQuestions($attendeeID, "main");
 	
@@ -711,8 +713,10 @@ function rsvp_handleNewRsvp(&$output, &$text) {
           $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
   			}
       }
-						
-			wp_mail(get_option(OPTION_NOTIFY_EMAIL), "New RSVP Submission", $body);
+			
+      $emailAddy = get_option(OPTION_NOTIFY_EMAIL);			
+      $headers = 'From: '. $emailAddy . "\r\n";
+			wp_mail($emailAddy, "New RSVP Submission", $body, $headers);
 		}
 	}
   
@@ -735,7 +739,12 @@ function rsvp_handleNewRsvp(&$output, &$text) {
           $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
   			}
       }
-      wp_mail($attendee[0]->email, "RSVP Confirmation", $body);
+      $emailAddy = get_option(OPTION_NOTIFY_EMAIL);	
+      $headers = "";
+      if(!empty($emailAddy)) {
+        $headers = 'From: '. $emailAddy . "\r\n";
+      }
+      wp_mail($attendee[0]->email, "RSVP Confirmation", $body, $headers);
     }
   }
 				
@@ -835,8 +844,10 @@ function rsvp_handlersvp(&$output, &$text) {
 				}
 			}
 		}
-					
-		if((get_option(OPTION_NOTIFY_ON_RSVP) == "Y") && (get_option(OPTION_NOTIFY_EMAIL) != "")) {
+		
+    $email = get_option(OPTION_NOTIFY_EMAIL);
+    
+		if((get_option(OPTION_NOTIFY_ON_RSVP) == "Y") && ($email != "")) {
 			$sql = "SELECT firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
 			$attendee = $wpdb->get_results($sql);
 			if(count($attendee) > 0) {
@@ -856,8 +867,9 @@ function rsvp_handlersvp(&$output, &$text) {
             $body .= stripslashes($a->firstName." ".$a->lastName)." RSVP status: ".$a->rsvpStatus."\r\n";
     			}
         }
-						
-				wp_mail(get_option(OPTION_NOTIFY_EMAIL), "New RSVP Submission", $body);
+				
+        $headers = 'From: '. $email . "\r\n";		
+				wp_mail($email, "New RSVP Submission", $body, $headers);
 			}
 		}
     
@@ -880,8 +892,11 @@ function rsvp_handlersvp(&$output, &$text) {
             $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
     			}
         }
-        
-        wp_mail($attendee[0]->email, "RSVP Confirmation", $body);
+        $headers = "";
+        if(!empty($email)) {
+          $headers = 'From: '. $email . "\r\n";		
+        }
+        wp_mail($attendee[0]->email, "RSVP Confirmation", $body, $headers);
       }
     }
 					

@@ -3,8 +3,8 @@ Contributors: mdedev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: rsvp, reserve, wedding, guestlist
 Requires at least: 3.0
-Tested up to: 3.9.0
-Stable tag: 1.8.2
+Tested up to: 3.9.1
+Stable tag: 1.8.3
 
 Easy to use rsvp plugin originally created for weddings but could be used for other events.
 
@@ -74,6 +74,11 @@ I will see if I can get it added for you.
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 1.8.3 =
+* Modified the guest emails so that it would appear from the email specified in the option.
+* Added the RSVP Options page as a sub-menu item under RSVP Plugin
+* Added in an option to hide the email address
 
 = 1.8.2 =
 * Fixed a bug with the new email field that made it so guests couldn't be added
