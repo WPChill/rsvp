@@ -719,8 +719,10 @@ function rsvp_handleNewRsvp(&$output, &$text) {
   			}
       }
 			
-      $emailAddy = get_option(OPTION_NOTIFY_EMAIL);			
-      $headers = 'From: '. $emailAddy . "\r\n";
+      $emailAddy = get_option(OPTION_NOTIFY_EMAIL);		
+      $headers = "";
+      if(get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")	
+        $headers = 'From: '. $emailAddy . "\r\n";
 			wp_mail($emailAddy, "New RSVP Submission", $body, $headers);
 		}
 	}
@@ -746,7 +748,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
       }
       $emailAddy = get_option(OPTION_NOTIFY_EMAIL);	
       $headers = "";
-      if(!empty($emailAddy)) {
+      if(!empty($emailAddy) && (get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")) {
         $headers = 'From: '. $emailAddy . "\r\n";
       }
       wp_mail($attendee[0]->email, "RSVP Confirmation", $body, $headers);
@@ -872,8 +874,10 @@ function rsvp_handlersvp(&$output, &$text) {
             $body .= stripslashes($a->firstName." ".$a->lastName)." RSVP status: ".$a->rsvpStatus."\r\n";
     			}
         }
-				
-        $headers = 'From: '. $email . "\r\n";		
+        $headers = "";
+				if(get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")
+          $headers = 'From: '. $email . "\r\n";		
+        
 				wp_mail($email, "New RSVP Submission", $body, $headers);
 			}
 		}
@@ -898,7 +902,7 @@ function rsvp_handlersvp(&$output, &$text) {
     			}
         }
         $headers = "";
-        if(!empty($email)) {
+        if(!empty($email) && (get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")) {
           $headers = 'From: '. $email . "\r\n";		
         }
         wp_mail($attendee[0]->email, "RSVP Confirmation", $body, $headers);

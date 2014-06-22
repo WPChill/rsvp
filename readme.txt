@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, reserve, wedding, guestlist
 Requires at least: 3.0
 Tested up to: 3.9.1
-Stable tag: 1.8.4
+Stable tag: 1.8.5
 
 Easy to use rsvp plugin originally created for weddings but could be used for other events.
 
@@ -74,6 +74,9 @@ I will see if I can get it added for you.
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 1.8.5 = 
+* Added in an option to disable not have guest emails appear to be from the email specified in the notification option. As some hosts will not send out an email with a custom from header. 
 
 = 1.8.4 = 
 * Fixed a stupid bug where the option to hide the email address didn't do it everywhere.

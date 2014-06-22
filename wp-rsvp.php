@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.8.4
+ * @version 1.8.5
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.8.4
+Version: 1.8.5
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -62,6 +62,7 @@ License: GPL
   define("OPTION_RSVP_GUEST_EMAIL_CONFIRMATION", "rsvp_guest_email_confirmation");
   define("OPTION_RSVP_NUM_ADDITIONAL_GUESTS", "rsvp_num_additional_guests");
   define("OPTION_RSVP_HIDE_EMAIL_FIELD", "rsvp_hide_email_field");
+  define("OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM", "rsvp_disable_custom_from_email");
 	define("RSVP_DB_VERSION", "11");
 	define("QT_SHORT", "shortAnswer");
 	define("QT_MULTI", "multipleChoice");
@@ -292,6 +293,11 @@ License: GPL
 						<th scope="row"><label for="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>">Hide email field on rsvp form:</label></th>
 						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>" id="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>" 
 							value="Y" <?php echo ((get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><label for="<?php echo OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM; ?>">Do not use the specified notification email as the from email<br /> (if you are not receiving email notifications try this):</label></th>
+						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM; ?>" id="<?php echo OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM; ?>" 
+							value="Y" <?php echo ((get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label for="rsvp_debug_queries">Debug RSVP Queries:</label></th>
@@ -1447,6 +1453,7 @@ License: GPL
     register_setting('rsvp-option-group', OPTION_RSVP_GUEST_EMAIL_CONFIRMATION);
     register_setting('rsvp-option-group', OPTION_RSVP_NUM_ADDITIONAL_GUESTS);
     register_setting('rsvp-option-group', OPTION_RSVP_HIDE_EMAIL_FIELD);
+    register_setting('rsvp-option-group', OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM);
 		
 		wp_register_script('jquery_table_sort', plugins_url('jquery.tablednd_0_5.js',RSVP_PLUGIN_FILE));
 		wp_register_script('jquery_ui', rsvp_getHttpProtocol()."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.js");
