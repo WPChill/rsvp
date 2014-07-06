@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, reserve, wedding, guestlist
 Requires at least: 3.0
 Tested up to: 3.9.1
-Stable tag: 1.8.5
+Stable tag: 1.8.6
 
 Easy to use rsvp plugin originally created for weddings but could be used for other events.
 
@@ -74,6 +74,11 @@ I will see if I can get it added for you.
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 1.8.6 = 
+* Added in an option to only show a passcode for when a guest rsvps. When this option is on the passcode has to be unique.
+* Fixed a bug where custom questions would not show up in the correct order when viewing the guest list in the admin area. 
+* Added all the other information along with custom questions to the emails that are sent to the email specified in the notification email setting.
 
 = 1.8.5 = 
 * Added in an option to disable not have guest emails appear to be from the email specified in the notification option. As some hosts will not send out an email with a custom from header. 

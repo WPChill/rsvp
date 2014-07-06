@@ -510,6 +510,7 @@ function rsvp_buildAdditionalQuestions($attendeeID, $prefix) {
 function rsvp_find(&$output, &$text) {
 	global $wpdb, $rsvp_form_action;
   $passcodeOptionEnabled = (rsvp_require_passcode()) ? true : false;
+  $passcodeOnlyOption = (rsvp_require_only_passcode_to_register()) ? true : false;
 	
 	$_SESSION['rsvpFirstName'] = $_POST['firstName'];
 	$_SESSION['rsvpLastName'] = $_POST['lastName'];
@@ -522,7 +523,7 @@ function rsvp_find(&$output, &$text) {
 	$firstName = $_POST['firstName'];
 	$lastName = $_POST['lastName'];
 				
-	if((strlen($_POST['firstName']) <= 1) || (strlen($_POST['lastName']) <= 1)) {
+	if(!$passcodeOnlyOption && ((strlen($_POST['firstName']) <= 1) || (strlen($_POST['lastName']) <= 1))) {
 		$output = "<p class=\"rsvpParagraph\" style=\"color:red\">".__("A first and last name must be specified", 'rsvp-plugin')."</p>\r\n";
 		$output .= rsvp_frontend_greeting();
 					
@@ -531,9 +532,17 @@ function rsvp_find(&$output, &$text) {
 				
 	// Try to find the user.
 	if($passcodeOptionEnabled) {
-		$attendee = $wpdb->get_row($wpdb->prepare("SELECT id, firstName, lastName, rsvpStatus 
-																							 FROM ".ATTENDEES_TABLE." 
-																							 WHERE firstName = %s AND lastName = %s AND passcode = %s", $firstName, $lastName, $passcode));
+    if($passcodeOnlyOption) {
+  		$attendee = $wpdb->get_row($wpdb->prepare("SELECT id, firstName, lastName, rsvpStatus 
+  																							 FROM ".ATTENDEES_TABLE." 
+  																							 WHERE passcode = %s", $passcode));
+    } else {
+  		$attendee = $wpdb->get_row($wpdb->prepare("SELECT id, firstName, lastName, rsvpStatus 
+  																							 FROM ".ATTENDEES_TABLE." 
+  																							 WHERE firstName = %s AND lastName = %s AND passcode = %s", $firstName, $lastName, $passcode));
+    }
+    
+		
 	} else {
 		$attendee = $wpdb->get_row($wpdb->prepare("SELECT id, firstName, lastName, rsvpStatus 
 																							 FROM ".ATTENDEES_TABLE." 
@@ -699,13 +708,36 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 	}
 				
 	if((get_option(OPTION_NOTIFY_ON_RSVP) == "Y") && (get_option(OPTION_NOTIFY_EMAIL) != "")) {
-		$sql = "SELECT firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
+		$sql = "SELECT firstName, lastName, rsvpStatus, note, kidsMeal, veggieMeal FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
 		$attendee = $wpdb->get_results($sql);
 		if(count($attendee) > 0) {
 			$body = "Hello, \r\n\r\n";
 						
 			$body .= stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).
-							 " has submitted their RSVP and has RSVP'd with '".$attendee[0]->rsvpStatus."'.";
+							 " has submitted their RSVP and has RSVP'd with '".$attendee[0]->rsvpStatus."'.\r\n";
+      
+      if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
+        $body .= "Kids Meal: ".$attendee[0]->kidsMeal."\r\n";
+      }
+      
+      if(get_option(OPTION_HIDE_VEGGIE) != "Y") {
+        $body .= "Vegetarian Meal: ".$attendee[0]->veggieMeal."\r\n";
+      }
+      
+      if(get_option(RSVP_OPTION_HIDE_NOTE) != "Y") {
+        $body .= "Note: ".stripslashes($attendee[0]->note)."\r\n";
+      }
+      
+			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q 
+				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d 
+				ORDER BY q.sortOrder, q.id";
+			$aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID));
+			if(count($aRs) > 0) {
+        $body .= "\r\n\r\n--== Custom Questions ==--\r\n";
+				foreach($aRs as $a) {
+          $body .= stripslashes($a->question).": ".stripslashes($a->answer)."\r\n";
+				}
+			}
       
 			$sql = "SELECT firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE." 
 			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d) 
@@ -723,6 +755,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
       $headers = "";
       if(get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")	
         $headers = 'From: '. $emailAddy . "\r\n";
+      
 			wp_mail($emailAddy, "New RSVP Submission", $body, $headers);
 		}
 	}
@@ -863,6 +896,29 @@ function rsvp_handlersvp(&$output, &$text) {
 				$body .= stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).
 								 " has submitted their RSVP and has RSVP'd with '".$attendee[0]->rsvpStatus."'.";
 				
+        if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
+          $body .= "Kids Meal: ".$attendee[0]->kidsMeal."\r\n";
+        }
+      
+        if(get_option(OPTION_HIDE_VEGGIE) != "Y") {
+          $body .= "Vegetarian Meal: ".$attendee[0]->veggieMeal."\r\n";
+        }
+      
+        if(get_option(RSVP_OPTION_HIDE_NOTE) != "Y") {
+          $body .= "Note: ".stripslashes($attendee[0]->note)."\r\n";
+        }
+      
+  			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q 
+  				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d 
+  				ORDER BY q.sortOrder, q.id";
+  			$aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID));
+  			if(count($aRs) > 0) {
+          $body .= "\r\n\r\n--== Custom Questions ==--\r\n";
+  				foreach($aRs as $a) {
+            $body .= stripslashes($a->question).": ".stripslashes($a->answer)."\r\n";
+  				}
+  			}
+        
   			$sql = "SELECT firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE." 
   			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d) 
   					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)";
@@ -1061,10 +1117,12 @@ function rsvp_frontend_greeting() {
   
 	$output .= "<form name=\"rsvp\" method=\"post\" id=\"rsvp\" action=\"$rsvp_form_action\" autocomplete=\"off\">\r\n";
 	$output .= "	<input type=\"hidden\" name=\"rsvpStep\" value=\"find\" />";
+  if(!rsvp_require_only_passcode_to_register()) {
 	$output .= RSVP_START_PARA."<label for=\"firstName\">".__("First Name", 'rsvp-plugin').":</label> 
 								 <input type=\"text\" name=\"firstName\" id=\"firstName\" size=\"30\" value=\"".htmlspecialchars($firstName)."\" class=\"required\" />".RSVP_END_PARA;
 	$output .= RSVP_START_PARA."<label for=\"lastName\">".__("Last Name", 'rsvp-plugin').":</label> 
 								 <input type=\"text\" name=\"lastName\" id=\"lastName\" size=\"30\" value=\"".htmlspecialchars($lastName)."\" class=\"required\" />".RSVP_END_PARA;
+  }
 	if(rsvp_require_passcode()) {
 		$output .= RSVP_START_PARA."<label for=\"passcode\">".__("Passcode", 'rsvp-plugin').":</label> 
 									 <input type=\"password\" name=\"passcode\" id=\"passcode\" size=\"30\" value=\"".htmlspecialchars($passcode)."\" class=\"required\" autocomplete=\"off\" />".RSVP_END_PARA;

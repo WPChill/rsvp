@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.8.5
+ * @version 1.8.6
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.8.5
+Version: 1.8.6
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -63,6 +63,7 @@ License: GPL
   define("OPTION_RSVP_NUM_ADDITIONAL_GUESTS", "rsvp_num_additional_guests");
   define("OPTION_RSVP_HIDE_EMAIL_FIELD", "rsvp_hide_email_field");
   define("OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM", "rsvp_disable_custom_from_email");
+  define("OPTION_RSVP_ONLY_PASSCODE", "rsvp_only_passcode");
 	define("RSVP_DB_VERSION", "11");
 	define("QT_SHORT", "shortAnswer");
 	define("QT_MULTI", "multipleChoice");
@@ -116,7 +117,28 @@ License: GPL
 	}
   
   function rsvp_require_passcode() {
-    return ((get_option(OPTION_RSVP_PASSCODE) == "Y") || (get_option(OPTION_RSVP_OPEN_REGISTRATION) == "Y"));
+    return ((get_option(OPTION_RSVP_PASSCODE) == "Y") || (get_option(OPTION_RSVP_OPEN_REGISTRATION) == "Y") || (get_option(OPTION_RSVP_ONLY_PASSCODE) == "Y"));
+  }
+  
+  function rsvp_require_only_passcode_to_register() {
+    return (get_option(OPTION_RSVP_ONLY_PASSCODE) == "Y");
+  }
+  
+  function rsvp_require_unique_passcode() {
+    return rsvp_require_only_passcode_to_register();
+  }
+  
+  function rsvp_is_passcode_unique($passcode, $attendeeID) {
+    global $wpdb;
+    
+    $isUnique = false;
+    
+    $sql = $wpdb->prepare("SELECT * FROM ".ATTENDEES_TABLE." WHERE id <> %d AND passcode = %s", $attendeeID, $passcode);
+    if(!$wpdb->get_results($sql)) {
+      $isUnique = true;
+    }
+    
+    return $isUnique;
   }
 	
 	/**
@@ -135,16 +157,27 @@ License: GPL
 	}
 
 	function rsvp_admin_guestlist_options() {
+    global $wpdb;
+    if(rsvp_require_unique_passcode()) {
+			$sql = "SELECT id, passcode FROM ".ATTENDEES_TABLE." a WHERE passcode <> '' AND (SELECT COUNT(*) FROM ".ATTENDEES_TABLE." WHERE passcode = a.passcode) > 1";
+			$attendees = $wpdb->get_results($sql);
+			foreach($attendees as $a) {
+        $wpdb->update(ATTENDEES_TABLE,
+                      array("passcode" => rsvp_generate_passcode()),
+                      array("id" => $a->id),
+                      array("%s"),
+                      array("%d"));
+      }
+    }
 		
 		if(rsvp_require_passcode()) {
-			global $wpdb;
+			
 			
 			rsvp_install_passcode_field();
 			
 			$sql = "SELECT id, passcode FROM ".ATTENDEES_TABLE." WHERE passcode = ''";
 			$attendees = $wpdb->get_results($sql);
 			foreach($attendees as $a) {
-				$newPasscode = rsvp_generate_passcode();
 				$wpdb->update(ATTENDEES_TABLE, 
 											array("passcode" => rsvp_generate_passcode()), 
 											array("id" => $a->id), 
@@ -152,6 +185,7 @@ License: GPL
 											array("%d"));
 			}
 		}
+
 ?>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function() {
@@ -278,6 +312,11 @@ License: GPL
 						<th scope="ropw"><label for="<?php echo OPTION_RSVP_PASSCODE; ?>">Require a Passcode to RSVP:</label></th>
 						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_PASSCODE; ?>" id="<?php echo OPTION_RSVP_PASSCODE; ?>" value="Y" 
 							 <?php echo ((get_option(OPTION_RSVP_PASSCODE) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
+					</tr>
+					<tr>
+						<th scope="ropw"><label for="<?php echo OPTION_RSVP_ONLY_PASSCODE; ?>">Require only a Passcode to RSVP<br />(requires that passcodes are unique):</label></th>
+						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_ONLY_PASSCODE; ?>" id="<?php echo OPTION_RSVP_ONLY_PASSCODE; ?>" value="Y" 
+							 <?php echo ((get_option(OPTION_RSVP_ONLY_PASSCODE) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
           <tr valign="top">
             <th scope="row"><label for="<?PHP echo OPTION_RSVP_OPEN_REGISTRATION; ?>">Allow Open Registration (note - this will force passcodes for attendees):</label></th>
@@ -536,7 +575,7 @@ License: GPL
 							}
 								$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q 
 									LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d 
-									ORDER BY q.sortOrder";
+									ORDER BY q.sortOrder, q.id";
 								$aRs = $wpdb->get_results($wpdb->prepare($sql, $attendee->id));
 								if(count($aRs) > 0) {
 									foreach($aRs as $a) {
@@ -690,6 +729,9 @@ License: GPL
           $email = trim($data->sheets[0]['cells'][$i][3]);
 					$personalGreeting = (isset($data->sheets[0]['cells'][$i][5])) ? $personalGreeting = $data->sheets[0]['cells'][$i][5] : "";
           $passcode = (isset($data->sheets[0]['cells'][$i][6])) ? $data->sheets[0]['cells'][$i][6] : "";
+          if(rsvp_require_unique_passcode() && !rsvp_is_passcode_unique($passcode, 0)) {
+            $passcode = rsvp_generate_passcode();
+          }
 					if(!empty($fName) && !empty($lName)) {
 						$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
 						 	WHERE firstName = %s AND lastName = %s ";
@@ -869,6 +911,9 @@ License: GPL
 				if(empty($passcode)) {
 					$passcode = rsvp_generate_passcode();
 				}
+        if(rsvp_require_unique_passcode() && !rsvp_is_passcode_unique($passcode, $attendeeId)) {
+          $passcode = rsvp_generate_passcode();
+        }
 				$wpdb->update(ATTENDEES_TABLE, 
 											array("passcode" => trim($passcode)), 
 											array("id"=>$attendeeId), 
@@ -1454,7 +1499,8 @@ License: GPL
     register_setting('rsvp-option-group', OPTION_RSVP_NUM_ADDITIONAL_GUESTS);
     register_setting('rsvp-option-group', OPTION_RSVP_HIDE_EMAIL_FIELD);
     register_setting('rsvp-option-group', OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM);
-		
+    register_setting('rsvp-option-group', OPTION_RSVP_ONLY_PASSCODE);
+    
 		wp_register_script('jquery_table_sort', plugins_url('jquery.tablednd_0_5.js',RSVP_PLUGIN_FILE));
 		wp_register_script('jquery_ui', rsvp_getHttpProtocol()."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.js");
 		wp_register_style('jquery_ui_stylesheet', rsvp_getHttpProtocol()."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/themes/redmond/jquery-ui.css");
