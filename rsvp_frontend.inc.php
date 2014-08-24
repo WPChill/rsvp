@@ -96,7 +96,7 @@ function rsvp_handleAdditionalQuestions($attendeeID, $formName) {
 					if(count($aRs) > 0) {
 						foreach($aRs as $a) {
 							if(in_array($a->id, $_POST[$formName.$q->id])) {
-								$selectedAnswers .= ((strlen($selectedAnswers) == "0") ? "" : ",").stripslashes($a->answer);
+								$selectedAnswers .= ((strlen($selectedAnswers) == "0") ? "" : "||").stripslashes($a->answer);
 							}
 						}
 					}
@@ -454,7 +454,7 @@ function rsvp_buildAdditionalQuestions($attendeeID, $prefix) {
 			$output .= rsvp_BeginningFormField("", "").RSVP_START_PARA.stripslashes($q->question).RSVP_END_PARA;
 				
 				if($q->questionType == QT_MULTI) {
-					$oldAnswers = explode(",", $oldAnswer);
+					$oldAnswers = explode("||", $oldAnswer);
 					
 					$answers = $wpdb->get_results($wpdb->prepare("SELECT id, answer FROM ".QUESTION_ANSWERS_TABLE." WHERE questionID = %d", $q->id));
 					if(count($answers) > 0) {
@@ -468,28 +468,28 @@ function rsvp_buildAdditionalQuestions($attendeeID, $prefix) {
             $output .= "<div class=\"rsvpClear\">&nbsp;</div>\r\n";
 					}
 				} else if ($q->questionType == QT_DROP) {
-					$oldAnswers = explode(",", $oldAnswer);
+					//$oldAnswers = explode("||", $oldAnswer);
 					
 					$output .= "<select name=\"".$prefix."question".$q->id."\" size=\"1\">\r\n".
 						"<option value=\"\">--</option>\r\n";
 					$answers = $wpdb->get_results($wpdb->prepare("SELECT id, answer FROM ".QUESTION_ANSWERS_TABLE." WHERE questionID = %d", $q->id));
 					if(count($answers) > 0) {
 						foreach($answers as $a) {
-							$output .= "<option value=\"".$a->id."\" ".((in_array(stripslashes($a->answer), $oldAnswers)) ? " selected=\"selected\"" : "").">".stripslashes($a->answer)."</option>\r\n";
+							$output .= "<option value=\"".$a->id."\" ".((stripslashes($a->answer) == $oldAnswer) ? " selected=\"selected\"" : "").">".stripslashes($a->answer)."</option>\r\n";
 						}
 					}
 					$output .= "</select>\r\n";
 				} else if ($q->questionType == QT_LONG) {
 					$output .= "<textarea name=\"".$prefix."question".$q->id."\" rows=\"5\" cols=\"35\">".htmlspecialchars($oldAnswer)."</textarea>";
 				} else if ($q->questionType == QT_RADIO) {
-					$oldAnswers = explode(",", $oldAnswer);
+					//$oldAnswers = explode("||", $oldAnswer);
 					$answers = $wpdb->get_results($wpdb->prepare("SELECT id, answer FROM ".QUESTION_ANSWERS_TABLE." WHERE questionID = %d", $q->id));
 					if(count($answers) > 0) {
 						$i = 0;
 						$output .= RSVP_START_PARA;
 						foreach($answers as $a) {
 							$output .= "<input type=\"radio\" name=\"".$prefix."question".$q->id."\" id=\"".$prefix."question".$q->id.$a->id."\" value=\"".$a->id."\" "
-							  .((in_array(stripslashes($a->answer), $oldAnswers)) ? " checked=\"checked\"" : "")." /> ".
+							  .((stripslashes($a->answer) == $oldAnswer) ? " checked=\"checked\"" : "")." /> ".
               "<label for=\"".$prefix."question".$q->id.$a->id."\">".stripslashes($a->answer)."</label>\r\n";
 							$i++;
 						}
