@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.8.6
+ * @version 1.8.7
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.8.6
+Version: 1.8.7
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -725,24 +725,28 @@ License: GPL
         $i = ($skipFirstRow) ? 2 : 1;
 				for ($i; $i <= $data->sheets[0]['numRows']; $i++) {
 					$fName = trim($data->sheets[0]['cells'][$i][1]);
+          $fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
+          
 					$lName = trim($data->sheets[0]['cells'][$i][2]);
+          $lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
           $email = trim($data->sheets[0]['cells'][$i][3]);
 					$personalGreeting = (isset($data->sheets[0]['cells'][$i][5])) ? $personalGreeting = $data->sheets[0]['cells'][$i][5] : "";
           $passcode = (isset($data->sheets[0]['cells'][$i][6])) ? $data->sheets[0]['cells'][$i][6] : "";
           if(rsvp_require_unique_passcode() && !rsvp_is_passcode_unique($passcode, 0)) {
             $passcode = rsvp_generate_passcode();
           }
+
 					if(!empty($fName) && !empty($lName)) {
 						$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
 						 	WHERE firstName = %s AND lastName = %s ";
 						$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
 						if(count($res) == 0) {
-							$wpdb->insert(ATTENDEES_TABLE, array("firstName" 				=> $fName, 
-																									 "lastName" 				=> $lName,
-                                                   "email"            => $email, 
-																									 "personalGreeting" => $personalGreeting, 
-                                                   "passcode"         => $passcode), 
-																						 array('%s', '%s', '%s', '%s'));
+              $wpdb->insert(ATTENDEES_TABLE, array("firstName"         => $fName,
+                                                   "lastName"         => $lName,
+                                                   "email"            => $email,
+                                                   "personalGreeting" => $personalGreeting,
+                                                   "passcode"         => $passcode),
+                                             array('%s', '%s', '%s', '%s'));
 							$count++;
 						}
 					}
