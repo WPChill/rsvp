@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.8.8
+ * @version 1.8.9
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.8.8
+Version: 1.8.9
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -890,6 +890,8 @@ License: GPL
 				rsvp_printQueryDebugInfo();
 				$attendeeId = $_SESSION[EDIT_SESSION_KEY];
 				$wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeId = %d", $attendeeId));
+        $wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d", $attendeeId));
+        
 			} else {
 				$wpdb->insert(ATTENDEES_TABLE, array("firstName" => trim($_POST['firstName']), 
 				                                     "lastName" => trim($_POST['lastName']),
@@ -897,16 +899,14 @@ License: GPL
 																						 "personalGreeting" => trim($_POST['personalGreeting']), 
 																						 "rsvpStatus" => trim($_POST['rsvpStatus'])), 
 				                               array('%s', '%s', '%s', '%s', '%s'));
-				rsvp_printQueryDebugInfo();
 					
 				$attendeeId = $wpdb->insert_id;
 			}
-			
 			if(isset($_POST['associatedAttendees']) && is_array($_POST['associatedAttendees'])) {
 				foreach($_POST['associatedAttendees'] as $aid) {
 					if(is_numeric($aid) && ($aid > 0)) {
 						$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID"=>$attendeeId, "associatedAttendeeID"=>$aid), array("%d", "%d"));
-						rsvp_printQueryDebugInfo();
+            $wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID"=>$aid, "associatedAttendeeID"=>$attendeeId), array("%d", "%d"));
 					}
 				}
 			}

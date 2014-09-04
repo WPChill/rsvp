@@ -3,8 +3,8 @@ Contributors: mdedev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: rsvp, reserve, wedding, guestlist
 Requires at least: 3.0
-Tested up to: 3.9.1
-Stable tag: 1.8.8
+Tested up to: 4.0.0
+Stable tag: 1.8.9
 
 Easy to use rsvp plugin originally created for weddings but could be used for other events.
 
@@ -74,6 +74,12 @@ I will see if I can get it added for you.
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 1.8.9 = 
+* Tested to make sure the plugin worked on WordPress 4.0.0
+* Fixed a bug where you couldn't deselect an attendee
+* Modified the not found text to show something different if we are only asking for a password, thanks to Chris Moncayo for the patch
+* Modified the text for the first step of the RSVP, thanks to Chris Moncay for the patch
 
 = 1.8.8 = 
 * Fixed a bug with storing answers to custom questions, was using a comma but that interferred with how some answers were written. Will require saving questions again.

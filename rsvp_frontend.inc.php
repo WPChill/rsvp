@@ -173,9 +173,9 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp") {
 	$noteVerbiage = ((trim(get_option(OPTION_NOTE_VERBIAGE)) != "") ? get_option(OPTION_NOTE_VERBIAGE) : 
 		__("If you have any <strong style=\"color:red;\">food allergies</strong>, please indicate what they are in the &quot;notes&quot; section below.  Or, if you just want to send us a note, please feel free.  If you have any questions, please send us an email.", 'rsvp-plugin'));
     
-	$form = "<form id=\"rsvpForm\" name=\"rsvpForm\" method=\"post\" action=\"$rsvp_form_action\" autocomplete=\"off\">\r\n";
-	$form .= "	<input type=\"hidden\" name=\"attendeeID\" value=\"".$attendeeID."\" />\r\n";
-	$form .= "	<input type=\"hidden\" name=\"rsvpStep\" value=\"$rsvpStep\" />\r\n";
+	$form = "<form id=\"rsvpForm\" name=\"rsvpForm\" method=\"post\" action=\"$rsvp_form_action\" autocomplete=\"off\">";
+	$form .= "	<input type=\"hidden\" name=\"attendeeID\" value=\"".$attendeeID."\" />";
+	$form .= "	<input type=\"hidden\" name=\"rsvpStep\" value=\"$rsvpStep\" />";
 	
   // New Attendee fields when open registration is allowed 
   if($attendeeID <= 0) {
@@ -592,7 +592,14 @@ function rsvp_find(&$output, &$text) {
 			}
 		}
 	}
-	$notFoundText = sprintf(__(RSVP_START_PARA.'<strong>We were unable to find anyone with a name of %1$s %2$s</strong>'.RSVP_END_PARA, 'rsvp-plugin'), htmlspecialchars($firstName), htmlspecialchars($lastName));
+  
+  if(rsvp_require_only_passcode_to_register()) {
+    $notFoundText = sprintf(__(RSVP_START_PARA.'<strong>We were unable to find anyone with the password you specified.</strong>'.RSVP_END_PARA, 'rsvp-plugin'));
+  } else {
+    $notFoundText = sprintf(__(RSVP_START_PARA.'<strong>We were unable to find anyone with a name of %1$s %2$s</strong>'.RSVP_END_PARA, 'rsvp-plugin'), htmlspecialchars($firstName), htmlspecialchars($lastName));
+  }
+  
+	
 	$notFoundText .= rsvp_frontend_greeting();
 	return rsvp_handle_output($text, $notFoundText);
 }
@@ -1086,7 +1093,14 @@ function rsvp_BeginningFormField($id, $additionalClasses) {
 function rsvp_frontend_greeting() {
   global $rsvp_form_action;
 	$customGreeting = get_option(OPTION_GREETING);
-	$output = RSVP_START_PARA.__("Please enter your first and last name to RSVP.", 'rsvp-plugin').RSVP_END_PARA;
+  if(rsvp_require_only_passcode_to_register()) {
+    $output = RSVP_START_PARA.__("Please enter your passcode to RSVP.", 'rsvp-plugin').RSVP_END_PARA;
+  } else if(rsvp_require_passcode()) {
+    $output = RSVP_START_PARA.__("Please enter your first name, last name and passcode to RSVP.", 'rsvp-plugin').RSVP_END_PARA;
+  } else {
+    $output = RSVP_START_PARA.__("Please enter your first and last name to RSVP.", 'rsvp-plugin').RSVP_END_PARA;
+  }
+	
 	$firstName = "";
 	$lastName = "";
 	$passcode = "";
