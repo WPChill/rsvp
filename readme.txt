@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, reserve, wedding, guestlist
 Requires at least: 3.0
 Tested up to: 4.0.0
-Stable tag: 1.8.9
+Stable tag: 1.9.0
 
 Easy to use rsvp plugin originally created for weddings but could be used for other events.
 
@@ -74,6 +74,11 @@ I will see if I can get it added for you.
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 1.9.0 = 
+* Fixed an issue where if you hide the email address the next time a person goes to RSVP their email address gets removed
+* Added an option to add some custom text to the email sent to attendees
+* Changed the editing of RSVPs so even if someone has RSVP'd you can edit their entry if they are associated with the person
 
 = 1.8.9 = 
 * Tested to make sure the plugin worked on WordPress 4.0.0

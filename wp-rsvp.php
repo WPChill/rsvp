@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.8.9
+ * @version 1.9.0
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.8.9
+Version: 1.9.0
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -64,6 +64,7 @@ License: GPL
   define("OPTION_RSVP_HIDE_EMAIL_FIELD", "rsvp_hide_email_field");
   define("OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM", "rsvp_disable_custom_from_email");
   define("OPTION_RSVP_ONLY_PASSCODE", "rsvp_only_passcode");
+  define("OPTION_RSVP_EMAIL_TEXT", "rsvp_email_text");
 	define("RSVP_DB_VERSION", "11");
 	define("QT_SHORT", "shortAnswer");
 	define("QT_MULTI", "multipleChoice");
@@ -218,6 +219,10 @@ License: GPL
 						<th scope="row"><label for="rsvp_custom_welcome">Custom Welcome:</label></th>
 						<td align="left">Default is: &quot;There are a few more questions we need to ask you if you could please fill them out below to finish up the RSVP process.&quot;<br />
 							<textarea name="rsvp_custom_welcome" id="rsvp_custom_welcome" rows="5" cols="60"><?php echo htmlspecialchars(get_option(OPTION_WELCOME_TEXT)); ?></textarea></td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><label for="<?php echo OPTION_RSVP_EMAIL_TEXT; ?>">Email Text: <br />Sent to guests in confirmation, at top of email</label></th>
+						<td align="left"><textarea name="<?php echo OPTION_RSVP_EMAIL_TEXT; ?>" id="<?php echo OPTION_RSVP_EMAIL_TEXT; ?>" rows="5" cols="60"><?php echo htmlspecialchars(get_option(OPTION_RSVP_EMAIL_TEXT)); ?></textarea></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label for="rsvp_custom_question_text">RSVP Question Verbiage:</label></th>
@@ -1504,6 +1509,7 @@ License: GPL
     register_setting('rsvp-option-group', OPTION_RSVP_HIDE_EMAIL_FIELD);
     register_setting('rsvp-option-group', OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM);
     register_setting('rsvp-option-group', OPTION_RSVP_ONLY_PASSCODE);
+    register_setting('rsvp-option-group', OPTION_RSVP_EMAIL_TEXT);
     
 		wp_register_script('jquery_table_sort', plugins_url('jquery.tablednd_0_5.js',RSVP_PLUGIN_FILE));
 		wp_register_script('jquery_ui', rsvp_getHttpProtocol()."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.js");
