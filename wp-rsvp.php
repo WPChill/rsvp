@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.9.0
+ * @version 1.9.1
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.9.0
+Version: 1.9.1
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -1533,7 +1533,7 @@ License: GPL
     wp_enqueue_style("rsvp_css");
     
 		
-		load_plugin_textdomain('rsvp-plugin', false, basename( dirname( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain('rsvp-plugin', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 	
 	function rsvp_printQueryDebugInfo() {
@@ -1562,10 +1562,12 @@ License: GPL
      $pageURL = rsvp_getHttpProtocol();
      
      $pageURL .= "://";
+     $server_info = parse_url(get_site_url());
+     $domain = $server_info->host;
      if ($_SERVER["SERVER_PORT"] != "80") {
-      $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+      $pageURL .= $domain.":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
      } else {
-      $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+      $pageURL .= $domain.$_SERVER["REQUEST_URI"];
      }
      return $pageURL;
   }
