@@ -18,7 +18,7 @@ in existing plugins was:
 
 **Please Note** - I don't monitor the forums for issues. If you would like some help or would like to see a new feature please email me at mike AT mde DASH dev.com. I will see what I can do to help.
 
-** If you ever need multiple events that is now available in the pro version of the plugin, found at - http://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/ **
+**If you ever need multiple events that is now available in the pro version of the plugin, found at - http://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/**
 
 The admin functionality allows you to do the following things:
 
