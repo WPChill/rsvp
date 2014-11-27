@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.9.3
+ * @version 1.9.4
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.9.3
+Version: 1.9.4
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -405,6 +405,11 @@ License: GPL
 			$sortDirection = $_GET['sortDirection'];
 		}
 	?>
+    <div class="updated">
+      <p>We now have a pro-version of this plugin, if you want to multiple event support or just 
+        want to contribute to the maintenance and continued development of this plugin, 
+        <a href="https://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/" target="_blank">check it out!</a></p>
+    </div>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function() {
 				jQuery("#cb").click(function() {
@@ -616,6 +621,27 @@ License: GPL
 	
 	function rsvp_admin_export() {
 		global $wpdb;
+    
+    $customLinkBase = "";
+    
+    // Get page associated with the page to build out prefill link.
+    $query = new WP_Query( 's=rsvp-pluginhere' );
+    if($query->have_posts()) {
+      $query->the_post();
+      $customLinkBase = get_permalink();
+      if(strpos($customLinkBase, "?") !== false) {
+        $customLinkBase .= "&firstName=%s&lastName=%s";
+      } else {
+        $customLinkBase .= "?firstName=%s&lastName=%s";
+      }
+      
+      if(rsvp_require_passcode()) {
+        $customLinkBase .= "&passcode=%s";
+      }
+      
+    }
+    wp_reset_postdata();
+    
 			$sql = "SELECT id, firstName, lastName, email, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, passcode 
 							FROM ".ATTENDEES_TABLE;
 							
@@ -657,6 +683,8 @@ License: GPL
 					$csv .= ",\"".stripslashes($q->question)."\"";
 				}
 			}
+      
+      $csv .= ",\"pre-fill URL\"";
 			
 			$csv .= "\r\n";
 			foreach($attendees as $a) {
@@ -700,6 +728,11 @@ License: GPL
 					}
 				}
 				
+        if(rsvp_require_passcode()) {
+          $csv .= ",\"".sprintf($customLinkBase, urlencode(stripslashes($a->firstName)), urlencode(stripslashes($a->lastName)), urlencode(stripslashes($a->passcode)))."\"";
+        } else {
+          $csv .= ",\"".sprintf($customLinkBase, urlencode(stripslashes($a->firstName)), urlencode(stripslashes($a->lastName)))."\"";
+        }
 				$csv .= "\r\n";
 			}
 			if(isset($_SERVER['HTTP_USER_AGENT']) && preg_match("/MSIE/", $_SERVER['HTTP_USER_AGENT'])) {
