@@ -937,7 +937,7 @@ function rsvp_handlersvp(&$output, &$text) {
     $email = get_option(OPTION_NOTIFY_EMAIL);
     
 		if((get_option(OPTION_NOTIFY_ON_RSVP) == "Y") && ($email != "")) {
-			$sql = "SELECT firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
+			$sql = "SELECT firstName, lastName, rsvpStatus, kidsMeal, veggieMeal, note FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
 			$attendee = $wpdb->get_results($sql);
 			if(count($attendee) > 0) {
 				$body = "Hello, \r\n\r\n";

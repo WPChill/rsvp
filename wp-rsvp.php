@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.9.4
+ * @version 1.9.5
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.9.4
+Version: 1.9.5
 Author URI: http://mde-dev.com
 License: GPL
 */
