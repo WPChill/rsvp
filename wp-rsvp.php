@@ -195,163 +195,149 @@ License: GPL
 			});
 		</script>
 		<div class="wrap">
-			<h2>RSVP Guestlist Options</h2>
+			<h2><?php echo __("RSVP Guestlist Options", 'rsvp-plugin'); ?></h2>
 			<form method="post" action="options.php">
 				<?php settings_fields( 'rsvp-option-group' ); ?>
 				<table class="form-table">
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_opendate">RSVP Open Date:</label></th>
+						<th scope="row"><label for="rsvp_opendate"><?php echo __("RSVP Open Date:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="text" name="rsvp_opendate" id="rsvp_opendate" value="<?php echo htmlspecialchars(get_option(OPTION_OPENDATE)); ?>" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_deadline">RSVP Deadline:</label></th>
+						<th scope="row"><label for="rsvp_deadline"><?php echo __("RSVP Deadline:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="text" name="rsvp_deadline" id="rsvp_deadline" value="<?php echo htmlspecialchars(get_option(OPTION_DEADLINE)); ?>" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_num_additional_guests">Number of Additional Guests Allowed (default is three):</label></th>
+						<th scope="row"><label for="rsvp_num_additional_guests"><?php echo __("Number of Additional Guests Allowed (default is three):", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="text" name="rsvp_num_additional_guests" id="rsvp_num_additional_guests" value="<?php echo htmlspecialchars(get_option(OPTION_RSVP_NUM_ADDITIONAL_GUESTS)); ?>" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_custom_greeting">Custom Greeting:</label></th>
+						<th scope="row"><label for="rsvp_custom_greeting"><?php echo __("Custom Greeting:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><textarea name="rsvp_custom_greeting" id="rsvp_custom_greeting" rows="5" cols="60"><?php echo htmlspecialchars(get_option(OPTION_GREETING)); ?></textarea></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_custom_welcome">Custom Welcome:</label></th>
-						<td align="left">Default is: &quot;There are a few more questions we need to ask you if you could please fill them out below to finish up the RSVP process.&quot;<br />
+						<th scope="row"><label for="rsvp_custom_welcome"><?php echo __("Custom Welcome:", 'rsvp-plugin'); ?></label></th>
+						<td align="left"><?php echo __("Default is: &quot;There are a few more questions we need to ask you if you could please fill them out below to finish up the RSVP process.&quot;", 'rsvp-plugin'); ?><br />
 							<textarea name="rsvp_custom_welcome" id="rsvp_custom_welcome" rows="5" cols="60"><?php echo htmlspecialchars(get_option(OPTION_WELCOME_TEXT)); ?></textarea></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="<?php echo OPTION_RSVP_EMAIL_TEXT; ?>">Email Text: <br />Sent to guests in confirmation, at top of email</label></th>
+						<th scope="row"><label for="<?php echo OPTION_RSVP_EMAIL_TEXT; ?>"><?php echo __("Email Text: <br />Sent to guests in confirmation, at top of email", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><textarea name="<?php echo OPTION_RSVP_EMAIL_TEXT; ?>" id="<?php echo OPTION_RSVP_EMAIL_TEXT; ?>" rows="5" cols="60"><?php echo htmlspecialchars(get_option(OPTION_RSVP_EMAIL_TEXT)); ?></textarea></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_custom_question_text">RSVP Question Verbiage:</label></th>
-						<td align="left">Default is: &quot;So, how about it?&quot;<br />
+						<th scope="row"><label for="rsvp_custom_question_text"><?php echo __("RSVP Question Verbiage:", 'rsvp-plugin'); ?></label></th>
+						<td align="left"><?php echo __("Default is: &quot;So, how about it?&quot;", 'rsvp-plugin'); ?><br />
 							<input type="text" name="rsvp_custom_question_text" id="rsvp_custom_question_text" 
 							value="<?php echo htmlspecialchars(get_option(OPTION_RSVP_QUESTION)); ?>" size="65" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_yes_verbiage">RSVP Yes Verbiage:</label></th>
+						<th scope="row"><label for="rsvp_yes_verbiage"><?php echo __("RSVP Yes Verbiage:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="text" name="rsvp_yes_verbiage" id="rsvp_yes_verbiage" 
 							value="<?php echo htmlspecialchars(get_option(OPTION_YES_VERBIAGE)); ?>" size="65" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_no_verbiage">RSVP No Verbiage:</label></th>
+						<th scope="row"><label for="rsvp_no_verbiage"><?php echo __("RSVP No Verbiage:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="text" name="rsvp_no_verbiage" id="rsvp_no_verbiage" 
 							value="<?php echo htmlspecialchars(get_option(OPTION_NO_VERBIAGE)); ?>" size="65" /></td>
 					</tr>
-					<!--<tr valign="top">
-						<th scope="row"><label for="rsvp_custom_yes_no">Custom Yes/No Questions</label></th>
-						<td align="left">
-							This option allows a user to add in multiple yes or no options for when a user rsvps. This will over ride anything specified for the "RSVP Yes Verbiage" and "RSVP No Verbiage" options. The format of each question should be in the format:<br />
-							value | Text user to see and each on it's own line.<br /><br />
-							An example:<br />
-							Yes | Yes, I will gladly come<br /> 
-							Eh | Eh, I don't really know you and I know you are only inviting me for a gift
-							<br /><br />
-							<strong>Note:</strong> If you do not set a question with a value of "Yes" and one with a value of "No" the RSVP "Yes" and "No" counts will not be correct.
-							<br /><br />
-							<textarea name="rsvp_custom_yes_no" id="rsvp_custom_yes_no" rows="5" cols="60"><?php echo htmlspecialchars(get_option(OPTION_RSVP_CUSTOM_YES_NO)); ?></textarea> 
-						</td>
-					</tr>-->
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_kids_meal_verbiage">RSVP Kids Meal Verbiage:</label></th>
+						<th scope="row"><label for="rsvp_kids_meal_verbiage"><?php echo __("RSVP Kids Meal Verbiage:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="text" name="rsvp_kids_meal_verbiage" id="rsvp_kids_meal_verbiage" 
 							value="<?php echo htmlspecialchars(get_option(OPTION_KIDS_MEAL_VERBIAGE)); ?>" size="65" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_hide_kids_meal">Hide Kids Meal Question:</label></th>
+						<th scope="row"><label for="rsvp_hide_kids_meal"><?php echo __("Hide Kids Meal Question:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="rsvp_hide_kids_meal" id="rsvp_hide_kids_meal" 
 							value="Y" <?php echo ((get_option(OPTION_HIDE_KIDS_MEAL) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_veggie_meal_verbiage">RSVP Vegetarian Meal Verbiage:</label></th>
+						<th scope="row"><label for="rsvp_veggie_meal_verbiage"><?php echo __("RSVP Vegetarian Meal Verbiage:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="text" name="rsvp_veggie_meal_verbiage" id="rsvp_veggie_meal_verbiage" 
 							value="<?php echo htmlspecialchars(get_option(OPTION_VEGGIE_MEAL_VERBIAGE)); ?>" size="65" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_hide_veggie">Hide Vegetarian Meal Question:</label></th>
+						<th scope="row"><label for="rsvp_hide_veggie"><?php echo __("Hide Vegetarian Meal Question:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="rsvp_hide_veggie" id="rsvp_hide_veggie" 
 							value="Y" <?php echo ((get_option(OPTION_HIDE_VEGGIE) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_note_verbiage">Note Verbiage:</label></th>
+						<th scope="row"><label for="rsvp_note_verbiage"><?php echo __("Note Verbiage:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><textarea name="rsvp_note_verbiage" id="rsvp_note_verbiage" rows="3" cols="60"><?php 
 							echo htmlspecialchars(get_option(OPTION_NOTE_VERBIAGE)); ?></textarea></td>
 					</tr>
           <tr valign="top">
-            <th scope="row"><label for="rsvp_hide_note_field">Hide Note Field:</label></th>
+            <th scope="row"><label for="rsvp_hide_note_field"><?php echo __("Hide Note Field:", 'rsvp-plugin'); ?></label></th>
             <td align="left"><input type="checkbox" name="rsvp_hide_note_field" id="rsvp_hide_note_field" value="Y" 
               <?php echo ((get_option(RSVP_OPTION_HIDE_NOTE) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
           </tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_custom_thankyou">Custom Thank You:</label></th>
+						<th scope="row"><label for="rsvp_custom_thankyou"><?php echo __("Custom Thank You:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><textarea name="rsvp_custom_thankyou" id="rsvp_custom_thankyou" rows="5" cols="60"><?php echo htmlspecialchars(get_option(OPTION_THANKYOU)); ?></textarea></td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="rsvp_hide_add_additional">Do not allow additional guests</label></th>
+						<th scope="row"><label for="rsvp_hide_add_additional"><?php echo __("Do not allow additional guests", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="rsvp_hide_add_additional" id="rsvp_hide_add_additional" value="Y" 
 							<?php echo ((get_option(OPTION_HIDE_ADD_ADDITIONAL) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="<?php echo OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE; ?>">Add Additional Verbiage:</label></th>
-						<td align="left">Default is: &quot;Did we slip up and forget to invite someone? If so, please add him or her here:&quot;<br />
+						<th scope="row"><label for="<?php echo OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE; ?>"><?php echo __("Add Additional Verbiage:", 'rsvp-plugin'); ?></label></th>
+						<td align="left"><?php echo __("Default is: &quot;Did we slip up and forget to invite someone? If so, please add him or her here:&quot;", 'rsvp-plugin'); ?><br />
 							<input type="text" name="<?php echo OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE; ?>" id="<?php echo OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE; ?>" 
 							value="<?php echo htmlspecialchars(get_option(OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE)); ?>" size="65" /></td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="rsvp_notify_when_rsvp">Notify When Guest RSVPs</label></th>
+						<th scope="row"><label for="rsvp_notify_when_rsvp"><?php echo __("Notify When Guest RSVPs", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="rsvp_notify_when_rsvp" id="rsvp_notify_when_rsvp" value="Y" 
 							<?php echo ((get_option(OPTION_NOTIFY_ON_RSVP) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="rsvp_notify_email_address">Email address to notify</label></th>
+						<th scope="row"><label for="rsvp_notify_email_address"><?php echo __("Email address to notify", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="text" name="rsvp_notify_email_address" id="rsvp_notify_email_address" value="<?php echo htmlspecialchars(get_option(OPTION_NOTIFY_EMAIL)); ?>"/></td>
 					</tr>
           <tr valign="top">
-            <th scope="row"><label for="rsvp_guest_email_confirmation">Send email to main guest when they RSVP</label></th>
+            <th scope="row"><label for="rsvp_guest_email_confirmation"><?php echo __("Send email to main guest when they RSVP", 'rsvp-plugin'); ?></label></th>
             <td align="left"><input type="checkbox" name="rsvp_guest_email_confirmation" id="rsvp_guest_email_confirmation" value="Y" 
               <?php echo ((get_option(OPTION_RSVP_GUEST_EMAIL_CONFIRMATION) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
           </tr>
 					<tr>
-						<th scope="ropw"><label for="<?php echo OPTION_RSVP_PASSCODE; ?>">Require a Passcode to RSVP:</label></th>
+						<th scope="ropw"><label for="<?php echo OPTION_RSVP_PASSCODE; ?>"><?php echo __("Require a Passcode to RSVP:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_PASSCODE; ?>" id="<?php echo OPTION_RSVP_PASSCODE; ?>" value="Y" 
 							 <?php echo ((get_option(OPTION_RSVP_PASSCODE) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 					<tr>
-						<th scope="ropw"><label for="<?php echo OPTION_RSVP_ONLY_PASSCODE; ?>">Require only a Passcode to RSVP<br />(requires that passcodes are unique):</label></th>
+						<th scope="ropw"><label for="<?php echo OPTION_RSVP_ONLY_PASSCODE; ?>"><?php echo __("Require only a Passcode to RSVP<br />(requires that passcodes are unique):", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_ONLY_PASSCODE; ?>" id="<?php echo OPTION_RSVP_ONLY_PASSCODE; ?>" value="Y" 
 							 <?php echo ((get_option(OPTION_RSVP_ONLY_PASSCODE) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
           <tr valign="top">
-            <th scope="row"><label for="<?PHP echo OPTION_RSVP_OPEN_REGISTRATION; ?>">Allow Open Registration (note - this will force passcodes for attendees):</label></th>
+            <th scope="row"><label for="<?PHP echo OPTION_RSVP_OPEN_REGISTRATION; ?>"><?php echo __("Allow Open Registration (note - this will force passcodes for attendees):", 'rsvp-plugin'); ?></label></th>
             <td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_OPEN_REGISTRATION; ?>" id="<?php echo OPTION_RSVP_OPEN_REGISTRATION; ?>" value="Y" 
                <?php echo ((get_option(OPTION_RSVP_OPEN_REGISTRATION) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
           </tr>
           <tr valign="top">
-            <th scope="row"><label for="<?PHP echo OPTION_RSVP_DONT_USE_HASH; ?>">Do not scroll page to the top of the RSVP form:</label></th>
+            <th scope="row"><label for="<?PHP echo OPTION_RSVP_DONT_USE_HASH; ?>"><?php echo __("Do not scroll page to the top of the RSVP form:", 'rsvp-plugin'); ?></label></th>
             <td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_DONT_USE_HASH; ?>" id="<?php echo OPTION_RSVP_DONT_USE_HASH; ?>" value="Y" 
                <?php echo ((get_option(OPTION_RSVP_DONT_USE_HASH) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
           </tr>
 					<tr valign="top">
-						<th scope="row"><label for="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>">Hide email field on rsvp form:</label></th>
+						<th scope="row"><label for="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>"><?php echo __("Hide email field on rsvp form:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>" id="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>" 
 							value="Y" <?php echo ((get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="<?php echo OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM; ?>">Do not use the specified notification email as the from email<br /> (if you are not receiving email notifications try this):</label></th>
+						<th scope="row"><label for="<?php echo OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM; ?>"><?php echo __("Do not use the specified notification email as the from email<br /> (if you are not receiving email notifications try this):", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM; ?>" id="<?php echo OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM; ?>" 
 							value="Y" <?php echo ((get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_debug_queries">Debug RSVP Queries:</label></th>
+						<th scope="row"><label for="rsvp_debug_queries"><?php echo __("Debug RSVP Queries:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="rsvp_debug_queries" id="rsvp_debug_queries" 
 							value="Y" <?php echo ((get_option(OPTION_DEBUG_RSVP_QUERIES) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 				</table>
 				<input type="hidden" name="action" value="update" />
 				<p class="submit">
-					<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+					<input type="submit" class="button-primary" value="<?php echo __('Save Changes', 'rsvp-plugin'); ?>" />
 				</p>
 			</form>
 		</div>
@@ -406,9 +392,9 @@ License: GPL
 		}
 	?>
     <div class="updated">
-      <p>We now have a pro-version of this plugin, if you want to multiple event support or just 
+      <p><?php echo __("We now have a pro-version of this plugin, if you want to multiple event support or just 
         want to contribute to the maintenance and continued development of this plugin, 
-        <a href="https://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/" target="_blank">check it out!</a></p>
+        <a href=\"https://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/\" target=\"_blank\">check it out!</a>", 'rsvp-plugin'); ?></p>
     </div>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function() {
@@ -423,7 +409,7 @@ License: GPL
 		</script>
 		<div class="wrap">	
 			<div id="icon-edit" class="icon32"><br /></div>	
-			<h2>List of current attendees</h2>
+			<h2><?php echo __("List of current attendees", 'rsvp-plugin'); ?></h2>
 			<form method="post" id="rsvp-form" enctype="multipart/form-data">
 				<input type="hidden" id="rsvp-bulk-action" name="rsvp-bulk-action" />
 				<input type="hidden" id="sortValue" name="sortValue" value="<?php echo htmlentities($sort, ENT_QUOTES); ?>" />
@@ -431,11 +417,11 @@ License: GPL
 				<div class="tablenav">
 					<div class="alignleft actions">
 						<select id="rsvp-action-top" name="action">
-							<option value="" selected="selected"><?php _e('Bulk Actions', 'rsvp'); ?></option>
-							<option value="delete"><?php _e('Delete', 'rsvp'); ?></option>
+							<option value="" selected="selected"><?php _e('Bulk Actions', 'rsvp-plugin'); ?></option>
+							<option value="delete"><?php _e('Delete', 'rsvp-plugin'); ?></option>
 						</select>
-						<input type="submit" value="<?php _e('Apply', 'rsvp'); ?>" name="doaction" id="doaction" class="button-secondary action" onclick="document.getElementById('rsvp-bulk-action').value = document.getElementById('rsvp-action-top').value;" />
-						<input type="submit" value="<?php _e('Export Attendees', 'rsvp'); ?>" name="exportButton" id="exportButton" class="button-secondary action" onclick="document.getElementById('rsvp-bulk-action').value = 'export';" />
+						<input type="submit" value="<?php _e('Apply', 'rsvp-plugin'); ?>" name="doaction" id="doaction" class="button-secondary action" onclick="document.getElementById('rsvp-bulk-action').value = document.getElementById('rsvp-action-top').value;" />
+						<input type="submit" value="<?php _e('Export Attendees', 'rsvp-plugin'); ?>" name="exportButton" id="exportButton" class="button-secondary action" onclick="document.getElementById('rsvp-bulk-action').value = 'export';" />
 					</div>
 					<?php
 						$yesResults = $wpdb->get_results("SELECT COUNT(*) AS yesCount FROM ".ATTENDEES_TABLE." WHERE rsvpStatus = 'Yes'");
@@ -444,12 +430,12 @@ License: GPL
 						$kidsMeals = $wpdb->get_results("SELECT COUNT(*) AS kidsMealCount FROM ".ATTENDEES_TABLE." WHERE kidsMeal = 'Y'");
 						$veggieMeals = $wpdb->get_results("SELECT COUNT(*) AS veggieMealCount FROM ".ATTENDEES_TABLE." WHERE veggieMeal = 'Y'");
 					?>
-					<div class="alignright">RSVP Count -  
-						Yes: <strong><?php echo $yesResults[0]->yesCount; ?></strong> &nbsp; &nbsp;  &nbsp; &nbsp; 
-						No: <strong><?php echo $noResults[0]->noCount; ?></strong> &nbsp; &nbsp;  &nbsp; &nbsp; 
-						No Response: <strong><?php echo $noResponseResults[0]->noResponseCount; ?></strong> &nbsp; &nbsp;  &nbsp; &nbsp; 
-						Kids Meals: <strong><?php echo $kidsMeals[0]->kidsMealCount; ?></strong> &nbsp; &nbsp;  &nbsp; &nbsp; 
-						Veggie Meals: <strong><?php echo $veggieMeals[0]->veggieMealCount; ?></strong>
+					<div class="alignright"><?php __("RSVP Count -", 'rsvp-plugin'); ?>  
+						<?php echo __("Yes:", 'rsvp-plugin'); ?> <strong><?php echo $yesResults[0]->yesCount; ?></strong> &nbsp; &nbsp;  &nbsp; &nbsp; 
+						<?php echo __("No:", 'rsvp-plugin'); ?> <strong><?php echo $noResults[0]->noCount; ?></strong> &nbsp; &nbsp;  &nbsp; &nbsp; 
+						<?php echo __("No Response:", 'rsvp-plugin'); ?> <strong><?php echo $noResponseResults[0]->noResponseCount; ?></strong> &nbsp; &nbsp;  &nbsp; &nbsp; 
+						<?php echo __("Kids Meals:", 'rsvp-plugin'); ?> <strong><?php echo $kidsMeals[0]->kidsMealCount; ?></strong> &nbsp; &nbsp;  &nbsp; &nbsp; 
+						<?php echo __("Veggie Meals:", 'rsvp-plugin'); ?> <strong><?php echo $veggieMeals[0]->veggieMealCount; ?></strong>
 					</div>
 					<div class="clear"></div>
 				</div>
@@ -457,7 +443,7 @@ License: GPL
 				<thead>
 					<tr>
 						<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox" id="cb" /></th>
-						<th scope="col" id="attendeeName" class="manage-column column-title" style="">Attendee<br />
+						<th scope="col" id="attendeeName" class="manage-column column-title" style=""><?php echo __("Attendee", 'rsvp-plugin'); ?><br />
 							<a href="admin.php?page=rsvp-top-level&amp;sort=attendee&amp;sortDirection=asc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php 
 									echo ((($sort == "attendee") && ($sortDirection == "asc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
@@ -467,8 +453,8 @@ License: GPL
 									echo ((($sort == "attendee") && ($sortDirection == "desc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
 									alt="Sort Descending Attendee Status" title="Sort Descending Attendee Status" border="0"></a>
 						</th>			
-            <th scope="col" id="rsvpEmail" class="manage-column column-title">Email</th>
-						<th scope="col" id="rsvpStatus" class="manage-column column-title" style="">RSVP Status<br />
+            <th scope="col" id="rsvpEmail" class="manage-column column-title"><?php echo __("Email", 'rsvp-plugin'); ?></th>
+						<th scope="col" id="rsvpStatus" class="manage-column column-title" style=""><?php echo __("RSVP Status", 'rsvp-plugin'); ?><br />
 							<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpStatus&amp;sortDirection=asc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php 
 									echo ((($sort == "rsvpStatus") && ($sortDirection == "asc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
@@ -479,7 +465,7 @@ License: GPL
 									alt="Sort Descending RSVP Status" title="Sort Descending RSVP Status" border="0"></a>
 						</th>
 						<?php if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {?>
-						<th scope="col" id="kidsMeal" class="manage-column column-title" style="">Kids Meal<br />
+						<th scope="col" id="kidsMeal" class="manage-column column-title" style=""><?php echo __("Kids Meal", 'rsvp-plugin'); ?><br />
 								<a href="admin.php?page=rsvp-top-level&amp;sort=kidsMeal&amp;sortDirection=asc">
 									<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php 
 										echo ((($sort == "kidsMeal") && ($sortDirection == "asc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
@@ -490,7 +476,7 @@ License: GPL
 										alt="Sort Descending Kids Meal Status" title="Sort Descending Kids Meal Status" border="0"></a>
 						</th>
 						<?php } ?>
-						<th scope="col" id="additionalAttendee" class="manage-column column-title" style="">Additional Attendee <br />
+						<th scope="col" id="additionalAttendee" class="manage-column column-title" style=""><?php echo __("Additional Attendee", 'rsvp-plugin'); ?> <br />
 									<a href="admin.php?page=rsvp-top-level&amp;sort=additional&amp;sortDirection=asc">
 										<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php 
 											echo ((($sort == "additional") && ($sortDirection == "asc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
@@ -501,7 +487,7 @@ License: GPL
 											alt="Sort Descending Additional Attendees Status" title="Sort Descending Additional Atttendees Status" border="0"></a>
 						</th>
 						<?php if(get_option(OPTION_HIDE_VEGGIE) != "Y") {?>
-						<th scope="col" id="veggieMeal" class="manage-column column-title" style="">Vegetarian <br />
+						<th scope="col" id="veggieMeal" class="manage-column column-title" style=""><?php echo __("Vegetarian", 'rsvp-plugin'); ?> <br />
 										<a href="admin.php?page=rsvp-top-level&amp;sort=vegetarian&amp;sortDirection=asc">
 											<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php 
 												echo ((($sort == "vegetarian") && ($sortDirection == "asc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
@@ -512,12 +498,12 @@ License: GPL
 												alt="Sort Descending Vegetarian Status" title="Sort Descending Vegetarian Status" border="0"></a>
 						</th>
 						<?php } ?>
-						<th scope="col" id="customMessage" class="manage-column column-title" style="">Custom Message</th>
-						<th scope="col" id="note" class="manage-column column-title" style="">Note</th>
+						<th scope="col" id="customMessage" class="manage-column column-title" style=""><?php echo __("Custom Message", 'rsvp-plugin'); ?></th>
+						<th scope="col" id="note" class="manage-column column-title" style=""><?php echo __("Note", 'rsvp-plugin'); ?></th>
 						<?php
 						if(rsvp_require_passcode()) {
 						?>
-							<th scope="col" id="passcode" class="manage-column column-title" style="">Passcode</th>
+							<th scope="col" id="passcode" class="manage-column column-title" style=""><?php echo __("Passcode", 'rsvp-plugin'); ?></th>
 						<?php
 						}
 						
@@ -532,7 +518,7 @@ License: GPL
 								}
 							}
 						?>
-						<th scope="col" id="associatedAttendees" class="manage-column column-title" style="">Associated Attendees</th>
+						<th scope="col" id="associatedAttendees" class="manage-column column-title" style=""><?php echo __("Associated Attendees", 'rsvp-plugin'); ?></th>
 					</tr>
 				</thead>
 			</table>
@@ -554,14 +540,14 @@ License: GPL
 								if($attendee->rsvpStatus == "NoResponse") {
 									echo "--";
 								} else {
-									echo (($attendee->kidsMeal == "Y") ? "Yes" : "No"); 
+									echo (($attendee->kidsMeal == "Y") ? __("Yes", 'rsvp-plugin') : __("No", 'rsvp-plugin')); 
 								}?></td>
 								<?php } ?>
 							<td><?php 
 								if($attendee->rsvpStatus == "NoResponse") {
 									echo "--";
 								} else {
-									echo (($attendee->additionalAttendee == "Y") ? "Yes" : "No"); 
+									echo (($attendee->additionalAttendee == "Y") ? __("Yes", 'rsvp-plugin') : __("No", 'rsvp-plugin')); 
 								}
 							?></td>
 							<?php if(get_option(OPTION_HIDE_VEGGIE) != "Y") {?>
@@ -569,7 +555,7 @@ License: GPL
 								if($attendee->rsvpStatus == "NoResponse") {
 									echo "--";
 								} else {
-									echo (($attendee->veggieMeal == "Y") ? "Yes" : "No"); 
+									echo (($attendee->veggieMeal == "Y") ? __("Yes", 'rsvp-plugin') : __("No", 'rsvp-plugin')); 
 								}	
 									?></td>
 							<?php } ?>
@@ -662,20 +648,20 @@ License: GPL
 							}
 							$sql .= " ORDER BY ".$orderBy;
 			$attendees = $wpdb->get_results($sql);
-			$csv = "\"Attendee\",\"Email\",\"RSVP Status\",";
+			$csv = "\"".__("Attendee", 'rsvp-plugin')."\",\"".__("Email", 'rsvp-plugin')."\",\"".__("RSVP Status", 'rsvp-plugin')."\",";
 			
 			if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
-				$csv .= "\"Kids Meal\",";
+				$csv .= "\"".__("Kids Meal", 'rsvp-plugin')."\",";
 			}
-			$csv .= "\"Additional Attendee\",";
+			$csv .= "\"".__("Additional Attendee", 'rsvp-plugin')."\",";
 			
 			if(get_option(OPTION_HIDE_VEGGIE) != "Y") {
-				$csv .= "\"Vegatarian\",";
+				$csv .= "\"".__("Vegatarian", 'rsvp-plugin')."\",";
 			}
       if(rsvp_require_passcode()) {
-        $csv .= "\"Passcode\",";
+        $csv .= "\"".__("Passcode", 'rsvp-plugin')."\",";
       }
-			$csv .= "\"Note\",\"Associated Attendees\"";
+			$csv .= "\"".__("Note", 'rsvp-plugin')."\",\"".__("Associated Attendees", 'rsvp-plugin')."\"";
 			
 			$qRs = $wpdb->get_results("SELECT id, question FROM ".QUESTIONS_TABLE." ORDER BY sortOrder, id");
 			if(count($qRs) > 0) {
@@ -684,20 +670,20 @@ License: GPL
 				}
 			}
       
-      $csv .= ",\"pre-fill URL\"";
+      $csv .= ",\"".__("pre-fill URL", 'rsvp-plugin')."\"";
 			
 			$csv .= "\r\n";
 			foreach($attendees as $a) {
 				$csv .= "\"".stripslashes($a->firstName." ".$a->lastName)."\",\"".stripslashes($a->email)."\",\"".($a->rsvpStatus)."\",";
 				
 				if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
-					$csv .= "\"".(($a->kidsMeal == "Y") ? "Yes" : "No")."\",";
+					$csv .= "\"".(($a->kidsMeal == "Y") ? __("Yes", 'rsvp-plugin') : __("No", 'rsvp-plugin'))."\",";
 				}
 				
-				$csv .= "\"".(($a->additionalAttendee == "Y") ? "Yes" : "No")."\",";
+				$csv .= "\"".(($a->additionalAttendee == "Y") ? __("Yes", 'rsvp-plugin') : __("No", 'rsvp-plugin'))."\",";
 				
 				if(get_option(OPTION_HIDE_VEGGIE) != "Y") {
-					$csv .= "\"".(($a->veggieMeal == "Y") ? "Yes" : "No")."\",";
+					$csv .= "\"".(($a->veggieMeal == "Y") ? __("Yes", 'rsvp-plugin') : __("No", 'rsvp-plugin'))."\",";
 				}
         
         if(rsvp_require_passcode()) {
@@ -872,24 +858,24 @@ License: GPL
           } // if(count($priv...))
         } // if($data->sheets[0]['numCols'] >= 6)....
 			?>
-			<p><strong><?php echo $count; ?></strong> total records were imported.</p>
-			<p>Continue to the RSVP <a href="admin.php?page=rsvp-top-level">list</a></p>
+			<p><strong><?php echo $count; ?></strong> <?php echo __("total records were imported", 'rsvp-plugin'); ?>.</p>
+			<p><?php echo __("Continue to the RSVP", 'rsvp-plugin'); ?> <a href="admin.php?page=rsvp-top-level"><?php echo __("list", 'rsvp-plugin'); ?></a></p>
 			<?php
 			}
 		} else {
 		?>
 			<form name="rsvp_import" method="post" enctype="multipart/form-data">
 				<?php wp_nonce_field('rsvp-import'); ?>
-				<p>Select an excel file (only xls please, xlsx is not supported....yet) in the following format:<br />
-				<strong>First Name</strong> | <strong>Last Name</strong> | <strong>Email</strong> | 
-        <strong>Associated Attendees*</strong> | <strong>Custom Message</strong> | <strong>Passcode</strong> | <strong>Private Question Association**</strong>
+				<p><?php echo __("Select an excel file (only xls please, xlsx is not supported....yet) in the following format:", 'rsvp-plugin'); ?><br />
+				<strong><?php echo __("First Name", 'rsvp-plugin'); ?></strong> | <strong><?php echo __("Last Name", 'rsvp-plugin'); ?></strong> | <strong><?php echo __("Email", 'rsvp-plugin'); ?></strong> | 
+        <strong><?php echo __("Associated Attendees", 'rsvp-plugin'); ?>*</strong> | <strong><?php echo __("Custom Message", 'rsvp-plugin'); ?></strong> | <strong><?php echo __("Passcode", 'rsvp-plugin'); ?></strong> | <strong><?php echo __("Private Question Association", 'rsvp-plugin'); ?>**</strong>
 				</p>
 				<p>
-				* associated attendees should be separated by a comma it is assumed that the first space encountered will separate the first and last name.
+				* <?php echo __("associated attendees should be separated by a comma it is assumed that the first space encountered will separate the first and last name.", 'rsvp-plugin'); ?>
 				</p>
         <p>
-          ** This can be multiple columns each column is associated with one of the following private questions. If you wish 
-          to have the guest associated with the question put a &quot;Y&quot; in the column otherwise put whatever else you want. The header name will be the &quot;private import key&quot; which is also listed below. It has the format of pq_* where * is a number.  
+          ** <?php echo __("This can be multiple columns each column is associated with one of the following private questions. If you wish 
+          to have the guest associated with the question put a &quot;Y&quot; in the column otherwise put whatever else you want. The header name will be the &quot;private import key&quot; which is also listed below. It has the format of pq_* where * is a number.", 'rsvp-plugin'); ?>  
           <ul>
           <?php
           $questions = $wpdb->get_results("SELECT id, question FROM ".QUESTIONS_TABLE." WHERE permissionLevel = 'private'");
@@ -901,7 +887,7 @@ License: GPL
           ?>
           </ul>
         </p>
-				<p>A header row is not expected, UNLESS you are associating private questions.</p>
+				<p><?php echo __("A header row is not expected, UNLESS you are associating private questions.", 'rsvp-plugin'); ?></p>
 				<p><input type="file" name="importFile" id="importFile" /></p>
 				<p><input type="submit" value="Import File" name="goRsvp" /></p>
 			</form>
@@ -963,10 +949,10 @@ License: GPL
 											array("%d"));
 			}
 		?>
-			<p>Attendee <?php echo htmlspecialchars(stripslashes($_POST['firstName']." ".$_POST['lastName']));?> has been successfully saved</p>
+			<p><?php echo __("Attendee", 'rsvp-plugin'); ?> <?php echo htmlspecialchars(stripslashes($_POST['firstName']." ".$_POST['lastName']));?> <?php echo __("has been successfully saved", 'rsvp-plugin'); ?></p>
 			<p>
-				<a href="<?php echo get_option('siteurl'); ?>/wp-admin/admin.php?page=rsvp-top-level">Continue to Attendee List</a> | 
-				<a href="<?php echo get_option('siteurl'); ?>/wp-admin/admin.php?page=rsvp-admin-guest">Add a Guest</a> 
+				<a href="<?php echo get_option('siteurl'); ?>/wp-admin/admin.php?page=rsvp-top-level"><?php echo __("Continue to Attendee List", 'rsvp-plugin'); ?></a> | 
+				<a href="<?php echo get_option('siteurl'); ?>/wp-admin/admin.php?page=rsvp-admin-guest"><?php echo __("Add a Guest", 'rsvp-plugin'); ?></a> 
 			</p>
 	<?php
 		} else {
@@ -1004,7 +990,7 @@ License: GPL
 			<form name="contact" action="admin.php?page=rsvp-admin-guest" method="post">
 				<?php wp_nonce_field('rsvp_add_guest'); ?>
 				<p class="submit">
-					<input type="submit" class="button-primary" value="<?php _e('Save'); ?>" />
+					<input type="submit" class="button-primary" value="<?php _e('Save', 'rsvp-plugin'); ?>" />
 				</p>
 				<table class="form-table">
 					<tr valign="top">
@@ -1023,34 +1009,34 @@ License: GPL
 					if(rsvp_require_passcode()) {
 					?>
 						<tr valign="top">
-							<th scope="row"><label for="passcode">Passcode:</label></th>
+							<th scope="row"><label for="passcode"><?php echo __("Passcode", 'rsvp-plugin'); ?>:</label></th>
 							<td align="left"><input type="text" name="passcode" id="passcode" size="30" value="<?php echo htmlspecialchars($passcode); ?>" maxlength="6" /></td>
 						</tr>
 					<?php	
 					}					
 					?>
 					<tr>
-						<th scope="row"><label for="rsvpStatus">RSVP Status</label></th>
+						<th scope="row"><label for="rsvpStatus"><?php echo __("RSVP Status", 'rsvp-plugin'); ?></label></th>
 						<td align="left">
 							<select name="rsvpStatus" id="rsvpStatus" size="1">
 								<option value="NoResponse" <?php
 									echo (($rsvpStatus == "NoResponse") ? " selected=\"selected\"" : "");
-								?>>No Response</option>
+								?>><?php echo __("No Response", 'rsvp-plugin'); ?></option>
 								<option value="Yes" <?php
 									echo (($rsvpStatus == "Yes") ? " selected=\"selected\"" : "");
-								?>>Yes</option>									
+								?>><?php echo __("Yes", 'rsvp-plugin'); ?></option>									
 								<option value="No" <?php
 									echo (($rsvpStatus == "No") ? " selected=\"selected\"" : "");
-								?>>No</option>
+								?>><?php echo __("No", 'rsvp-plugin'); ?></option>
 							</select>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row" valign="top"><label for="personalGreeting">Custom Message:</label></th>
+						<th scope="row" valign="top"><label for="personalGreeting"><?php echo __("Custom Message", 'rsvp-plugin'); ?>:</label></th>
 						<td align="left"><textarea name="personalGreeting" id="personalGreeting" rows="5" cols="40"><?php echo htmlspecialchars($personalGreeting); ?></textarea></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">Associated Attendees:</th>
+						<th scope="row"><?php echo __("Associated Attendees", 'rsvp-plugin'); ?>:</th>
 						<td align="left">
 							<select name="associatedAttendees[]" multiple="multiple" size="5" style="height: 200px;">
 								<?php
@@ -1078,11 +1064,11 @@ License: GPL
 				?>
 				<tr>
 					<td colspan="2">
-						<h4>Custom Questions Answered</h4>
+						<h4><?php echo __("Custom Questions Answered", 'rsvp-plugin'); ?></h4>
 						<table cellpadding="2" cellspacing="0" border="0">
 							<tr>
-								<th>Question</th>
-								<th>Answer</th>
+								<th><?php echo __("Question", 'rsvp-plugin'); ?></th>
+								<th><?php echo __("Answer", 'rsvp-plugin'); ?></th>
 							</tr>
 				<?php
 						foreach($aRs as $a) {
@@ -1103,7 +1089,7 @@ License: GPL
 				?>
 				</table>
 				<p class="submit">
-					<input type="submit" class="button-primary" value="<?php _e('Save'); ?>" />
+					<input type="submit" class="button-primary" value="<?php _e('Save', 'rsvp-plugin'); ?>" />
 				</p>
 			</form>
 <?php
@@ -1130,7 +1116,6 @@ License: GPL
 												array("id" => $q->id), 
 												array("%d"), 
 												array("%d"));
-					rsvp_printQueryDebugInfo();
 				}
 			}
 		}
@@ -1161,14 +1146,14 @@ License: GPL
 		</script>
 		<div class="wrap">	
 			<div id="icon-edit" class="icon32"><br /></div>	
-			<h2>List of current custom questions</h2>
+			<h2><?php echo __("List of current custom questions", 'rsvp-plugin'); ?></h2>
 			<form method="post" id="rsvp-form" enctype="multipart/form-data">
 				<input type="hidden" id="rsvp-bulk-action" name="rsvp-bulk-action" />
 				<div class="tablenav">
 					<div class="alignleft actions">
 						<select id="rsvp-action-top" name="action">
-							<option value="" selected="selected"><?php _e('Bulk Actions', 'rsvp'); ?></option>
-							<option value="delete"><?php _e('Delete', 'rsvp'); ?></option>
+							<option value="" selected="selected"><?php _e('Bulk Actions', 'rsvp-plugin'); ?></option>
+							<option value="delete"><?php _e('Delete', 'rsvp-plugin'); ?></option>
 						</select>
 						<input type="submit" value="<?php _e('Apply', 'rsvp'); ?>" name="doaction" id="doaction" class="button-secondary action" onclick="document.getElementById('rsvp-bulk-action').value = document.getElementById('rsvp-action-top').value;" />
 						<input type="submit" value="<?php _e('Save Sort Order', 'rsvp'); ?>" name="saveSortButton" id="saveSortButton" class="button-secondary action" onclick="document.getElementById('rsvp-bulk-action').value = 'saveSortOrder';" />
@@ -1179,8 +1164,8 @@ License: GPL
 				<thead>
 					<tr>
 						<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox" id="cb" /></th>
-						<th scope="col" id="questionCol" class="manage-column column-title" style="">Question</th>		
-            <th scope="col" class="manage-column column-title">Private Import Key</th>	
+						<th scope="col" id="questionCol" class="manage-column column-title" style=""><?php echo __("Question", 'rsvp-plugin'); ?></th>		
+            <th scope="col" class="manage-column column-title"><?php echo __("Private Import Key", 'rsvp-plugin'); ?></th>	
 					</tr>
 				</thead>
 			</table>
@@ -1222,7 +1207,6 @@ License: GPL
 		$radioQuestionType = $wpdb->get_results("SELECT id FROM ".QUESTION_TYPE_TABLE." WHERE questionType = 'radio'");
 		if($radioQuestionType == 0) {
 			$wpdb->insert(QUESTION_TYPE_TABLE, array("questionType" => "radio", "friendlyName" => "Radio"), array('%s', '%s'));
-			rsvp_printQueryDebugInfo();
 		}
 		
 		if((count($_POST) > 0) && !empty($_POST['question']) && is_numeric($_POST['questionTypeID'])) {
@@ -1235,7 +1219,6 @@ License: GPL
 											array("id" => $_SESSION[EDIT_QUESTION_KEY]), 
 											array("%s", "%d", "%s"), 
 											array("%d"));
-				rsvp_printQueryDebugInfo();
 				$questionId = $_SESSION[EDIT_QUESTION_KEY];
 				
 				$answers = $wpdb->get_results($wpdb->prepare("SELECT id FROM ".QUESTION_ANSWERS_TABLE." WHERE questionID = %d", $questionId));
@@ -1249,7 +1232,6 @@ License: GPL
 													  array("id"=>$a->id), 
 													  array("%s"), 
 													  array("%d"));
-							rsvp_printQueryDebugInfo();
 						}
 					}
 				}
@@ -1284,10 +1266,10 @@ License: GPL
 				}
 			}
 		?>
-			<p>Custom Question saved</p>
+			<p><?php echo __("Custom Question saved", 'rsvp-plugin'); ?></p>
 			<p>
-				<a href="<?php echo get_option('siteurl'); ?>/wp-admin/admin.php?page=rsvp-admin-questions">Continue to Question List</a> | 
-				<a href="<?php echo get_option('siteurl'); ?>/wp-admin/admin.php?page=rsvp-admin-custom-question">Add another Question</a> 
+				<a href="<?php echo get_option('siteurl'); ?>/wp-admin/admin.php?page=rsvp-admin-questions"><?php echo __("Continue to Question List", 'rsvp-plugin'); ?></a> | 
+				<a href="<?php echo get_option('siteurl'); ?>/wp-admin/admin.php?page=rsvp-admin-custom-question"><?php echo __("Add another Question", 'rsvp-plugin'); ?></a> 
 			</p>
 		<?php
 		} else {
@@ -1330,7 +1312,7 @@ License: GPL
 						}
 				
 						var s = "<tr>\r\n"+ 
-							"<td align=\"right\" width=\"75\"><label for=\"newAnswer" + currAnswer + "\">Answer:</label></td>\r\n" + 
+							"<td align=\"right\" width=\"75\"><label for=\"newAnswer" + currAnswer + "\"><?php echo __("Answer", 'rsvp-plugin'); ?>:</label></td>\r\n" + 
 							"<td><input type=\"text\" name=\"newAnswer" + currAnswer + "\" id=\"newAnswer" + currAnswer + "\" size=\"40\" /></td>\r\n" + 
 						"</tr>\r\n";
 						jQuery("#answerContainer").append(s);
@@ -1374,11 +1356,11 @@ License: GPL
 					<input type="hidden" name="numNewAnswers" id="numNewAnswers" value="0" />
 					<?php wp_nonce_field('rsvp_add_custom_question'); ?>
 					<p class="submit">
-						<input type="submit" class="button-primary" value="<?php _e('Save'); ?>" />
+						<input type="submit" class="button-primary" value="<?php _e('Save', 'rsvp-plugin'); ?>" />
 					</p>
 					<table id="customQuestions" class="form-table">
 						<tr valign="top">
-							<th scope="row"><label for="questionType">Question Type:</label></th>
+							<th scope="row"><label for="questionType"><?php echo __("Question Type", 'rsvp-plugin'); ?>:</label></th>
 							<td align="left"><select name="questionTypeID" id="questionType" size="1">
 								<?php
 									foreach($questionTypes as $qt) {
@@ -1389,19 +1371,19 @@ License: GPL
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><label for="question">Question:</label></th>
+							<th scope="row"><label for="question"><?php echo __("Question", 'rsvp-plugin'); ?>:</label></th>
 							<td align="left"><input type="text" name="question" id="question" size="40" value="<?php echo htmlspecialchars($question); ?>" /></td>
 						</tr>
 						<tr>
-							<th scope="row"><label for="permissionLevel">Question Permission Level:</label></th>
+							<th scope="row"><label for="permissionLevel"><?php echo __("Question Permission Level", 'rsvp-plugin'); ?>:</label></th>
 							<td align="left"><select name="permissionLevel" id="permissionLevel" size="1">
-								<option value="public" <?php echo ($permissionLevel == "public") ? " selected=\"selected\"" : ""; ?>>Public</option>
-								<option value="private" <?php echo ($permissionLevel == "private") ? " selected=\"selected\"" : ""; ?>>Private</option>
+								<option value="public" <?php echo ($permissionLevel == "public") ? " selected=\"selected\"" : ""; ?>><?php echo __("Public", 'rsvp-plugin'); ?></option>
+								<option value="private" <?php echo ($permissionLevel == "private") ? " selected=\"selected\"" : ""; ?>><?php echo __("Private", 'rsvp-plugin'); ?></option>
 							</select></td>
 						</tr>
             <?php if(!$isNew && ($permissionLevel == "private")): ?>
   						<tr>
-  							<th scope="row">Private Import Key:</th>
+  							<th scope="row"><?php echo __("Private Import Key", 'rsvp-plugin'); ?>:</th>
   							<td align="left">pq_<?php echo $questionId; ?></td>
   						</tr>
             <?php endif;?>
@@ -1409,8 +1391,8 @@ License: GPL
 							<td colspan="2">
 								<table cellpadding="0" cellspacing="0" border="0" id="answerContainer">
 									<tr>
-										<th>Answers</th>
-										<th align="right"><a href="#" onclick="return addAnswer();">Add new Answer</a></th>
+										<th><?php echo __("Answers", 'rsvp-plugin'); ?></th>
+										<th align="right"><a href="#" onclick="return addAnswer();"><?php echo __("Add new Answer", 'rsvp-plugin'); ?></a></th>
 									</tr>
 									<?php
 									if(!$isNew) {
@@ -1419,9 +1401,9 @@ License: GPL
 											foreach($aRs as $answer) {
 										?>
 												<tr>
-													<td width="75" align="right"><label for="answer<?php echo $answer->id; ?>">Answer:</label></td>
+													<td width="75" align="right"><label for="answer<?php echo $answer->id; ?>"><?php echo __("Answer", 'rsvp-plugin'); ?>:</label></td>
 													<td><input type="text" name="answer<?php echo $answer->id; ?>" id="answer<?php echo $answer->id; ?>" size="40" value="<?php echo htmlspecialchars(stripslashes($answer->answer)); ?>" />
-													 &nbsp; <input type="checkbox" name="deleteAnswer<?php echo $answer->id; ?>" id="deleteAnswer<?php echo $answer->id; ?>" value="Y" /><label for="deleteAnswer<?php echo $answer->id; ?>">Delete</label></td>
+													 &nbsp; <input type="checkbox" name="deleteAnswer<?php echo $answer->id; ?>" id="deleteAnswer<?php echo $answer->id; ?>" value="Y" /><label for="deleteAnswer<?php echo $answer->id; ?>"><?php echo __("Delete", 'rsvp-plugin'); ?></label></td>
 												</tr>
 										<?php
 											}
@@ -1432,7 +1414,7 @@ License: GPL
 							</td>
 						</tr>
 						<tr id="attendeesArea">
-							<th scope="row"><label for="attendees">Attendees allowed to answer this question:</label></th>
+							<th scope="row"><label for="attendees"><?php echo __("Attendees allowed to answer this question", 'rsvp-plugin'); ?>:</label></th>
 							<td>
 								<select name="attendees[]" id="attendees" style="height:75px;" multiple="multiple">
 								<?php
