@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.9.7
+ * @version 1.9.8
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.9.7
+Version: 1.9.8
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -24,8 +24,6 @@ License: GPL
 #        area just go there.
 # 
 #        To allow people to rsvp create a new page and add "rsvp-pluginhere" to the text
-
-	session_start();
 	define("ATTENDEES_TABLE", $wpdb->prefix."attendees");
 	define("ASSOCIATED_ATTENDEES_TABLE", $wpdb->prefix."associatedAttendees");
 	define("QUESTIONS_TABLE", $wpdb->prefix."rsvpCustomQuestions");
@@ -33,8 +31,6 @@ License: GPL
 	define("ATTENDEE_ANSWERS", $wpdb->prefix."attendeeAnswers");
 	define("QUESTION_ANSWERS_TABLE", $wpdb->prefix."rsvpCustomQuestionAnswers");
 	define("QUESTION_ATTENDEES_TABLE", $wpdb->prefix."rsvpCustomQuestionAttendees");
-	define("EDIT_SESSION_KEY", "RsvpEditAttendeeID");
-	define("EDIT_QUESTION_KEY", "RsvpEditQuestionID");
 	define("RSVP_FRONTEND_TEXT_CHECK", "rsvp-pluginhere");
 	define("OPTION_GREETING", "rsvp_custom_greeting");
 	define("OPTION_THANKYOU", "rsvp_custom_thankyou");
@@ -901,18 +897,18 @@ License: GPL
 			check_admin_referer('rsvp_add_guest');
 			$passcode = (isset($_POST['passcode'])) ? $_POST['passcode'] : "";
 			
-			if(isset($_SESSION[EDIT_SESSION_KEY]) && is_numeric($_SESSION[EDIT_SESSION_KEY])) {
+			if(isset($_POST['attendeeId']) && is_numeric($_POST['attendeeId']) && ($_POST['attendeeId'] > 0)) {
 				$wpdb->update(ATTENDEES_TABLE, 
 											array("firstName" => trim($_POST['firstName']), 
 											      "lastName" => trim($_POST['lastName']), 
                             "email" => trim($_POST['email']), 
 											      "personalGreeting" => trim($_POST['personalGreeting']), 
 														"rsvpStatus" => trim($_POST['rsvpStatus'])), 
-											array("id" => $_SESSION[EDIT_SESSION_KEY]), 
+											array("id" => $_POST['attendeeId']), 
 											array("%s", "%s", "%s", "%s", "%s"), 
 											array("%d"));
 				rsvp_printQueryDebugInfo();
-				$attendeeId = $_SESSION[EDIT_SESSION_KEY];
+				$attendeeId = $_POST['attendeeId'];
 				$wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeId = %d", $attendeeId));
         $wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d", $attendeeId));
         
@@ -957,7 +953,6 @@ License: GPL
 	<?php
 		} else {
 			$attendee = null;
-			unset($_SESSION[EDIT_SESSION_KEY]);
 			$associatedAttendees = array();
 			$firstName = "";
 			$lastName = "";
@@ -965,11 +960,12 @@ License: GPL
 			$personalGreeting = "";
 			$rsvpStatus = "NoResponse";
 			$passcode = "";
+      $attendeeId = 0;
 			
 			if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 				$attendee = $wpdb->get_row("SELECT id, firstName, lastName, email, personalGreeting, rsvpStatus, passcode FROM ".ATTENDEES_TABLE." WHERE id = ".$_GET['id']);
 				if($attendee != null) {
-					$_SESSION[EDIT_SESSION_KEY] = $attendee->id;
+					$attendeeId = $attendee->id;
 					$firstName = stripslashes($attendee->firstName);
 					$lastName = stripslashes($attendee->lastName);
           $email = stripslashes($attendee->email);
@@ -989,6 +985,7 @@ License: GPL
 	?>
 			<form name="contact" action="admin.php?page=rsvp-admin-guest" method="post">
 				<?php wp_nonce_field('rsvp_add_guest'); ?>
+        <input type="hidden" name="attendeeId" value="<?php echo $attendeeId; ?>" />
 				<p class="submit">
 					<input type="submit" class="button-primary" value="<?php _e('Save', 'rsvp-plugin'); ?>" />
 				</p>
@@ -1042,7 +1039,7 @@ License: GPL
 								<?php
 									$attendees = $wpdb->get_results("SELECT id, firstName, lastName FROM ".$wpdb->prefix."attendees ORDER BY lastName, firstName");
 									foreach($attendees as $a) {
-										if($a->id != $_SESSION[EDIT_SESSION_KEY]) {
+										if($a->id != $attendeeId) {
 								?>
 											<option value="<?php echo $a->id; ?>" 
 															<?php echo ((in_array($a->id, $associatedAttendees)) ? "selected=\"selected\"" : ""); ?>><?php echo htmlspecialchars(stripslashes($a->firstName)." ".stripslashes($a->lastName)); ?></option>
@@ -1211,15 +1208,15 @@ License: GPL
 		
 		if((count($_POST) > 0) && !empty($_POST['question']) && is_numeric($_POST['questionTypeID'])) {
 			check_admin_referer('rsvp_add_custom_question');
-			if(isset($_SESSION[EDIT_QUESTION_KEY]) && is_numeric($_SESSION[EDIT_QUESTION_KEY])) {
+			if(isset($_POST['questionId']) && is_numeric($_POST['questionId']) && ($_POST['questionId'] > 0)) {
 				$wpdb->update(QUESTIONS_TABLE, 
 											array("question" => trim($_POST['question']), 
 											      "questionTypeID" => trim($_POST['questionTypeID']), 
 														"permissionLevel" => ((trim($_POST['permissionLevel']) == "private") ? "private" : "public")), 
-											array("id" => $_SESSION[EDIT_QUESTION_KEY]), 
+											array("id" => $_POST['questionId']), 
 											array("%s", "%d", "%s"), 
 											array("%d"));
-				$questionId = $_SESSION[EDIT_QUESTION_KEY];
+				$questionId = $_POST['questionId'];
 				
 				$answers = $wpdb->get_results($wpdb->prepare("SELECT id FROM ".QUESTION_ANSWERS_TABLE." WHERE questionID = %d", $questionId));
 				if(count($answers) > 0) {
@@ -1279,12 +1276,10 @@ License: GPL
 			$questionId = 0;
 			$permissionLevel = "public";
 			$savedAttendees = array();
-			unset($_SESSION[EDIT_QUESTION_KEY]);
 			if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 				$qRs = $wpdb->get_results($wpdb->prepare("SELECT id, question, questionTypeID, permissionLevel FROM ".QUESTIONS_TABLE." WHERE id = %d", $_GET['id']));
 				if(count($qRs) > 0) {
 					$isNew = false;
-					$_SESSION[EDIT_QUESTION_KEY] = $qRs[0]->id;
 					$questionId = $qRs[0]->id;
 					$question = stripslashes($qRs[0]->question);
 					$permissionLevel = stripslashes($qRs[0]->permissionLevel);
@@ -1354,6 +1349,7 @@ License: GPL
 				</script>
 				<form name="contact" action="admin.php?page=rsvp-admin-custom-question" method="post">
 					<input type="hidden" name="numNewAnswers" id="numNewAnswers" value="0" />
+          <input type="hidden" name="questionId" value="<?php echo $questionId; ?>" />
 					<?php wp_nonce_field('rsvp_add_custom_question'); ?>
 					<p class="submit">
 						<input type="submit" class="button-primary" value="<?php _e('Save', 'rsvp-plugin'); ?>" />

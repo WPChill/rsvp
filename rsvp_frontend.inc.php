@@ -517,12 +517,9 @@ function rsvp_find(&$output, &$text) {
   $passcodeOptionEnabled = (rsvp_require_passcode()) ? true : false;
   $passcodeOnlyOption = (rsvp_require_only_passcode_to_register()) ? true : false;
 	
-	//$_SESSION['rsvpFirstName'] = $_POST['firstName'];
-	//$_SESSION['rsvpLastName'] = $_POST['lastName'];
 	$passcode = "";
 	if(isset($_REQUEST['passcode'])) {
 		$passcode = $_REQUEST['passcode'];
-		//$_SESSION['rsvpPasscode'] = $_POST['passcode'];
 	}
   
 	$firstName = $_REQUEST['firstName'];
@@ -579,7 +576,7 @@ function rsvp_find(&$output, &$text) {
 		for($i = 3; $i >= 1; $i--) {
 			$truncFirstName = rsvp_chomp_name($firstName, $i);
 			$attendees = $wpdb->get_results("SELECT id, firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE." 
-																			 WHERE lastName = '".mysql_real_escape_string($lastName)."' AND firstName LIKE '".mysql_real_escape_string($truncFirstName)."%'");
+																			 WHERE lastName = '".esc_sql($lastName)."' AND firstName LIKE '".esc_sql($truncFirstName)."%'");
 			if(count($attendees) > 0) {
 				$output = RSVP_START_PARA."<strong>".__("We could not find an exact match but could any of the below entries be you?", 'rsvp-plugin')."</strong>".RSVP_END_PARA;
 				foreach($attendees as $a) {
@@ -756,28 +753,38 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 				ORDER BY q.sortOrder, q.id";
 			$aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID));
 			if(count($aRs) > 0) {
-        $body .= "\r\n\r\n--== Custom Questions ==--\r\n";
 				foreach($aRs as $a) {
           $body .= stripslashes($a->question).": ".stripslashes($a->answer)."\r\n";
 				}
 			}
       
-			$sql = "SELECT firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE." 
+			$sql = "SELECT firstName, lastName, rsvpStatus, id FROM ".ATTENDEES_TABLE." 
 			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d) 
 					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)";
 		
 			$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
       if(count($associations) > 0) {
+        $body .= "\r\n\r\n--== Associated Attendees ==--\r\n";
   			foreach($associations as $a) {
-          $body .= "\r\n\r\n--== Associated Attendees ==--\r\n";
           $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
+          
+    			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q 
+    				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d 
+    				ORDER BY q.sortOrder, q.id";
+    			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id));
+    			if(count($aRs) > 0) {
+    				foreach($aRs as $ans) {
+              $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
+    				}
+            $body .= "\r\n";
+    			}
   			}
       }
 			
       $emailAddy = get_option(OPTION_NOTIFY_EMAIL);		
       $headers = "";
       if(get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")	
-        $headers = 'From: '. $emailAddy . "\r\n";
+        $headers = 'From: '. $emailAddy . "\r\n"; 
       
 			wp_mail($emailAddy, "New RSVP Submission", $body, $headers);
 		}
@@ -797,15 +804,25 @@ function rsvp_handleNewRsvp(&$output, &$text) {
             
 			$body .= "You have successfully RSVP'd with '".$attendee[0]->rsvpStatus."'.";
       
-			$sql = "SELECT firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE." 
+			$sql = "SELECT firstName, lastName, rsvpStatus, id FROM ".ATTENDEES_TABLE." 
 			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d) 
 					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)";
 		
 			$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
       if(count($associations) > 0) {
+        $body .= "\r\n\r\n--== Associated Attendees ==--\r\n";
   			foreach($associations as $a) {
-          $body .= "\r\n\r\n--== Associated Attendees ==--\r\n";
           $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
+    			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q 
+    				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d 
+    				ORDER BY q.sortOrder, q.id";
+    			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id));
+    			if(count($aRs) > 0) {
+    				foreach($aRs as $ans) {
+              $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
+    				}
+            $body .= "\r\n";
+    			}
   			}
       }
       $emailAddy = get_option(OPTION_NOTIFY_EMAIL);	
@@ -813,6 +830,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
       if(!empty($emailAddy) && (get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")) {
         $headers = 'From: '. $emailAddy . "\r\n";
       }
+      
       wp_mail($attendee[0]->email, "RSVP Confirmation", $body, $headers);
     }
   }
@@ -968,7 +986,7 @@ function rsvp_handlersvp(&$output, &$text) {
   				}
   			}
         
-  			$sql = "SELECT firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE." 
+  			$sql = "SELECT firstName, lastName, rsvpStatus, id FROM ".ATTENDEES_TABLE." 
   			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d) 
   					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)";
 		
@@ -977,6 +995,16 @@ function rsvp_handlersvp(&$output, &$text) {
           $body .= "\r\n\r\n--== Associated Attendees ==--\r\n";
     			foreach($associations as $a) {
             $body .= stripslashes($a->firstName." ".$a->lastName)." RSVP status: ".$a->rsvpStatus."\r\n";
+      			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q 
+      				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d 
+      				ORDER BY q.sortOrder, q.id";
+      			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id));
+      			if(count($aRs) > 0) {
+      				foreach($aRs as $ans) {
+                $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
+      				}
+              $body .= "\r\n";
+      			}
     			}
         }
         $headers = "";
@@ -1001,21 +1029,32 @@ function rsvp_handlersvp(&$output, &$text) {
         
   			$body .= "You have successfully RSVP'd with '".$attendee[0]->rsvpStatus."'.";
       
-  			$sql = "SELECT firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE." 
+  			$sql = "SELECT firstName, lastName, rsvpStatus, id FROM ".ATTENDEES_TABLE." 
   			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d) 
   					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)";
 		
   			$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
         if(count($associations) > 0) {
+          $body .= "\r\n\r\n--== Associated Attendees ==--\r\n";
     			foreach($associations as $a) {
-            $body .= "\r\n\r\n--== Associated Attendees ==--\r\n";
             $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
+      			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q 
+      				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d 
+      				ORDER BY q.sortOrder, q.id";
+      			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id));
+      			if(count($aRs) > 0) {
+      				foreach($aRs as $ans) {
+                $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
+      				}
+              $body .= "\r\n";
+      			}
     			}
         }
         $headers = "";
         if(!empty($email) && (get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")) {
           $headers = 'From: '. $email . "\r\n";		
         }
+        
         wp_mail($attendee[0]->email, "RSVP Confirmation", $body, $headers);
       }
     }
@@ -1148,19 +1187,7 @@ function rsvp_frontend_greeting() {
   } else {
     $output = RSVP_START_PARA.__("Please enter your first and last name to RSVP.", 'rsvp-plugin').RSVP_END_PARA;
   }
-	
-	$firstName = "";
-	$lastName = "";
-	$passcode = "";
-	if(isset($_SESSION['rsvpFirstName'])) {
-		$firstName = $_SESSION['rsvpFirstName'];
-	}
-	if(isset($_SESSION['rsvpLastName'])) {
-		$lastName = $_SESSION['rsvpLastName'];
-	}
-	if(isset($_SESSION['rsvpPasscode'])) {
-		$passcode = $_SESSION['rsvpPasscode'];
-	}
+
 	if(!empty($customGreeting)) {
 		$output = RSVP_START_PARA.nl2br($customGreeting).RSVP_END_PARA;
 	} 
@@ -1181,13 +1208,13 @@ function rsvp_frontend_greeting() {
 	$output .= "	<input type=\"hidden\" name=\"rsvpStep\" value=\"find\" />";
   if(!rsvp_require_only_passcode_to_register()) {
 	$output .= RSVP_START_PARA."<label for=\"firstName\">".__("First Name", 'rsvp-plugin').":</label> 
-								 <input type=\"text\" name=\"firstName\" id=\"firstName\" size=\"30\" value=\"".htmlspecialchars($firstName)."\" class=\"required\" />".RSVP_END_PARA;
+								 <input type=\"text\" name=\"firstName\" id=\"firstName\" size=\"30\" value=\"\" class=\"required\" />".RSVP_END_PARA;
 	$output .= RSVP_START_PARA."<label for=\"lastName\">".__("Last Name", 'rsvp-plugin').":</label> 
-								 <input type=\"text\" name=\"lastName\" id=\"lastName\" size=\"30\" value=\"".htmlspecialchars($lastName)."\" class=\"required\" />".RSVP_END_PARA;
+								 <input type=\"text\" name=\"lastName\" id=\"lastName\" size=\"30\" value=\"\" class=\"required\" />".RSVP_END_PARA;
   }
 	if(rsvp_require_passcode()) {
 		$output .= RSVP_START_PARA."<label for=\"passcode\">".__("Passcode", 'rsvp-plugin').":</label> 
-									 <input type=\"password\" name=\"passcode\" id=\"passcode\" size=\"30\" value=\"".htmlspecialchars($passcode)."\" class=\"required\" autocomplete=\"off\" />".RSVP_END_PARA;
+									 <input type=\"password\" name=\"passcode\" id=\"passcode\" size=\"30\" value=\"\" class=\"required\" autocomplete=\"off\" />".RSVP_END_PARA;
 	}
 	$output .= RSVP_START_PARA."<input type=\"submit\" value=\"".__("Complete your RSVP!", 'rsvp-plugin')."\" />".RSVP_END_PARA;
 	$output .= "</form>\r\n";
