@@ -1,0 +1,740 @@
+# Copyright (C) 2015
+# This file is distributed under the same license as the  package.
+# Andres Gomez <tanty0@gmail.com>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rsvp-plugin\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rsvp\n"
+"POT-Creation-Date: 2015-01-11 01:21+0200\n"
+"PO-Revision-Date: 2015-01-13 10:12+0200\n"
+"Last-Translator: Andres Gomez <tanty0@gmail.com>\n"
+"Language-Team: Finnish <>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#: wp-rsvp.php:873
+msgid ""
+"This can be multiple columns each column is associated with one of the "
+"following private questions. If you wish \n"
+"          to have the guest associated with the question put a &quot;Y&quot; "
+"in the column otherwise put whatever else you want. The header name will be "
+"the &quot;private import key&quot; which is also listed below. It has the "
+"format of pq_* where * is a number."
+msgstr ""
+"T&auml;m&auml; voi k&auml;sitt&auml;&auml; monta saraketta jokaiseen "
+"sarakkeeseen liittyy jokin seuraavista yksityisist&auml; kysymyksist&auml;. "
+"Jos haluat ett&auml; vieraasi liittyy kysymykseen laita &quot;Y&quot; "
+"sarakkeeseen, muuten kirjoita mit&auml; haluat. Otskikon nimeksi tulee &quot;"
+"avain yksityiselle tuonnille&quot; joka on my&ouml;s listattu alla. Se on "
+"muotoa pq_* miss&auml; * on numero."
+
+#: rsvp_frontend.inc.php:28
+#, php-format
+msgid ""
+"I am sorry but the ability to RSVP for our wedding won't open till <strong>"
+"%s</strong>"
+msgstr ""
+"Pahoittelemme, mutta vastaamisen mahdollisuus h&auml;ihimme avautuu vasta "
+"<strong>%s</strong>"
+
+#: rsvp_frontend.inc.php:32
+msgid ""
+"The deadline to RSVP for this wedding has passed, please contact the bride "
+"and groom to verify that there is still a seat for you."
+msgstr ""
+"Vastaamisaika h&auml;ille on umpeutunut, ole hyv&auml; ja ota yhteytt&auml; "
+"morsiameen ja sulhaseen vahvistaaksesi, ett&auml; osallistumisesi onnistuu. "
+
+#: rsvp_frontend.inc.php:145
+#, c-format, php-format
+msgid ""
+"Hi %s it looks like you have already RSVP'd. Would you like to edit your "
+"reservation?"
+msgstr ""
+"Hei %s, n&auml;ytt&auml;&auml; silt&auml;, ett&auml; olet jo vastannut. "
+"Haluatko muokata vastaustasi?"
+
+#: wp-rsvp.php:539 wp-rsvp.php:546 wp-rsvp.php:554 wp-rsvp.php:676
+#: wp-rsvp.php:679 wp-rsvp.php:682 wp-rsvp.php:1024 rsvp_frontend.inc.php:151
+#: rsvp_frontend.inc.php:168
+msgid "Yes"
+msgstr "Kyll&auml;"
+
+#: wp-rsvp.php:539 wp-rsvp.php:546 wp-rsvp.php:554 wp-rsvp.php:676
+#: wp-rsvp.php:679 wp-rsvp.php:682 wp-rsvp.php:1027 rsvp_frontend.inc.php:152
+#: rsvp_frontend.inc.php:169
+msgid "No"
+msgstr "Ei"
+
+#: rsvp_frontend.inc.php:171
+msgid ""
+"Yes, of course I will be there! Who doesn't like family, friends, weddings, "
+"and a good time?"
+msgstr ""
+"Kyll&auml;, tottakai tulen paikalle! Kuka ei pit&auml;isi perheest&auml;, "
+"yst&auml;vist&auml;, h&auml;ist&auml; ja mukavasta ajanvietosta?"
+
+#: rsvp_frontend.inc.php:173
+msgid ""
+"Um, unfortunately, there is a Star Trek marathon on that day that I just "
+"cannot miss."
+msgstr ""
+"Hm, valitettavasti samana p&auml;iv&auml;n&auml; on Star Trek maratoni, jota "
+"en voi missata."
+
+#: rsvp_frontend.inc.php:175
+msgid ""
+"We have the option of getting cheese pizza for the kids (and only kids).  Do "
+"you want pizza instead of \"adult food?\""
+msgstr ""
+"Meill&auml; on mahdollisuus hankkia juustopitsaa lapsille (ja vain "
+"lapsille). Haluatko pitsaa \"aikuisten ruoan\" sijaan?"
+
+#: rsvp_frontend.inc.php:177
+msgid ""
+"We also have the option of getting individual vegetarian meals instead of "
+"the fish or meat.  Would you like a vegetarian dinner?"
+msgstr ""
+"Meill&auml; on my&ouml;s mahdollisuus hankkia yksitt&auml;isi&auml; "
+"kasvisaterioita kalan tai lihan sijaan. Haluatko kasvisateria illallisen?"
+
+#: rsvp_frontend.inc.php:179
+msgid ""
+"If you have any <strong style=\"color:red;\">food allergies</strong>, please "
+"indicate what they are in the &quot;notes&quot; section below.  Or, if you "
+"just want to send us a note, please feel free.  If you have any questions, "
+"please send us an email."
+msgstr ""
+"Jos sinulla on <strong style=\"color:red;\">ruoka-allergioita</strong>, "
+"kirjaa n&auml;m&auml; alla olevaan &quot;huomautus&quot; kohtaan. Tai jos "
+"muuten vain haluat l&auml;hett&auml;&auml; meille viestin, niin siit&auml; "
+"vaan! Jos sinulla on kysytt&auml;v&auml;&auml;, l&auml;het&auml; meille "
+"mielell&auml;&auml;n s&auml;hk&ouml;postia."
+
+#: rsvp_frontend.inc.php:189
+msgid "First Name: "
+msgstr "Etunimi:"
+
+#: rsvp_frontend.inc.php:196
+msgid "Last Name: "
+msgstr "Sukunimi:"
+
+#: rsvp_frontend.inc.php:206
+msgid "So, how about it?"
+msgstr "Eli, mit&auml; olet mielt&auml;?"
+
+#: rsvp_frontend.inc.php:241 rsvp_frontend.inc.php:322
+msgid "Email Address"
+msgstr "S&auml;hk&ouml;postiosoite"
+
+#: rsvp_frontend.inc.php:284
+msgid ""
+"The following people are associated with you.  At this time you can RSVP for "
+"them as well."
+msgstr ""
+"Seuraavat ihmiset ovat seuralaisiasi. T&auml;ss&auml; voit my&ouml;s vastata "
+"heid&auml;n puolesta."
+
+#: rsvp_frontend.inc.php:289
+#, c-format, php-format
+msgid " Will %s be attending?"
+msgstr "Tuleeko %s olemaan l&auml;sn&auml;?"
+
+#: rsvp_frontend.inc.php:302
+#, c-format, php-format
+msgid "Does %s need a kids meal?"
+msgstr "Tarvitseeko %s lastenaterian?"
+
+#: rsvp_frontend.inc.php:312
+#, c-format, php-format
+msgid "Does %s need a vegetarian meal?"
+msgstr "Tarvitseeko %s kasvisaterian?"
+
+#: rsvp_frontend.inc.php:335
+msgid ""
+"Did we slip up and forget to invite someone? If so, please add him or her "
+"here:"
+msgstr ""
+"Olemmeko unohtaneet kutsua jonkun? Jos kyll&auml;, niin lis&auml;&auml; "
+"h&auml;net mielell&auml;&auml;n t&auml;h&auml;n:"
+
+#: rsvp_frontend.inc.php:349
+msgid "RSVP"
+msgstr "VP"
+
+#: rsvp_frontend.inc.php:366
+msgid "You have already added "
+msgstr "Olet jo lis&auml;nnyt"
+
+#: rsvp_frontend.inc.php:371
+msgid "Person's first name"
+msgstr "Henkil&ouml;n etunimi"
+
+#: rsvp_frontend.inc.php:375
+msgid "Person's last name"
+msgstr "Henkil&ouml;n sukunimi"
+
+#: rsvp_frontend.inc.php:380
+msgid "Person's email address"
+msgstr "Henkil&ouml;n s&auml;hk&ouml;postiosoite"
+
+#: rsvp_frontend.inc.php:386
+msgid "Will this person be attending?"
+msgstr "Tuleeko t&auml;m&auml; henkil&ouml; osallistumaan?"
+
+#: rsvp_frontend.inc.php:393
+msgid "Does this person need a kids meal?"
+msgstr "Tarvitseeko henkil&ouml; lastenaterian?"
+
+#: rsvp_frontend.inc.php:403
+msgid "Does this person need a vegetarian meal?"
+msgstr "Tarvitseeko henkil&ouml; kasvisaterian?"
+
+#: rsvp_frontend.inc.php:413
+msgid "Remove Guest"
+msgstr "Poista Vieras"
+
+#: rsvp_frontend.inc.php:529
+msgid "A first and last name must be specified"
+msgstr "Etu- ja sukunimi tulee olla m&auml;&auml;ritetty"
+
+#: rsvp_frontend.inc.php:563 rsvp_frontend.inc.php:1102
+msgid ""
+"There are a few more questions we need to ask you if you could please fill "
+"them out below to finish up the RSVP process."
+msgstr ""
+"Viel&auml; on pari kysymyst&auml;, joihin pyyd&auml;mme vastaamaan ennen kun "
+"viimeistelet vastauksesi."
+
+#: rsvp_frontend.inc.php:581
+msgid ""
+"We could not find an exact match but could any of the below entries be you?"
+msgstr ""
+"Emme l&ouml;yt&auml;neet sopivaa hakutulosta, mutta voisiko joku alla "
+"olevista henkil&ouml;ist&auml; olla sin&auml;?"
+
+#: rsvp_frontend.inc.php:599
+msgid ""
+"<strong>We were unable to find anyone with the password you specified.</"
+"strong>"
+msgstr ""
+"<strong>Emme valitettavasti l&ouml;yt&auml;neet ket&auml;&auml;n antamallasi "
+"salasanalla.</strong>"
+
+#: rsvp_frontend.inc.php:601
+#, php-format
+msgid ""
+"<strong>We were unable to find anyone with a name of %1$s %2$s or the "
+"provided password was incorrect.</strong>"
+msgstr ""
+"<strong>Emme valitettavasti l&ouml;yt&auml;neet ket&auml;&auml;n "
+"niemll&auml; %1$s %2$s tai antamasi salasana oli virheellinen.</strong>"
+
+#: rsvp_frontend.inc.php:603
+#, php-format
+msgid "<strong>We were unable to find anyone with a name of %1$s %2$s</strong>"
+msgstr ""
+"<strong>Emme valitettavasti l&ouml;yt&auml;neet ket&auml;&auml;n "
+"niemll&auml; %1$s %2$s</strong>"
+
+#: rsvp_frontend.inc.php:1080
+#, php-format
+msgid "Welcome back %s!"
+msgstr "Tervetuloa takaisin %s!"
+
+msgid "Welcome back"
+msgstr "Tervetuloa takaisin"
+
+#: rsvp_frontend.inc.php:1097
+msgid "Hi"
+msgstr "Hei"
+
+#: rsvp_frontend.inc.php:1125
+msgid "Thank you"
+msgstr "Kiitos"
+
+#: rsvp_frontend.inc.php:1129
+msgid " for RSVPing."
+msgstr " vastaamisesta."
+
+#: rsvp_frontend.inc.php:1132
+msgid " You have also RSVPed for - "
+msgstr "Olet my&ouml;s vastannut seuraavan henkil&ouml;n puolesta -"
+
+#: rsvp_frontend.inc.php:1147
+msgid "Thank you "
+msgstr "Kiitos "
+
+#: rsvp_frontend.inc.php:1151
+msgid ""
+" for RSVPing. To modify your RSVP just come back to this page and enter in "
+"your first and last name."
+msgstr ""
+" vastauksesta. Muuttaaksesi vastaustasi palaa t&auml;lle sivulle ja t&auml;"
+"yt&auml; etunimesi ja sukunimesi."
+
+#: rsvp_frontend.inc.php:1154
+msgid " You will also need to know your password which is"
+msgstr " Sinun tulee my&ouml;s t&auml;ytt&auml;&auml; salasanasi, joka on"
+
+#: rsvp_frontend.inc.php:1159
+msgid "<br /><br />You have also RSVPed for - "
+msgstr ""
+"<br /> <br /> Olet my&ouml;s vastannut seuraavan henkil&ouml;n puolesta -"
+
+#: rsvp_frontend.inc.php:1186
+msgid "Please enter your passcode to RSVP."
+msgstr "Ole hyv&auml; ja kirjoita salasanasi vastataksesi."
+
+#: rsvp_frontend.inc.php:1188
+msgid "Please enter your first name, last name and passcode to RSVP."
+msgstr ""
+"Ole hyv&auml; ja kirjoita etunimesi, sukunimesi ja salasanasi vastataksesi."
+
+#: rsvp_frontend.inc.php:1190
+msgid "Please enter your first and last name to RSVP."
+msgstr "Ole hyv&auml; ja kirjoita etunimesi ja sukunimesi vastataksesi."
+
+#: rsvp_frontend.inc.php:1202
+msgid "New Attendee Registration"
+msgstr "Vastaa kutsuun"
+
+#: rsvp_frontend.inc.php:1206
+msgid "Need to modify your registration? Start with the below form."
+msgstr "Haluatko muokata vastaustasi? Aloita alla olevasta lomakkeesta."
+
+#: wp-rsvp.php:866 wp-rsvp.php:994 rsvp_frontend.inc.php:1212
+msgid "First Name"
+msgstr "Etunimi"
+
+#: wp-rsvp.php:866 wp-rsvp.php:998 rsvp_frontend.inc.php:1214
+msgid "Last Name"
+msgstr "Sukunimi"
+
+#: wp-rsvp.php:502 wp-rsvp.php:658 wp-rsvp.php:867 wp-rsvp.php:1009
+#: rsvp_frontend.inc.php:1218
+msgid "Passcode"
+msgstr "Salasana"
+
+#: rsvp_frontend.inc.php:1221
+msgid "Complete your RSVP!"
+msgstr "Muokkaa vastaustani"
+
+#: wp-rsvp.php:194
+msgid "RSVP Guestlist Options"
+msgstr "VP vieraslistan valinnat"
+
+#: wp-rsvp.php:199
+msgid "RSVP Open Date:"
+msgstr "VP Aloitusp&auml;iv&auml;:"
+
+#: wp-rsvp.php:203
+msgid "RSVP Deadline:"
+msgstr "VP Viimeinen p&auml;iv&auml;:"
+
+#: wp-rsvp.php:207
+msgid "Number of Additional Guests Allowed (default is three):"
+msgstr ""
+"Lis&auml;vieraiden sallittu m&auml;&auml;r&auml; (oletusarvo on kolme):"
+
+#: wp-rsvp.php:211
+msgid "Custom Greeting:"
+msgstr "Mukautettu tervehdys:"
+
+#: wp-rsvp.php:215
+msgid "Custom Welcome:"
+msgstr "Mukautettu tervetulotoivotus:"
+
+#: wp-rsvp.php:216
+msgid ""
+"Default is: &quot;There are a few more questions we need to ask you if you "
+"could please fill them out below to finish up the RSVP process.&quot;"
+msgstr ""
+"Oletus on: &quot; Viel&auml; on pari kysymyst&auml;, joihin pyyd&auml;mme "
+"vastaamaan ennen kun viimeistelet vastauksesi.&quot;"
+
+#: wp-rsvp.php:220
+msgid "Email Text: <br />Sent to guests in confirmation, at top of email"
+msgstr ""
+"S&auml;hk&ouml;postin teksti: <br />L&auml;hetetty vahvistukseksi vieraalle, "
+"s&auml;hk&ouml;postin yl&auml;osassa "
+
+#: wp-rsvp.php:224
+msgid "RSVP Question Verbiage:"
+msgstr "VP Kysymyksen sanoitus:"
+
+#: wp-rsvp.php:225
+msgid "Default is: &quot;So, how about it?&quot;"
+msgstr "Oletus on: &quot;Eli, mit&auml; olet mielt&auml;?&quot;"
+
+#: wp-rsvp.php:230
+msgid "RSVP Yes Verbiage:"
+msgstr "VP Kyll&auml; sanoitus:"
+
+#: wp-rsvp.php:235
+msgid "RSVP No Verbiage:"
+msgstr "VP Ei sanoitus:"
+
+#: wp-rsvp.php:240
+msgid "RSVP Kids Meal Verbiage:"
+msgstr "VP Lastenateria sanoitus:"
+
+#: wp-rsvp.php:245
+msgid "Hide Kids Meal Question:"
+msgstr "Piilota lastenateria kysymys:"
+
+#: wp-rsvp.php:250
+msgid "RSVP Vegetarian Meal Verbiage:"
+msgstr "VP Kasvisateria sanoitus:"
+
+#: wp-rsvp.php:255
+msgid "Hide Vegetarian Meal Question:"
+msgstr "Piilota kasviateria kysymys:"
+
+#: wp-rsvp.php:260
+msgid "Note Verbiage:"
+msgstr "Huomautuksien sanoitus:"
+
+#: wp-rsvp.php:265
+msgid "Hide Note Field:"
+msgstr "Piilota huomautukset kentt&auml;:"
+
+#: wp-rsvp.php:270
+msgid "Custom Thank You:"
+msgstr "Mukautettu kiitos:"
+
+#: wp-rsvp.php:274
+msgid "Do not allow additional guests"
+msgstr "&AUML;l&auml; suo lis&auml;vieraita"
+
+#: wp-rsvp.php:279
+msgid "Add Additional Verbiage:"
+msgstr "Lis&auml;vieraiden sanoitus:"
+
+#: wp-rsvp.php:280
+msgid ""
+"Default is: &quot;Did we slip up and forget to invite someone? If so, please "
+"add him or her here:&quot;"
+msgstr ""
+"Oletus on: & quot;Olemmeko unohtaneet kutsua jonkun? Jos kyll&auml;, niin "
+"lis&auml;&auml; h&auml;net mielell&auml;&auml;n t&auml;h&auml;n:& quot;"
+
+#: wp-rsvp.php:285
+msgid "Notify When Guest RSVPs"
+msgstr "Ilmoita kun vieras vastaa"
+
+#: wp-rsvp.php:290
+msgid "Email address to notify"
+msgstr "Ilmoituksen s&auml;hk&ouml;postiosoite"
+
+#: wp-rsvp.php:294
+msgid "Send email to main guest when they RSVP"
+msgstr ""
+"L&auml;het&auml; s&auml;hk&ouml;posti p&auml;&auml;vieraalle kun h&auml;n "
+"vastaa"
+
+#: wp-rsvp.php:299
+msgid "Require a Passcode to RSVP:"
+msgstr "Vaadi salasanaa vastaamiselle:"
+
+#: wp-rsvp.php:304
+msgid ""
+"Require only a Passcode to RSVP<br />(requires that passcodes are unique):"
+msgstr ""
+"Vaadi ainoastaan salasanaa vastaamiselle<br />(salasanan on oltava "
+"yksil&ouml;llinen):"
+
+#: wp-rsvp.php:309
+msgid ""
+"Allow Open Registration (note - this will force passcodes for attendees):"
+msgstr ""
+"Salli avoin rekister&ouml;ityminen (huom - t&auml;m&auml; vaatii salasanat "
+"osallistujille):"
+
+#: wp-rsvp.php:314
+msgid "Do not scroll page to the top of the RSVP form:"
+msgstr "&AUML;l&auml; selaa sivua vastauslomakkeen alkuun:"
+
+#: wp-rsvp.php:319
+msgid "Hide email field on rsvp form:"
+msgstr "Piilota s&auml;hk&ouml;posti-kentt&auml; vastauslomakkeessa:"
+
+#: wp-rsvp.php:324
+msgid ""
+"Do not use the specified notification email as the from email<br /> (if you "
+"are not receiving email notifications try this):"
+msgstr ""
+"&AUML;l&auml; k&auml;yt&auml; m&auml;&auml;ritetty&auml; ilmoitus s&auml;"
+"hk&ouml;postiosoitetta l&auml;hett&auml;j&auml; s&auml;hk&ouml;postina<br /> "
+"(jos et saa s&auml;hk&ouml;posti-ilmoituksia kokeile seuraavaa):"
+
+#: wp-rsvp.php:329
+msgid "Debug RSVP Queries:"
+msgstr "VP Debug kyselyt:"
+
+#: wp-rsvp.php:336
+msgid "Save Changes"
+msgstr "Tallenna Muutokset"
+
+#: wp-rsvp.php:391
+msgid ""
+"We now have a pro-version of this plugin, if you want to multiple event "
+"support or just \n"
+"        want to contribute to the maintenance and continued development of "
+"this plugin, \n"
+"        <a href=\"https://www.swimordiesoftware.com/downloads/rsvp-pro-"
+"plugin/\" target=\"_blank\">check it out!</a>"
+msgstr ""
+"Meill&auml; on nyt pro-versio t&auml;st&auml; pluginista, jos haluat "
+"monitapahtuma tukea tai vain \n"
+"tukea t&auml;m&auml;n pluginin yll&auml;pitoa ja kehityst&auml;,  \n"
+"<a href=\"https://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/\" "
+"target=\"_blank\">tsekkaa t&auml;m&auml;</a>   "
+
+#: wp-rsvp.php:408
+msgid "List of current attendees"
+msgstr "T&auml;m&auml;nhetkinen osallitujalista"
+
+msgid "Bulk Actions"
+msgstr "Massatoimenpiteet"
+
+#: wp-rsvp.php:1402
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Apply"
+msgstr "K&auml;yt&auml;"
+
+msgid "Export Attendees"
+msgstr "Vie Osallistujalista"
+
+#: wp-rsvp.php:429
+msgid "RSVP Count -"
+msgstr "VP M&auml;&auml;r&auml; -"
+
+#: wp-rsvp.php:430
+msgid "Yes:"
+msgstr "Kyll&auml;:"
+
+#: wp-rsvp.php:431
+msgid "No:"
+msgstr "Ei:"
+
+#: wp-rsvp.php:432
+msgid "No Response:"
+msgstr "Ei vastausta:"
+
+#: wp-rsvp.php:433
+msgid "Kids Meals:"
+msgstr "Lastenateria:"
+
+#: wp-rsvp.php:434
+msgid "Veggie Meals:"
+msgstr "Kasvisateriat:"
+
+#: wp-rsvp.php:442 wp-rsvp.php:647 wp-rsvp.php:948
+msgid "Attendee"
+msgstr "Osallistuja"
+
+#: wp-rsvp.php:452 wp-rsvp.php:647 wp-rsvp.php:866 wp-rsvp.php:1002
+msgid "Email"
+msgstr "S&auml;hk&ouml;posti"
+
+#: wp-rsvp.php:453 wp-rsvp.php:647 wp-rsvp.php:1016
+msgid "RSVP Status"
+msgstr "VP Status"
+
+#: wp-rsvp.php:464 wp-rsvp.php:650
+msgid "Kids Meal"
+msgstr "Lastenateria"
+
+#: wp-rsvp.php:475 wp-rsvp.php:652
+msgid "Additional Attendee"
+msgstr "Lis&auml;osallistujat"
+
+#: wp-rsvp.php:486
+msgid "Vegetarian"
+msgstr "Kasvisateria"
+
+#: wp-rsvp.php:497 wp-rsvp.php:867 wp-rsvp.php:1032
+msgid "Custom Message"
+msgstr "Mukautettu Viesti"
+
+#: wp-rsvp.php:498 wp-rsvp.php:660
+msgid "Note"
+msgstr "Huomautus"
+
+#: wp-rsvp.php:517 wp-rsvp.php:660 wp-rsvp.php:867 wp-rsvp.php:1036
+msgid "Associated Attendees"
+msgstr "Osallistuvat Seuralaiset"
+
+#: wp-rsvp.php:655
+msgid "Vegatarian"
+msgstr "Kasvisateria"
+
+#: wp-rsvp.php:669
+msgid "pre-fill URL"
+msgstr "esit&auml;yt&auml; URL"
+
+#: wp-rsvp.php:857
+msgid "total records were imported"
+msgstr "Tuotu koko rekister&ouml;ityjien lukum&auml;&auml;r&auml;"
+
+#: wp-rsvp.php:858
+msgid "Continue to the RSVP"
+msgstr "Jatka Vastauslomakkeeseen"
+
+#: wp-rsvp.php:858
+msgid "list"
+msgstr "lista"
+
+#: wp-rsvp.php:865
+msgid ""
+"Select an excel file (only xls please, xlsx is not supported....yet) in the "
+"following format:"
+msgstr ""
+"Valitse Excel-tiedosto (vain xls, xlsx ei ole tuettu....viel&auml;) "
+"seuraavassa muodossa:"
+
+#: wp-rsvp.php:867
+msgid "Private Question Association"
+msgstr "Yksityisen kysymyksen yhdist&auml;minen"
+
+#: wp-rsvp.php:870
+msgid ""
+"associated attendees should be separated by a comma it is assumed that the "
+"first space encountered will separate the first and last name."
+msgstr ""
+"seuralaiset tulee erottaa pilkulla oletus on, ett&auml; ensimm&auml;inen "
+"v&auml;lily&ouml;nti erottaa etunimen ja sukunimen."
+
+#: wp-rsvp.php:886
+msgid ""
+"A header row is not expected, UNLESS you are associating private questions."
+msgstr ""
+"Otsikkorivi&auml; ei oleteta, PAITSI jos yhdist&auml;t yksityisen kysymyksen."
+
+#: wp-rsvp.php:948
+msgid "has been successfully saved"
+msgstr "on tallennettu onnistuneesti"
+
+#: wp-rsvp.php:950
+msgid "Continue to Attendee List"
+msgstr "Jatka Osallistujalistaan"
+
+#: wp-rsvp.php:951
+msgid "Add a Guest"
+msgstr "Lis&auml;&auml; Vieras"
+
+msgid "Save"
+msgstr "Tallenna"
+
+#: wp-rsvp.php:1021
+msgid "No Response"
+msgstr "Ei vastausta"
+
+#: wp-rsvp.php:1064
+msgid "Custom Questions Answered"
+msgstr "Mukautetu Kysymykset Vastattu"
+
+#: wp-rsvp.php:1067 wp-rsvp.php:1164 wp-rsvp.php:1370
+msgid "Question"
+msgstr "Kysymys"
+
+#: wp-rsvp.php:1068 wp-rsvp.php:1310 wp-rsvp.php:1400
+msgid "Answer"
+msgstr "Vastaus"
+
+#: wp-rsvp.php:1146
+msgid "List of current custom questions"
+msgstr "T&auml;m&auml;nhetkinen mukautettujen kysymyksien lista"
+
+msgid "Save Sort Order"
+msgstr "Tallenna Lajittelun J&auml;rjestys"
+
+#: wp-rsvp.php:1165 wp-rsvp.php:1382
+msgid "Private Import Key"
+msgstr "Yksityinen Tuonti Avain"
+
+#: wp-rsvp.php:1266
+msgid "Custom Question saved"
+msgstr "Mukautettu Kysymys tallennettu"
+
+#: wp-rsvp.php:1268
+msgid "Continue to Question List"
+msgstr "Jatka Kysymyslistaan"
+
+#: wp-rsvp.php:1269
+msgid "Add another Question"
+msgstr "Lis&auml;&auml; Kysymys"
+
+#: wp-rsvp.php:1359
+msgid "Question Type"
+msgstr "Kysymyksen laji"
+
+#: wp-rsvp.php:1374
+msgid "Question Permission Level"
+msgstr "Kysymyksen Oikeuden Taso"
+
+#: wp-rsvp.php:1376
+msgid "Public"
+msgstr "Julkinen"
+
+#: wp-rsvp.php:1377
+msgid "Private"
+msgstr "Yksityinen"
+
+#: wp-rsvp.php:1390
+msgid "Answers"
+msgstr "Vastaukset"
+
+#: wp-rsvp.php:1391
+msgid "Add new Answer"
+msgstr "Lis&auml;&auml; uusi vastaus"
+
+#: wp-rsvp.php:1413
+msgid "Attendees allowed to answer this question"
+msgstr "Osallistujat, jotka saavat vastata t&auml;h&auml;n kysymykseen"
+
+#: wp-rsvp.php:1541
+msgid ""
+"Please enter an email address that we can use to contact you about the extra "
+"guest.  We have to keep a pretty close eye on the number of attendees.  "
+"Thanks!"
+msgstr ""
+"Kirjoita t&auml;h&auml;n s&auml;hk&ouml;postiosoite, jota voimme k&auml;"
+"ytt&auml;&auml; halutessamme olla yhteydess&auml; sinuun."
+
+#: wp-rsvp.php:1542
+msgid ""
+"If you are adding additional RSVPs please enter your email address in case "
+"we have questions"
+msgstr ""
+"Jos lis&auml;&auml;t ylim&auml;&auml;r&auml;isi&auml; vieraita, lis&auml;"
+"&auml; s&auml;hk&ouml;postiosoitteesi silt&auml; varalta, ett&auml; "
+"meill&auml; on kysytt&auml;v&auml;&auml;."
+
+#: wp-rsvp.php:1543 wp-rsvp.php:1545 wp-rsvp.php:1547 wp-rsvp.php:1550
+msgid "Please enter a last name"
+msgstr "Lis&auml;&auml; sukunimi"
+
+#: wp-rsvp.php:1544 wp-rsvp.php:1546 wp-rsvp.php:1548 wp-rsvp.php:1549
+msgid "Please enter a first name"
+msgstr "Lis&auml;&auml; etunimi"
+
+#: wp-rsvp.php:1551
+msgid "Please enter your first name"
+msgstr "Lis&auml;&auml; etunimesi"
+
+#: wp-rsvp.php:1552
+msgid "Please enter your last name"
+msgstr "Lis&auml;&auml; sukunimesi"
+
+#: wp-rsvp.php:1553
+msgid "Please enter your password"
+msgstr "Lis&auml;&auml; salasanasi"
