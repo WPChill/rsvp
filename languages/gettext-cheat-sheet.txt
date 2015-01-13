@@ -1,0 +1,10 @@
+# Generate PO Template file (pot)
+find ../ -iname "*.php" > my_theme_file_list.txt
+
+xgettext --from-code=utf-8 -d rsvp_plugin -f my_theme_file_list.txt --keyword=__ -o my_theme.pot
+
+# Update (actually, join) PO file (po)
+xgettext --from-code=utf-8 -d rsvp_plugin -j -f my_theme_file_list.txt --keyword=__ -o my_theme.po
+
+# Compile PO file to binary (mo)
+msgfmt -o my_theme.mo my_theme.po
