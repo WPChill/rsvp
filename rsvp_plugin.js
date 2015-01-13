@@ -5,7 +5,7 @@ jQuery(document).ready(function(){
     }
 
     return true;
-  }, "<br />Please enter an email address that we can use to contact you about the extra guest.  We have to keep a pretty close eye on the number of attendees.  Thanks!");
+  }, "<br />" + rsvp_plugin_vars.askEmail);
 						
 	jQuery("#rsvpForm").validate({
 		rules: {
@@ -20,15 +20,15 @@ jQuery(document).ready(function(){
       attendeeLastName:       "required"
 		},
 		messages: {
-			note: "<br />If you are adding additional RSVPs please enter your email address in case we have questions",
-			newAttending1LastName:  "<br />Please enter a last name",
-			newAttending1FirstName: "<br />Please enter a first name", 
-			newAttending2LastName:  "<br />Please enter a last name",
-			newAttending2FirstName: "<br />Please enter a first name",
-			newAttending3LastName:  "<br />Please enter a last name",
-			newAttending3FirstName: "<br />Please enter a first name", 
-      attendeeFirstName:      "<br />Please enter a first name", 
-      attendeeLastName:       "<br />Please enter a last name"
+			note: "<br />" + rsvp_plugin_vars.customNote,
+			newAttending1LastName:  "<br />" + rsvp_plugin_vars.newAttending1LastName,
+			newAttending1FirstName: "<br />" + rsvp_plugin_vars.newAttending1FirstName, 
+			newAttending2LastName:  "<br />" + rsvp_plugin_vars.newAttending2LastName,
+			newAttending2FirstName: "<br />" + rsvp_plugin_vars.newAttending2FirstName,
+			newAttending3LastName:  "<br />" + rsvp_plugin_vars.newAttending3LastName,
+			newAttending3FirstName: "<br />" + rsvp_plugin_vars.newAttending3FirstName, 
+      attendeeFirstName:      "<br />" + rsvp_plugin_vars.attendeeFirstName, 
+      attendeeLastName:       "<br />" + rsvp_plugin_vars.attendeeLastName
 		}
 	});
   
@@ -36,12 +36,13 @@ jQuery(document).ready(function(){
   jQuery("#rsvp").validate({
     rules: {
       firstName: "required",
-      lastName: "required"
+      lastName: "required",
+      passcode: "required"
     }, 
     messages: {
-      firstName: "<br />Please enter your first name", 
-      lastName: "<br />Please enter your last name",
-      passcode: "<br />Please enter your password"
+      firstName: "<br />" + rsvp_plugin_vars.firstName, 
+      lastName: "<br />" + rsvp_plugin_vars.lastName,
+      passcode: "<br />" + rsvp_plugin_vars.passcode
     }
   });
   

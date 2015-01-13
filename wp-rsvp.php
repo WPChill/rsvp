@@ -1550,16 +1550,30 @@ License: GPL
 	}
 	
 	function rsvp_init() {
+            load_plugin_textdomain('rsvp-plugin', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 		wp_register_script('jquery_validate', rsvp_getHttpProtocol()."://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.min.js");
     wp_register_script('rsvp_plugin', plugins_url("rsvp_plugin.js", RSVP_PLUGIN_FILE));
+            wp_localize_script('rsvp_plugin', 'rsvp_plugin_vars', array(
+                                   'askEmail' => __("Please enter an email address that we can use to contact you about the extra guest.  We have to keep a pretty close eye on the number of attendees.  Thanks!", 'rsvp-plugin'),
+                                   'customNote' => __("If you are adding additional RSVPs please enter your email address in case we have questions", 'rsvp-plugin'),
+                                   'newAttending1LastName' => __("Please enter a last name", 'rsvp-plugin'),
+                                   'newAttending1FirstName' => __("Please enter a first name", 'rsvp-plugin'),
+                                   'newAttending2LastName' => __("Please enter a last name", 'rsvp-plugin'),
+                                   'newAttending2FirstName' => __("Please enter a first name", 'rsvp-plugin'),
+                                   'newAttending3LastName' => __("Please enter a last name", 'rsvp-plugin'),
+                                   'newAttending3FirstName' => __("Please enter a first name", 'rsvp-plugin'),
+                                   'attendeeFirstName' => __("Please enter a first name", 'rsvp-plugin'),
+                                   'attendeeLastName' => __("Please enter a last name", 'rsvp-plugin'),
+                                   'firstName' => __("Please enter your first name", 'rsvp-plugin'),
+                                   'lastName' => __("Please enter your last name", 'rsvp-plugin'),
+                                   'passcode' => __("Please enter your password", 'rsvp-plugin')
+                                   )
+                );
     wp_register_style('rsvp_css', plugins_url("rsvp_plugin.css", RSVP_PLUGIN_FILE));
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery_validate');
     wp_enqueue_script('rsvp_plugin');
     wp_enqueue_style("rsvp_css");
-    
-		
-		load_plugin_textdomain('rsvp-plugin', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 	
 	function rsvp_printQueryDebugInfo() {
