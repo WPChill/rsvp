@@ -40,7 +40,8 @@ jQuery(document).ready(function(){
     }, 
     messages: {
       firstName: "<br />Please enter your first name", 
-      lastName: "<br />Please enter your last name"
+      lastName: "<br />Please enter your last name",
+      passcode: "<br />Please enter your password"
     }
   });
   
