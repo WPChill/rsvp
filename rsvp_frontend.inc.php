@@ -597,6 +597,8 @@ function rsvp_find(&$output, &$text) {
   
   if(rsvp_require_only_passcode_to_register()) {
     $notFoundText = sprintf(RSVP_START_PARA.__('<strong>We were unable to find anyone with the password you specified.</strong>', 'rsvp-plugin').RSVP_END_PARA);
+  } else if (rsvp_require_passcode()) {
+    $notFoundText = sprintf(RSVP_START_PARA.__('<strong>We were unable to find anyone with a name of %1$s %2$s or the provided password was incorrect.</strong>', 'rsvp-plugin').RSVP_END_PARA, htmlspecialchars($firstName), htmlspecialchars($lastName));
   } else {
     $notFoundText = sprintf(RSVP_START_PARA.__('<strong>We were unable to find anyone with a name of %1$s %2$s</strong>', 'rsvp-plugin').RSVP_END_PARA, htmlspecialchars($firstName), htmlspecialchars($lastName));
   }
