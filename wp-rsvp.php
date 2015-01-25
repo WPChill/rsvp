@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.9.9
+ * @version 2.0.0
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.9.9
+Version: 2.0.0
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -1043,7 +1043,7 @@ License: GPL
 					<tr valign="top">
 						<th scope="row"><?php echo __("Associated Attendees", 'rsvp-plugin'); ?>:</th>
 						<td align="left">
-							<select name="associatedAttendees[]" multiple="multiple" size="5" style="height: 200px;">
+							<select name="associatedAttendees[]" id="associatedAttendeesSelect" multiple="multiple" size="5" style="height: 200px;">
 								<?php
 									$attendees = $wpdb->get_results("SELECT id, firstName, lastName FROM ".$wpdb->prefix."attendees ORDER BY lastName, firstName");
 									foreach($attendees as $a) {
@@ -1420,7 +1420,7 @@ License: GPL
 						<tr id="attendeesArea">
 							<th scope="row"><label for="attendees"><?php echo __("Attendees allowed to answer this question", 'rsvp-plugin'); ?>:</label></th>
 							<td>
-								<select name="attendees[]" id="attendees" style="height:75px;" multiple="multiple">
+								<select name="attendees[]" id="attendeesQuestionSelect" style="height:75px;" multiple="multiple">
 								<?php
 									$attendees = $wpdb->get_results("SELECT id, firstName, lastName FROM ".$wpdb->prefix."attendees ORDER BY lastName, firstName");
 									foreach($attendees as $a) {
@@ -1540,6 +1540,13 @@ License: GPL
     wp_enqueue_script("jquery-ui-datepicker");
     wp_enqueue_script("jquery_table_sort");
 		wp_enqueue_style( 'jquery_ui_stylesheet');
+    wp_register_script('jquery_multi_select', plugins_url('multi-select/js/jquery.multi-select.js',RSVP_PLUGIN_FILE));
+    wp_enqueue_script("jquery_multi_select");
+    wp_register_style('jquery_multi_select_css', plugins_url("multi-select/css/multi-select.css", RSVP_PLUGIN_FILE));
+    wp_enqueue_style( 'jquery_multi_select_css');
+    
+    wp_register_script('rsvp_admin', plugins_url('rsvp_plugin_admin.js',RSVP_PLUGIN_FILE));
+    wp_enqueue_script("rsvp_admin");
 	}
 	
 	function rsvp_init() {
