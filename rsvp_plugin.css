@@ -24,3 +24,10 @@ input.error, textarea.error { border: 2px solid red; }
   height: 1px;
   line-height: 1px;
 }
+#rsvpPlugin input {
+  display: inline;
+  visibility: visible;
+}
+.rsvpFormField  label {
+  display: inline;
+}

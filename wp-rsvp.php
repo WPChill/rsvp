@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 1.9.8
+ * @version 1.9.9
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 1.9.8
+Version: 1.9.9
 Author URI: http://mde-dev.com
 License: GPL
 */
@@ -612,14 +612,20 @@ License: GPL
       $query->the_post();
       $customLinkBase = get_permalink();
       if(strpos($customLinkBase, "?") !== false) {
-        $customLinkBase .= "&firstName=%s&lastName=%s";
+        $customLinkBase .= "&";
       } else {
         $customLinkBase .= "?firstName=%s&lastName=%s";
       }
       
-      if(rsvp_require_passcode()) {
-        $customLinkBase .= "&passcode=%s";
+      if(rsvp_require_only_passcode_to_register()) {
+        $customLinkBase .= "passcode=%s";
+      } else {
+        $customLinkBase .= "firstName=%s&lastName=%s";
+        if(rsvp_require_passcode()) {
+          $customLinkBase .= "&passcode=%s";
+        }
       }
+      
       
     }
     wp_reset_postdata();
@@ -710,7 +716,9 @@ License: GPL
 					}
 				}
 				
-        if(rsvp_require_passcode()) {
+        if(rsvp_require_only_passcode_to_register()) {
+          $csv .= ",\"".sprintf($customLinkBase, urlencode(stripslashes($a->passcode)))."\"";
+        } else if(rsvp_require_passcode()) {
           $csv .= ",\"".sprintf($customLinkBase, urlencode(stripslashes($a->firstName)), urlencode(stripslashes($a->lastName)), urlencode(stripslashes($a->passcode)))."\"";
         } else {
           $csv .= ",\"".sprintf($customLinkBase, urlencode(stripslashes($a->firstName)), urlencode(stripslashes($a->lastName)))."\"";

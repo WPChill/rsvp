@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, reserve, wedding, guestlist
 Requires at least: 3.0
 Tested up to: 4.1.0
-Stable tag: 1.9.8
+Stable tag: 1.9.9
 
 Easy to use rsvp plugin originally created for weddings but could be used for other events.
 
@@ -86,6 +86,11 @@ I will see if I can get it added for you.
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 1.9.9 = 
+* Added some basic styling to the front-end to try and prevent themes from hiding form elements
+* Made it so you can pass in the passcode in the querystring when the passcode only option is enabled
+* Added in a Dutch translation of the RSVP plugin, thanks to Marijn Roukensfor providing the translation!
 
 = 1.9.8 =
 * Replaced mysql_real_escape with Wordpress specific escaping methods

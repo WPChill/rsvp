@@ -67,7 +67,7 @@ function rsvp_frontend_handler($text) {
 				break;
 		}
 	} else {
-    if(isset($_REQUEST['firstName']) && isset($_REQUEST['lastName'])) {
+    if((isset($_REQUEST['firstName']) && isset($_REQUEST['lastName'])) || (rsvp_require_only_passcode_to_register() && isset($_REQUEST['passcode']))) {
       $output = "";
       return rsvp_find($output, $text);
     } else {
@@ -553,7 +553,7 @@ function rsvp_find(&$output, &$text) {
   
 	if($attendee != null) {
 		// hey we found something, we should move on and print out any associated users and let them rsvp
-		$output = "<div>\r\n";
+		$output = RSVP_START_CONTAINER;
 		if(strtolower($attendee->rsvpStatus) == "noresponse") {
 			$output .= RSVP_START_PARA."Hi ".htmlspecialchars(stripslashes($attendee->firstName." ".$attendee->lastName))."!".RSVP_END_PARA;
 						
