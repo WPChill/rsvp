@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, reserve, wedding, guestlist
 Requires at least: 3.0
 Tested up to: 4.1.0
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 
 Easy to use rsvp plugin originally created for weddings but could be used for other events.
 
@@ -19,6 +19,8 @@ in existing plugins was:
 **Please Note** - I don't monitor the forums for issues. If you would like some help or would like to see a new feature please email me at mike AT mde DASH dev.com. I will see what I can do to help.
 
 **If you ever need multiple events that is now available in the pro version of the plugin, found at - http://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/**
+
+The main development repository for this plugin is now on GitHub at https://github.com/medelibero/Wordpress-RSVP-Plugin/
 
 The admin functionality allows you to do the following things:
 
@@ -86,6 +88,9 @@ I will see if I can get it added for you.
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.0.1 = 
+* A few translation bug fixes and a Spanish and Finish translation submitted by Andres Gomez Garcia!
 
 = 2.0.0 = 
 * Made the multi-selects easier to use
