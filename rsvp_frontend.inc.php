@@ -346,7 +346,7 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp") {
 							"</div>";
 	}
 						
-	$form .= RSVP_START_PARA."<input type=\"submit\" value=\"RSVP\" />".RSVP_END_PARA;
+	$form .= RSVP_START_PARA."<input type=\"submit\" value=\"".__("RSVP", 'rsvp-plugin')."\" />".RSVP_END_PARA;
 	if(get_option(OPTION_HIDE_ADD_ADDITIONAL) != "Y") {
     // TODO: Need to move this into the main JS file but not sure how to do that with the options and the custom questions.
     //       - Moving the options would be fairly easy. Just set two JS variables in here and then go off of that. 
@@ -383,7 +383,7 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp") {
                         }
                         
 										  	$form .= "\"<div class=\\\"rsvpFormField\\\">\" + \r\n
-														\"<p>Will this person be attending?</p>\" + \r\n
+														\"<p>".__("Will this person be attending?", 'rsvp-plugin')."</p>\" + \r\n
 														\"<input type=\\\"radio\\\" name=\\\"newAttending\" + numAdditional + \"\\\" value=\\\"Y\\\" id=\\\"newAttending\" + numAdditional + \"Y\\\" checked=\\\"checked\\\" /> \" + 
 														\"<label for=\\\"newAttending\" + numAdditional + \"Y\\\">$yesText</label> \" + 
 														\"<input type=\\\"radio\\\" name=\\\"newAttending\" + numAdditional + \"\\\" value=\\\"N\\\" id=\\\"newAttending\" + numAdditional + \"N\\\"> <label for=\\\"newAttending\" + numAdditional + \"N\\\">$noText</label>\" + 
@@ -410,7 +410,7 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp") {
 												$tmpVar = str_replace("\r\n", "", str_replace("|", "\"", addSlashes(rsvp_buildAdditionalQuestions($attendeeID, "| + numAdditional + |"))));
 												
 												$form .= "\"".$tmpVar."\" + 
-                          \"<p><button onclick=\\\"removeAdditionalRSVP(this);\\\">Remove Guest</button></p>\" + 
+                          \"<p><button onclick=\\\"removeAdditionalRSVP(this);\\\">".__("Remove Guest", 'rsvp-plugin')."</button></p>\" + 
 											\"</div>\");
 										jQuery(\"#additionalRsvp\").val(numAdditional);
 									}
