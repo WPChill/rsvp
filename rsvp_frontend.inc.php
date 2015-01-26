@@ -25,11 +25,11 @@ function rsvp_frontend_handler($text) {
 	$openDate = get_option(OPTION_OPENDATE);
 	$closeDate = get_option(OPTION_DEADLINE);
 	if((strtotime($openDate) !== false) && (strtotime($openDate) > time())) {
-		return rsvp_handle_output($text, sprintf(__(RSVP_START_PARA."I am sorry but the ability to RSVP for our wedding won't open till <strong>%s</strong>".RSVP_END_PARA, 'rsvp-plugin'), date("m/d/Y", strtotime($openDate))));
+		return rsvp_handle_output($text, RSVP_START_PARA.sprintf(__("I am sorry but the ability to RSVP for our wedding won't open till <strong>%s</strong>", 'rsvp-plugin'), date("m/d/Y", strtotime($openDate))).RSVP_END_PARA);
 	} 
 	
 	if((strtotime($closeDate) !== false) && (strtotime($closeDate) < time())) {
-		return rsvp_handle_output($text, __(RSVP_START_PARA."The deadline to RSVP for this wedding has passed, please contact the bride and groom to see if there is still a seat for you.".RSVP_END_PARA, 'rsvp-plugin'));
+		return rsvp_handle_output($text, RSVP_START_PARA.__("The deadline to RSVP for this wedding has passed, please contact the bride and groom to verify that there is still a seat for you.", 'rsvp-plugin').RSVP_END_PARA);
 	}
 	
 	if(isset($_POST['rsvpStep'])) {
@@ -596,9 +596,11 @@ function rsvp_find(&$output, &$text) {
 	}
   
   if(rsvp_require_only_passcode_to_register()) {
-    $notFoundText = sprintf(__(RSVP_START_PARA.'<strong>We were unable to find anyone with the password you specified.</strong>'.RSVP_END_PARA, 'rsvp-plugin'));
+    $notFoundText = sprintf(RSVP_START_PARA.__('<strong>We were unable to find anyone with the password you specified.</strong>', 'rsvp-plugin').RSVP_END_PARA);
+  } else if (rsvp_require_passcode()) {
+    $notFoundText = sprintf(RSVP_START_PARA.__('<strong>We were unable to find anyone with a name of %1$s %2$s or the provided password was incorrect.</strong>', 'rsvp-plugin').RSVP_END_PARA, htmlspecialchars($firstName), htmlspecialchars($lastName));
   } else {
-    $notFoundText = sprintf(__(RSVP_START_PARA.'<strong>We were unable to find anyone with a name of %1$s %2$s</strong>'.RSVP_END_PARA, 'rsvp-plugin'), htmlspecialchars($firstName), htmlspecialchars($lastName));
+    $notFoundText = sprintf(RSVP_START_PARA.__('<strong>We were unable to find anyone with a name of %1$s %2$s</strong>', 'rsvp-plugin').RSVP_END_PARA, htmlspecialchars($firstName), htmlspecialchars($lastName));
   }
   
 	
@@ -1075,7 +1077,7 @@ function rsvp_editAttendee(&$output, &$text) {
 													WHERE id = %d", $_POST['attendeeID']));
 		if($attendee != null) {
 			$output .= RSVP_START_CONTAINER;
-			$output .= RSVP_START_PARA.__("Welcome back", 'rsvp-plugin')." ".htmlspecialchars($attendee->firstName." ".$attendee->lastName)."!".RSVP_END_PARA;
+			$output .= RSVP_START_PARA.sprintf(__("Welcome back %s!", 'rsvp-plugin'), htmlspecialchars($attendee->firstName." ".$attendee->lastName)).RSVP_END_PARA;
 			$output .= rsvp_frontend_main_form($attendee->id);
 			return rsvp_handle_output($text, $output.RSVP_END_CONTAINER);
 		}
