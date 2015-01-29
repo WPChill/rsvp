@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, reserve, wedding, guestlist
 Requires at least: 3.0
 Tested up to: 4.1.0
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 
 Easy to use rsvp plugin originally created for weddings but could be used for other events.
 
@@ -89,6 +89,9 @@ I will see if I can get it added for you.
 
 == Changelog ==
 
+= 2.0.2 = 
+* Fixed a small bug that happens in the JavaScript when you have a custom question that has a pipe (|) in it
+
 = 2.0.1 = 
 * A few translation bug fixes and a Spanish and Finish translation submitted by Andres Gomez Garcia!
 
@@ -107,7 +110,7 @@ I will see if I can get it added for you.
 
 = 1.9.7 = 
 * Tested the plugin on 4.1.0 
-* Added in a French translation of the RSVP plugin, thanks to Beno√Æt Quentin for providing the translation!
+* Added in a French translation of the RSVP plugin, thanks to Benoît Quentin for providing the translation!
 
 = 1.9.6 = 
 * Added in a German translation of the RSVP plugin, thanks to Gernot Weber for providing the translation!
