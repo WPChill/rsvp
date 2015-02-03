@@ -572,7 +572,7 @@ function rsvp_find(&$output, &$text) {
 				
 	// We did not find anyone let's try and do a rough search
 	$attendees = null;
-	if(!$passcodeOptionEnabled) {
+	if(!$passcodeOptionEnabled && (get_option(OPTION_RSVP_DISABLE_USER_SEARCH) != "Y")) {
 		for($i = 3; $i >= 1; $i--) {
 			$truncFirstName = rsvp_chomp_name($firstName, $i);
 			$attendees = $wpdb->get_results("SELECT id, firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE." 

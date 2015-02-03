@@ -31,3 +31,9 @@ input.error, textarea.error { border: 2px solid red; }
 .rsvpFormField  label {
   display: inline;
 }
+.rsvpParagraph { 
+  position: relative;
+}
+.rsvpParagraph .required {
+  position: relative;
+}

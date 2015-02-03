@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.0.2
+ * @version 2.0.3
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 2.0.2
+Version: 2.0.3
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -61,6 +61,7 @@ License: GPL
   define("OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM", "rsvp_disable_custom_from_email");
   define("OPTION_RSVP_ONLY_PASSCODE", "rsvp_only_passcode");
   define("OPTION_RSVP_EMAIL_TEXT", "rsvp_email_text");
+  define("OPTION_RSVP_DISABLE_USER_SEARCH", "rsvp_disable_user_search");
 	define("RSVP_DB_VERSION", "11");
 	define("QT_SHORT", "shortAnswer");
 	define("QT_MULTI", "multipleChoice");
@@ -326,9 +327,9 @@ License: GPL
 							value="Y" <?php echo ((get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="rsvp_debug_queries"><?php echo __("Debug RSVP Queries:", 'rsvp-plugin'); ?></label></th>
-						<td align="left"><input type="checkbox" name="rsvp_debug_queries" id="rsvp_debug_queries" 
-							value="Y" <?php echo ((get_option(OPTION_DEBUG_RSVP_QUERIES) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
+						<th scope="row"><label for="<?php echo OPTION_RSVP_DISABLE_USER_SEARCH; ?>"><?php echo __("Disable searching for a user when no user is found:", 'rsvp-plugin'); ?></label></th>
+						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_DISABLE_USER_SEARCH; ?>" id="<?php echo OPTION_RSVP_DISABLE_USER_SEARCH; ?>" 
+							value="Y" <?php echo ((get_option(OPTION_RSVP_DISABLE_USER_SEARCH) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 				</table>
 				<input type="hidden" name="action" value="update" />
@@ -1529,6 +1530,7 @@ License: GPL
     register_setting('rsvp-option-group', OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM);
     register_setting('rsvp-option-group', OPTION_RSVP_ONLY_PASSCODE);
     register_setting('rsvp-option-group', OPTION_RSVP_EMAIL_TEXT);
+    register_setting("rsvp-option-group", OPTION_RSVP_DISABLE_USER_SEARCH);
     
 		wp_register_script('jquery_table_sort', plugins_url('jquery.tablednd_0_5.js',RSVP_PLUGIN_FILE));
 		wp_register_script('jquery_ui', rsvp_getHttpProtocol()."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.js");
