@@ -555,7 +555,7 @@ function rsvp_find(&$output, &$text) {
 		// hey we found something, we should move on and print out any associated users and let them rsvp
 		$output = RSVP_START_CONTAINER;
 		if(strtolower($attendee->rsvpStatus) == "noresponse") {
-			$output .= RSVP_START_PARA."Hi ".htmlspecialchars(stripslashes($attendee->firstName." ".$attendee->lastName))."!".RSVP_END_PARA;
+			$output .= RSVP_START_PARA.__("Hi", 'rsvp-plugin')." ".htmlspecialchars(stripslashes($attendee->firstName." ".$attendee->lastName))."!".RSVP_END_PARA;
 						
 			if(trim(get_option(OPTION_WELCOME_TEXT)) != "") {
 				$output .= RSVP_START_PARA.trim(get_option(OPTION_WELCOME_TEXT)).RSVP_END_PARA;
