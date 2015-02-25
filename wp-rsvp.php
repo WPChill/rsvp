@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.0.3
+ * @version 2.0.5
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 2.0.3
+Version: 2.0.5
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -615,7 +615,7 @@ License: GPL
       if(strpos($customLinkBase, "?") !== false) {
         $customLinkBase .= "&";
       } else {
-        $customLinkBase .= "?firstName=%s&lastName=%s";
+        $customLinkBase .= "?";
       }
       
       if(rsvp_require_only_passcode_to_register()) {
@@ -625,10 +625,9 @@ License: GPL
         if(rsvp_require_passcode()) {
           $customLinkBase .= "&passcode=%s";
         }
-      }
-      
-      
+      } 
     }
+    
     wp_reset_postdata();
     
 			$sql = "SELECT id, firstName, lastName, email, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, passcode 
@@ -717,12 +716,16 @@ License: GPL
 					}
 				}
 				
-        if(rsvp_require_only_passcode_to_register()) {
-          $csv .= ",\"".sprintf($customLinkBase, urlencode(stripslashes($a->passcode)))."\"";
-        } else if(rsvp_require_passcode()) {
-          $csv .= ",\"".sprintf($customLinkBase, urlencode(stripslashes($a->firstName)), urlencode(stripslashes($a->lastName)), urlencode(stripslashes($a->passcode)))."\"";
+        if(empty($customLinkBase)) {
+          $csv .= ",\"\"";
         } else {
-          $csv .= ",\"".sprintf($customLinkBase, urlencode(stripslashes($a->firstName)), urlencode(stripslashes($a->lastName)))."\"";
+          if(rsvp_require_only_passcode_to_register()) {
+            $csv .= ",\"".sprintf($customLinkBase, urlencode(stripslashes($a->passcode)))."\"";
+          } else if(rsvp_require_passcode()) {
+            $csv .= ",\"".sprintf($customLinkBase, urlencode(stripslashes($a->firstName)), urlencode(stripslashes($a->lastName)), urlencode(stripslashes($a->passcode)))."\"";
+          } else {
+            $csv .= ",\"".sprintf($customLinkBase, urlencode(stripslashes($a->firstName)), urlencode(stripslashes($a->lastName)))."\"";
+          }
         }
 				$csv .= "\r\n";
 			}
