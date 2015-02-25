@@ -91,6 +91,8 @@ I will see if I can get it added for you.
 
 = 2.0.5 = 
 * Fixed a problem where on some themes the JavaScript would stop working correctly on the front end.
+* Renamed to the Finnish translation to the more common locale code, thanks to Andres Gomez for this fix
+* Small text change to allow for localization, thanks to Henrik Palm for this fix
 
 = 2.0.4 = 
 * Fixed a problem when exporting that the sprintf parameters wouldn't always match
