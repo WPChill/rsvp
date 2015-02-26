@@ -347,7 +347,7 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp") {
 	}
 						
 	$form .= RSVP_START_PARA."<input type=\"submit\" value=\"".__("RSVP", 'rsvp-plugin')."\" />".RSVP_END_PARA;
-  rsvp_inject_add_guests_js();
+  rsvp_inject_add_guests_js($attendeeID);
   
 	$form .= "</form>\r\n";
 	
@@ -1149,7 +1149,7 @@ function rsvp_frontend_greeting() {
 	return $output;
 }
 
-function rsvp_inject_add_guests_js() {
+function rsvp_inject_add_guests_js($attendeeID) {
   if(get_option(OPTION_HIDE_ADD_ADDITIONAL) != "Y") {
   // TODO: Need to move this into the main JS file but not sure how to do that with the options and the custom questions.
   //       - Moving the options would be fairly easy. Just set two JS variables in here and then go off of that. 

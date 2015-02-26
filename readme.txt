@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, reserve, wedding, guestlist
 Requires at least: 3.0
 Tested up to: 4.1.1
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 
 Easy to use rsvp plugin originally created for weddings but could be used for other events.
 
@@ -88,6 +88,9 @@ I will see if I can get it added for you.
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.0.6 = 
+* Fixed a problem with the JavaScript change in 2.0.5 custom questions were not showing up.
 
 = 2.0.5 = 
 * Fixed a problem where on some themes the JavaScript would stop working correctly on the front end.
