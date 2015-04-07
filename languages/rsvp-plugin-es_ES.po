@@ -259,7 +259,7 @@ msgid ""
 "your first and last name."
 msgstr ""
 " por registrarte. Para modificar tu registro s&oacute;lo tienes que  volver "
-"a esta p&aacute;gina e introducir tu nombre y appelidos."
+"a esta p&aacute;gina e introducir tu nombre y apellidos."
 
 #: rsvp_frontend.inc.php:1154
 msgid " You will also need to know your password which is"
