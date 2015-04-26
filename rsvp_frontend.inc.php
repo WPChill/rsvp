@@ -31,7 +31,7 @@ function rsvp_frontend_handler($text) {
 	if((strtotime($closeDate) !== false) && (strtotime($closeDate) < time())) {
 		return rsvp_handle_output($text, RSVP_START_PARA.__("The deadline to RSVP for this wedding has passed, please contact the bride and groom to verify that there is still a seat for you.", 'rsvp-plugin').RSVP_END_PARA);
 	}
-	
+  
 	if(isset($_POST['rsvpStep'])) {
 		$output = "";
 		switch(strtolower($_POST['rsvpStep'])) {

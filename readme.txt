@@ -1,10 +1,10 @@
 === RSVP Plugin ===
 Contributors: mdedev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Tags: rsvp, reserve, wedding, guestlist
+Tags: rsvp, reserve, wedding, guestlist, attendee management
 Requires at least: 3.0
-Tested up to: 4.1.1
-Stable tag: 2.0.6
+Tested up to: 4.2.0
+Stable tag: 2.0.7
 
 Easy to use rsvp plugin originally created for weddings but could be used for other events.
 
@@ -88,6 +88,10 @@ I will see if I can get it added for you.
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.0.7 = 
+* Spanish typo fix contributed by Andres Gomez
+* Added a Norwegian translation supplied by Richard Mikalsen
 
 = 2.0.6 = 
 * Fixed a problem with the JavaScript change in 2.0.5 custom questions were not showing up.

@@ -1,0 +1,736 @@
+# Copyright (C) 2014 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: rsvp-plugin_NO\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/rsvp\n"
+"POT-Creation-Date: 2015-03-15 21:27+0100\n"
+"PO-Revision-Date: 2015-03-17 21:28+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <richardmikalsen@gmail.com>\n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.5\n"
+
+#: rsvp_frontend.inc.php:28
+#, php-format
+msgid ""
+"I am sorry but the ability to RSVP for our wedding won't open till <strong>"
+"%s</strong>"
+msgstr ""
+"Beglager, men registrering av svar til bryllupet åpner ikke før <strong>%s</"
+"strong>"
+
+#: rsvp_frontend.inc.php:32
+msgid ""
+"The deadline to RSVP for this wedding has passed, please contact the bride "
+"and groom to verify that there is still a seat for you."
+msgstr ""
+"Fristen for å registrere svar til dette bryllupet er utløpt, vennligst "
+"kontakt bruden eller brudgommen for å verifisere at det er en ledig plass "
+"til deg."
+
+#: rsvp_frontend.inc.php:145
+#, php-format
+msgid ""
+"Hi %s it looks like you have already RSVP'd. Would you like to edit your "
+"reservation?"
+msgstr ""
+"Hei %s, det ser ut som du allerede har registrert et svar. Ønsker du å endre "
+"på noe?"
+
+#: rsvp_frontend.inc.php:151 rsvp_frontend.inc.php:168
+#: rsvp_frontend.inc.php:1157 wp-rsvp.php:540 wp-rsvp.php:547 wp-rsvp.php:555
+#: wp-rsvp.php:682 wp-rsvp.php:685 wp-rsvp.php:688 wp-rsvp.php:1036
+msgid "Yes"
+msgstr "Ja"
+
+#: rsvp_frontend.inc.php:152 rsvp_frontend.inc.php:169
+#: rsvp_frontend.inc.php:1158 wp-rsvp.php:540 wp-rsvp.php:547 wp-rsvp.php:555
+#: wp-rsvp.php:682 wp-rsvp.php:685 wp-rsvp.php:688 wp-rsvp.php:1039
+msgid "No"
+msgstr "Nei"
+
+#: rsvp_frontend.inc.php:171
+msgid ""
+"Yes, of course I will be there! Who doesn't like family, friends, weddings, "
+"and a good time?"
+msgstr ""
+"Ja, selvfølgelig kommer jeg! Hvem liker vel ikke familie, venner, bryllup og "
+"en god fest?"
+
+#: rsvp_frontend.inc.php:173
+msgid ""
+"Um, unfortunately, there is a Star Trek marathon on that day that I just "
+"cannot miss."
+msgstr ""
+"Dessverre så går det et Charterfeber-maraton den dagen som jeg ikke kan gå "
+"glipp av."
+
+#: rsvp_frontend.inc.php:175
+msgid ""
+"We have the option of getting cheese pizza for the kids (and only kids).  Do "
+"you want pizza instead of \"adult food?\""
+msgstr ""
+"Vi har mulighet til å ordne pizza med ost til barna (og kun barna). Ønsker "
+"du pizza istedenfor \"voksenmat\"?"
+
+#: rsvp_frontend.inc.php:177
+msgid ""
+"We also have the option of getting individual vegetarian meals instead of "
+"the fish or meat.  Would you like a vegetarian dinner?"
+msgstr ""
+"Vi har også mulighet til å tilby en vegetarmeny istedenfor fisk eller kjøtt. "
+"Ønsker du vegetarmeny?"
+
+#: rsvp_frontend.inc.php:179
+msgid ""
+"If you have any <strong style=\"color:red;\">food allergies</strong>, please "
+"indicate what they are in the &quot;notes&quot; section below.  Or, if you "
+"just want to send us a note, please feel free.  If you have any questions, "
+"please send us an email."
+msgstr ""
+"Hvis du har noen <strong style=\"color:red;\">matallergier</strong>, "
+"vennligst spesifiser dette i notatfeltet nedenfor. Send oss gjerne også "
+"andre beskjeder i dette feltet. Om du har spørsmål, vennligst send oss en e-"
+"post."
+
+#: rsvp_frontend.inc.php:189
+msgid "First Name: "
+msgstr "Fornavn: "
+
+#: rsvp_frontend.inc.php:196
+msgid "Last Name: "
+msgstr "Etternavn: "
+
+#: rsvp_frontend.inc.php:206
+msgid "So, how about it?"
+msgstr "Så, hva sier du?"
+
+#: rsvp_frontend.inc.php:241 rsvp_frontend.inc.php:322
+msgid "Email Address"
+msgstr "E-postadresse"
+
+#: rsvp_frontend.inc.php:284
+msgid ""
+"The following people are associated with you.  At this time you can RSVP for "
+"them as well."
+msgstr ""
+"Følgende personer er tilknyttet deg. Du har mulighet til å registrere svar "
+"for dem i tillegg."
+
+#: rsvp_frontend.inc.php:289
+#, php-format
+msgid " Will %s be attending?"
+msgstr " Kommer %s?"
+
+#: rsvp_frontend.inc.php:302
+#, php-format
+msgid "Does %s need a kids meal?"
+msgstr "Trenger %s barnemeny?"
+
+#: rsvp_frontend.inc.php:312
+#, php-format
+msgid "Does %s need a vegetarian meal?"
+msgstr "Ønsker %s vegetarmeny?"
+
+#: rsvp_frontend.inc.php:335
+msgid ""
+"Did we slip up and forget to invite someone? If so, please add him or her "
+"here:"
+msgstr "Har vi glemt å invitere noen? I så fall, legg til personen her:"
+
+#: rsvp_frontend.inc.php:349
+msgid "RSVP"
+msgstr "Registrer svar"
+
+#: rsvp_frontend.inc.php:454
+msgid "A first and last name must be specified"
+msgstr "Fornavn og etternavn må fylles ut"
+
+#: rsvp_frontend.inc.php:483 rsvp_frontend.inc.php:1022
+msgid "Hi"
+msgstr "Hei"
+
+#: rsvp_frontend.inc.php:488 rsvp_frontend.inc.php:1027
+msgid ""
+"There are a few more questions we need to ask you if you could please fill "
+"them out below to finish up the RSVP process."
+msgstr ""
+"Vi har noen ytterligere spørsmål, vennligst fyll ut disse for å fullføre "
+"registreringen av ditt svar."
+
+#: rsvp_frontend.inc.php:506
+msgid ""
+"We could not find an exact match but could any of the below entries be you?"
+msgstr ""
+"Vi kunne ikke finne en eksakt treff. Kan noen av oppføringene nedenfor være "
+"deg?"
+
+#: rsvp_frontend.inc.php:524
+msgid ""
+"<strong>We were unable to find anyone with the password you specified.</"
+"strong>"
+msgstr ""
+"<strong>Vi kunne ikke finne noen med passordet du spesifiserte.</strong>"
+
+#: rsvp_frontend.inc.php:526
+#, php-format
+msgid ""
+"<strong>We were unable to find anyone with a name of %1$s %2$s or the "
+"provided password was incorrect.</strong>"
+msgstr ""
+"<strong>Vi kunne ikke finne noen ved navn %1$s %2$s, eller du har tastet "
+"feil passord.</strong><br />Tips: Om du har flere etternavn, forsøk med å "
+"kun fylle inn det siste etternavnet ditt i feltet &quot;etternavn&quot;, og "
+"de andre sammen med fornavnet."
+
+#: rsvp_frontend.inc.php:528
+#, php-format
+msgid "<strong>We were unable to find anyone with a name of %1$s %2$s</strong>"
+msgstr ""
+"<strong>Vi kunne ikke finne noen ved navn %1$s %2$s</strong><br />Tips: Om "
+"du har flere etternavn, forsøk med å kun fylle inn det siste etternavnet "
+"ditt i feltet &quot;etternavn&quot;, og de andre sammen med fornavnet."
+
+#: rsvp_frontend.inc.php:1005
+#, php-format
+msgid "Welcome back %s!"
+msgstr "Velkommen tilbake %s!"
+
+#: rsvp_frontend.inc.php:1050
+msgid "Thank you"
+msgstr "Takk"
+
+#: rsvp_frontend.inc.php:1054
+msgid " for RSVPing."
+msgstr " for at du registrerte ditt svar."
+
+#: rsvp_frontend.inc.php:1057
+msgid " You have also RSVPed for - "
+msgstr " Du har også registrert svar for - "
+
+#: rsvp_frontend.inc.php:1072
+msgid "Thank you "
+msgstr "Takk "
+
+#: rsvp_frontend.inc.php:1076
+msgid ""
+" for RSVPing. To modify your RSVP just come back to this page and enter in "
+"your first and last name."
+msgstr ""
+" for at du registrerte ditt svar. Ønsker du å endre på noe, kom tilbake til "
+"denne siden og fyll inn ditt fornavn og etternavn."
+
+#: rsvp_frontend.inc.php:1079
+msgid " You will also need to know your password which is"
+msgstr " Du trenger også å vite ditt passord som er"
+
+#: rsvp_frontend.inc.php:1084
+msgid "<br /><br />You have also RSVPed for - "
+msgstr "<br /><br />Du har også registrert svar for - "
+
+#: rsvp_frontend.inc.php:1111
+msgid "Please enter your passcode to RSVP."
+msgstr "Vennligst fyll inn ditt passord for å registrere svar på invitasjonen."
+
+#: rsvp_frontend.inc.php:1113
+msgid "Please enter your first name, last name and passcode to RSVP."
+msgstr ""
+"Vennligst fyll inn ditt fornavn, etternavn og passord for å registrere svar "
+"på invitasjonen."
+
+#: rsvp_frontend.inc.php:1115
+msgid "Please enter your first and last name to RSVP."
+msgstr ""
+"Vennligst fyll inn ditt fornavn og etternavn for å registrere svar på "
+"invitasjonen."
+
+#: rsvp_frontend.inc.php:1127
+msgid "New Attendee Registration"
+msgstr "Registrering av ny deltager"
+
+#: rsvp_frontend.inc.php:1131
+msgid "Need to modify your registration? Start with the below form."
+msgstr "Trenger du å endre på noe? Start med skjemaet nedenfor."
+
+#: rsvp_frontend.inc.php:1137 wp-rsvp.php:878 wp-rsvp.php:1006
+msgid "First Name"
+msgstr "Fornavn"
+
+#: rsvp_frontend.inc.php:1139 wp-rsvp.php:878 wp-rsvp.php:1010
+msgid "Last Name"
+msgstr "Etternavn"
+
+#: rsvp_frontend.inc.php:1143 wp-rsvp.php:503 wp-rsvp.php:664 wp-rsvp.php:879
+#: wp-rsvp.php:1021
+msgid "Passcode"
+msgstr "Passord"
+
+#: rsvp_frontend.inc.php:1146
+msgid "Complete your RSVP!"
+msgstr "Fortsett"
+
+#: rsvp_frontend.inc.php:1171
+msgid "You have already added "
+msgstr "Du har allerede lagt til "
+
+#: rsvp_frontend.inc.php:1176
+msgid "Person's first name"
+msgstr "Fornavn"
+
+#: rsvp_frontend.inc.php:1180
+msgid "Person's last name"
+msgstr "Etternavn"
+
+#: rsvp_frontend.inc.php:1185
+msgid "Person's email address"
+msgstr "E-postadresse"
+
+#: rsvp_frontend.inc.php:1191
+msgid "Will this person be attending?"
+msgstr "Kommer denne personen til å delta?"
+
+#: rsvp_frontend.inc.php:1198
+msgid "Does this person need a kids meal?"
+msgstr "Trenger denne personen barnemeny?"
+
+#: rsvp_frontend.inc.php:1208
+msgid "Does this person need a vegetarian meal?"
+msgstr "Ønsker denne personen vegetarmeny?"
+
+#: rsvp_frontend.inc.php:1218
+msgid "Remove Guest"
+msgstr "Slett gjest"
+
+#: wp-rsvp.php:195
+msgid "RSVP Guestlist Options"
+msgstr "Innstillinger for svarsregistreringsskjema"
+
+#: wp-rsvp.php:200
+msgid "RSVP Open Date:"
+msgstr "Åpningsdato for registrering av svar:"
+
+#: wp-rsvp.php:204
+msgid "RSVP Deadline:"
+msgstr "Frist for registrering av svar:"
+
+#: wp-rsvp.php:208
+msgid "Number of Additional Guests Allowed (default is three):"
+msgstr "Antall ekstra gjester tillatt (standard er tre):"
+
+#: wp-rsvp.php:212
+msgid "Custom Greeting:"
+msgstr "Egendefinert hilsen:"
+
+#: wp-rsvp.php:216
+msgid "Custom Welcome:"
+msgstr "Egendefinert velkomstmelding:"
+
+#: wp-rsvp.php:217
+msgid ""
+"Default is: &quot;There are a few more questions we need to ask you if you "
+"could please fill them out below to finish up the RSVP process.&quot;"
+msgstr ""
+"Standard er: &quot;Vi har noen ytterligere spørsmål, vennligst fyll ut disse "
+"for å fullføre registreringen av ditt svar.&quot;"
+
+#: wp-rsvp.php:221
+msgid "Email Text: <br />Sent to guests in confirmation, at top of email"
+msgstr "Tekst i E-post: <br/>(Sendt i toppen av E-postbekreftelsen)"
+
+#: wp-rsvp.php:225
+msgid "RSVP Question Verbiage:"
+msgstr "Svarsregistreringsspørsmål:"
+
+#: wp-rsvp.php:226
+msgid "Default is: &quot;So, how about it?&quot;"
+msgstr "Standard: &quot;Så, hva sier du?&quot;"
+
+#: wp-rsvp.php:231
+msgid "RSVP Yes Verbiage:"
+msgstr "Ja-tekst:"
+
+#: wp-rsvp.php:236
+msgid "RSVP No Verbiage:"
+msgstr "Nei-tekst:"
+
+#: wp-rsvp.php:241
+msgid "RSVP Kids Meal Verbiage:"
+msgstr "Barnemeny-tekst:"
+
+#: wp-rsvp.php:246
+msgid "Hide Kids Meal Question:"
+msgstr "Skjul spørsmål om barnemeny:"
+
+#: wp-rsvp.php:251
+msgid "RSVP Vegetarian Meal Verbiage:"
+msgstr "Vegetarmeny-tekst:"
+
+#: wp-rsvp.php:256
+msgid "Hide Vegetarian Meal Question:"
+msgstr "Skjul spørsmål om vegetarmeny:"
+
+#: wp-rsvp.php:261
+msgid "Note Verbiage:"
+msgstr "Notat-tekst:"
+
+#: wp-rsvp.php:266
+msgid "Hide Note Field:"
+msgstr "Skjul notatfeltet:"
+
+#: wp-rsvp.php:271
+msgid "Custom Thank You:"
+msgstr "Egendefinert takkemelding:"
+
+#: wp-rsvp.php:275
+msgid "Do not allow additional guests"
+msgstr "Ikke tillat ekstra gjester"
+
+#: wp-rsvp.php:280
+msgid "Add Additional Verbiage:"
+msgstr "Legg til ekstra person-tekst:"
+
+#: wp-rsvp.php:281
+msgid ""
+"Default is: &quot;Did we slip up and forget to invite someone? If so, please "
+"add him or her here:&quot;"
+msgstr ""
+"Standard: &quot;Har vi glemt å invitere noen? I så fall, legg til personen "
+"her:&quot;"
+
+#: wp-rsvp.php:286
+msgid "Notify When Guest RSVPs"
+msgstr "Varsle når en gjest registrerer sitt svar"
+
+#: wp-rsvp.php:291
+msgid "Email address to notify"
+msgstr "E-postadresse for varsler"
+
+#: wp-rsvp.php:295
+msgid "Send email to main guest when they RSVP"
+msgstr "Send e-post til hovedgjest ved svarsregistrering"
+
+#: wp-rsvp.php:300
+msgid "Require a Passcode to RSVP:"
+msgstr "Krev et passord for å registrere svar:"
+
+#: wp-rsvp.php:305
+msgid ""
+"Require only a Passcode to RSVP<br />(requires that passcodes are unique):"
+msgstr "Krev kun passord for å registrere svar<br />(passord må være unike):"
+
+#: wp-rsvp.php:310
+msgid ""
+"Allow Open Registration (note - this will force passcodes for attendees):"
+msgstr ""
+"Tillat åpen svarsregistrering (merk - dette krever passord for deltagere):"
+
+#: wp-rsvp.php:315
+msgid "Do not scroll page to the top of the RSVP form:"
+msgstr "Ikke rull siden til toppen av svarsregistreringsskjemaet:"
+
+#: wp-rsvp.php:320
+msgid "Hide email field on rsvp form:"
+msgstr "Skjul e-postfeltet på svarsregistreringsskjemaet:"
+
+#: wp-rsvp.php:325
+msgid ""
+"Do not use the specified notification email as the from email<br /> (if you "
+"are not receiving email notifications try this):"
+msgstr ""
+"Ikke bruk e-postvarsel-adressen som avsenderadresse<br /> (prøv dette hvis "
+"du ikke mottar e-postvarsler):"
+
+#: wp-rsvp.php:330
+msgid "Disable searching for a user when no user is found:"
+msgstr "Deaktiver søk etter deltager når det ikke er treff på person:"
+
+#: wp-rsvp.php:337
+msgid "Save Changes"
+msgstr "Lagre endringer"
+
+#: wp-rsvp.php:392
+msgid ""
+"We now have a pro-version of this plugin, if you want to multiple event "
+"support or just \n"
+"        want to contribute to the maintenance and continued development of "
+"this plugin, \n"
+"        <a href=\"https://www.swimordiesoftware.com/downloads/rsvp-pro-"
+"plugin/\" target=\"_blank\">check it out!</a>"
+msgstr ""
+"Vi har nå en pro-versjon av denne modulen, hvis du ønsker støtte for flere "
+"arrangementer\n"
+"\teller ønsker å støtte vedlikehold og fortsatt utvikling av denne "
+"modulen, \n"
+"\t<a href=\"https://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/\" "
+"target=\"_blank\">sjekk ut pro-versjonen!</a>"
+
+#: wp-rsvp.php:409
+msgid "List of current attendees"
+msgstr "Liste over deltagere"
+
+#: wp-rsvp.php:417 wp-rsvp.php:1164
+msgid "Bulk Actions"
+msgstr "Massehandlinger"
+
+#: wp-rsvp.php:418 wp-rsvp.php:1165 wp-rsvp.php:1414
+msgid "Delete"
+msgstr "Slett"
+
+#: wp-rsvp.php:420 wp-rsvp.php:1167
+msgid "Apply"
+msgstr "Bruk"
+
+#: wp-rsvp.php:421
+msgid "Export Attendees"
+msgstr "Eksporter deltagere"
+
+#: wp-rsvp.php:430
+msgid "RSVP Count -"
+msgstr "Antall svart -"
+
+#: wp-rsvp.php:431
+msgid "Yes:"
+msgstr "Ja:"
+
+#: wp-rsvp.php:432
+msgid "No:"
+msgstr "Nei:"
+
+#: wp-rsvp.php:433
+msgid "No Response:"
+msgstr "Ingen svar:"
+
+#: wp-rsvp.php:434
+msgid "Kids Meals:"
+msgstr "Barnemenyer:"
+
+#: wp-rsvp.php:435
+msgid "Veggie Meals:"
+msgstr "Vegetarmenyer:"
+
+#: wp-rsvp.php:443 wp-rsvp.php:653 wp-rsvp.php:960
+msgid "Attendee"
+msgstr "Deltager"
+
+#: wp-rsvp.php:453 wp-rsvp.php:653 wp-rsvp.php:878 wp-rsvp.php:1014
+msgid "Email"
+msgstr "E-post"
+
+#: wp-rsvp.php:454 wp-rsvp.php:653 wp-rsvp.php:1028
+msgid "RSVP Status"
+msgstr "Svarstatus"
+
+#: wp-rsvp.php:465 wp-rsvp.php:656
+msgid "Kids Meal"
+msgstr "Barnemeny"
+
+#: wp-rsvp.php:476 wp-rsvp.php:658
+msgid "Additional Attendee"
+msgstr "Ekstra deltager"
+
+#: wp-rsvp.php:487
+msgid "Vegetarian"
+msgstr "Vegetarianer"
+
+#: wp-rsvp.php:498 wp-rsvp.php:879 wp-rsvp.php:1044
+msgid "Custom Message"
+msgstr "Egendefinert melding"
+
+#: wp-rsvp.php:499 wp-rsvp.php:666
+msgid "Note"
+msgstr "Notat"
+
+#: wp-rsvp.php:518 wp-rsvp.php:666 wp-rsvp.php:879 wp-rsvp.php:1048
+msgid "Associated Attendees"
+msgstr "Tilknyttede deltagere"
+
+#: wp-rsvp.php:661
+msgid "Vegatarian"
+msgstr "Vegetarianer"
+
+#: wp-rsvp.php:675
+msgid "pre-fill URL"
+msgstr "forhåndsutfylt URL"
+
+#: wp-rsvp.php:869
+msgid "total records were imported"
+msgstr "poster ble importert"
+
+#: wp-rsvp.php:870
+msgid "Continue to the RSVP"
+msgstr "Fortsett til svarsregistrering"
+
+#: wp-rsvp.php:870
+msgid "list"
+msgstr "liste"
+
+#: wp-rsvp.php:877
+msgid ""
+"Select an excel file (only xls please, xlsx is not supported....yet) in the "
+"following format:"
+msgstr ""
+"Velg en Excel-fil (kun xls, xlsx er foreløpig ikke støttet) i følgende "
+"format:"
+
+#: wp-rsvp.php:879
+msgid "Private Question Association"
+msgstr "Privat spørsmål-tilknytning"
+
+#: wp-rsvp.php:882
+msgid ""
+"associated attendees should be separated by a comma it is assumed that the "
+"first space encountered will separate the first and last name."
+msgstr ""
+"tilknyttede deltagere skal separeres med komma. Det første mellomrommet i "
+"hvert navn vil dele opp navnet i fornavn og etternavn."
+
+#: wp-rsvp.php:885
+msgid ""
+"This can be multiple columns each column is associated with one of the "
+"following private questions. If you wish \n"
+"          to have the guest associated with the question put a &quot;Y&quot; "
+"in the column otherwise put whatever else you want. The header name will be "
+"the &quot;private import key&quot; which is also listed below. It has the "
+"format of pq_* where * is a number."
+msgstr ""
+"Dette kan være flere kolonner, hver kolonne er tilknyttet et av de følgende "
+"spørsmålene. Hvis du ønsker å tilknytte\n"
+"\tdeltageren til spørsmålet, fyll en &quot;Y&quot; i kolonnen, ellers kan du "
+"fylle inn hva du vil. Toppradnavnet må være &quot;privat-"
+"importnøkkelen&quot; som også er listet opp nedenfor. Den har formatet pq_* "
+"hvor * er et tall."
+
+#: wp-rsvp.php:898
+msgid ""
+"A header row is not expected, UNLESS you are associating private questions."
+msgstr ""
+"En topprad er ikke ventet, med mindre du knytter private spørsmål til "
+"deltagerne"
+
+#: wp-rsvp.php:960
+msgid "has been successfully saved"
+msgstr "har blitt lagret"
+
+#: wp-rsvp.php:962
+msgid "Continue to Attendee List"
+msgstr "Fortsett til deltagerliste"
+
+#: wp-rsvp.php:963
+msgid "Add a Guest"
+msgstr "Legg til en gjest"
+
+#: wp-rsvp.php:1002 wp-rsvp.php:1101 wp-rsvp.php:1367
+msgid "Save"
+msgstr "Lagre"
+
+#: wp-rsvp.php:1033
+msgid "No Response"
+msgstr "Ikke svart"
+
+#: wp-rsvp.php:1076
+msgid "Custom Questions Answered"
+msgstr "Svar på egendefinerte spørsmål"
+
+#: wp-rsvp.php:1079 wp-rsvp.php:1176 wp-rsvp.php:1382
+msgid "Question"
+msgstr "Spørsmål"
+
+#: wp-rsvp.php:1080 wp-rsvp.php:1322 wp-rsvp.php:1412
+msgid "Answer"
+msgstr "Svar"
+
+#: wp-rsvp.php:1158
+msgid "List of current custom questions"
+msgstr "Liste over egendefinerte spørsmål"
+
+#: wp-rsvp.php:1168
+msgid "Save Sort Order"
+msgstr "Lagre sorteringsrekkefølge"
+
+#: wp-rsvp.php:1177 wp-rsvp.php:1394
+msgid "Private Import Key"
+msgstr "Privat-importnøkkel"
+
+#: wp-rsvp.php:1278
+msgid "Custom Question saved"
+msgstr "Egendefinert spørsmål lagret"
+
+#: wp-rsvp.php:1280
+msgid "Continue to Question List"
+msgstr "Fortsett til spørsmålsliste"
+
+#: wp-rsvp.php:1281
+msgid "Add another Question"
+msgstr "Legg til et annet spørsmål"
+
+#: wp-rsvp.php:1371
+msgid "Question Type"
+msgstr "Spørsmålstype"
+
+#: wp-rsvp.php:1386
+msgid "Question Permission Level"
+msgstr "Tilgangsnivå for spørsmål"
+
+#: wp-rsvp.php:1388
+msgid "Public"
+msgstr "Offentlig"
+
+#: wp-rsvp.php:1389
+msgid "Private"
+msgstr "Privat"
+
+#: wp-rsvp.php:1402
+msgid "Answers"
+msgstr "Svar"
+
+#: wp-rsvp.php:1403
+msgid "Add new Answer"
+msgstr "Legg til nytt svar"
+
+#: wp-rsvp.php:1425
+msgid "Attendees allowed to answer this question"
+msgstr "Deltagere tillatt å svare på dette spørsmålet"
+
+#: wp-rsvp.php:1562
+msgid ""
+"Please enter an email address that we can use to contact you about the extra "
+"guest.  We have to keep a pretty close eye on the number of attendees.  "
+"Thanks!"
+msgstr ""
+"Vennligst fyll inn en e-postadresse vi kan kontakte deg på angående den "
+"ekstra gjesten. Vi er nødt til å holde et øye med antall deltagere. Takk!"
+
+#: wp-rsvp.php:1563
+msgid ""
+"If you are adding additional RSVPs please enter your email address in case "
+"we have questions"
+msgstr ""
+"Hvis du legger til ytterligere deltagere, vennligst fyll inn din e-"
+"postadresse som vi kan kontakte deg på om vi har noen spørsmål"
+
+#: wp-rsvp.php:1564 wp-rsvp.php:1566 wp-rsvp.php:1568 wp-rsvp.php:1571
+msgid "Please enter a last name"
+msgstr "Vennligst fyll inn etternavn"
+
+#: wp-rsvp.php:1565 wp-rsvp.php:1567 wp-rsvp.php:1569 wp-rsvp.php:1570
+msgid "Please enter a first name"
+msgstr "Vennligst fyll inn fornavn"
+
+#: wp-rsvp.php:1572
+msgid "Please enter your first name"
+msgstr "Vennligst fyll inn ditt fornavn"
+
+#: wp-rsvp.php:1573
+msgid "Please enter your last name"
+msgstr "Vennligst fyll inn ditt etternavn"
+
+#: wp-rsvp.php:1574
+msgid "Please enter your password"
+msgstr "Vennligst fyll inn ditt passord"
+
+#~ msgid "Welcome back"
+#~ msgstr "Velkommen tilbake"
