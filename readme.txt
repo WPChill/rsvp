@@ -3,8 +3,8 @@ Contributors: mdedev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: rsvp, reserve, wedding, guestlist, attendee management
 Requires at least: 3.0
-Tested up to: 4.2.0
-Stable tag: 2.0.8
+Tested up to: 4.2.2
+Stable tag: 2.0.9
 
 Easy to use rsvp plugin originally created for weddings but could be used for other events.
 
@@ -72,7 +72,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. Update the `rsvp` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Add and/or import your attendees to the plugin and set the options you want
-1. Create a blank page and add 'rsvp-pluginhere' on this page
+1. Create a blank page and add [rsvp] on this page
 
 == Frequently Asked Questions ==
 
@@ -88,6 +88,9 @@ I will see if I can get it added for you.
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.0.9 = 
+* Small fix to correct the problem of additional attendees having slashes in front of apostrophes on the front-end.
 
 = 2.0.8 = 
 * Added in a fix for first and last name searching to work better with different naming schemes like Norwegian names, fix provided by Richard Mikalsen
