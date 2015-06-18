@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.0.9
+ * @version 2.1.0
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 2.0.9
+Version: 2.1.0
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -789,7 +789,9 @@ License: GPL
           $i = ($skipFirstRow) ? 2 : 1;
 					for ($i; $i <= $data->sheets[0]['numRows']; $i++) {
 						$fName = trim($data->sheets[0]['cells'][$i][1]);
+						$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
 						$lName = trim($data->sheets[0]['cells'][$i][2]);
+						$lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
 						if(!empty($fName) && !empty($lName) && (count($data->sheets[0]['cells'][$i]) >= 3)) {
 							// Get the user's id 
 							$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
@@ -809,12 +811,16 @@ License: GPL
 										if(is_array($user) && (count($user) == 2)) {
 											$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
 											 	WHERE firstName = %s AND lastName = %s ";
-											$userRes = $wpdb->get_results($wpdb->prepare($sql, trim($user[0]), trim($user[1])));
+											$userRes = $wpdb->get_results($wpdb->prepare($sql, 
+																						mb_convert_encoding(trim($user[0]), 'UTF-8', mb_detect_encoding(trim($user[0]), 'UTF-8, ISO-8859-1', true)), 
+																						mb_convert_encoding(trim($user[1]), 'UTF-8', mb_detect_encoding(trim($user[1]), 'UTF-8, ISO-8859-1', true))));
 											if(count($userRes) > 0) {
 												$newUserId = $userRes[0]->id;
 											} else {
 												// Insert them and then we can associate them...
-												$wpdb->insert(ATTENDEES_TABLE, array("firstName" => trim($user[0]), "lastName" => trim($user[1])), array('%s', '%s'));
+												$wpdb->insert(ATTENDEES_TABLE, array("firstName" => mb_convert_encoding(trim($user[0]), 'UTF-8', mb_detect_encoding(trim($user[0]), 'UTF-8, ISO-8859-1', true)), 
+																					 "lastName" => mb_convert_encoding(trim($user[1]), 'UTF-8', mb_detect_encoding(trim($user[1]), 'UTF-8, ISO-8859-1', true))), 
+																			   array('%s', '%s'));
 												$newUserId = $wpdb->insert_id;
 												$count++;
 											}
@@ -845,7 +851,9 @@ License: GPL
           if(count($private_questions) > 0) {
   					for ($i = 2; $i <= $data->sheets[0]['numRows']; $i++) {
   						$fName = trim($data->sheets[0]['cells'][$i][1]);
+  						$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
   						$lName = trim($data->sheets[0]['cells'][$i][2]);
+  						$lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
   						if(!empty($fName) && !empty($lName)) {
   							// Get the user's id 
   							$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
