@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-03 08:25-0800\n"
-"PO-Revision-Date: 2015-04-30 23:11+0100\n"
+"PO-Revision-Date: 2015-07-06 19:14+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -231,7 +231,7 @@ msgstr "Děkuji"
 
 #: ..//rsvp_frontend.inc.php:1129
 msgid " for RSVPing."
-msgstr "za RSVP."
+msgstr " za RSVP."
 
 #: ..//rsvp_frontend.inc.php:1132
 msgid " You have also RSVPed for - "
