@@ -1,0 +1,706 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-03 08:25-0800\n"
+"PO-Revision-Date: 2015-07-06 19:14+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.7.4\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language: cs_CZ\n"
+
+#: ..//rsvp_frontend.inc.php:28
+#, php-format
+msgid ""
+"I am sorry but the ability to RSVP for our wedding won't open till <strong>"
+"%s</strong>"
+msgstr ""
+"Je mi líto, ale RSVP na naši svatbu bude možné až od <strong>%s</strong>"
+
+#: ..//rsvp_frontend.inc.php:32
+msgid ""
+"The deadline to RSVP for this wedding has passed, please contact the bride "
+"and groom to verify that there is still a seat for you."
+msgstr ""
+"Bohužel už je po termínu pro RSVP na tuto svatbu. Prosím, kontaktujte "
+"ženicha či nevěstu a ti vám sdělí, zda je ještě volné místo. "
+
+#: ..//rsvp_frontend.inc.php:145
+#, php-format
+msgid ""
+"Hi %s it looks like you have already RSVP'd. Would you like to edit your "
+"reservation?"
+msgstr "Vypadá to, %s, že jste již RSVP. Chcete změnit rezervaci?"
+
+#: ..//rsvp_frontend.inc.php:151 ..//rsvp_frontend.inc.php:168
+#: ..//wp-rsvp.php:540 ..//wp-rsvp.php:547 ..//wp-rsvp.php:555
+#: ..//wp-rsvp.php:683 ..//wp-rsvp.php:686 ..//wp-rsvp.php:689
+#: ..//wp-rsvp.php:1033
+msgid "Yes"
+msgstr "Ano"
+
+#: ..//rsvp_frontend.inc.php:152 ..//rsvp_frontend.inc.php:169
+#: ..//wp-rsvp.php:540 ..//wp-rsvp.php:547 ..//wp-rsvp.php:555
+#: ..//wp-rsvp.php:683 ..//wp-rsvp.php:686 ..//wp-rsvp.php:689
+#: ..//wp-rsvp.php:1036
+msgid "No"
+msgstr "Ne"
+
+#: ..//rsvp_frontend.inc.php:171
+msgid ""
+"Yes, of course I will be there! Who doesn't like family, friends, weddings, "
+"and a good time?"
+msgstr ""
+"Samozřejmě, že se chci zúčastnit! Kdo by neměl rád svatby, rodinu, přátelé a "
+"zábavu?"
+
+#: ..//rsvp_frontend.inc.php:173
+msgid ""
+"Um, unfortunately, there is a Star Trek marathon on that day that I just "
+"cannot miss."
+msgstr ""
+"Bohužel, zrovna se koná Star Trek maraton, který rozhodně nemůžu zmeškat."
+
+#: ..//rsvp_frontend.inc.php:175
+msgid ""
+"We have the option of getting cheese pizza for the kids (and only kids).  Do "
+"you want pizza instead of \"adult food?\""
+msgstr ""
+"Máme možnost objednat pro děti sýrovou pizzu (pouze pro děti). Chcete pizzu "
+"místo \"dospělého jídla?\" "
+
+#: ..//rsvp_frontend.inc.php:177
+msgid ""
+"We also have the option of getting individual vegetarian meals instead of "
+"the fish or meat.  Would you like a vegetarian dinner?"
+msgstr ""
+"Také máme k dispozici individuální pokrmy pro vegetariány místo ryby nebo "
+"masa. Přejete si vegetariánskou večeři?"
+
+#: ..//rsvp_frontend.inc.php:179
+msgid ""
+"If you have any <strong style=\"color:red;\">food allergies</strong>, please "
+"indicate what they are in the &quot;notes&quot; section below.  Or, if you "
+"just want to send us a note, please feel free.  If you have any questions, "
+"please send us an email."
+msgstr ""
+"Pokud nám chcete zaslat poznámku, případně pokud máte jakékoliv <strong "
+"style=\"color:red;\">alergie na jídlo</strong>, prosím vyznačte je v sekci "
+"&quot;poznámky&quot; níže. Pro případné dotazy nám zašlete email."
+
+#: ..//rsvp_frontend.inc.php:189
+msgid "First Name: "
+msgstr "Křestní jméno:"
+
+#: ..//rsvp_frontend.inc.php:196
+msgid "Last Name: "
+msgstr "Příjmení:"
+
+#: ..//rsvp_frontend.inc.php:206
+msgid "So, how about it?"
+msgstr "Tak jak to vidíte?"
+
+#: ..//rsvp_frontend.inc.php:241 ..//rsvp_frontend.inc.php:322
+msgid "Email Address"
+msgstr "Emailová adresa"
+
+#: ..//rsvp_frontend.inc.php:284
+msgid ""
+"The following people are associated with you.  At this time you can RSVP for "
+"them as well."
+msgstr "Následující lidé jsou k vám přiřazeni. Můžete za ně také RSVP."
+
+#: ..//rsvp_frontend.inc.php:289
+#, php-format
+msgid " Will %s be attending?"
+msgstr "Zúčastní se %s?"
+
+#: ..//rsvp_frontend.inc.php:302
+#, php-format
+msgid "Does %s need a kids meal?"
+msgstr "Vyžaduje %s dětské jídlo?"
+
+#: ..//rsvp_frontend.inc.php:312
+#, php-format
+msgid "Does %s need a vegetarian meal?"
+msgstr "Vyžaduje %s vegetariánské jídlo?"
+
+#: ..//rsvp_frontend.inc.php:335
+msgid ""
+"Did we slip up and forget to invite someone? If so, please add him or her "
+"here:"
+msgstr ""
+"Nezapomněli jsme náhodou pozvat někoho? Pokud ano, prosím, připomeňte nám ho:"
+
+#: ..//rsvp_frontend.inc.php:349
+msgid "RSVP"
+msgstr "RSVP"
+
+#: ..//rsvp_frontend.inc.php:366
+msgid "You have already added "
+msgstr "Už jste přidal"
+
+#: ..//rsvp_frontend.inc.php:371
+msgid "Person's first name"
+msgstr "Křestní jméno"
+
+#: ..//rsvp_frontend.inc.php:375
+msgid "Person's last name"
+msgstr "Příjmení"
+
+#: ..//rsvp_frontend.inc.php:380
+msgid "Person's email address"
+msgstr "Emailová adresa"
+
+#: ..//rsvp_frontend.inc.php:386
+msgid "Will this person be attending?"
+msgstr "Zúčastní se?"
+
+#: ..//rsvp_frontend.inc.php:393
+msgid "Does this person need a kids meal?"
+msgstr "Vyžaduje dětské jídlo?"
+
+#: ..//rsvp_frontend.inc.php:403
+msgid "Does this person need a vegetarian meal?"
+msgstr "Vyžaduje vegetariánské jídlo?"
+
+#: ..//rsvp_frontend.inc.php:413
+msgid "Remove Guest"
+msgstr "Odstranit hosta"
+
+#: ..//rsvp_frontend.inc.php:529
+msgid "A first and last name must be specified"
+msgstr "Jméno a příjmení musí být zadány"
+
+#: ..//rsvp_frontend.inc.php:563 ..//rsvp_frontend.inc.php:1102
+msgid ""
+"There are a few more questions we need to ask you if you could please fill "
+"them out below to finish up the RSVP process."
+msgstr "Chceme se vás zeptat ještě pár otázek. Prosím, vyplňte je níže."
+
+#: ..//rsvp_frontend.inc.php:581
+msgid ""
+"We could not find an exact match but could any of the below entries be you?"
+msgstr ""
+"Nemůžeme najít zcela přesnou shodu, nicméně nejste náhodou někdo z "
+"následujících?"
+
+#: ..//rsvp_frontend.inc.php:599
+msgid ""
+"<strong>We were unable to find anyone with the password you specified.</"
+"strong>"
+msgstr ""
+"<strong>Bohužel nejsme schopni najít nikoho s uvedeným heslem.</strong>"
+
+#: ..//rsvp_frontend.inc.php:601
+#, php-format
+msgid ""
+"<strong>We were unable to find anyone with a name of %1$s %2$s or the "
+"provided password was incorrect.</strong>"
+msgstr ""
+"<strong>Bohužel nejsme schopni najít nikoho se jménem %1$s %2$s, případně je "
+"zadáno nesprávné heslo.</strong>"
+
+#: ..//rsvp_frontend.inc.php:603
+#, php-format
+msgid "<strong>We were unable to find anyone with a name of %1$s %2$s</strong>"
+msgstr ""
+"<strong>Bohužel nejsme schopni najít nikoho se jménem %1$s %2$s</strong>"
+
+#: ..//rsvp_frontend.inc.php:1080
+#, php-format
+msgid "Welcome back %s!"
+msgstr "Vítejte zpět, %s!"
+
+#: ..//rsvp_frontend.inc.php:1097
+msgid "Hi"
+msgstr "Ahoj"
+
+#: ..//rsvp_frontend.inc.php:1125
+msgid "Thank you"
+msgstr "Děkuji"
+
+#: ..//rsvp_frontend.inc.php:1129
+msgid " for RSVPing."
+msgstr " za RSVP."
+
+#: ..//rsvp_frontend.inc.php:1132
+msgid " You have also RSVPed for - "
+msgstr "Zadali jste RSVP také pro -"
+
+#: ..//rsvp_frontend.inc.php:1147
+msgid "Thank you "
+msgstr "Děkuji"
+
+#: ..//rsvp_frontend.inc.php:1151
+msgid ""
+" for RSVPing. To modify your RSVP just come back to this page and enter in "
+"your first and last name."
+msgstr ""
+"za RSVP. Pokud si budete přát RSVP změnit, vraťte se na tuto stránku a "
+"zadejte své jméno a příjmení."
+
+#: ..//rsvp_frontend.inc.php:1154
+msgid " You will also need to know your password which is"
+msgstr "Také budete potřebovat své heslo, které je"
+
+#: ..//rsvp_frontend.inc.php:1159
+msgid "<br /><br />You have also RSVPed for - "
+msgstr "<br /><br />Zadal jste RSVP také pro - "
+
+#: ..//rsvp_frontend.inc.php:1186
+msgid "Please enter your passcode to RSVP."
+msgstr "Prosím, zadejte své heslo."
+
+#: ..//rsvp_frontend.inc.php:1188
+msgid "Please enter your first name, last name and passcode to RSVP."
+msgstr "Prosím, zadejte své jméno, příjmení a heslo. "
+
+#: ..//rsvp_frontend.inc.php:1190
+msgid "Please enter your first and last name to RSVP."
+msgstr "Prosím, zadejte své jméno a příjmení."
+
+#: ..//rsvp_frontend.inc.php:1202
+msgid "New Attendee Registration"
+msgstr "Registrace nového návštěvníka"
+
+#: ..//rsvp_frontend.inc.php:1206
+msgid "Need to modify your registration? Start with the below form."
+msgstr "Potřebujete pozměnit svou rezervaci? Začněte vyplněním formuláře níže."
+
+#: ..//rsvp_frontend.inc.php:1212 ..//wp-rsvp.php:875 ..//wp-rsvp.php:1003
+msgid "First Name"
+msgstr "Jméno"
+
+#: ..//rsvp_frontend.inc.php:1214 ..//wp-rsvp.php:875 ..//wp-rsvp.php:1007
+msgid "Last Name"
+msgstr "Příjmení"
+
+#: ..//rsvp_frontend.inc.php:1218 ..//wp-rsvp.php:503 ..//wp-rsvp.php:665
+#: ..//wp-rsvp.php:876 ..//wp-rsvp.php:1018
+msgid "Passcode"
+msgstr "Heslo"
+
+#: ..//rsvp_frontend.inc.php:1221
+msgid "Complete your RSVP!"
+msgstr "Dokončit RSVP!"
+
+#: ..//wp-rsvp.php:195
+msgid "RSVP Guestlist Options"
+msgstr "RSVP Možnosti seznamu hostů"
+
+#: ..//wp-rsvp.php:200
+msgid "RSVP Open Date:"
+msgstr "RSVP možné od data:"
+
+#: ..//wp-rsvp.php:204
+msgid "RSVP Deadline:"
+msgstr "Konec RSVP dne:"
+
+#: ..//wp-rsvp.php:208
+msgid "Number of Additional Guests Allowed (default is three):"
+msgstr "Počet hostů jako doprovod (výchozí jsou tři): "
+
+#: ..//wp-rsvp.php:212
+msgid "Custom Greeting:"
+msgstr "Personalizované oslovení:"
+
+#: ..//wp-rsvp.php:216
+msgid "Custom Welcome:"
+msgstr "Presonalizované uvítání:"
+
+#: ..//wp-rsvp.php:217
+msgid ""
+"Default is: &quot;There are a few more questions we need to ask you if you "
+"could please fill them out below to finish up the RSVP process.&quot;"
+msgstr ""
+"Výchozí je: &quot;Chceme se vás zeptat ještě pár otázek. Prosím, vyplňte je "
+"níže.&quot;"
+
+#: ..//wp-rsvp.php:221
+msgid "Email Text: <br />Sent to guests in confirmation, at top of email"
+msgstr "Text emailu: <br />Odešle se potvrzeným hostům na začátku emailu"
+
+#: ..//wp-rsvp.php:225
+msgid "RSVP Question Verbiage:"
+msgstr "RSVP otázka:"
+
+#: ..//wp-rsvp.php:226
+msgid "Default is: &quot;So, how about it?&quot;"
+msgstr "Výchozí je: &quot;Tak jak to vidíte?&quot;"
+
+#: ..//wp-rsvp.php:231
+msgid "RSVP Yes Verbiage:"
+msgstr "RSVP ano:"
+
+#: ..//wp-rsvp.php:236
+msgid "RSVP No Verbiage:"
+msgstr "RSVP ne:"
+
+#: ..//wp-rsvp.php:241
+msgid "RSVP Kids Meal Verbiage:"
+msgstr "RSVP dětské jídlo:"
+
+#: ..//wp-rsvp.php:246
+msgid "Hide Kids Meal Question:"
+msgstr "Skrýt dotaz na dětské jídlo:"
+
+#: ..//wp-rsvp.php:251
+msgid "RSVP Vegetarian Meal Verbiage:"
+msgstr "RSVP vegetariánské jídlo:"
+
+#: ..//wp-rsvp.php:256
+msgid "Hide Vegetarian Meal Question:"
+msgstr "Skrýt dotaz na vegetariánské jídlo:"
+
+#: ..//wp-rsvp.php:261
+msgid "Note Verbiage:"
+msgstr "Poznámka:"
+
+#: ..//wp-rsvp.php:266
+msgid "Hide Note Field:"
+msgstr "Skrýt pole pro poznámku:"
+
+#: ..//wp-rsvp.php:271
+msgid "Custom Thank You:"
+msgstr "Personalizované poděkování:"
+
+#: ..//wp-rsvp.php:275
+msgid "Do not allow additional guests"
+msgstr "Nepovolovat dodatečné hosty"
+
+#: ..//wp-rsvp.php:280
+msgid "Add Additional Verbiage:"
+msgstr "Přidat dodatečné hosty:"
+
+#: ..//wp-rsvp.php:281
+msgid ""
+"Default is: &quot;Did we slip up and forget to invite someone? If so, please "
+"add him or her here:&quot;"
+msgstr ""
+"Výchozí je: &quot;Nezapomněli jsme náhodou pozvat někoho? Pokud ano, prosím, "
+"připomeňte nám ho:&quot;"
+
+#: ..//wp-rsvp.php:286
+msgid "Notify When Guest RSVPs"
+msgstr "Upozornit, když host odpoví na RSVP"
+
+#: ..//wp-rsvp.php:291
+msgid "Email address to notify"
+msgstr "Email pro zasílání upozornění"
+
+#: ..//wp-rsvp.php:295
+msgid "Send email to main guest when they RSVP"
+msgstr "Odeslat hostům email, když zareagují na RSVP"
+
+#: ..//wp-rsvp.php:300
+msgid "Require a Passcode to RSVP:"
+msgstr "Vyžadovat heslo u RSVP:"
+
+#: ..//wp-rsvp.php:305
+msgid ""
+"Require only a Passcode to RSVP<br />(requires that passcodes are unique):"
+msgstr ""
+"Vyžadovat pouze heslo u RSVP<br />(hesla jsou unikátní pro každého hosta):"
+
+#: ..//wp-rsvp.php:310
+msgid ""
+"Allow Open Registration (note - this will force passcodes for attendees):"
+msgstr ""
+"Povolit otevřenou registraci (pozor - návštěvníci budou nuceni zadat heslo):"
+
+#: ..//wp-rsvp.php:315
+msgid "Do not scroll page to the top of the RSVP form:"
+msgstr "Nescrollovat stránku na vrch RSVP formuláře:"
+
+#: ..//wp-rsvp.php:320
+msgid "Hide email field on rsvp form:"
+msgstr "Nezobrazovat pole emailu u RSVP formuláře:"
+
+#: ..//wp-rsvp.php:325
+msgid ""
+"Do not use the specified notification email as the from email<br /> (if you "
+"are not receiving email notifications try this):"
+msgstr ""
+"Nepoužívat uvedený email pro zasílání notifikací<br />(pokud nedostáváte "
+"potvrzení, zkuste tohle):"
+
+#: ..//wp-rsvp.php:330
+msgid "Disable searching for a user when no user is found:"
+msgstr "Vypnout vyhledávání hostů, pokud není host nalezen:"
+
+#: ..//wp-rsvp.php:337
+msgid "Save Changes"
+msgstr "Uložit změny"
+
+#: ..//wp-rsvp.php:392
+msgid ""
+"We now have a pro-version of this plugin, if you want to multiple event "
+"support or just \n"
+"        want to contribute to the maintenance and continued development of "
+"this plugin, \n"
+"        <a href=\"https://www.swimordiesoftware.com/downloads/rsvp-pro-"
+"plugin/\" target=\"_blank\">check it out!</a>"
+msgstr ""
+"Momentálně je k dispozici pro-verze tohoto pluginu. Pokud si přejete "
+"podporovat více \n"
+" událostí, či se pouze snažíte přispět k údržbě a rozvíjení tohoto "
+"pluginu, \n"
+"prosím <a href=\"https://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/"
+"\" target=\"_blank\">navštivte web vývojáře! </a>"
+
+#: ..//wp-rsvp.php:409
+msgid "List of current attendees"
+msgstr "Seznam návštěvníků"
+
+#: ..//wp-rsvp.php:430
+msgid "RSVP Count -"
+msgstr "Počet RSVP -"
+
+#: ..//wp-rsvp.php:431
+msgid "Yes:"
+msgstr "Ano:"
+
+#: ..//wp-rsvp.php:432
+msgid "No:"
+msgstr "Ne:"
+
+#: ..//wp-rsvp.php:433
+msgid "No Response:"
+msgstr "Bez podpovědi:"
+
+#: ..//wp-rsvp.php:434
+msgid "Kids Meals:"
+msgstr "Dětská jídla:"
+
+#: ..//wp-rsvp.php:435
+msgid "Veggie Meals:"
+msgstr "Vegetariánská jídla:"
+
+#: ..//wp-rsvp.php:443 ..//wp-rsvp.php:654 ..//wp-rsvp.php:957
+msgid "Attendee"
+msgstr "Návštěvník"
+
+#: ..//wp-rsvp.php:453 ..//wp-rsvp.php:654 ..//wp-rsvp.php:875
+#: ..//wp-rsvp.php:1011
+msgid "Email"
+msgstr "Email"
+
+#: ..//wp-rsvp.php:454 ..//wp-rsvp.php:654 ..//wp-rsvp.php:1025
+msgid "RSVP Status"
+msgstr "Stav RSVP"
+
+#: ..//wp-rsvp.php:465 ..//wp-rsvp.php:657
+msgid "Kids Meal"
+msgstr "Dětské jídlo"
+
+#: ..//wp-rsvp.php:476 ..//wp-rsvp.php:659
+msgid "Additional Attendee"
+msgstr "Další návštěvník"
+
+#: ..//wp-rsvp.php:487
+msgid "Vegetarian"
+msgstr "Vegetarián"
+
+#: ..//wp-rsvp.php:498 ..//wp-rsvp.php:876 ..//wp-rsvp.php:1041
+msgid "Custom Message"
+msgstr "Vlastní zpráva"
+
+#: ..//wp-rsvp.php:499 ..//wp-rsvp.php:667
+msgid "Note"
+msgstr "Poznámka"
+
+#: ..//wp-rsvp.php:518 ..//wp-rsvp.php:667 ..//wp-rsvp.php:876
+#: ..//wp-rsvp.php:1045
+msgid "Associated Attendees"
+msgstr "Přidružený návštěvník"
+
+#: ..//wp-rsvp.php:662
+msgid "Vegatarian"
+msgstr "Vegetarián"
+
+#: ..//wp-rsvp.php:676
+msgid "pre-fill URL"
+msgstr "předvyplnit URL"
+
+#: ..//wp-rsvp.php:866
+msgid "total records were imported"
+msgstr "záznamů bylo importováno"
+
+#: ..//wp-rsvp.php:867
+msgid "Continue to the RSVP"
+msgstr "Pokračovat s RSVP"
+
+#: ..//wp-rsvp.php:867
+msgid "list"
+msgstr "seznam"
+
+#: ..//wp-rsvp.php:874
+msgid ""
+"Select an excel file (only xls please, xlsx is not supported....yet) in the "
+"following format:"
+msgstr ""
+"Vyberte excelovský soubor (pouze xls, prosím, xlsx nejsou zatím "
+"podporpvány...) v následujícím formátu:"
+
+#: ..//wp-rsvp.php:876
+msgid "Private Question Association"
+msgstr "Přiřazená privátní otázka"
+
+#: ..//wp-rsvp.php:879
+msgid ""
+"associated attendees should be separated by a comma it is assumed that the "
+"first space encountered will separate the first and last name."
+msgstr ""
+"Přiřazení návštěvníci jsou odděleni čárkou, první zpozorovaná mezera "
+"odděluje jméno a příjmení."
+
+#: ..//wp-rsvp.php:882
+msgid ""
+"This can be multiple columns each column is associated with one of the "
+"following private questions. If you wish \n"
+"          to have the guest associated with the question put a &quot;Y&quot; "
+"in the column otherwise put whatever else you want. The header name will be "
+"the &quot;private import key&quot; which is also listed below. It has the "
+"format of pq_* where * is a number."
+msgstr ""
+"Může být několika sloupcový záznam, kde každý řádek vyjadřuje jednu privátní "
+"otázku. Pokud si přejete, \n"
+"\taby daný host na otázku odpověděl, do příslušného buňky zadejte &quot;"
+"Y&quot;, v opačném případě může být v buňce cokoliv. Záhlaví sloubce bude "
+"&quot;privátní klíč importu&quot;, který je uveden níže. Je ve formátu pq_*, "
+"kde * je číslo."
+
+#: ..//wp-rsvp.php:895
+msgid ""
+"A header row is not expected, UNLESS you are associating private questions."
+msgstr ""
+"Neočekávané řádek záhlaví, pokud nepřiřazujete hostům privátní otázky. "
+
+#: ..//wp-rsvp.php:957
+msgid "has been successfully saved"
+msgstr "byl úspěšně uložen"
+
+#: ..//wp-rsvp.php:959
+msgid "Continue to Attendee List"
+msgstr "Pokračovat na seznam návštěvníků"
+
+#: ..//wp-rsvp.php:960
+msgid "Add a Guest"
+msgstr "Přidat hosta"
+
+#: ..//wp-rsvp.php:1030
+msgid "No Response"
+msgstr "Bez odpovědi"
+
+#: ..//wp-rsvp.php:1073
+msgid "Custom Questions Answered"
+msgstr "Zodpovězeny personalizované otázky"
+
+#: ..//wp-rsvp.php:1076 ..//wp-rsvp.php:1173 ..//wp-rsvp.php:1379
+msgid "Question"
+msgstr "Otázka"
+
+#: ..//wp-rsvp.php:1077 ..//wp-rsvp.php:1319 ..//wp-rsvp.php:1409
+msgid "Answer"
+msgstr "Odpověď"
+
+#: ..//wp-rsvp.php:1155
+msgid "List of current custom questions"
+msgstr "Seznam stávajícch dodatečných otázek"
+
+#: ..//wp-rsvp.php:1174 ..//wp-rsvp.php:1391
+msgid "Private Import Key"
+msgstr "Privátní klíč importu"
+
+#: ..//wp-rsvp.php:1275
+msgid "Custom Question saved"
+msgstr "Dodatečná otázka uložena"
+
+#: ..//wp-rsvp.php:1277
+msgid "Continue to Question List"
+msgstr "Pokračovat na seznam otázek"
+
+#: ..//wp-rsvp.php:1278
+msgid "Add another Question"
+msgstr "Přidat další otázku"
+
+#: ..//wp-rsvp.php:1368
+msgid "Question Type"
+msgstr "Typ otázky"
+
+#: ..//wp-rsvp.php:1383
+msgid "Question Permission Level"
+msgstr "Omezení viditelnosti otázky"
+
+#: ..//wp-rsvp.php:1385
+msgid "Public"
+msgstr "Veřejná"
+
+#: ..//wp-rsvp.php:1386
+msgid "Private"
+msgstr "Privátní"
+
+#: ..//wp-rsvp.php:1399
+msgid "Answers"
+msgstr "Odpovědi"
+
+#: ..//wp-rsvp.php:1400
+msgid "Add new Answer"
+msgstr "Přidat novou odpověď"
+
+#: ..//wp-rsvp.php:1411
+msgid "Delete"
+msgstr "Smazat"
+
+#: ..//wp-rsvp.php:1422
+msgid "Attendees allowed to answer this question"
+msgstr "Návštěvníci, kteří mohou odpovědět na dotaz"
+
+#: ..//wp-rsvp.php:1559
+msgid ""
+"Please enter an email address that we can use to contact you about the extra "
+"guest.  We have to keep a pretty close eye on the number of attendees.  "
+"Thanks!"
+msgstr ""
+"Prosím, zadejte email, na který vás můžeme kontaktovat ohledně dalšího "
+"hosta. Bohužel musíme hlídat počet návštěvníků. Děkujeme za pochopení!"
+
+#: ..//wp-rsvp.php:1560
+msgid ""
+"If you are adding additional RSVPs please enter your email address in case "
+"we have questions"
+msgstr ""
+"Pokud přidáváte další RSVP, prosím zanechte svou adresu v případě, že budeme "
+"mít dotazy"
+
+#: ..//wp-rsvp.php:1561 ..//wp-rsvp.php:1563 ..//wp-rsvp.php:1565
+#: ..//wp-rsvp.php:1568
+msgid "Please enter a last name"
+msgstr "Prosím, zadejte jméno"
+
+#: ..//wp-rsvp.php:1562 ..//wp-rsvp.php:1564 ..//wp-rsvp.php:1566
+#: ..//wp-rsvp.php:1567
+msgid "Please enter a first name"
+msgstr "Prosím, zadejte příjmení"
+
+#: ..//wp-rsvp.php:1569
+msgid "Please enter your first name"
+msgstr "Prosím, zadejte své křestní jméno"
+
+#: ..//wp-rsvp.php:1570
+msgid "Please enter your last name"
+msgstr "Prosím, zadejte své příjmení"
+
+#: ..//wp-rsvp.php:1571
+msgid "Please enter your password"
+msgstr "Prosím, zadejte své heslo"
