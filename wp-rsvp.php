@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.1.1
+ * @version 2.1.2
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 2.1.1
+Version: 2.1.2
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -360,7 +360,7 @@ License: GPL
 			}
 		}
 		
-		$sql = "SELECT id, firstName, lastName, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, personalGreeting, passcode, email FROM ".ATTENDEES_TABLE;
+		$sql = "SELECT id, firstName, lastName, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, personalGreeting, passcode, email, rsvpDate FROM ".ATTENDEES_TABLE;
 		$orderBy = " lastName, firstName";
 		if(isset($_GET['sort'])) {
 			if(strToLower($_GET['sort']) == "rsvpstatus") {
@@ -389,8 +389,8 @@ License: GPL
 		}
 	?>
     <div class="updated">
-      <p><?php echo __("We now have a pro-version of this plugin, if you want to multiple event support or just 
-        want to contribute to the maintenance and continued development of this plugin, 
+      <p><?php echo __("We now have a pro version of this plugin. If you need features like multiple event support, mass 
+      emailing, more customizations, etc... you should  
         <a href=\"https://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/\" target=\"_blank\">check it out!</a>", 'rsvp-plugin'); ?></p>
     </div>
 		<script type="text/javascript" language="javascript">
@@ -450,7 +450,7 @@ License: GPL
 									echo ((($sort == "attendee") && ($sortDirection == "desc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
 									alt="Sort Descending Attendee Status" title="Sort Descending Attendee Status" border="0"></a>
 						</th>			
-            <th scope="col" id="rsvpEmail" class="manage-column column-title"><?php echo __("Email", 'rsvp-plugin'); ?></th>
+            			<!--<th scope="col" id="rsvpEmail" class="manage-column column-title"><?php echo __("Email", 'rsvp-plugin'); ?></th>-->
 						<th scope="col" id="rsvpStatus" class="manage-column column-title" style=""><?php echo __("RSVP Status", 'rsvp-plugin'); ?><br />
 							<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpStatus&amp;sortDirection=asc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php 
@@ -461,6 +461,7 @@ License: GPL
 									echo ((($sort == "rsvpStatus") && ($sortDirection == "desc")) ? "_selected" : ""); ?>.gif" width="11" height="9" 
 									alt="Sort Descending RSVP Status" title="Sort Descending RSVP Status" border="0"></a>
 						</th>
+						<th scope="col" id="rsvpDate" class="manage-column column-title"><?php echo __("RSVP Date", 'rsvp-pro-plugin'); ?></th>
 						<?php if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {?>
 						<th scope="col" id="kidsMeal" class="manage-column column-title" style=""><?php echo __("Kids Meal", 'rsvp-plugin'); ?><br />
 								<a href="admin.php?page=rsvp-top-level&amp;sort=kidsMeal&amp;sortDirection=asc">
@@ -495,8 +496,8 @@ License: GPL
 												alt="Sort Descending Vegetarian Status" title="Sort Descending Vegetarian Status" border="0"></a>
 						</th>
 						<?php } ?>
-						<th scope="col" id="customMessage" class="manage-column column-title" style=""><?php echo __("Custom Message", 'rsvp-plugin'); ?></th>
-						<th scope="col" id="note" class="manage-column column-title" style=""><?php echo __("Note", 'rsvp-plugin'); ?></th>
+						<!--<th scope="col" id="customMessage" class="manage-column column-title" style=""><?php echo __("Custom Message", 'rsvp-plugin'); ?></th>
+						<th scope="col" id="note" class="manage-column column-title" style=""><?php echo __("Note", 'rsvp-plugin'); ?></th>-->
 						<?php
 						if(rsvp_require_passcode()) {
 						?>
@@ -530,8 +531,9 @@ License: GPL
 							<td>
 								<a href="<?php echo get_option("siteurl"); ?>/wp-admin/admin.php?page=rsvp-admin-guest&amp;id=<?php echo $attendee->id; ?>"><?php echo htmlspecialchars(stripslashes($attendee->firstName)." ".stripslashes($attendee->lastName)); ?></a>
 							</td>
-              <td><?php echo htmlspecialchars(stripslashes($attendee->email)); ?></td>
+              				<!--<td><?php echo htmlspecialchars(stripslashes($attendee->email)); ?></td>-->
 							<td><?php echo $attendee->rsvpStatus; ?></td>
+							<td><?php echo $attendee->rsvpDate; ?></td>
 							<?php if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {?>
 							<td><?php 
 								if($attendee->rsvpStatus == "NoResponse") {
@@ -547,6 +549,7 @@ License: GPL
 									echo (($attendee->additionalAttendee == "Y") ? __("Yes", 'rsvp-plugin') : __("No", 'rsvp-plugin')); 
 								}
 							?></td>
+
 							<?php if(get_option(OPTION_HIDE_VEGGIE) != "Y") {?>
 							<td><?php 
 								if($attendee->rsvpStatus == "NoResponse") {
@@ -556,10 +559,10 @@ License: GPL
 								}	
 									?></td>
 							<?php } ?>
-							<td><?php
+							<!--<td><?php
 								echo nl2br(stripslashes(trim($attendee->personalGreeting)));
 							?></td>
-							<td><?php echo nl2br(stripslashes(trim($attendee->note))); ?></td>
+							<td><?php echo nl2br(stripslashes(trim($attendee->note))); ?></td>-->
 							<?php
 							if(rsvp_require_passcode()) {
 							?>
