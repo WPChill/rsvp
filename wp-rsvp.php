@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.1.2
+ * @version 2.1.3
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 2.1.2
+Version: 2.1.3
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -496,8 +496,8 @@ License: GPL
 												alt="Sort Descending Vegetarian Status" title="Sort Descending Vegetarian Status" border="0"></a>
 						</th>
 						<?php } ?>
-						<!--<th scope="col" id="customMessage" class="manage-column column-title" style=""><?php echo __("Custom Message", 'rsvp-plugin'); ?></th>
-						<th scope="col" id="note" class="manage-column column-title" style=""><?php echo __("Note", 'rsvp-plugin'); ?></th>-->
+						<!--<th scope="col" id="customMessage" class="manage-column column-title" style=""><?php echo __("Custom Message", 'rsvp-plugin'); ?></th>-->
+						<th scope="col" id="note" class="manage-column column-title" style=""><?php echo __("Note", 'rsvp-plugin'); ?></th>
 						<?php
 						if(rsvp_require_passcode()) {
 						?>
@@ -561,8 +561,8 @@ License: GPL
 							<?php } ?>
 							<!--<td><?php
 								echo nl2br(stripslashes(trim($attendee->personalGreeting)));
-							?></td>
-							<td><?php echo nl2br(stripslashes(trim($attendee->note))); ?></td>-->
+							?></td>-->
+							<td><?php echo nl2br(stripslashes(trim($attendee->note))); ?></td>
 							<?php
 							if(rsvp_require_passcode()) {
 							?>
