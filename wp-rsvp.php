@@ -391,7 +391,7 @@ License: GPL
     <div class="updated">
       <p><?php echo __("We now have a pro version of this plugin. If you need features like multiple event support, mass 
       emailing, more customizations, etc... you should  
-        <a href=\"https://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/\" target=\"_blank\">check it out!</a>", 'rsvp-plugin'); ?></p>
+        <a href=\"https://www.rsvpforwordpress.com/downloads/rsvp-pro-plugin/\" target=\"_blank\">check it out!</a>", 'rsvp-plugin'); ?></p>
     </div>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function() {
@@ -750,38 +750,38 @@ License: GPL
 			require_once("Excel/reader.php");
 			$data = new Spreadsheet_Excel_Reader();
 			$data->read($_FILES['importFile']['tmp_name']);
-      $skipFirstRow = false;
-      if($data->sheets[0]['numCols'] >= 6) {
-        // Associating private questions... have to skip the first row
-        $skipFirstRow = true;
-      }
+			$skipFirstRow = false;
+			if($data->sheets[0]['numCols'] >= 6) {
+				// Associating private questions... have to skip the first row
+				$skipFirstRow = true;
+			}
 			if($data->sheets[0]['numCols'] >= 2) {
 				$count = 0;
-        $i = ($skipFirstRow) ? 2 : 1;
+        		$i = ($skipFirstRow) ? 2 : 1;
 				for ($i; $i <= $data->sheets[0]['numRows']; $i++) {
 					$fName = trim($data->sheets[0]['cells'][$i][1]);
-          $fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
+          			$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
           
 					$lName = trim($data->sheets[0]['cells'][$i][2]);
-          $lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
-          $email = trim($data->sheets[0]['cells'][$i][3]);
+          			$lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
+          			$email = trim($data->sheets[0]['cells'][$i][3]);
 					$personalGreeting = (isset($data->sheets[0]['cells'][$i][5])) ? $personalGreeting = $data->sheets[0]['cells'][$i][5] : "";
-          $passcode = (isset($data->sheets[0]['cells'][$i][6])) ? $data->sheets[0]['cells'][$i][6] : "";
-          if(rsvp_require_unique_passcode() && !rsvp_is_passcode_unique($passcode, 0)) {
-            $passcode = rsvp_generate_passcode();
-          }
+          			$passcode = (isset($data->sheets[0]['cells'][$i][6])) ? $data->sheets[0]['cells'][$i][6] : "";
+					if(rsvp_require_unique_passcode() && !rsvp_is_passcode_unique($passcode, 0)) {
+						$passcode = rsvp_generate_passcode();
+					}
 
 					if(!empty($fName) && !empty($lName)) {
 						$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
 						 	WHERE firstName = %s AND lastName = %s ";
 						$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
 						if(count($res) == 0) {
-              $wpdb->insert(ATTENDEES_TABLE, array("firstName"         => $fName,
-                                                   "lastName"         => $lName,
-                                                   "email"            => $email,
-                                                   "personalGreeting" => $personalGreeting,
-                                                   "passcode"         => $passcode),
-                                             array('%s', '%s', '%s', '%s'));
+			              $wpdb->insert(ATTENDEES_TABLE, array("firstName"         => $fName,
+			                                                   "lastName"         => $lName,
+			                                                   "email"            => $email,
+			                                                   "personalGreeting" => $personalGreeting,
+			                                                   "passcode"         => $passcode),
+			                                             array('%s', '%s', '%s', '%s'));
 							$count++;
 						}
 					}
@@ -789,7 +789,7 @@ License: GPL
 				
 				if($data->sheets[0]['numCols'] >= 4) {
 					// There must be associated users so let's associate them
-          $i = ($skipFirstRow) ? 2 : 1;
+          			$i = ($skipFirstRow) ? 2 : 1;
 					for ($i; $i <= $data->sheets[0]['numRows']; $i++) {
 						$fName = trim($data->sheets[0]['cells'][$i][1]);
 						$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
@@ -933,7 +933,7 @@ License: GPL
 				rsvp_printQueryDebugInfo();
 				$attendeeId = $_POST['attendeeId'];
 				$wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeId = %d", $attendeeId));
-        $wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d", $attendeeId));
+        		$wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d", $attendeeId));
         
 			} else {
 				$wpdb->insert(ATTENDEES_TABLE, array("firstName" => trim($_POST['firstName']), 
@@ -949,7 +949,7 @@ License: GPL
 				foreach($_POST['associatedAttendees'] as $aid) {
 					if(is_numeric($aid) && ($aid > 0)) {
 						$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID"=>$attendeeId, "associatedAttendeeID"=>$aid), array("%d", "%d"));
-            $wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID"=>$aid, "associatedAttendeeID"=>$attendeeId), array("%d", "%d"));
+            			$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID"=>$aid, "associatedAttendeeID"=>$attendeeId), array("%d", "%d"));
 					}
 				}
 			}

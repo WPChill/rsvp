@@ -18,7 +18,7 @@ in existing plugins was:
 
 **Please Note** - I don't monitor the forums for issues. If you would like some help or would like to see a new feature please email me at mike AT mde DASH dev.com. I will see what I can do to help.
 
-**All new features are being developed in the pro version of the plugin, found at - http://www.swimordiesoftware.com/downloads/rsvp-pro-plugin/. We will continue to do bug fixes on the free version but new features will more than likely not be found in the free plugin**
+**All new features are being developed in the pro version of the plugin, found at - https://www.rsvpforwordpress.com/downloads/rsvp-pro-plugin/. We will continue to do bug fixes on the free version but new features will more than likely not be found in the free plugin**
 
 The main development repository for this plugin is now on GitHub at https://github.com/medelibero/Wordpress-RSVP-Plugin/
 
