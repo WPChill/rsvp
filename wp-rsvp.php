@@ -391,7 +391,7 @@ License: GPL
     <div class="updated">
       <p><?php echo __("We now have a pro version of this plugin. If you need features like multiple event support, mass 
       emailing, more customizations, etc... you should  
-        <a href=\"https://www.rsvpforwordpress.com/downloads/rsvp-pro-plugin/\" target=\"_blank\">check it out!</a>", 'rsvp-plugin'); ?></p>
+        <a href=\"https://www.rsvpforwordpress.com\" target=\"_blank\">check it out!</a>", 'rsvp-plugin'); ?></p>
     </div>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function() {
