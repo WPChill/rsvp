@@ -1,24 +1,26 @@
 === RSVP Plugin ===
 Contributors: mdedev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Tags: rsvp, reserve, wedding, guestlist, attendee management
+Tags: rsvp, reserve, wedding, guestlist, attendee management, event management, event planning, wedding planning
 Requires at least: 3.0
 Tested up to: 4.3.1
 Stable tag: 2.1.3
 
-Easy to use rsvp plugin originally created for weddings but could be used for other events.
+Easy to use RSVP plugin to handle single events of any size. 
 
 == Description ==
 
-This plugin was initially created for a wedding to make rsvp'ing easy as possible for guests. The main things we found lacking 
+This plugin was created for events to make RSVP'ing easy as possible for guests. The main things we found lacking 
 in existing plugins was:
 
-* Couldn't relate attendees together so one person could easily rsvp for their whole family
+* Couldn't relate attendees together so one person could easily RSVP for their whole family
 * Required people to remember/know some special knowledge (a code, a zipcode, etc...)
+
+We also recognize that no two events are alike so we have tried to make it as easy as possible to customize the plugin through custom questions and a slew of options. This will help with your event and/or wedding planning that you are undertaking.
 
 **Please Note** - I don't monitor the forums for issues. If you would like some help or would like to see a new feature please email me at mike AT mde DASH dev.com. I will see what I can do to help.
 
-**All new features are being developed in the pro version of the plugin, found at - https://www.rsvpproplugin.com/. We will continue to do bug fixes on the free version but new features will more than likely not be found in the free plugin**
+**New features are being developed in the pro version of the plugin, found at - https://www.rsvpproplugin.com/. We will continue to do bug fixes on the free version and support it.**
 
 The main development repository for this plugin is now on GitHub at https://github.com/medelibero/Wordpress-RSVP-Plugin/
 
@@ -39,9 +41,6 @@ The admin functionality allows you to do the following things:
 * Create custom questions that can be asked by each attendee
 * Have questions be asked to all guests or limit the question to specific attendees
 * Specify email notifications to happen whenever someone rsvps
-
-If there are any improvements or modifications you would like to see in the plugin please feel free to contact me at (mike AT mde DASH dev.com) and 
-I will see if I can get them into the plugin for you.  
 
 Available CSS Stylings: 
 
@@ -69,7 +68,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Installation ==
 
-1. Update the `rsvp` folder to the `/wp-content/plugins/` directory
+1. Upload the `rsvp` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Add and/or import your attendees to the plugin and set the options you want
 1. Create a blank page and add [rsvp] on this page
@@ -80,6 +79,10 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 Good question, maybe I didn't think about having this feature or didn't feel anyone would use it.  Contact me at mike AT mde DASH dev.com and 
 I will see if I can get it added for you.  
+
+= I need help = 
+
+I am here to help, contact me at mike AT mde DASH dev.com
 
 == Screenshots ==
 
