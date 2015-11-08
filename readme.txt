@@ -18,7 +18,7 @@ in existing plugins was:
 
 We also recognize that no two events are alike so we have tried to make it as easy as possible to customize the plugin through custom questions and a slew of options. This will help with your event and/or wedding planning that you are undertaking.
 
-> <strong>Premium Support</support><br />
+> <strong>Premium Support</strong><br />
 > I do not provide support for the RSVP plugin on the WordPress.org forums. If you found an issue with the plugin feel free to email me at mikede AT mde DASH dev.com. If you need support or feature that is available through the [Premium RSVP plugin](https://www.rsvpproplugin.com) only. 
 > The premium version of the plugin has many additional features and customizationts so it might be worth the investment! 
 
