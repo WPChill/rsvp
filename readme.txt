@@ -18,9 +18,9 @@ in existing plugins was:
 
 We also recognize that no two events are alike so we have tried to make it as easy as possible to customize the plugin through custom questions and a slew of options. This will help with your event and/or wedding planning that you are undertaking.
 
-**Please Note** - I don't monitor the forums for issues. If you would like some help or would like to see a new feature please email me at mike AT mde DASH dev.com. I will see what I can do to help.
-
-**New features are being developed in the pro version of the plugin, found at - https://www.rsvpproplugin.com/. We will continue to do bug fixes on the free version and support it.**
+> <strong>Premium Support</support><br />
+> I do not provide support for the RSVP plugin on the WordPress.org forums. If you found an issue with the plugin feel free to email me at mikede AT mde DASH dev.com. If you need support or feature that is available through the [Premium RSVP plugin](https://www.rsvpproplugin.com) only. 
+> The premium version of the plugin has many additional features and customizationts so it might be worth the investment! 
 
 The main development repository for this plugin is now on GitHub at https://github.com/medelibero/Wordpress-RSVP-Plugin/
 
