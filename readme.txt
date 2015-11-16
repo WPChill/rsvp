@@ -1,12 +1,12 @@
 === RSVP Plugin ===
 Contributors: mdedev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Tags: rsvp, reserve, wedding, guestlist, attendee management, event management, event planning, wedding planning
+Tags: rsvp, reserve, wedding, guestlist, attendee management, event management, event planning, wedding planning, event registration, event, events, events management, events registration
 Requires at least: 3.0
 Tested up to: 4.3.1
 Stable tag: 2.1.3
 
-Easy to use RSVP plugin to handle single events of any size. 
+Simple and easy to use RSVP plugin to handle event registration for a single event. 
 
 == Description ==
 
