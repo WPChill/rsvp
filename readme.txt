@@ -1,12 +1,12 @@
-=== RSVP Plugin ===
+=== RSVP and Event Management Plugin ===
 Contributors: mdedev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: rsvp, reserve, wedding, guestlist, attendee management, event management, event planning, wedding planning, event registration, event, events, events management, events registration
 Requires at least: 3.0
-Tested up to: 4.3.1
+Tested up to: 4.4
 Stable tag: 2.1.3
 
-Simple and easy to use RSVP plugin to handle event registration for a single event. 
+Simple and easy to use RSVP & event management plugin to handle registrations for a single event. 
 
 == Description ==
 
@@ -18,9 +18,8 @@ in existing plugins was:
 
 We also recognize that no two events are alike so we have tried to make it as easy as possible to customize the plugin through custom questions and a slew of options. This will help with your event and/or wedding planning that you are undertaking.
 
-> <strong>Premium Support</strong><br />
-> I do not provide support for the RSVP plugin on the WordPress.org forums. If you found an issue with the plugin feel free to email me at mikede AT mde DASH dev.com. If you need support or feature that is available through the [Premium RSVP plugin](https://www.rsvpproplugin.com) only. 
-> The premium version of the plugin has many additional features and customizationts so it might be worth the investment! 
+> <strong>Support</strong><br />
+> Currently I do not monitor the forums for issues. However, if you need help or have found a bug feel free to get in touch with me via email  at mikede@mde-dev.com and I will be happy to help out where I can. 
 
 The main development repository for this plugin is now on GitHub at https://github.com/medelibero/Wordpress-RSVP-Plugin/
 
