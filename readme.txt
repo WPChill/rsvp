@@ -6,7 +6,7 @@ Requires at least: 3.0
 Tested up to: 4.4
 Stable tag: 2.1.3
 
-Simple and easy to use RSVP & event management plugin to handle registrations for a single event. 
+Simple and easy to use RSVP and event management plugin to handle registrations for a single event. 
 
 == Description ==
 
@@ -18,8 +18,11 @@ The <a target="_new" href="https://www.rsvpproplugin.com?utm_source=wordpress.co
 ** Ability to enable a passcode if desired
 * Easy attendee management
 * Relate attendees to make it easier for groups and families to RSVP together 
-* Notifications 
+* Email notifications 
 * Custom questions 
+* Import/export attendees
+* Open or set attendee list registration
+* Ability for +1s
 * Much, much more 
 
 > <strong>Support</strong><br />
@@ -29,7 +32,7 @@ The <a target="_new" href="https://www.rsvpproplugin.com?utm_source=wordpress.co
 * Multiple events
 * Even more text customizations
 * Public attendee lists 
-* Abiilty to send mass emails 
+* Ability to send mass emails 
 * More info at <a target="_new" href="https://www.rsvpproplugin.com"/>https://rsvpproplugin.com</a>
 * <a target="_new" href="http://rsvpprodemo.swimordiesoftware.com">Demo</a>
 
