@@ -10,60 +10,28 @@ Simple and easy to use RSVP & event management plugin to handle registrations fo
 
 == Description ==
 
-This plugin was created for events to make RSVP'ing easy as possible for guests. The main things we found lacking 
-in existing plugins was:
+The <a target="_new" href="https://www.rsvpproplugin.com?utm_source=wordpress.com&utm_medium=referral">RSVP plugin</a> was created for events to make RSVP'ing easy as possible for guests. 
 
-* Couldn't relate attendees together so one person could easily RSVP for their whole family
-* Required people to remember/know some special knowledge (a code, a zipcode, etc...)
-
-We also recognize that no two events are alike so we have tried to make it as easy as possible to customize the plugin through custom questions and a slew of options. This will help with your event and/or wedding planning that you are undertaking.
+= Features of the Free Version = 
+* Easy to customize text
+* No need to know a passcode to RSVP 
+** Ability to enable a passcode if desired
+* Easy attendee management
+* Relate attendees to make it easier for groups and families to RSVP together 
+* Notifications 
+* Custom questions 
+* Much, much more 
 
 > <strong>Support</strong><br />
 > Currently I do not monitor the forums for issues. However, if you need help or have found a bug feel free to get in touch with me via email  at mikede@mde-dev.com and I will be happy to help out where I can. 
 
-The main development repository for this plugin is now on GitHub at https://github.com/medelibero/Wordpress-RSVP-Plugin/
-
-The admin functionality allows you to do the following things:
-
-* Specify the opening and close date to rsvp 
-* Specify a custom greeting
-* Specify the RSVP yes and no text
-* Specify the kids meal verbiage
-* Specify the vegetarian meal verbiage 
-* Specify the text for the note question
-* Enter in a custom thank you
-* Create a custom message / greeting for each guest
-* Import a guest list from an excel sheet (column #1 is the first name, column #2 is the last name, column #3 associated attendees, column #4 custom greeting)
-* Export the guest list
-* Add, edit and delete guests
-* Associate guests with other guests
-* Create custom questions that can be asked by each attendee
-* Have questions be asked to all guests or limit the question to specific attendees
-* Specify email notifications to happen whenever someone rsvps
-
-Available CSS Stylings: 
-
-* rsvpPlugin - ID of the main RSVP Container. Each RSVP step will be wrapped in this container 
-* rsvpParagraph - Class name that is used for all paragraph tags on the front end portion of the RSVP
-* rsvpFormField - Class for divs that surround a given form input, which is a combination of a label and at least one form input (could be multiple form inputs)
-* rsvpAdditionalAttendee - Class for the div container that holds each additional RSVP attendee you are associated with
-* additionalRsvpContainer - The container that holds the plus sign that allows for people to add additional attendees
-* rsvpCustomGreeting - ID for the custom greeting div that shows up if that option is enabled
-* rsvpBorderTop - Class for setting a top border on certain divs in the main input form
-* rsvpCheckboxCustomQ - Class for the div that surrounds each custom question checkbox 
-* rsvpClear - A class for div elements that we want to use to set clear both. Currently used only next to rsvpCheckboxCustomQs as they are floated
-* rsvpAdditionalAttendeeQuestions - Class name for the div that wraps around all additional attendee questions
-* rsvpCustomQuestions - Class name for the div that wraps around all custom questions for each attendee
-
-Prefill Attendee:
-
-Go to the page associated with the RSVP form and add to the querystring the following parameters.
-
-* firstName - For the person's first name
-* lastName - For the person's last name
-* passcode - If passcode is enabled and/or required this will need to be added as well 
-
-For example if you have a page that is /rsvp for domain example.com your URL might look like - http://www.example.com/rsvp?firstName=test&lastName=test 
+= Additional Features in the <a target="_new" href="https://www.rsvpproplugin.com/">Premium Version</a> = 
+* Multiple events
+* Even more text customizations
+* Public attendee lists 
+* Abiilty to send mass emails 
+* More info at <a target="_new" href="https://www.rsvpproplugin.com"/>https://rsvpproplugin.com</a>
+* <a target="_new" href="http://rsvpprodemo.swimordiesoftware.com">Demo</a>
 
 == Installation ==
 
@@ -79,9 +47,39 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 Good question, maybe I didn't think about having this feature or didn't feel anyone would use it.  Contact me at mike AT mde DASH dev.com and 
 I will see if I can get it added for you.  
 
+= Can I style the plugin? = 
+
+Yes. Below are the styles for the plugin:
+
+* rsvpPlugin - ID of the main RSVP Container. Each RSVP step will be wrapped in this container 
+* rsvpParagraph - Class name that is used for all paragraph tags on the front end portion of the RSVP
+* rsvpFormField - Class for divs that surround a given form input, which is a combination of a label and at least one form input (could be multiple form inputs)
+* rsvpAdditionalAttendee - Class for the div container that holds each additional RSVP attendee you are associated with
+* additionalRsvpContainer - The container that holds the plus sign that allows for people to add additional attendees
+* rsvpCustomGreeting - ID for the custom greeting div that shows up if that option is enabled
+* rsvpBorderTop - Class for setting a top border on certain divs in the main input form
+* rsvpCheckboxCustomQ - Class for the div that surrounds each custom question checkbox 
+* rsvpClear - A class for div elements that we want to use to set clear both. Currently used only next to rsvpCheckboxCustomQs as they are floated
+* rsvpAdditionalAttendeeQuestions - Class name for the div that wraps around all additional attendee questions
+* rsvpCustomQuestions - Class name for the div that wraps around all custom questions for each attendee
+
 = I need help = 
 
 I am here to help, contact me at mike AT mde DASH dev.com
+
+= Is there a GitHub Repository? = 
+
+Yes, that is where the main development is done - https://github.com/medelibero/Wordpress-RSVP-Plugin/
+
+= Can I Prefill Attendee Information? = 
+
+Yes, go to the page associated with the RSVP form and add to the querystring the following parameters.
+
+* firstName - For the person's first name
+* lastName - For the person's last name
+* passcode - If passcode is enabled and/or required this will need to be added as well 
+
+For example if you have a page that is /rsvp for domain example.com your URL might look like - http://www.example.com/rsvp?firstName=test&lastName=test 
 
 == Screenshots ==
 
