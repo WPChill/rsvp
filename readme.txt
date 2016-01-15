@@ -15,7 +15,7 @@ The <a target="_new" href="https://www.rsvpproplugin.com?utm_source=wordpress.co
 = Features of the Free Version = 
 * Easy to customize text
 * No need to know a passcode to RSVP 
-  * Ability to enable a passcode if desired
+ * Ability to enable a passcode if desired
 * Easy attendee management
 * Relate attendees to make it easier for groups and families to RSVP together 
 * Email notifications 
