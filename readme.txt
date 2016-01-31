@@ -3,7 +3,7 @@ Contributors: mdedev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: rsvp, reserve, wedding, guestlist, attendee management, event management, event planning, wedding planning, event registration, event, events, events management, events registration
 Requires at least: 3.0
-Tested up to: 4.4
+Tested up to: 4.4.1
 Stable tag: 2.1.3
 
 Simple and easy to use RSVP and event management plugin to handle registrations for a single event. 
@@ -91,6 +91,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.1.4 = 
+* Added the ability to delete the database tables and options when uninstalling
 
 = 2.1.3 = 
 * Resurfaced the note field on the admin attendee list screen

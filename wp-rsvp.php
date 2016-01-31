@@ -41,7 +41,7 @@ License: GPL
 	define("OPTION_KIDS_MEAL_VERBIAGE", "rsvp_kids_meal_verbiage");
 	define("OPTION_VEGGIE_MEAL_VERBIAGE", "rsvp_veggie_meal_verbiage");
 	define("OPTION_NOTE_VERBIAGE", "rsvp_note_verbiage");
-  define("RSVP_OPTION_HIDE_NOTE", "rsvp_hide_note_field");
+  	define("RSVP_OPTION_HIDE_NOTE", "rsvp_hide_note_field");
 	define("OPTION_HIDE_VEGGIE", "rsvp_hide_veggie");
 	define("OPTION_HIDE_KIDS_MEAL", "rsvp_hide_kids_meal");
 	define("OPTION_HIDE_ADD_ADDITIONAL", "rsvp_hide_add_additional");
@@ -52,28 +52,29 @@ License: GPL
 	define("OPTION_RSVP_QUESTION", "rsvp_custom_question_text");
 	define("OPTION_RSVP_CUSTOM_YES_NO", "rsvp_custom_yes_no");
 	define("OPTION_RSVP_PASSCODE", "rsvp_passcode");
-  define("OPTION_RSVP_OPEN_REGISTRATION", "rsvp_open_registration");
-  define("OPTION_RSVP_DONT_USE_HASH", "rsvp_dont_use_has");
-  define("OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE", "rsvp_add_additional_verbiage");
-  define("OPTION_RSVP_GUEST_EMAIL_CONFIRMATION", "rsvp_guest_email_confirmation");
-  define("OPTION_RSVP_NUM_ADDITIONAL_GUESTS", "rsvp_num_additional_guests");
-  define("OPTION_RSVP_HIDE_EMAIL_FIELD", "rsvp_hide_email_field");
-  define("OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM", "rsvp_disable_custom_from_email");
-  define("OPTION_RSVP_ONLY_PASSCODE", "rsvp_only_passcode");
-  define("OPTION_RSVP_EMAIL_TEXT", "rsvp_email_text");
-  define("OPTION_RSVP_DISABLE_USER_SEARCH", "rsvp_disable_user_search");
+  	define("OPTION_RSVP_OPEN_REGISTRATION", "rsvp_open_registration");
+  	define("OPTION_RSVP_DONT_USE_HASH", "rsvp_dont_use_has");
+  	define("OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE", "rsvp_add_additional_verbiage");
+  	define("OPTION_RSVP_GUEST_EMAIL_CONFIRMATION", "rsvp_guest_email_confirmation");
+  	define("OPTION_RSVP_NUM_ADDITIONAL_GUESTS", "rsvp_num_additional_guests");
+  	define("OPTION_RSVP_HIDE_EMAIL_FIELD", "rsvp_hide_email_field");
+  	define("OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM", "rsvp_disable_custom_from_email");
+  	define("OPTION_RSVP_ONLY_PASSCODE", "rsvp_only_passcode");
+  	define("OPTION_RSVP_EMAIL_TEXT", "rsvp_email_text");
+  	define("OPTION_RSVP_DISABLE_USER_SEARCH", "rsvp_disable_user_search");
+  	define("RSVP_OPTION_DELETE_DATA_ON_UNINSTALL", "rsvp_delete_data_on_uninstall");
 	define("RSVP_DB_VERSION", "11");
 	define("QT_SHORT", "shortAnswer");
 	define("QT_MULTI", "multipleChoice");
 	define("QT_LONG", "longAnswer");
 	define("QT_DROP", "dropdown");
 	define("QT_RADIO", "radio");
-  define("RSVP_START_PARA", "<p class=\"rsvpParagraph\">");
-  define("RSVP_END_PARA", "</p>\r\n");
-  define("RSVP_START_CONTAINER", "<div id=\"rsvpPlugin\">\r\n");
-  define("RSVP_END_CONTAINER", "</div>\r\n");
-  define("RSVP_START_FORM_FIELD", "<div class=\"rsvpFormField\">\r\n");
-  define("RSVP_END_FORM_FIELD", "</div>\r\n");
+  	define("RSVP_START_PARA", "<p class=\"rsvpParagraph\">");
+  	define("RSVP_END_PARA", "</p>\r\n");
+  	define("RSVP_START_CONTAINER", "<div id=\"rsvpPlugin\">\r\n");
+  	define("RSVP_END_CONTAINER", "</div>\r\n");
+  	define("RSVP_START_FORM_FIELD", "<div class=\"rsvpFormField\">\r\n");
+  	define("RSVP_END_FORM_FIELD", "</div>\r\n");
   
   $my_plugin_file = __FILE__;
 
@@ -144,29 +145,30 @@ License: GPL
 	 */
 	function rsvp_generate_passcode() {
 		$length = 6;
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    	$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
 		$passcode = "";
 
-    for ($p = 0; $p < $length; $p++) {
-        $passcode .= $characters[mt_rand(0, strlen($characters))];
-    }
+    	for ($p = 0; $p < $length; $p++) {
+        	$passcode .= $characters[mt_rand(0, strlen($characters))];
+    	}
 
-    return $passcode;
+    	return $passcode;
 	}
 
 	function rsvp_admin_guestlist_options() {
-    global $wpdb;
-    if(rsvp_require_unique_passcode()) {
-			$sql = "SELECT id, passcode FROM ".ATTENDEES_TABLE." a WHERE passcode <> '' AND (SELECT COUNT(*) FROM ".ATTENDEES_TABLE." WHERE passcode = a.passcode) > 1";
-			$attendees = $wpdb->get_results($sql);
-			foreach($attendees as $a) {
-        $wpdb->update(ATTENDEES_TABLE,
-                      array("passcode" => rsvp_generate_passcode()),
-                      array("id" => $a->id),
-                      array("%s"),
-                      array("%d"));
-      }
-    }
+    	global $wpdb;
+	    if(rsvp_require_unique_passcode()) {
+				$sql = "SELECT id, passcode FROM ".ATTENDEES_TABLE." a 
+					WHERE passcode <> '' AND (SELECT COUNT(*) FROM ".ATTENDEES_TABLE." WHERE passcode = a.passcode) > 1";
+				$attendees = $wpdb->get_results($sql);
+				foreach($attendees as $a) {
+	        $wpdb->update(ATTENDEES_TABLE,
+	                      array("passcode" => rsvp_generate_passcode()),
+	                      array("id" => $a->id),
+	                      array("%s"),
+	                      array("%d"));
+	      }
+	    }
 		
 		if(rsvp_require_passcode()) {
 			
@@ -262,11 +264,11 @@ License: GPL
 						<td align="left"><textarea name="rsvp_note_verbiage" id="rsvp_note_verbiage" rows="3" cols="60"><?php 
 							echo htmlspecialchars(get_option(OPTION_NOTE_VERBIAGE)); ?></textarea></td>
 					</tr>
-          <tr valign="top">
-            <th scope="row"><label for="rsvp_hide_note_field"><?php echo __("Hide Note Field:", 'rsvp-plugin'); ?></label></th>
-            <td align="left"><input type="checkbox" name="rsvp_hide_note_field" id="rsvp_hide_note_field" value="Y" 
-              <?php echo ((get_option(RSVP_OPTION_HIDE_NOTE) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
-          </tr>
+          			<tr valign="top">
+            			<th scope="row"><label for="rsvp_hide_note_field"><?php echo __("Hide Note Field:", 'rsvp-plugin'); ?></label></th>
+            			<td align="left"><input type="checkbox" name="rsvp_hide_note_field" id="rsvp_hide_note_field" value="Y" 
+              				<?php echo ((get_option(RSVP_OPTION_HIDE_NOTE) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
+          			</tr>
 					<tr valign="top">
 						<th scope="row"><label for="rsvp_custom_thankyou"><?php echo __("Custom Thank You:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><textarea name="rsvp_custom_thankyou" id="rsvp_custom_thankyou" rows="5" cols="60"><?php echo htmlspecialchars(get_option(OPTION_THANKYOU)); ?></textarea></td>
@@ -291,11 +293,11 @@ License: GPL
 						<th scope="row"><label for="rsvp_notify_email_address"><?php echo __("Email address to notify", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="text" name="rsvp_notify_email_address" id="rsvp_notify_email_address" value="<?php echo htmlspecialchars(get_option(OPTION_NOTIFY_EMAIL)); ?>"/></td>
 					</tr>
-          <tr valign="top">
-            <th scope="row"><label for="rsvp_guest_email_confirmation"><?php echo __("Send email to main guest when they RSVP", 'rsvp-plugin'); ?></label></th>
-            <td align="left"><input type="checkbox" name="rsvp_guest_email_confirmation" id="rsvp_guest_email_confirmation" value="Y" 
-              <?php echo ((get_option(OPTION_RSVP_GUEST_EMAIL_CONFIRMATION) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
-          </tr>
+          			<tr valign="top">
+            			<th scope="row"><label for="rsvp_guest_email_confirmation"><?php echo __("Send email to main guest when they RSVP", 'rsvp-plugin'); ?></label></th>
+            			<td align="left"><input type="checkbox" name="rsvp_guest_email_confirmation" id="rsvp_guest_email_confirmation" value="Y" 
+              				<?php echo ((get_option(OPTION_RSVP_GUEST_EMAIL_CONFIRMATION) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
+          			</tr>
 					<tr>
 						<th scope="ropw"><label for="<?php echo OPTION_RSVP_PASSCODE; ?>"><?php echo __("Require a Passcode to RSVP:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_PASSCODE; ?>" id="<?php echo OPTION_RSVP_PASSCODE; ?>" value="Y" 
@@ -306,16 +308,16 @@ License: GPL
 						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_ONLY_PASSCODE; ?>" id="<?php echo OPTION_RSVP_ONLY_PASSCODE; ?>" value="Y" 
 							 <?php echo ((get_option(OPTION_RSVP_ONLY_PASSCODE) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
-          <tr valign="top">
-            <th scope="row"><label for="<?PHP echo OPTION_RSVP_OPEN_REGISTRATION; ?>"><?php echo __("Allow Open Registration (note - this will force passcodes for attendees):", 'rsvp-plugin'); ?></label></th>
-            <td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_OPEN_REGISTRATION; ?>" id="<?php echo OPTION_RSVP_OPEN_REGISTRATION; ?>" value="Y" 
-               <?php echo ((get_option(OPTION_RSVP_OPEN_REGISTRATION) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
-          </tr>
-          <tr valign="top">
-            <th scope="row"><label for="<?PHP echo OPTION_RSVP_DONT_USE_HASH; ?>"><?php echo __("Do not scroll page to the top of the RSVP form:", 'rsvp-plugin'); ?></label></th>
-            <td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_DONT_USE_HASH; ?>" id="<?php echo OPTION_RSVP_DONT_USE_HASH; ?>" value="Y" 
-               <?php echo ((get_option(OPTION_RSVP_DONT_USE_HASH) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
-          </tr>
+          			<tr valign="top">
+            			<th scope="row"><label for="<?PHP echo OPTION_RSVP_OPEN_REGISTRATION; ?>"><?php echo __("Allow Open Registration (note - this will force passcodes for attendees):", 'rsvp-plugin'); ?></label></th>
+            			<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_OPEN_REGISTRATION; ?>" id="<?php echo OPTION_RSVP_OPEN_REGISTRATION; ?>" value="Y" 
+               				<?php echo ((get_option(OPTION_RSVP_OPEN_REGISTRATION) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
+          			</tr>
+          			<tr valign="top">
+            			<th scope="row"><label for="<?PHP echo OPTION_RSVP_DONT_USE_HASH; ?>"><?php echo __("Do not scroll page to the top of the RSVP form:", 'rsvp-plugin'); ?></label></th>
+            			<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_DONT_USE_HASH; ?>" id="<?php echo OPTION_RSVP_DONT_USE_HASH; ?>" value="Y" 
+               				<?php echo ((get_option(OPTION_RSVP_DONT_USE_HASH) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
+          			</tr>
 					<tr valign="top">
 						<th scope="row"><label for="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>"><?php echo __("Hide email field on rsvp form:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>" id="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>" 
@@ -330,6 +332,11 @@ License: GPL
 						<th scope="row"><label for="<?php echo OPTION_RSVP_DISABLE_USER_SEARCH; ?>"><?php echo __("Disable searching for a user when no user is found:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_DISABLE_USER_SEARCH; ?>" id="<?php echo OPTION_RSVP_DISABLE_USER_SEARCH; ?>" 
 							value="Y" <?php echo ((get_option(OPTION_RSVP_DISABLE_USER_SEARCH) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><label for="<?php echo RSVP_OPTION_DELETE_DATA_ON_UNINSTALL; ?>"><?php echo __("Delete all data on uninstall:", 'rsvp-plugin'); ?></label></th>
+						<td align="left"><input type="checkbox" name="<?php echo RSVP_OPTION_DELETE_DATA_ON_UNINSTALL; ?>" id="<?php echo RSVP_OPTION_DELETE_DATA_ON_UNINSTALL; ?>" 
+							value="Y" <?php echo ((get_option(RSVP_OPTION_DELETE_DATA_ON_UNINSTALL) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
 					</tr>
 				</table>
 				<input type="hidden" name="action" value="update" />
@@ -389,9 +396,9 @@ License: GPL
 		}
 	?>
     <div class="updated">
-      <p><?php echo __("We now have a pro version of this plugin. If you need features like multiple event support, mass 
-      emailing, more customizations, etc... you should  
-        <a href=\"https://www.rsvpproplugin.com\" target=\"_blank\">check it out!</a>", 'rsvp-plugin'); ?></p>
+      <p><?php echo __("Need some of the <a href=\"https://www.rsvpproplugin.com\" target=\"_blank\">features of the premium version</a>? 
+      	Use discount code <b>FREE2PRO</b> or click 
+      	<a href=\"https://www.rsvpproplugin.com/checkout?edd_action=add_to_cart&download_id=68&discount=FREE2PRO\">here</a> to save 20%.", 'rsvp-plugin'); ?></p>
     </div>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function() {
@@ -520,7 +527,7 @@ License: GPL
 					</tr>
 				</thead>
 			</table>
-			<div style="overflow: auto;height: 450px;">
+			<div>
 				<table class="widefat post fixed" cellspacing="0">
 				<?php
 					$i = 0;
@@ -1534,17 +1541,18 @@ License: GPL
 		register_setting('rsvp-option-group', OPTION_RSVP_QUESTION);
 		register_setting('rsvp-option-group', OPTION_RSVP_CUSTOM_YES_NO);
 		register_setting('rsvp-option-group', OPTION_RSVP_PASSCODE);
-    register_setting('rsvp-option-group', RSVP_OPTION_HIDE_NOTE);
-    register_setting('rsvp-option-group', OPTION_RSVP_OPEN_REGISTRATION);
-    register_setting('rsvp-option-group', OPTION_RSVP_DONT_USE_HASH);
-    register_setting('rsvp-option-group', OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE);
-    register_setting('rsvp-option-group', OPTION_RSVP_GUEST_EMAIL_CONFIRMATION);
-    register_setting('rsvp-option-group', OPTION_RSVP_NUM_ADDITIONAL_GUESTS);
-    register_setting('rsvp-option-group', OPTION_RSVP_HIDE_EMAIL_FIELD);
-    register_setting('rsvp-option-group', OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM);
-    register_setting('rsvp-option-group', OPTION_RSVP_ONLY_PASSCODE);
-    register_setting('rsvp-option-group', OPTION_RSVP_EMAIL_TEXT);
-    register_setting("rsvp-option-group", OPTION_RSVP_DISABLE_USER_SEARCH);
+    	register_setting('rsvp-option-group', RSVP_OPTION_HIDE_NOTE);
+    	register_setting('rsvp-option-group', OPTION_RSVP_OPEN_REGISTRATION);
+    	register_setting('rsvp-option-group', OPTION_RSVP_DONT_USE_HASH);
+    	register_setting('rsvp-option-group', OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE);
+    	register_setting('rsvp-option-group', OPTION_RSVP_GUEST_EMAIL_CONFIRMATION);
+    	register_setting('rsvp-option-group', OPTION_RSVP_NUM_ADDITIONAL_GUESTS);
+    	register_setting('rsvp-option-group', OPTION_RSVP_HIDE_EMAIL_FIELD);
+    	register_setting('rsvp-option-group', OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM);
+    	register_setting('rsvp-option-group', OPTION_RSVP_ONLY_PASSCODE);
+    	register_setting('rsvp-option-group', OPTION_RSVP_EMAIL_TEXT);
+    	register_setting("rsvp-option-group", OPTION_RSVP_DISABLE_USER_SEARCH);
+    	register_setting("rsvp-option-group", RSVP_OPTION_DELETE_DATA_ON_UNINSTALL);
     
 		wp_register_script('jquery_table_sort', plugins_url('jquery.tablednd_0_5.js',RSVP_PLUGIN_FILE));
 		wp_register_script('jquery_ui', rsvp_getHttpProtocol()."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.js");
