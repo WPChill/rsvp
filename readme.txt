@@ -93,6 +93,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 == Changelog ==
 
 = 2.1.4 = 
+* Fixed a bug where if the email field was hidden and a new attendee was added it would not save 
 * Added the ability to delete the database tables and options when uninstalling
 
 = 2.1.3 = 

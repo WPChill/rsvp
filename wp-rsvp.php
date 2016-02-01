@@ -397,8 +397,8 @@ License: GPL
 	?>
     <div class="updated">
       <p><?php echo __("Need some of the <a href=\"https://www.rsvpproplugin.com\" target=\"_blank\">features of the premium version</a>? 
-      	Use discount code <b>FREE2PRO</b> or click 
-      	<a href=\"https://www.rsvpproplugin.com/checkout?edd_action=add_to_cart&download_id=68&discount=FREE2PRO\">here</a> to save 20%.", 'rsvp-plugin'); ?></p>
+      	Want to save <b>20%</b> on the cost of the premium version?  
+      	<a href=\"https://www.rsvpproplugin.com/rsvp-premium-discount-code/\">Click here</a>.", 'rsvp-plugin'); ?></p>
     </div>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function() {
@@ -937,7 +937,6 @@ License: GPL
 											array("id" => $_POST['attendeeId']), 
 											array("%s", "%s", "%s", "%s", "%s"), 
 											array("%d"));
-				rsvp_printQueryDebugInfo();
 				$attendeeId = $_POST['attendeeId'];
 				$wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeId = %d", $attendeeId));
         		$wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d", $attendeeId));
@@ -1267,7 +1266,6 @@ License: GPL
 				                                     "questionTypeID" => trim($_POST['questionTypeID']), 
 																						 "permissionLevel" => ((trim($_POST['permissionLevel']) == "private") ? "private" : "public")),  
 				                               array('%s', '%d', '%s'));
-				rsvp_printQueryDebugInfo();
 				$questionId = $wpdb->insert_id;
 			}
 			
@@ -1276,7 +1274,6 @@ License: GPL
 				for($i = 0; $i < $_POST['numNewAnswers']; $i++) {
 					if(isset($_POST['newAnswer'.$i]) && !empty($_POST['newAnswer'.$i])) {
 						$wpdb->insert(QUESTION_ANSWERS_TABLE, array("questionID"=>$questionId, "answer"=>$_POST['newAnswer'.$i]));
-						rsvp_printQueryDebugInfo();
 					}
 				}
 			}
@@ -1287,7 +1284,6 @@ License: GPL
 					foreach($_POST['attendees'] as $aid) {
 						if(is_numeric($aid) && ($aid > 0)) {
 							$wpdb->insert(QUESTION_ATTENDEES_TABLE, array("attendeeID"=>$aid, "questionID"=>$questionId), array("%d", "%d"));
-							rsvp_printQueryDebugInfo();
 						}
 					}
 				}
@@ -1599,17 +1595,7 @@ License: GPL
     wp_enqueue_script('rsvp_plugin');
     wp_enqueue_style("rsvp_css");
 	}
-	
-	function rsvp_printQueryDebugInfo() {
-		global $wpdb;
 		
-		if(get_option(OPTION_DEBUG_RSVP_QUERIES) == "Y") {
-			echo "<br />Sql Output: ";
-			$wpdb->print_error();
-			echo "<br />";
-		}
-	}
-	
 	/*
 	This function checks to see if the page is running over SSL/HTTPs and will return the proper HTTP protocol.
 	
@@ -1620,6 +1606,10 @@ License: GPL
 			return "https";
 		}
 		return "http";
+	}
+
+	function rsvp_free_is_addslashes_enabled() {
+	  return get_magic_quotes_gpc();
 	}
   
   function rsvp_getCurrentPageURL() {

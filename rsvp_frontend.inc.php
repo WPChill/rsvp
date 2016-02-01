@@ -35,36 +35,36 @@ function rsvp_frontend_handler($text) {
 	if(isset($_POST['rsvpStep'])) {
 		$output = "";
 		switch(strtolower($_POST['rsvpStep'])) {
-      case("newattendee"):
-        return rsvp_handlenewattendee($output, $text);
-        break;
-      case("addattendee"):
-        return rsvp_handleNewRsvp($output, $text);
-        break;
-			case("handlersvp") :
-				$output = rsvp_handlersvp($output, $text);
-				if(!empty($output)) 
-					return $output;
-				break;
-			case("editattendee") :
-				$output = rsvp_editAttendee($output, $text);
-				if(!empty($output)) 
-					return $output;
-				break;
-			case("foundattendee") :
-				$output = rsvp_foundAttendee($output, $text);
-				if(!empty($output)) 
-					return $output;
-				break;
-			case("find") :
-				$output = rsvp_find($output, $text);
-				if(!empty($output))
-					return $output;
-				break;
-			case("newsearch"):
-			default:
-				return rsvp_handle_output($text, rsvp_frontend_greeting());
-				break;
+	    case("newattendee"):
+	        return rsvp_handlenewattendee($output, $text);
+	        break;
+	    case("addattendee"):
+	        return rsvp_handleNewRsvp($output, $text);
+	        break;
+		case("handlersvp") :
+			$output = rsvp_handlersvp($output, $text);
+			if(!empty($output)) 
+				return $output;
+			break;
+		case("editattendee") :
+			$output = rsvp_editAttendee($output, $text);
+			if(!empty($output)) 
+				return $output;
+			break;
+		case("foundattendee") :
+			$output = rsvp_foundAttendee($output, $text);
+			if(!empty($output)) 
+				return $output;
+			break;
+		case("find") :
+			$output = rsvp_find($output, $text);
+			if(!empty($output))
+				return $output;
+			break;
+		case("newsearch"):
+		default:
+			return rsvp_handle_output($text, rsvp_frontend_greeting());
+			break;
 		}
 	} else {
     if((isset($_REQUEST['firstName']) && isset($_REQUEST['lastName'])) || (rsvp_require_only_passcode_to_register() && isset($_REQUEST['passcode']))) {
@@ -111,7 +111,6 @@ function rsvp_handleAdditionalQuestions($attendeeID, $formName) {
 																									 "answer" => stripslashes($selectedAnswers), 
 																									 "questionID" => $q->id), 
 																						 array('%d', '%s', '%d'));
-						rsvp_printQueryDebugInfo();
 					}
 				} else if (($q->questionType == QT_DROP) || ($q->questionType == QT_RADIO)) {
 					$aRs = $wpdb->get_results($wpdb->prepare("SELECT id, answer FROM ".QUESTION_ANSWERS_TABLE." WHERE questionID = %d", $q->id));
@@ -122,7 +121,6 @@ function rsvp_handleAdditionalQuestions($attendeeID, $formName) {
 																											 "answer" => stripslashes($a->answer), 
 																											 "questionID" => $q->id), 
 																								 array('%d', '%s', '%d'));
-								rsvp_printQueryDebugInfo();
 								break;
 							}
 						}
@@ -132,7 +130,6 @@ function rsvp_handleAdditionalQuestions($attendeeID, $formName) {
 																								 "answer" => $_POST[$formName.$q->id], 
 																								 "questionID" => $q->id), 
 																					 array('%d', '%s', '%d'));
-					rsvp_printQueryDebugInfo();
 				}
 			}
 		}
@@ -549,25 +546,30 @@ function rsvp_handleNewRsvp(&$output, &$text) {
     return rsvp_handlenewattendee($output, $text);
   }
   
-  $rsvpPassword = "";
-  $rsvpStatus = "No";
+  	$rsvpPassword = "";
+  	$rsvpStatus = "No";
 	if(strToUpper($_POST['mainRsvp']) == "Y") {
 		$rsvpStatus = "Yes";
 	}
-  $kidsMeal = ((isset($_POST['mainKidsMeal']) && (strToUpper($_POST['mainKidsMeal']) == "Y")) ? "Y" : "N");
-  $veggieMeal = ((isset($_POST['mainVeggieMeal']) && (strToUpper($_POST['mainVeggieMeal']) == "Y")) ? "Y" : "N");
-  $thankYouPrimary = $_POST['attendeeFirstName'];
-	$wpdb->insert(ATTENDEES_TABLE, array("rsvpDate" => date("Y-m-d"), 
-                                       "firstName" => $_POST['attendeeFirstName'], 
-                                       "lastName"  => $_POST['attendeeLastName'], 
-                                       "email"     => $_POST['mainEmail'], 
-                                       "rsvpStatus" => $rsvpStatus, 
-                                       "note" => $_POST['rsvp_note'], 
-                                       "kidsMeal" => $kidsMeal, 
-                                       "veggieMeal" => $veggieMeal), 
-																 array("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s"));
-	rsvp_printQueryDebugInfo();									
-  $attendeeID = $wpdb->insert_id;
+  	$kidsMeal = ((isset($_POST['mainKidsMeal']) && (strToUpper($_POST['mainKidsMeal']) == "Y")) ? "Y" : "N");
+  	$veggieMeal = ((isset($_POST['mainVeggieMeal']) && (strToUpper($_POST['mainVeggieMeal']) == "Y")) ? "Y" : "N");
+  	$thankYouPrimary = $_POST['attendeeFirstName'];
+  	$email = $_POST['mainEmail'];
+  	if(get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) != "Y") { 
+  		$email = "";
+  	}
+
+
+	$wpdb->insert(ATTENDEES_TABLE, 	array("rsvpDate" => date("Y-m-d"), 
+                                       "firstName"   => trim($_POST['attendeeFirstName']), 
+                                       "lastName"    => trim($_POST['attendeeLastName']), 
+                                       "email"       => trim($email), 
+                                       "rsvpStatus"  => $rsvpStatus, 
+                                       "note"        => $_POST['rsvp_note'], 
+                                       "kidsMeal"    => $kidsMeal, 
+                                       "veggieMeal"  => $veggieMeal), 
+								   	array("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s"));
+  	$attendeeID = $wpdb->insert_id;
   
 	if(rsvp_require_passcode()) {
     $rsvpPassword = trim(rsvp_generate_passcode());
@@ -595,7 +597,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
       if(get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) != "Y") { 
   			$wpdb->update(ATTENDEES_TABLE, array("rsvpDate" => date("Y-m-d"), 
   							"rsvpStatus" => $rsvpStatus, 
-                "email" => $_POST['attending'.$a->id."Email"], 
+                			"email" => $_POST['attending'.$a->id."Email"], 
   							"kidsMeal" => ((strToUpper((isset($_POST['attending'.$a->id.'KidsMeal']) ? $_POST['attending'.$a->id.'KidsMeal'] : "N")) == "Y") ? "Y" : "N"), 
   							"veggieMeal" => ((strToUpper((isset($_POST['attending'.$a->id.'VeggieMeal']) ? $_POST['attending'.$a->id.'VeggieMeal'] : "N")) == "Y") ? "Y" : "N")),
   							array("id" => $a->id), 
@@ -612,7 +614,6 @@ function rsvp_handleNewRsvp(&$output, &$text) {
   							array("%d"));
         
       }
-			rsvp_printQueryDebugInfo();
 			rsvp_handleAdditionalQuestions($a->id, $a->id."question");
 		}
 	}
@@ -630,29 +631,31 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 				if(($i <= $numGuests) && 
 				   !empty($_POST['newAttending'.$i.'FirstName']) && 
 				   !empty($_POST['newAttending'.$i.'LastName'])) {		
-          $thankYouAssociated[] = $_POST['newAttending'.$i.'FirstName'];
+					$email = trim($_POST['newAttending'.$i."Email"]);
+				  	if(get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) != "Y") { 
+				  		$email = "";
+				  	}
+
+          			$thankYouAssociated[] = $_POST['newAttending'.$i.'FirstName'];
 					$wpdb->insert(ATTENDEES_TABLE, array("firstName" => trim($_POST['newAttending'.$i.'FirstName']), 
 									"lastName" => trim($_POST['newAttending'.$i.'LastName']), 
-                  "email" => trim($_POST['newAttending'.$i."Email"]), 
+                  					"email" => $email, 
 									"rsvpDate" => date("Y-m-d"), 
 									"rsvpStatus" => (($_POST['newAttending'.$i] == "Y") ? "Yes" : "No"), 
 									"kidsMeal" => (isset($_POST['newAttending'.$i.'KidsMeal']) ? $_POST['newAttending'.$i.'KidsMeal'] : "N"), 
 									"veggieMeal" => (isset($_POST['newAttending'.$i.'VeggieMeal']) ? $_POST['newAttending'.$i.'VeggieMeal'] : "N"), 
 									"additionalAttendee" => "Y"), 
 									array('%s', '%s', '%s', '%s', '%s', '%s', '%s'));
-					rsvp_printQueryDebugInfo();
 					$newAid = $wpdb->insert_id;
 					rsvp_handleAdditionalQuestions($newAid, $i.'question');
 					// Add associations for this new user
 					$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID" => $newAid, 
 										"associatedAttendeeID" => $attendeeID), 
 										array("%d", "%d"));
-					rsvp_printQueryDebugInfo();
 					$wpdb->query("INSERT INTO ".ASSOCIATED_ATTENDEES_TABLE."(attendeeID, associatedAttendeeID)
 																			 SELECT ".$newAid.", associatedAttendeeID 
 																			 FROM ".ASSOCIATED_ATTENDEES_TABLE." 
 																			 WHERE attendeeID = ".$attendeeID);
-					rsvp_printQueryDebugInfo();
 				}
 			}
 		}
@@ -787,7 +790,7 @@ function rsvp_handlersvp(&$output, &$text) {
   		$wpdb->update(ATTENDEES_TABLE, array("rsvpDate" => date("Y-m-d"), 
   						"rsvpStatus" => $rsvpStatus, 
   						"note" => $_POST['rsvp_note'],
-              "email" => $_POST['mainEmail'],  
+              			"email" => $_POST['mainEmail'],  
   						"kidsMeal" => ((isset($_POST['mainKidsMeal']) && (strToUpper($_POST['mainKidsMeal']) == "Y")) ? "Y" : "N"), 
   						"veggieMeal" => ((isset($_POST['mainVeggieMeal']) && (strToUpper($_POST['mainVeggieMeal']) == "Y")) ? "Y" : "N")), 
   																	array("id" => $attendeeID), 
@@ -837,7 +840,6 @@ function rsvp_handlersvp(&$output, &$text) {
   								array("%d"));
         }
 				
-				rsvp_printQueryDebugInfo();
 				rsvp_handleAdditionalQuestions($a->id, $a->id."question");
 			}
 		}
@@ -865,19 +867,16 @@ function rsvp_handlersvp(&$output, &$text) {
 										"veggieMeal" => (isset($_POST['newAttending'.$i.'VeggieMeal']) ? $_POST['newAttending'.$i.'VeggieMeal'] : "N"), 
 										"additionalAttendee" => "Y"), 
 										array('%s', '%s', '%s', '%s', '%s', '%s', '%s'));
-						rsvp_printQueryDebugInfo();
 						$newAid = $wpdb->insert_id;
 						rsvp_handleAdditionalQuestions($newAid, $i.'question');
 						// Add associations for this new user
 						$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID" => $newAid, 
 											"associatedAttendeeID" => $attendeeID), 
 											array("%d", "%d"));
-						rsvp_printQueryDebugInfo();
 						$wpdb->query($wpdb->prepare("INSERT INTO ".ASSOCIATED_ATTENDEES_TABLE."(attendeeID, associatedAttendeeID)
 																				 SELECT ".$newAid.", associatedAttendeeID 
 																				 FROM ".ASSOCIATED_ATTENDEES_TABLE." 
 																				 WHERE attendeeID = %d", $attendeeID));
-						rsvp_printQueryDebugInfo();
 					}
 				}
 			}
