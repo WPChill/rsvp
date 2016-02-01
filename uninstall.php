@@ -4,9 +4,9 @@
  *
  * @package     rsvp
  * @subpackage  Uninstall
- * @copyright   Copyright (c) 2016, Swim or Die Software
+ * @copyright   Copyright (c) 2016, MDE Development, LLC
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       2.1.3
+ * @since       2.1.4
  */
 
 // Exit if accessed directly
