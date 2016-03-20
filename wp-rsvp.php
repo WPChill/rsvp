@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.1.4
+ * @version 2.1.5
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 2.1.4
+Version: 2.1.5
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -23,7 +23,7 @@ License: GPL
 #        To add, edit, delete and see rsvp status there will be a new RSVP admin
 #        area just go there.
 # 
-#        To allow people to rsvp create a new page and add "rsvp-pluginhere" to the text
+#        To allow people to rsvp create a new page and add "[rsvp]" to the text
 	define("ATTENDEES_TABLE", $wpdb->prefix."attendees");
 	define("ASSOCIATED_ATTENDEES_TABLE", $wpdb->prefix."associatedAttendees");
 	define("QUESTIONS_TABLE", $wpdb->prefix."rsvpCustomQuestions");
@@ -835,13 +835,13 @@ License: GPL
 												$count++;
 											}
 											
-											$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID" => $newUserId, 
-																																			"associatedAttendeeID" => $userId), 
-																																array("%d", "%d"));
+											$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID" => $newUserId,
+																							"associatedAttendeeID" => $userId), 
+											 										array("%d", "%d"));
 																																
 											$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID" => $userId, 
-																																			"associatedAttendeeID" => $newUserId), 
-																																array("%d", "%d"));
+																							"associatedAttendeeID" => $newUserId), 
+																					array("%d", "%d"));
 										}
 									}
 								}
@@ -1225,10 +1225,25 @@ License: GPL
 		</div>
 	<?php
 	}
+
+	function rsvp_get_question_with_answer_type_ids() {
+		global $wpdb;
+
+		$ids = array();
+		$sql = "SELECT id FROM ".QUESTION_TYPE_TABLE." 
+				WHERE questionType IN ('".QT_MULTI."', '".QT_DROP."', '".QT_RADIO."')";
+		$results = $wpdb->get_results($sql);
+		foreach($results as $r) {
+			$ids[] = (int)$r->id;
+		}
+
+		return $ids;
+	}
 	
 	function rsvp_admin_custom_question() {
 		global $wpdb;
-		$answerQuestionTypes = array(2,4,5);
+		
+		$answerQuestionTypes = rsvp_get_question_with_answer_type_ids();
 		
 		$radioQuestionType = $wpdb->get_results("SELECT id FROM ".QUESTION_TYPE_TABLE." WHERE questionType = 'radio'");
 		if($radioQuestionType == 0) {
@@ -1326,6 +1341,11 @@ License: GPL
 			$questionTypes = $wpdb->get_results($sql);
 			?>
 				<script type="text/javascript">
+					var questionTypeId = [<?php 
+						foreach($answerQuestionTypes as $aqt) {
+							echo "\"".$aqt."\",";
+						}
+					?>];
 					function addAnswer(counterElement) {
 						var currAnswer = jQuery("#numNewAnswers").val();
 						if(isNaN(currAnswer)) {
@@ -1357,7 +1377,7 @@ License: GPL
 						?>
 						jQuery("#questionType").change(function() {
 							var selectedValue = jQuery("#questionType").val();
-							if((selectedValue == 2) || (selectedValue == 4) || (selectedValue == 5)) {
+							if(questionTypeId.indexOf(selectedValue) != -1) {
 								jQuery("#answerContainer").show();
 							} else {
 								jQuery("#answerContainer").hide();
