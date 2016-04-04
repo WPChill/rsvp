@@ -97,7 +97,6 @@ License: GPL
 	}
 	
 	require_once("rsvp_frontend.inc.php");
-	require_once("rsvp_menu_icon.inc.php");
 	/*
 	 * Description: Database setup for the rsvp plug-in.  
 	 */
