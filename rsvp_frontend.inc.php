@@ -662,7 +662,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 	}
 				
 	if((get_option(OPTION_NOTIFY_ON_RSVP) == "Y") && (get_option(OPTION_NOTIFY_EMAIL) != "")) {
-		$sql = "SELECT firstName, lastName, rsvpStatus, note, kidsMeal, veggieMeal FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
+		$sql = "SELECT firstName, lastName, rsvpStatus, note, kidsMeal, veggieMeal, email FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
 		$attendee = $wpdb->get_results($sql);
 		if(count($attendee) > 0) {
 			$body = "Hello, \r\n\r\n";
@@ -670,17 +670,21 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 			$body .= stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).
 							 " has submitted their RSVP and has RSVP'd with '".$attendee[0]->rsvpStatus."'.\r\n";
       
-      if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
-        $body .= "Kids Meal: ".$attendee[0]->kidsMeal."\r\n";
-      }
+     		if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
+        		$body .= __("Kids Meal: ", "rsvp-plugin").$attendee[0]->kidsMeal."\r\n";
+       		}
       
-      if(get_option(OPTION_HIDE_VEGGIE) != "Y") {
-        $body .= "Vegetarian Meal: ".$attendee[0]->veggieMeal."\r\n";
-      }
+      		if(get_option(OPTION_HIDE_VEGGIE) != "Y") {
+        		$body .= __("Vegetarian Meal: ", "rsvp-plugin").$attendee[0]->veggieMeal."\r\n";
+      		}
       
-      if(get_option(RSVP_OPTION_HIDE_NOTE) != "Y") {
-        $body .= "Note: ".stripslashes($attendee[0]->note)."\r\n";
-      }
+      		if(get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) != "Y") {
+      			$body .= __("Email: ", "rsvp-plugin").stripslashes($attendee[0]->email)."\r\n";
+      		}
+
+      		if(get_option(RSVP_OPTION_HIDE_NOTE) != "Y") {
+        		$body .= __("Note: ", "rsvp-plugin").stripslashes($attendee[0]->note)."\r\n";
+      		}
       
 			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q 
 				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d 
@@ -692,7 +696,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 				}
 			}
       
-			$sql = "SELECT firstName, lastName, rsvpStatus, id FROM ".ATTENDEES_TABLE." 
+			$sql = "SELECT firstName, lastName, rsvpStatus, id, email FROM ".ATTENDEES_TABLE." 
 			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d) 
 					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)";
 		
@@ -728,7 +732,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 		$sql = "SELECT firstName, lastName, email, rsvpStatus FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
 		$attendee = $wpdb->get_results($sql);
 		if(count($attendee) > 0) {
-			$body = "Hello ".stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).", \r\n\r\n";
+			$body = __("Hello ", "rsvp-plugin").stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).", \r\n\r\n";
 						
       if(get_option(OPTION_RSVP_EMAIL_TEXT) != "") {
         $body .= "\r\n";
@@ -738,7 +742,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
             
 			$body .= "You have successfully RSVP'd with '".$attendee[0]->rsvpStatus."'.";
       
-			$sql = "SELECT firstName, lastName, rsvpStatus, id FROM ".ATTENDEES_TABLE." 
+			$sql = "SELECT firstName, lastName, rsvpStatus, id, email FROM ".ATTENDEES_TABLE." 
 			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d) 
 					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)";
 		
@@ -885,7 +889,7 @@ function rsvp_handlersvp(&$output, &$text) {
     $email = get_option(OPTION_NOTIFY_EMAIL);
     
 		if((get_option(OPTION_NOTIFY_ON_RSVP) == "Y") && ($email != "")) {
-			$sql = "SELECT firstName, lastName, rsvpStatus, kidsMeal, veggieMeal, note FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
+			$sql = "SELECT firstName, lastName, rsvpStatus, kidsMeal, veggieMeal, note, email FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
 			$attendee = $wpdb->get_results($sql);
 			if(count($attendee) > 0) {
 				$body = "Hello, \r\n\r\n";
@@ -893,17 +897,21 @@ function rsvp_handlersvp(&$output, &$text) {
 				$body .= stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).
 								 " has submitted their RSVP and has RSVP'd with '".$attendee[0]->rsvpStatus."'.";
 				
-        if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
-          $body .= "Kids Meal: ".$attendee[0]->kidsMeal."\r\n";
-        }
+        		if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
+          			$body .= __("Kids Meal: ", "rsvp-plugin").$attendee[0]->kidsMeal."\r\n";
+        		}
       
-        if(get_option(OPTION_HIDE_VEGGIE) != "Y") {
-          $body .= "Vegetarian Meal: ".$attendee[0]->veggieMeal."\r\n";
-        }
+        		if(get_option(OPTION_HIDE_VEGGIE) != "Y") {
+          			$body .= __("Vegetarian Meal: ", "rsvp-plugin").$attendee[0]->veggieMeal."\r\n";
+        		}
+
+        		if(get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) != "Y") {
+      				$body .= __("Email: ", "rsvp-plugin").stripslashes($attendee[0]->email)."\r\n";
+      			}
       
-        if(get_option(RSVP_OPTION_HIDE_NOTE) != "Y") {
-          $body .= "Note: ".stripslashes($attendee[0]->note)."\r\n";
-        }
+        		if(get_option(RSVP_OPTION_HIDE_NOTE) != "Y") {
+          			$body .= __("Note: ", "rsvp-plugin").stripslashes($attendee[0]->note)."\r\n";
+        		}
       
   			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q 
   				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d 

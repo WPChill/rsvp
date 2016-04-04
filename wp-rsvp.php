@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.1.5
+ * @version 2.1.6
  */
 /*
 Plugin Name: RSVP 
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.  
 Author: MDE Development, LLC
-Version: 2.1.5
+Version: 2.1.6
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -63,6 +63,7 @@ License: GPL
   	define("OPTION_RSVP_EMAIL_TEXT", "rsvp_email_text");
   	define("OPTION_RSVP_DISABLE_USER_SEARCH", "rsvp_disable_user_search");
   	define("RSVP_OPTION_DELETE_DATA_ON_UNINSTALL", "rsvp_delete_data_on_uninstall");
+  	define("RSVP_OPTION_CSS_STYLING", "rsvp_css_styling");
 	define("RSVP_DB_VERSION", "11");
 	define("QT_SHORT", "shortAnswer");
 	define("QT_MULTI", "multipleChoice");
@@ -96,6 +97,7 @@ License: GPL
 	}
 	
 	require_once("rsvp_frontend.inc.php");
+	require_once("rsvp_menu_icon.inc.php");
 	/*
 	 * Description: Database setup for the rsvp plug-in.  
 	 */
@@ -337,6 +339,10 @@ License: GPL
 						<th scope="row"><label for="<?php echo RSVP_OPTION_DELETE_DATA_ON_UNINSTALL; ?>"><?php echo __("Delete all data on uninstall:", 'rsvp-plugin'); ?></label></th>
 						<td align="left"><input type="checkbox" name="<?php echo RSVP_OPTION_DELETE_DATA_ON_UNINSTALL; ?>" id="<?php echo RSVP_OPTION_DELETE_DATA_ON_UNINSTALL; ?>" 
 							value="Y" <?php echo ((get_option(RSVP_OPTION_DELETE_DATA_ON_UNINSTALL) == "Y") ? " checked=\"checked\"" : ""); ?> /></td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><label for="<?php echo RSVP_OPTION_CSS_STYLING; ?>"><?php echo __("Custom Styling:", 'rsvp-plugin'); ?></label></th>
+						<td align="left"><textarea name="<?php echo RSVP_OPTION_CSS_STYLING; ?>" id="<?php echo RSVP_OPTION_CSS_STYLING; ?>" rows="5" cols="60"><?php echo htmlspecialchars(get_option(RSVP_OPTION_CSS_STYLING)); ?></textarea></td>
 					</tr>
 				</table>
 				<input type="hidden" name="action" value="update" />
@@ -756,9 +762,11 @@ License: GPL
 			check_admin_referer('rsvp-import');
 			require_once("Excel/reader.php");
 			$data = new Spreadsheet_Excel_Reader();
+			$data->setUTFEncoder('iconv');
+			$data->setOutputEncoding('UTF-8');
 			$data->read($_FILES['importFile']['tmp_name']);
 			$skipFirstRow = false;
-			if($data->sheets[0]['numCols'] >= 6) {
+			if($data->sheets[0]['numCols'] >= 7) {
 				// Associating private questions... have to skip the first row
 				$skipFirstRow = true;
 			}
@@ -1478,20 +1486,14 @@ License: GPL
 	}
 	
 	function rsvp_modify_menu() {
-		
-		$page = add_options_page('RSVP Options',	//page title
-	                   'RSVP Options',	//subpage title
-	                   'manage_options',	//access
-	                   'rsvp-options',		//current file
-	                   'rsvp_admin_guestlist_options'	//options function above
-	                   );
-    add_action('admin_print_scripts-' . $page, 'rsvp_admin_scripts'); 
 		$page = add_menu_page("RSVP Plugin", 
 									"RSVP Plugin", 
 									"publish_posts", 
 									"rsvp-top-level", 
-									"rsvp_admin_guestlist");
+									"rsvp_admin_guestlist", 
+									plugins_url("images/rsvp_lite_icon.png", RSVP_PLUGIN_FILE));
 		add_action('admin_print_scripts-' . $page, 'rsvp_admin_scripts'); 
+
 		$page = add_submenu_page("rsvp-top-level", 
 										 "Add Guest",
 										 "Add Guest",
@@ -1499,6 +1501,7 @@ License: GPL
 										 "rsvp-admin-guest",
 										 "rsvp_admin_guest");
 		add_action('admin_print_scripts-' . $page, 'rsvp_admin_scripts'); 
+
 		add_submenu_page("rsvp-top-level", 
 										 "RSVP Export",
 										 "RSVP Export",
@@ -1518,13 +1521,14 @@ License: GPL
 										 "rsvp-admin-questions",
 										 "rsvp_admin_questions");
 		add_action('admin_print_scripts-' . $page, 'rsvp_admin_scripts'); 
+
 		$page = add_submenu_page("rsvp-top-level", 
 										 "Add Custom Question",
 										 "Add Custom Question",
 										 "publish_posts", 
 										 "rsvp-admin-custom-question",
 										 "rsvp_admin_custom_question");
-    add_action('admin_print_scripts-' . $page, 'rsvp_admin_scripts'); 
+    	add_action('admin_print_scripts-' . $page, 'rsvp_admin_scripts'); 
     
 		$page = add_submenu_page("rsvp-top-level",
                      'RSVP Options',	//page title
@@ -1533,7 +1537,7 @@ License: GPL
 	                   'rsvp-options',		//current file
 	                   'rsvp_admin_guestlist_options'	//options function above
 	                   );
-    add_action('admin_print_scripts-' . $page, 'rsvp_admin_scripts'); 
+    	add_action('admin_print_scripts-' . $page, 'rsvp_admin_scripts'); 
 	}
 	
 	function rsvp_register_settings() {
@@ -1569,6 +1573,7 @@ License: GPL
     	register_setting('rsvp-option-group', OPTION_RSVP_EMAIL_TEXT);
     	register_setting("rsvp-option-group", OPTION_RSVP_DISABLE_USER_SEARCH);
     	register_setting("rsvp-option-group", RSVP_OPTION_DELETE_DATA_ON_UNINSTALL);
+    	register_setting("rsvp-option-group", RSVP_OPTION_CSS_STYLING);
     
 		wp_register_script('jquery_table_sort', plugins_url('jquery.tablednd_0_5.js',RSVP_PLUGIN_FILE));
 		wp_register_script('jquery_ui', rsvp_getHttpProtocol()."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.js");
@@ -1646,6 +1651,17 @@ License: GPL
      }
      return $pageURL;
   }
+
+  function rsvp_add_css() {
+  	$css = get_option(RSVP_OPTION_CSS_STYLING);
+
+  	if(!empty($css)) {
+  		$output = "<!-- RSVP Free Styling -->";
+  		$output .= "<style type=\"text/css\">".esc_html($css)."</style>";
+
+		echo $output;
+  	}
+  }
   
   function rsvpshortcode_func($atts) {
     return rsvp_frontend_handler("rsvp-pluginhere");
@@ -1655,6 +1671,7 @@ License: GPL
 	add_action('admin_menu', 'rsvp_modify_menu');
 	add_action('admin_init', 'rsvp_register_settings');
 	add_action('init', 'rsvp_init');
+	add_action('wp_head','rsvp_add_css');
 	add_filter('the_content', 'rsvp_frontend_handler');
 	register_activation_hook(__FILE__,'rsvp_database_setup');
 ?>
