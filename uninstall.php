@@ -57,4 +57,5 @@ if( get_option(RSVP_OPTION_DELETE_DATA_ON_UNINSTALL) == "Y") {
 	delete_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM);
 	delete_option(OPTION_RSVP_DISABLE_USER_SEARCH);
 	delete_option(RSVP_OPTION_DELETE_DATA_ON_UNINSTALL);
+	delete_option("rsvp_db_version");
 }
