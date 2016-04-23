@@ -759,137 +759,126 @@ License: GPL
 		global $wpdb;
 		if(count($_FILES) > 0) {
 			check_admin_referer('rsvp-import');
-			require_once("Excel/reader.php");
-			$data = new Spreadsheet_Excel_Reader();
-			$data->setUTFEncoder('iconv');
-			$data->setOutputEncoding('UTF-8');
-			$data->read($_FILES['importFile']['tmp_name']);
+			require('spreadsheet-reader/php-excel-reader/excel_reader2.php');
+      		require('spreadsheet-reader/SpreadsheetReader.php');
+
+			$data = new SpreadsheetReader($_FILES['importFile']['tmp_name'], $_FILES['importFile']['name']);
+			$numCols = count($data->current());
 			$skipFirstRow = false;
-			if($data->sheets[0]['numCols'] >= 7) {
+			if($numCols >= 7) {
 				// Associating private questions... have to skip the first row
 				$skipFirstRow = true;
 			}
-			if($data->sheets[0]['numCols'] >= 2) {
+			if($numCols >= 2) {
 				$count = 0;
-        		$i = ($skipFirstRow) ? 2 : 1;
-				for ($i; $i <= $data->sheets[0]['numRows']; $i++) {
-					$fName = trim($data->sheets[0]['cells'][$i][1]);
-          			$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
+        		$i = 0;
+        		$headerRow = array();
+				foreach($data as $row) {
+					if(!$skipFirstRow || ($i > 0)) {
+						$fName = trim($row[0]);
+          				$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
           
-					$lName = trim($data->sheets[0]['cells'][$i][2]);
-          			$lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
-          			$email = trim($data->sheets[0]['cells'][$i][3]);
-					$personalGreeting = (isset($data->sheets[0]['cells'][$i][5])) ? $personalGreeting = $data->sheets[0]['cells'][$i][5] : "";
-          			$passcode = (isset($data->sheets[0]['cells'][$i][6])) ? $data->sheets[0]['cells'][$i][6] : "";
-					if(rsvp_require_unique_passcode() && !rsvp_is_passcode_unique($passcode, 0)) {
-						$passcode = rsvp_generate_passcode();
-					}
+						$lName = trim($row[1]);
+          				$lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
+          				$email = trim($row[2]);
+						$personalGreeting = (isset($row[4])) ? $personalGreeting = $row[4] : "";
+          				$passcode = (isset($row[5])) ? $row[5] : "";
+						if(rsvp_require_unique_passcode() && !rsvp_is_passcode_unique($passcode, 0)) {
+							$passcode = rsvp_generate_passcode();
+						}
 
-					if(!empty($fName) && !empty($lName)) {
-						$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
-						 	WHERE firstName = %s AND lastName = %s ";
-						$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
-						if(count($res) == 0) {
-			              $wpdb->insert(ATTENDEES_TABLE, array("firstName"         => $fName,
+						if(!empty($fName) && !empty($lName)) {
+							$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
+						 		WHERE firstName = %s AND lastName = %s ";
+							$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
+							if(count($res) == 0) {
+			              		$wpdb->insert(ATTENDEES_TABLE, array("firstName"         => $fName,
 			                                                   "lastName"         => $lName,
 			                                                   "email"            => $email,
 			                                                   "personalGreeting" => $personalGreeting,
 			                                                   "passcode"         => $passcode),
 			                                             array('%s', '%s', '%s', '%s'));
-							$count++;
-						}
-					}
-				}
-				
-				if($data->sheets[0]['numCols'] >= 4) {
-					// There must be associated users so let's associate them
-          			$i = ($skipFirstRow) ? 2 : 1;
-					for ($i; $i <= $data->sheets[0]['numRows']; $i++) {
-						$fName = trim($data->sheets[0]['cells'][$i][1]);
-						$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
-						$lName = trim($data->sheets[0]['cells'][$i][2]);
-						$lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
-						if(!empty($fName) && !empty($lName) && (count($data->sheets[0]['cells'][$i]) >= 3)) {
-							// Get the user's id 
-							$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
-							 	WHERE firstName = %s AND lastName = %s ";
-							$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
-							if((count($res) > 0) && isset($data->sheets[0]['cells'][$i][4])) {
-								$userId = $res[0]->id;
-								
-								// Deal with the assocaited users...
-								$associatedUsers = explode(",", trim($data->sheets[0]['cells'][$i][4]));
-								if(is_array($associatedUsers)) {
-									foreach($associatedUsers as $au) {
-										$user = explode(" ", trim($au), 2);
-										// Three cases, they didn't enter in all of the information, user exists or doesn't.  
-										// If user exists associate the two users
-										// If user does not exist add the user and then associate the two
-										if(is_array($user) && (count($user) == 2)) {
-											$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
-											 	WHERE firstName = %s AND lastName = %s ";
-											$userRes = $wpdb->get_results($wpdb->prepare($sql, 
-																						mb_convert_encoding(trim($user[0]), 'UTF-8', mb_detect_encoding(trim($user[0]), 'UTF-8, ISO-8859-1', true)), 
-																						mb_convert_encoding(trim($user[1]), 'UTF-8', mb_detect_encoding(trim($user[1]), 'UTF-8, ISO-8859-1', true))));
-											if(count($userRes) > 0) {
-												$newUserId = $userRes[0]->id;
-											} else {
-												// Insert them and then we can associate them...
-												$wpdb->insert(ATTENDEES_TABLE, array("firstName" => mb_convert_encoding(trim($user[0]), 'UTF-8', mb_detect_encoding(trim($user[0]), 'UTF-8, ISO-8859-1', true)), 
-																					 "lastName" => mb_convert_encoding(trim($user[1]), 'UTF-8', mb_detect_encoding(trim($user[1]), 'UTF-8, ISO-8859-1', true))), 
-																			   array('%s', '%s'));
-												$newUserId = $wpdb->insert_id;
-												$count++;
-											}
-											
-											$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID" => $newUserId,
-																							"associatedAttendeeID" => $userId), 
-											 										array("%d", "%d"));
-																																
-											$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID" => $userId, 
-																							"associatedAttendeeID" => $newUserId), 
-																					array("%d", "%d"));
-										}
-									}
-								}
+								$count++;
 							}
-						}
+
+							if($numCols >= 4) {
+								// Get the user's id 
+								$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
+								 	WHERE firstName = %s AND lastName = %s ";
+								$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
+								if((count($res) > 0) && isset($row[3])) {
+									$userId = $res[0]->id;
+									
+									// Deal with the assocaited users...
+									$associatedUsers = explode(",", trim($row[3]));
+									if(is_array($associatedUsers)) {
+										foreach($associatedUsers as $au) {
+											$user = explode(" ", trim($au), 2);
+											// Three cases, they didn't enter in all of the information, user exists or doesn't.  
+											// If user exists associate the two users
+											// If user does not exist add the user and then associate the two
+											if(is_array($user) && (count($user) == 2)) {
+												$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
+												 	WHERE firstName = %s AND lastName = %s ";
+												$userRes = $wpdb->get_results($wpdb->prepare($sql, 
+															mb_convert_encoding(trim($user[0]), 'UTF-8', mb_detect_encoding(trim($user[0]), 'UTF-8, ISO-8859-1', true)), 
+															mb_convert_encoding(trim($user[1]), 'UTF-8', mb_detect_encoding(trim($user[1]), 'UTF-8, ISO-8859-1', true))));
+												if(count($userRes) > 0) {
+													$newUserId = $userRes[0]->id;
+												} else {
+													// Insert them and then we can associate them...
+													$wpdb->insert(ATTENDEES_TABLE, array(
+														"firstName" => mb_convert_encoding(trim($user[0]), 'UTF-8', mb_detect_encoding(trim($user[0]), 'UTF-8, ISO-8859-1', true)), 
+														"lastName" => mb_convert_encoding(trim($user[1]), 'UTF-8', mb_detect_encoding(trim($user[1]), 'UTF-8, ISO-8859-1', true))), 
+																			   array('%s', '%s'));
+													$newUserId = $wpdb->insert_id;
+													$count++;
+												}
+												
+												$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID" => $newUserId,
+																								"associatedAttendeeID" => $userId), 
+												 										array("%d", "%d"));
+																																	
+												$wpdb->insert(ASSOCIATED_ATTENDEES_TABLE, array("attendeeID" => $userId, 
+																								"associatedAttendeeID" => $newUserId), 
+																						array("%d", "%d"));
+											}
+										} // foreach($associatedUsers...
+									} // if(is_array($associated...
+								} // if((count($res) > 0...
+							} // if check for associated attendees
+
+							if($numCols >= 6) {
+         	 					$private_questions = array();
+          						for($qid = 6; $qid <= $numCols; $qid++) {
+            						$pqid = str_replace("pq_", "", $headerRow[$qid]);
+            						if(is_numeric($pqid)) {
+              							$private_questions[$qid] = $pqid;
+            						}
+          						} // for($qid = 6...
+
+          						if(count($private_questions) > 0) {
+									// Get the user's id 
+									$sql = "SELECT id FROM ".ATTENDEES_TABLE." WHERE firstName = %s AND lastName = %s ";
+									$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
+									if(count($res) > 0) {
+										$userId = $res[0]->id;
+          								foreach($private_questions as $key => $val) {
+            								if(strToUpper($row[$key]) == "Y") {
+              									$wpdb->insert(QUESTION_ATTENDEES_TABLE, array("attendeeID" => $userId, 
+                                                            "questionID" => $val), 
+                                                      									array("%d", "%d"));
+            								}
+          								}
+        							}
+          						} // if(count($priv...))
+        					} // if($numCols > = 6
+						} // if(!empty($fName) && !empty($lName))
+					} else {
+						$headerRow = $row;
 					}
-				} // if($data->sheets[0]['numCols'] >= 3)...
-        
-        if($data->sheets[0]['numCols'] >= 6) {
-          $private_questions = array();
-          for($qid = 6; $qid <= $data->sheets[0]['numCols']; $qid++) {
-            $pqid = str_replace("pq_", "", $data->sheets[0]['cells'][1][$qid]);
-            if(is_numeric($pqid)) {
-              $private_questions[$qid] = $pqid;
-            }
-          }
-          if(count($private_questions) > 0) {
-  					for ($i = 2; $i <= $data->sheets[0]['numRows']; $i++) {
-  						$fName = trim($data->sheets[0]['cells'][$i][1]);
-  						$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
-  						$lName = trim($data->sheets[0]['cells'][$i][2]);
-  						$lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
-  						if(!empty($fName) && !empty($lName)) {
-  							// Get the user's id 
-  							$sql = "SELECT id FROM ".ATTENDEES_TABLE." 
-  							 	WHERE firstName = %s AND lastName = %s ";
-  							$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
-  							if(count($res) > 0) {
-  								$userId = $res[0]->id;
-                  foreach($private_questions as $key => $val) {
-                    if(strToUpper($data->sheets[0]['cells'][$i][$key]) == "Y") {
-                      $wpdb->insert(QUESTION_ATTENDEES_TABLE, array("attendeeID" => $userId, 
-                                                                    "questionID" => $val), 
-                                                              array("%d", "%d"));
-                    }
-                  }
-                }
-              }
-            }
-          } // if(count($priv...))
-        } // if($data->sheets[0]['numCols'] >= 6)....
+					$i++;
+				} // foreach $data as $row
 			?>
 			<p><strong><?php echo $count; ?></strong> <?php echo __("total records were imported", 'rsvp-plugin'); ?>.</p>
 			<p><?php echo __("Continue to the RSVP", 'rsvp-plugin'); ?> <a href="admin.php?page=rsvp-top-level"><?php echo __("list", 'rsvp-plugin'); ?></a></p>
@@ -1043,7 +1032,7 @@ License: GPL
 					?>
 						<tr valign="top">
 							<th scope="row"><label for="passcode"><?php echo __("Passcode", 'rsvp-plugin'); ?>:</label></th>
-							<td align="left"><input type="text" name="passcode" id="passcode" size="30" value="<?php echo htmlspecialchars($passcode); ?>" maxlength="6" /></td>
+							<td align="left"><input type="text" name="passcode" id="passcode" size="30" value="<?php echo htmlspecialchars($passcode); ?>" /></td>
 						</tr>
 					<?php	
 					}					

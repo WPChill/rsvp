@@ -92,6 +92,10 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 
+= 2.1.8 = 
+* Removed the max length attribute on the passcode field in the admin area
+* Changed the Excel reader to spreadsheet-reader which is more supported and also handles additional formats (CSV, XLS, XLSX, ODS)
+
 = 2.1.7 = 
 * Made a correction to uninstall script to correctly remove the database version 
 
