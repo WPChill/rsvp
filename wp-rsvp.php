@@ -888,7 +888,7 @@ License: GPL
 		?>
 			<form name="rsvp_import" method="post" enctype="multipart/form-data">
 				<?php wp_nonce_field('rsvp-import'); ?>
-				<p><?php echo __("Select an excel file (only xls please, xlsx is not supported....yet) in the following format:", 'rsvp-plugin'); ?><br />
+				<p><?php echo __("Select a file in the following file format: XLS, XLSX, CSV and ODS. It has to have the following layout:", 'rsvp-plugin'); ?><br />
 				<strong><?php echo __("First Name", 'rsvp-plugin'); ?></strong> | <strong><?php echo __("Last Name", 'rsvp-plugin'); ?></strong> | <strong><?php echo __("Email", 'rsvp-plugin'); ?></strong> | 
         <strong><?php echo __("Associated Attendees", 'rsvp-plugin'); ?>*</strong> | <strong><?php echo __("Custom Message", 'rsvp-plugin'); ?></strong> | <strong><?php echo __("Passcode", 'rsvp-plugin'); ?></strong> | <strong><?php echo __("Private Question Association", 'rsvp-plugin'); ?>**</strong>
 				</p>

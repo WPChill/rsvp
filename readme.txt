@@ -6,16 +6,20 @@ Requires at least: 3.0
 Tested up to: 4.5
 Stable tag: 2.1.7
 
-Simple and easy to use RSVP and event management plugin to handle registrations for a single event. 
+The RSVP Plugin was created to be an easy, simple to use event management plugin to handle registrations for a single event.  
 
 == Description ==
 
-The <a target="_new" href="https://www.rsvpproplugin.com?utm_source=wordpress.com&utm_medium=referral">RSVP plugin</a> was created for events to make RSVP'ing easy as possible for guests. 
+> <strong>A word around support:</strong> We are always here to help you with your RSVP plugin needs. However, we do only check in on the main WordPress forums weekly. 
+> 
+> If you are looking for a quicker or more in-depth support response it is suggested to check out <a href="https://www.rsvpproplugin.com/" target="_blank" title="[new window to RSVP Pro]">RSVP Pro</a> or you can <a href="https://www.rsvpproplugin.com/contact/" target="_blank">Contact Us</a> and we will help you as best as possible.
 
-= Features of the Free Version = 
+Create and manage your event with ease. The RSVP plugin has been around for over five years now and will continue to be around as an easy and full featured event management plugin. We know how stressful running an event we are here to help make it slightly less stressful. 
+
+= FEATURES = 
 * Easy to customize text
 * No need to know a passcode to RSVP 
- * Ability to enable a passcode if desired
+* Ability to set a passcode per-attendee
 * Easy attendee management
 * Relate attendees to make it easier for groups and families to RSVP together 
 * Email notifications 
@@ -23,12 +27,11 @@ The <a target="_new" href="https://www.rsvpproplugin.com?utm_source=wordpress.co
 * Import/export attendees
 * Open or set attendee list registration
 * Ability for +1s
-* Much, much more 
 
-> <strong>Support</strong><br />
-> Currently I do not monitor the forums for issues. However, if you need help or have found a bug feel free to get in touch with me via email  at mikede@mde-dev.com and I will be happy to help out where I can. 
+Looking for some additional functionality?
+* <a target="_blank" href="https://www.rsvpproplugin.com/">
 
-= Additional Features in the <a target="_new" href="https://www.rsvpproplugin.com/">Premium Version</a> = 
+= Additional Features in the Premium Version</a> = 
 * Multiple events
 * Even more text customizations
 * Public attendee lists 

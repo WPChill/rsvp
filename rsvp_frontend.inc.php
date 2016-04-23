@@ -10,8 +10,8 @@ $rsvp_saved_form_vars['mainRsvp'] = "";
 $rsvp_saved_form_vars['rsvp_note'] = "";
 
 function rsvp_handle_output ($intialText, $rsvpText) {	
-  $rsvpText = "<a name=\"rsvpArea\" id=\"rsvpArea\"></a>".$rsvpText;
-  remove_filter("the_content", "wpautop");
+	$rsvpText = "<a name=\"rsvpArea\" id=\"rsvpArea\"></a>".$rsvpText;
+	remove_filter("the_content", "wpautop");
 	return str_replace(RSVP_FRONTEND_TEXT_CHECK, $rsvpText, $intialText);
 }
 
