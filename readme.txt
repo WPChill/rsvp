@@ -6,20 +6,20 @@ Requires at least: 3.0
 Tested up to: 4.5
 Stable tag: 2.1.8
 
-The RSVP Plugin was created to be an easy, simple to use event management plugin to handle registrations for a single event.  
+The RSVP Plugin was created to be a straightforward event management plugin to handle registrations for a single event.
 
 == Description ==
 
-> <strong>A word around support:</strong> We are always here to help you with your RSVP plugin needs. However, we do only check in on the main WordPress forums weekly. 
+> <strong>A word about support:</strong> We are always here to help you with your RSVP plugin needs. However, we do only check in on the main WordPress forums bi-weekly. 
 > 
 > If you are looking for a quicker or more in-depth support response it is suggested to check out <a href="https://www.rsvpproplugin.com/" target="_blank" title="[new window to RSVP Pro]">RSVP Pro</a> or you can <a href="https://www.rsvpproplugin.com/contact/" target="_blank">Contact Us</a> and we will help you as best as possible.
 
-Create and manage your event with ease. The RSVP plugin has been around for over five years now and will continue to be around as an easy and full featured event management plugin. We know how stressful running an event we are here to help make it slightly less stressful. 
+Create and manage your event with ease. The RSVP plugin has been around for over five years now and will continue to be around as an easy and full-featured event management plugin. We know how stressful running an event can be, we are here to make it less so. 
 
 = FEATURES = 
 * Easy to customize text
 * No need to know a passcode to RSVP 
-* Ability to set a passcode per-attendee
+* Ability to set a passcode per attendee
 * Easy attendee management
 * Relate attendees to make it easier for groups and families to RSVP together 
 * Email notifications 
