@@ -30,7 +30,8 @@ Create and manage your event with ease. The RSVP plugin has been around for over
 
 Looking for some additional functionality?
 
-* <a target="_blank" href="https://www.rsvpproplugin.com/">RSVP Pro plugin</a>: multiple events, easily change all of the text, public attendee lists and mass emailing support!
+* <a target="_blank" href="https://www.rsvpproplugin.com/">RSVP Pro plugin</a>: multiple events, easily change all of the text, public attendee lists and mass emailing support! 
+* <a href="http://rsvpprodemo.swimordiesoftware.com/" target="_blank">Demo available here</a>
 
 = SUBMITTING PATCHES = 
 What?! You found a bug, well we'd love to have a patch or issue posted at our <a href="https://github.com/SwimOrDieSoftware/Wordpress-RSVP-Plugin" target="_blank">GitHub page for RSVP Plugin.</a> If for whatever reason we don't want to accept a request we will tell you why and work with you to figure out a way to get it accepted. Also, if your pull request is accepted we will credit you in the plugin's changelog. 
