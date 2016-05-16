@@ -555,7 +555,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
   	$veggieMeal = ((isset($_POST['mainVeggieMeal']) && (strToUpper($_POST['mainVeggieMeal']) == "Y")) ? "Y" : "N");
   	$thankYouPrimary = $_POST['attendeeFirstName'];
   	$email = $_POST['mainEmail'];
-  	if(get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) != "Y") { 
+  	if(get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) == "Y") { 
   		$email = "";
   	}
 
