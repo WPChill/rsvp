@@ -4,42 +4,42 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, reserve, wedding, guestlist, attendee management, event management, event planning, wedding planning, event registration, event, events, events management, events registration
 Requires at least: 3.0
 Tested up to: 4.5.2
-Stable tag: 2.1.9
+Stable tag: 2.2.0
 
 The RSVP Plugin was created to be a straightforward event management plugin to handle registrations for a single event.
 
 == Description ==
 
-> <strong>A word about support:</strong> We are always here to help you with your RSVP plugin needs. However, we do only check in on the main WordPress forums bi-weekly. 
-> 
+> <strong>A word about support:</strong> We are always here to help you with your RSVP plugin needs. However, we do only check in on the main WordPress forums bi-weekly.
+>
 > If you are looking for a quicker or more in-depth support response it is suggested to check out <a href="https://www.rsvpproplugin.com/" target="_blank" title="[new window to RSVP Pro]">RSVP Pro</a> or you can <a href="https://www.rsvpproplugin.com/contact/" target="_blank">Contact Us</a> and we will help you as best as possible.
 
-Create and manage your event with ease. The RSVP plugin has been around for over five years now and will continue to be around as an easy and full-featured event management plugin. We know how stressful running an event can be, we are here to make it less so. 
+Create and manage your event with ease. The RSVP plugin has been around for over five years now and will continue to be around as an easy and full-featured event management plugin. We know how stressful running an event can be, we are here to make it less so.
 
-= FEATURES = 
+= FEATURES =
 * Easy to customize text
-* No need to know a passcode to RSVP 
+* No need to know a passcode to RSVP
 * Ability to set a passcode per attendee
 * Easy attendee management
-* Relate attendees to make it easier for groups and families to RSVP together 
-* Email notifications 
-* Custom questions 
+* Relate attendees to make it easier for groups and families to RSVP together
+* Email notifications
+* Custom questions
 * Import/export attendees
 * Open or set attendee list registration
 * Ability for +1s
 
 Looking for some additional functionality?
 
-= ADDITIONAL FEATURES IN THE <a target="_new" href="https://www.rsvpproplugin.com/">PREMIUM VERSION</a> = 
+= ADDITIONAL FEATURES IN THE <a target="_new" href="https://www.rsvpproplugin.com/">PREMIUM VERSION</a> =
 * Multiple events
 * Even more text customizations
-* Public attendee lists 
-* Ability to send mass emails 
+* Public attendee lists
+* Ability to send mass emails
 * More info at <a target="_new" href="https://www.rsvpproplugin.com"/>https://rsvpproplugin.com</a>
 * <a target="_new" href="http://rsvpprodemo.swimordiesoftware.com">Demo available here</a>
 
-= SUBMITTING PATCHES = 
-What?! You found a bug, well we'd love to have a patch or issue posted at our <a href="https://github.com/SwimOrDieSoftware/Wordpress-RSVP-Plugin" target="_blank">GitHub page for RSVP Plugin.</a> If for whatever reason we don't want to accept a request we will tell you why and work with you to figure out a way to get it accepted. Also, if your pull request is accepted we will credit you in the plugin's changelog. 
+= SUBMITTING PATCHES =
+What?! You found a bug, well we'd love to have a patch or issue posted at our <a href="https://github.com/SwimOrDieSoftware/Wordpress-RSVP-Plugin" target="_blank">GitHub page for RSVP Plugin.</a> If for whatever reason we don't want to accept a request we will tell you why and work with you to figure out a way to get it accepted. Also, if your pull request is accepted we will credit you in the plugin's changelog.
 
 == Installation ==
 
@@ -52,42 +52,42 @@ What?! You found a bug, well we'd love to have a patch or issue posted at our <a
 
 = Why can't this plugin do X? =
 
-Good question, maybe I didn't think about having this feature or didn't feel anyone would use it.  Contact me at mike AT mde DASH dev.com and 
-I will see if I can get it added for you.  
+Good question, maybe I didn't think about having this feature or didn't feel anyone would use it.  Contact me at mike AT mde DASH dev.com and
+I will see if I can get it added for you.
 
-= Can I style the plugin? = 
+= Can I style the plugin? =
 
 Yes. Below are the styles for the plugin:
 
-* rsvpPlugin - ID of the main RSVP Container. Each RSVP step will be wrapped in this container 
+* rsvpPlugin - ID of the main RSVP Container. Each RSVP step will be wrapped in this container
 * rsvpParagraph - Class name that is used for all paragraph tags on the front end portion of the RSVP
 * rsvpFormField - Class for divs that surround a given form input, which is a combination of a label and at least one form input (could be multiple form inputs)
 * rsvpAdditionalAttendee - Class for the div container that holds each additional RSVP attendee you are associated with
 * additionalRsvpContainer - The container that holds the plus sign that allows for people to add additional attendees
 * rsvpCustomGreeting - ID for the custom greeting div that shows up if that option is enabled
 * rsvpBorderTop - Class for setting a top border on certain divs in the main input form
-* rsvpCheckboxCustomQ - Class for the div that surrounds each custom question checkbox 
+* rsvpCheckboxCustomQ - Class for the div that surrounds each custom question checkbox
 * rsvpClear - A class for div elements that we want to use to set clear both. Currently used only next to rsvpCheckboxCustomQs as they are floated
 * rsvpAdditionalAttendeeQuestions - Class name for the div that wraps around all additional attendee questions
 * rsvpCustomQuestions - Class name for the div that wraps around all custom questions for each attendee
 
-= I need help = 
+= I need help =
 
 I am here to help, contact me at mike AT mde DASH dev.com
 
-= Is there a GitHub Repository? = 
+= Is there a GitHub Repository? =
 
 Yes, that is where the main development is done - https://github.com/SwimOrDieSoftware/Wordpress-RSVP-Plugin
 
-= Can I Prefill Attendee Information? = 
+= Can I Prefill Attendee Information? =
 
 Yes, go to the page associated with the RSVP form and add to the querystring the following parameters.
 
 * firstName - For the person's first name
 * lastName - For the person's last name
-* passcode - If passcode is enabled and/or required this will need to be added as well 
+* passcode - If passcode is enabled and/or required this will need to be added as well
 
-For example if you have a page that is /rsvp for domain example.com your URL might look like - http://www.example.com/rsvp?firstName=test&lastName=test 
+For example if you have a page that is /rsvp for domain example.com your URL might look like - http://www.example.com/rsvp?firstName=test&lastName=test
 
 == Screenshots ==
 
@@ -97,78 +97,81 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 
-= 2.1.9 = 
+= 2.2.0 =
+* Made it so the import and export functionality to have similar formats, making it easier to import in exported data.
+
+= 2.1.9 =
 * Fixed a bug where the email address is not saving for new attendees
 
-= 2.1.8 = 
+= 2.1.8 =
 * Removed the max length attribute on the passcode field in the admin area
 * Changed the Excel reader to spreadsheet-reader which is more supported and also handles additional formats (CSV, XLS, XLSX, ODS)
 
-= 2.1.7 = 
-* Made a correction to uninstall script to correctly remove the database version 
+= 2.1.7 =
+* Made a correction to uninstall script to correctly remove the database version
 
-= 2.1.6 = 
-* Implemented a fix for foreign characters. Thanks to Pawel Zochowski for the fix! 
+= 2.1.6 =
+* Implemented a fix for foreign characters. Thanks to Pawel Zochowski for the fix!
 * Added a feature to specify CSS styling via the RSVP options
 * Added the email field to the attendee emails
 * Added the RSVP icon to the admin menu area
 
-= 2.1.5 = 
+= 2.1.5 =
 * Changed the open date text to use the general settings date format instead of a hard coded date format
 * Fixed an issue with custom question types when the custom question types have a different ID than expected
 
-= 2.1.4 = 
-* Fixed a bug where if the email field was hidden and a new attendee was added it would not save 
+= 2.1.4 =
+* Fixed a bug where if the email field was hidden and a new attendee was added it would not save
 * Added the ability to delete the database tables and options when uninstalling
 
-= 2.1.3 = 
+= 2.1.3 =
 * Resurfaced the note field on the admin attendee list screen
 
-= 2.1.2 = 
+= 2.1.2 =
 * Incremented the tested version to 4.3.0
 * Surfaced the date when an attendee RSVP'd
 
-= 2.1.1 = 
+= 2.1.1 =
 * Added in a Czech translation, thanks to Radek Strnad for providing the translation.
 
-= 2.1.0 = 
+= 2.1.0 =
 * Fixed an issue with the import process not handling unicode characters when trying to associate attendees
 
-= 2.0.9 = 
+= 2.0.9 =
 * Small fix to correct the problem of additional attendees having slashes in front of apostrophes on the front-end.
 
-= 2.0.8 = 
+= 2.0.8 =
 * Added in a fix for first and last name searching to work better with different naming schemes like Norwegian names, fix provided by Richard Mikalsen
 
-= 2.0.7 = 
+= 2.0.7 =
 * Spanish typo fix contributed by Andres Gomez
 * Added a Norwegian translation supplied by Richard Mikalsen
 
-= 2.0.6 = 
+= 2.0.6 =
 * Fixed a problem with the JavaScript change in 2.0.5 custom questions were not showing up.
 
-= 2.0.5 = 
+= 2.0.5 =
 * Fixed a problem where on some themes the JavaScript would stop working correctly on the front end.
 * Renamed to the Finnish translation to the more common locale code, thanks to Andres Gomez for this fix
 * Small text change to allow for localization, thanks to Henrik Palm for this fix
 
-= 2.0.4 = 
+= 2.0.4 =
 * Fixed a problem when exporting that the sprintf parameters wouldn't always match
 
-= 2.0.3 = 
+= 2.0.3 =
 * Added some more front-end styling to deal with themes making the RSVP form unusable in some cases
 * Added an option to disable user searching when a user is not found on the RSVP form
 
-= 2.0.2 = 
+= 2.0.2 =
 * Fixed a small bug that happens in the JavaScript when you have a custom question that has a pipe (|) in it
 
-= 2.0.1 = 
+= 2.0.1 =
 * A few translation bug fixes and a Spanish and Finish translation submitted by Andres Gomez Garcia!
 
-= 2.0.0 = 
+= 2.0.0 =
 * Made the multi-selects easier to use
 
-= 1.9.9 = 
+= 1.9.9 =
 * Added some basic styling to the front-end to try and prevent themes from hiding form elements
 * Made it so you can pass in the passcode in the querystring when the passcode only option is enabled
 * Added in a Dutch translation of the RSVP plugin, thanks to Marijn Roukensfor providing the translation!
@@ -178,55 +181,55 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 * Removed all uses of $_SESSION variables
 * Added all custom questions for associated attendees to email notifications
 
-= 1.9.7 = 
-* Tested the plugin on 4.1.0 
-* Added in a French translation of the RSVP plugin, thanks to Beno”t Quentin for providing the translation!
+= 1.9.7 =
+* Tested the plugin on 4.1.0
+* Added in a French translation of the RSVP plugin, thanks to Benoï¿½t Quentin for providing the translation!
 
-= 1.9.6 = 
+= 1.9.6 =
 * Added in a German translation of the RSVP plugin, thanks to Gernot Weber for providing the translation!
 
-= 1.9.5 = 
-* Fixed a bug when emailing people in certain cases it did not have all of the information it was looking for. Thanks to Guillaume De Smedt for pointing out the problem. 
+= 1.9.5 =
+* Fixed a bug when emailing people in certain cases it did not have all of the information it was looking for. Thanks to Guillaume De Smedt for pointing out the problem.
 
-= 1.9.4 = 
-* Added the ability to skip the first step if the querystring parameters existed for the form values. 
+= 1.9.4 =
+* Added the ability to skip the first step if the querystring parameters existed for the form values.
 
-= 1.9.3 = 
+= 1.9.3 =
 * Added shortcode [rsvp]
 
-= 1.9.2 = 
+= 1.9.2 =
 * Fixed a bug that I introduced with the URL change in 1.9.1
 
-= 1.9.1 = 
+= 1.9.1 =
 * Fixed some internationalization errors pointed out by Alberto Manfrinati
 * Changed the URL code to not use the $_SERVER variable as sometimes that does not match with the blog's domain
 
-= 1.9.0 = 
+= 1.9.0 =
 * Fixed an issue where if you hide the email address the next time a person goes to RSVP their email address gets removed
 * Added an option to add some custom text to the email sent to attendees
 * Changed the editing of RSVPs so even if someone has RSVP'd you can edit their entry if they are associated with the person
 
-= 1.8.9 = 
+= 1.8.9 =
 * Tested to make sure the plugin worked on WordPress 4.0.0
 * Fixed a bug where you couldn't deselect an attendee
 * Modified the not found text to show something different if we are only asking for a password, thanks to Chris Moncayo for the patch
 * Modified the text for the first step of the RSVP, thanks to Chris Moncay for the patch
 
-= 1.8.8 = 
+= 1.8.8 =
 * Fixed a bug with storing answers to custom questions, was using a comma but that interferred with how some answers were written. Will require saving questions again.
 
-= 1.8.7 = 
+= 1.8.7 =
 * Fixed a bug in the import process where non-ASCII characters were not being properly imported.
 
-= 1.8.6 = 
+= 1.8.6 =
 * Added in an option to only show a passcode for when a guest rsvps. When this option is on the passcode has to be unique.
-* Fixed a bug where custom questions would not show up in the correct order when viewing the guest list in the admin area. 
+* Fixed a bug where custom questions would not show up in the correct order when viewing the guest list in the admin area.
 * Added all the other information along with custom questions to the emails that are sent to the email specified in the notification email setting.
 
-= 1.8.5 = 
-* Added in an option to disable not have guest emails appear to be from the email specified in the notification option. As some hosts will not send out an email with a custom from header. 
+= 1.8.5 =
+* Added in an option to disable not have guest emails appear to be from the email specified in the notification option. As some hosts will not send out an email with a custom from header.
 
-= 1.8.4 = 
+= 1.8.4 =
 * Fixed a stupid bug where the option to hide the email address didn't do it everywhere.
 
 = 1.8.3 =
@@ -237,48 +240,48 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 = 1.8.2 =
 * Fixed a bug with the new email field that made it so guests couldn't be added
 
-= 1.8.1 = 
+= 1.8.1 =
 * Tested the plugin against Wordpress 3.9
 * Added in the option to send a confirmation to the person RSVP'ing. Go to Settings -> RSVP Options and select "Send email to main guest when they RSVP". Thanks to Reydel Leon for the code contributions.
 * Added in an option to specify the number of additional guests a person can add
 
-= 1.8.0 = 
+= 1.8.0 =
 * Added in rsvpCustomQuestions as a div container for custom questions to help with styling
-* Added in a fix to stop auto newlines from paragraphs from happening on older versions of Wordpress. I remove wpautop from the_content filter when RSVP content is found. 
+* Added in a fix to stop auto newlines from paragraphs from happening on older versions of Wordpress. I remove wpautop from the_content filter when RSVP content is found.
 
-= 1.7.9 = 
+= 1.7.9 =
 * Fixed an issue reported by a user where the private custom questions did not get included with a new additional attendee
 
-= 1.7.8 = 
-* Changed it so the first and last name are displayed in the question "Will X be attending?" where X is the person's name. It used to only display the person's first name. 
+= 1.7.8 =
+* Changed it so the first and last name are displayed in the question "Will X be attending?" where X is the person's name. It used to only display the person's first name.
 
-= 1.7.7 = 
+= 1.7.7 =
 * Small layout bugfixes that were introduced in 1.7.6
 * Removed a warning reported by a user
 
-= 1.7.6 = 
-* Changed the questions for additional people to have paragraph tags wrapped around them. 
+= 1.7.6 =
+* Changed the questions for additional people to have paragraph tags wrapped around them.
 * Added the option to remove a guest you just tried to add
 
-= 1.7.5 = 
-* Changed how RSVP'ing for associated guests work. You no longer have to select the checkbox but just select the RSVP option (yes or no) for the guest and it will assume you are RSVP'ing for the guest. 
+= 1.7.5 =
+* Changed how RSVP'ing for associated guests work. You no longer have to select the checkbox but just select the RSVP option (yes or no) for the guest and it will assume you are RSVP'ing for the guest.
 * Changed the default thank you message so it now has the main person's name for RSVP'ing and any additional people that were RSVP'd.
 * Made it possible to associate users with private question on import. See the import page for more details.
 
-= 1.7.4 = 
+= 1.7.4 =
 * Fixed an issue with the table sorting for custom questions not working correctly
 * Added an the option to change the verbiage for the add additional guest question
 * When the email notification is sent now the associated attendees statuses are sent as well
 
-= 1.7.3 = 
+= 1.7.3 =
 * Fixed some issues so notices would not surface
 * Fixed some admin encoding issues, fix submitted by David Dinmamma
 * Turned off autocomplete on the main RSVP form so people can't see who else has registered from that computer
 
-= 1.7.2 = 
+= 1.7.2 =
 * Improved the queries to find related attendees when a person RSVPs
 * Incorporated an SSL check fix found at http://wordpress.org/support/topic/https-problem-1
-* Fixed an issue with a warning for an insert query. Notified by Chase Nimmer. 
+* Fixed an issue with a warning for an insert query. Notified by Chase Nimmer.
 * Changed the passcode field to a password and made it so was not set to autocomplete for browsers.
 * Added in a div container for additional attendee questions so JavaScript modifications could be done.
 * Added in an option to not scroll down to the RSVP form when a form post happened.
@@ -292,15 +295,15 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 * Fixed some layout issues related to whitespace in the output
 * Added an option to hide the note field from the front-end
 * Added passcodes to the export
-* Added passcodes to the import 
-* Made it so all of the front-end text was translatable 
+* Added passcodes to the import
+* Made it so all of the front-end text was translatable
 
-= 1.6.2 = 
+= 1.6.2 =
 * Fixed a bug so that the rsvp form works with single page layouts
-* Fixed a bug where the passcode was not being checked. Thanks to Jency Rijckoort for reporting the issue. 
+* Fixed a bug where the passcode was not being checked. Thanks to Jency Rijckoort for reporting the issue.
 
-= 1.6.1 = 
-* Fixed a bug with the jQuery validate library that was causing an error with the 3.5.0 media manager. Thanks to Topher Simon for reporting the issue. 
+= 1.6.1 =
+* Fixed a bug with the jQuery validate library that was causing an error with the 3.5.0 media manager. Thanks to Topher Simon for reporting the issue.
 
 = 1.6.0 =
 * Added in internationalization for the front-end piece of the RSVP plugin
@@ -314,12 +317,12 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 * Removed deprecated calls to session_unregister so it would work correct on PHP 5.4 and above
 * Changed it so on new installs of RSVP fields that have free-form text will always be UTF-8 to minimize issues with unicode characters
 
-= 1.4.1 = 
+= 1.4.1 =
 * Fixed a bug where the passcode field would not always get created when upgrading.  This caused the attendee list to now display in the admin area
 * Also added some finishing touches to the passcode feature as it was released a little bit too soon
 
-= 1.4.0 = 
-* Added in the option to require a passcode when RSVPing. 
+= 1.4.0 =
+* Added in the option to require a passcode when RSVPing.
 
 = 1.3.2 =
 * Added in the option to change the "welcome" text
@@ -334,7 +337,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 * Made it so custom questions showed up on the attendee list page
 * Added in a radio button as a custom question type
 * Changed the RSVP notification email to include the RSVP status
-* Fixed an issue with when searching for people with an apostrophe in it, it would display with the added escaping. Made sure to remove the escaping.  
+* Fixed an issue with when searching for people with an apostrophe in it, it would display with the added escaping. Made sure to remove the escaping.
 * Added in the veggie and kids meal total count to the list of attendees in the admin area
 * Made it so admins can change the RSVP status
 * Fixed an issue with international characters not being displayed correctly on both the admin and public areas of the plugin
@@ -355,14 +358,14 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 * Removed some default text that pointed to my wedding site, doh.
 * Created the ability to not allow additional attendees be added
 * Created the ability to be notified via email whenever someone rsvps
-* Added the ability to specify custom questions for each rsvp.  
+* Added the ability to specify custom questions for each rsvp.
 
 = 0.9.5 =
-* Fixed a major bug that would not create the correct sql tables during initial install, thanks to everyone for letting me know. 
+* Fixed a major bug that would not create the correct sql tables during initial install, thanks to everyone for letting me know.
 
-= 0.9.0 = 
+= 0.9.0 =
 * Fixed the options page so it works in MU switched from the old options way with using the newer methods that are only for 2.7+.
-* Added the option of custom messages for each attendee. 
+* Added the option of custom messages for each attendee.
 * Small bug-fixed and code refactoring that I noticed while testing.
 
 = 0.8.0 =
@@ -384,6 +387,6 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 * Initial release
 
 == Upgrade Notice ==
-* To upgrade from 0.5.0 to 0.6.0 just re-upload all of the files and you should be good to go.  Really the only change was to wp-rsvp.php so uploading this changed file is all that is needed.  
-* To upgrade to 0.9.0 at minimum copy over wp-rsvp.php and rsvp_frontend.inc.php and go to the attendeees list.  Preferably deactive and reactivate the plugin so it is for sure that the database changes happen. 
-* To upgrade to 1.0.0 at minimum copy over wp-rsvp.php and rsvp_frontend.inc.php and deactive and reactivate the plugin to get the latest database changes.  
+* To upgrade from 0.5.0 to 0.6.0 just re-upload all of the files and you should be good to go.  Really the only change was to wp-rsvp.php so uploading this changed file is all that is needed.
+* To upgrade to 0.9.0 at minimum copy over wp-rsvp.php and rsvp_frontend.inc.php and go to the attendeees list.  Preferably deactive and reactivate the plugin so it is for sure that the database changes happen.
+* To upgrade to 1.0.0 at minimum copy over wp-rsvp.php and rsvp_frontend.inc.php and deactive and reactivate the plugin to get the latest database changes.
