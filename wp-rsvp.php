@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.2.1
+ * @version 2.2.2
  */
 /*
 Plugin Name: RSVP
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
 Author: MDE Development, LLC
-Version: 2.2.1
+Version: 2.2.2
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -723,7 +723,6 @@ License: GPL
 
 				$csv .= "\"".(str_replace("\"", "\"\"", stripslashes($a->note)))."\"";
 
-
 				$qRs = $wpdb->get_results($wpdb->prepare("SELECT q.id, question, permissionLevel, qat.questionID AS hasAccess,
 								(SELECT GROUP_CONCAT(answer) FROM ".ATTENDEE_ANSWERS." WHERE questionID = q.id AND attendeeID = %d) AS answer
 								FROM ".QUESTIONS_TABLE." q
@@ -780,7 +779,6 @@ License: GPL
 
 			if($numCols >= 2) {
 				$headerRow = array();
-				$headerRow = $row;
 				$count = 0;
 				$i = 0;
 
@@ -905,6 +903,8 @@ License: GPL
       						} // if(count($priv...))
         			} // if($numCols > = 9
 						} // if(!empty($fName) && !empty($lName))
+					} else {
+						$headerRow = $row;
 					}
 					$i++;
 				} // foreach $data as $row
