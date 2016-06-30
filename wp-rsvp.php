@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.2.2
+ * @version 2.2.3
  */
 /*
 Plugin Name: RSVP
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
 Author: MDE Development, LLC
-Version: 2.2.2
+Version: 2.2.3
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -696,7 +696,11 @@ License: GPL
 
 			$csv .= "\r\n";
 			foreach($attendees as $a) {
-				$csv .= "\"".stripslashes($a->firstName)."\",\"".stripslashes($a->lastName)."\",\"".stripslashes($a->email)."\",\"".($a->rsvpStatus)."\",";
+				$fName = stripslashes($a->firstName);
+				$fName = mb_convert_encoding($fName, 'ISO-8859-1', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
+				$lName = stripslashes($a->lastName);
+				$lName = mb_convert_encoding($lName, 'ISO-8859-1', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
+				$csv .= "\"".$fName."\",\"".$lName."\",\"".stripslashes($a->email)."\",\"".($a->rsvpStatus)."\",";
 
 				if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
 					$csv .= "\"".(($a->kidsMeal == "Y") ? "Y" : "N")."\",";
@@ -785,7 +789,7 @@ License: GPL
 				foreach($data as $row) {
 					if($i > 0) {
 						$fName = trim($row[0]);
-          	$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
+          			$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
 
 						$lName = trim($row[1]);
           	$lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
