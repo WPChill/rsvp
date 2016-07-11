@@ -29,7 +29,7 @@ function rsvp_frontend_handler($text) {
 	}
 
 	if((strtotime($closeDate) !== false) && (strtotime($closeDate) < time())) {
-		return rsvp_handle_output($text, RSVP_START_PARA.__("The deadline to RSVP for this wedding has passed, please contact the bride and groom to verify that there is still a seat for you.", 'rsvp-plugin').RSVP_END_PARA);
+		return rsvp_handle_output($text, RSVP_START_PARA.__("The deadline to RSVP for this event has passed.", 'rsvp-plugin').RSVP_END_PARA);
 	}
 
 	if(isset($_POST['rsvpStep'])) {
@@ -667,13 +667,16 @@ function rsvp_handleNewRsvp(&$output, &$text) {
         		$body .= __("Note: ", "rsvp-plugin").stripslashes($attendee[0]->note)."\r\n";
       		}
 
-			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
+			$sql = "SELECT q.id, question, answer, q.sortOrder FROM ".QUESTIONS_TABLE." q
 				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d
+				WHERE (q.permissionLevel = 'public' OR
+			  		(q.permissionLevel = 'private' AND q.id IN (SELECT questionID FROM ".QUESTION_ATTENDEES_TABLE." WHERE attendeeID = %d)))
 				ORDER BY q.sortOrder, q.id";
-			$aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID));
+
+			$aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
 			if(count($aRs) > 0) {
 				foreach($aRs as $a) {
-          $body .= stripslashes($a->question).": ".stripslashes($a->answer)."\r\n";
+          			$body .= stripslashes($a->question).": ".stripslashes($a->answer)."\r\n";
 				}
 			}
 
@@ -689,8 +692,10 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 
     			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
     				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d
+    				WHERE (q.permissionLevel = 'public' OR
+			  			(q.permissionLevel = 'private' AND q.id IN (SELECT questionID FROM ".QUESTION_ATTENDEES_TABLE." WHERE attendeeID = %d)))
     				ORDER BY q.sortOrder, q.id";
-    			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id));
+    			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id, $a->id));
     			if(count($aRs) > 0) {
     				foreach($aRs as $ans) {
               $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
@@ -734,8 +739,10 @@ function rsvp_handleNewRsvp(&$output, &$text) {
           $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
     			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
     				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d
+    				WHERE (q.permissionLevel = 'public' OR
+			  		(q.permissionLevel = 'private' AND q.id IN (SELECT questionID FROM ".QUESTION_ATTENDEES_TABLE." WHERE attendeeID = %d)))
     				ORDER BY q.sortOrder, q.id";
-    			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id));
+    			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id, $a->id));
     			if(count($aRs) > 0) {
     				foreach($aRs as $ans) {
               $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
@@ -896,8 +903,10 @@ function rsvp_handlersvp(&$output, &$text) {
 
   			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
   				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d
+  				WHERE (q.permissionLevel = 'public' OR
+			  		(q.permissionLevel = 'private' AND q.id IN (SELECT questionID FROM ".QUESTION_ATTENDEES_TABLE." WHERE attendeeID = %d)))
   				ORDER BY q.sortOrder, q.id";
-  			$aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID));
+  			$aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
   			if(count($aRs) > 0) {
           $body .= "\r\n\r\n--== Custom Questions ==--\r\n";
   				foreach($aRs as $a) {
@@ -916,8 +925,10 @@ function rsvp_handlersvp(&$output, &$text) {
             $body .= stripslashes($a->firstName." ".$a->lastName)." RSVP status: ".$a->rsvpStatus."\r\n";
       			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
       				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d
+      				WHERE (q.permissionLevel = 'public' OR
+			  			(q.permissionLevel = 'private' AND q.id IN (SELECT questionID FROM ".QUESTION_ATTENDEES_TABLE." WHERE attendeeID = %d)))
       				ORDER BY q.sortOrder, q.id";
-      			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id));
+      			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id, $a->id));
       			if(count($aRs) > 0) {
       				foreach($aRs as $ans) {
                 $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
@@ -929,7 +940,7 @@ function rsvp_handlersvp(&$output, &$text) {
         $headers = "";
 				if(get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")
           $headers = 'From: '. $email . "\r\n";
-
+      			
 				wp_mail($email, "New RSVP Submission", $body, $headers);
 			}
 		}
@@ -959,8 +970,10 @@ function rsvp_handlersvp(&$output, &$text) {
             $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
       			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
       				LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d
+      				WHERE (q.permissionLevel = 'public' OR
+			  		(q.permissionLevel = 'private' AND q.id IN (SELECT questionID FROM ".QUESTION_ATTENDEES_TABLE." WHERE attendeeID = %d)))
       				ORDER BY q.sortOrder, q.id";
-      			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id));
+      			$aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id, $a->id));
       			if(count($aRs) > 0) {
       				foreach($aRs as $ans) {
                 $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
