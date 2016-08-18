@@ -3,7 +3,7 @@ Contributors: mdedev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: rsvp, reserve, wedding, guestlist, attendee management, event management, event planning, wedding planning, event registration, event, events, events management, events registration
 Requires at least: 3.0
-Tested up to: 4.5.2
+Tested up to: 4.6.0
 Stable tag: 2.2.5
 
 The RSVP Plugin was created to be a straightforward event management plugin to handle registrations for a single event.
@@ -97,15 +97,15 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 
-= 2.2.5 = 
+= 2.2.5 =
 * Fixed a typo in the Dutch translation
 
-= 2.2.4 = 
+= 2.2.4 =
 * Made it so the plugin is PHP7 compatible
 * Changed the text for when the event registration is not open to be more generic.
 * Fixed an issue where the notifications included private questions that people did not have access to
 
-= 2.2.3 = 
+= 2.2.3 =
 * Fixed an issue with the export functionality characters with accents would not render correctly with the Mac version of Excel
 
 = 2.2.2 =
