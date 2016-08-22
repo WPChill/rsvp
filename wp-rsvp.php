@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.2.5
+ * @version 2.2.6
  */
 /*
 Plugin Name: RSVP
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
 Author: MDE Development, LLC
-Version: 2.2.5
+Version: 2.2.6
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -789,18 +789,18 @@ License: GPL
 				foreach($data as $row) {
 					if($i > 0) {
 						$fName = trim($row[0]);
-          			$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
+          				$fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
 
 						$lName = trim($row[1]);
-          	$lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
-          	$email = trim($row[2]);
+          				$lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
+          				$email = trim($row[2]);
 						$rsvpStatus = "noresponse";
-				    if(isset($row[3])) {
-				    	$tmpStatus = strtolower($row[3]);
-			        if(($tmpStatus == "yes") || ($tmpStatus == "no")) {
-			        	$rsvpStatus = $tmpStatus;
-			        }
-				    }
+				    	if(isset($row[3])) {
+				    		$tmpStatus = strtolower($row[3]);
+			        		if(($tmpStatus == "yes") || ($tmpStatus == "no")) {
+			        			$rsvpStatus = $tmpStatus;
+			        		}
+				    	}
 						$kidsMeal = "N";
 						$vegetarian = "N";
 						if(isset($row[4]) && (strtolower($row[4]) == "Y")) {
@@ -812,26 +812,36 @@ License: GPL
 						}
 
 						$personalGreeting = (isset($row[8])) ? $personalGreeting = $row[8] : "";
-          	$passcode = (isset($row[7])) ? $row[7] : "";
+          				$passcode = (isset($row[7])) ? $row[7] : "";
 						if(rsvp_require_unique_passcode() && !rsvp_is_passcode_unique($passcode, 0)) {
 							$passcode = rsvp_generate_passcode();
 						}
 
 						if(!empty($fName) && !empty($lName)) {
-							$sql = "SELECT id FROM ".ATTENDEES_TABLE."
+							$sql = "SELECT id, email, passcode FROM ".ATTENDEES_TABLE."
 						 		WHERE firstName = %s AND lastName = %s ";
 							$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
 							if(count($res) == 0) {
-            		$wpdb->insert(ATTENDEES_TABLE, array("firstName"        => $fName,
+            					$wpdb->insert(ATTENDEES_TABLE, array("firstName"        => $fName,
                                                  "lastName"         		=> $lName,
                                                  "email"            		=> $email,
                                                  "personalGreeting" 		=> $personalGreeting,
-																								 "kidsMeal"							=> $kidsMeal,
-																								 "veggieMeal"						=> $vegetarian,
-																								 "rsvpStatus" 					=> $rsvpStatus,
+												 "kidsMeal"							=> $kidsMeal,
+												 "veggieMeal"						=> $vegetarian,
+												 "rsvpStatus" 					=> $rsvpStatus,
                                                  "passcode"         		=> $passcode),
                                            array('%s', '%s', '%s', '%s', '%s', '%s', '%s'));
 								$count++;
+							} elseif(empty($res->email) && empty($res->passcode)) {
+								// More than likely the attendee was inserted via an
+								// associated attendee and we will want to update this record...
+        						$wpdb->update(ATTENDEES_TABLE, array("email"            => $email,
+                                                  "personalGreeting" => $personalGreeting,
+                                                  "passcode"         => $passcode,
+                                                  "rsvpStatus"       => $rsvpStatus),
+				                        array("id" => $res[0]->id),
+				                        array('%s', '%s', '%s', '%s'),
+				                        array('%d'));
 							}
 
 							if($numCols >= 4) {
@@ -882,30 +892,30 @@ License: GPL
 							} // if check for associated attendees
 
 							if($numCols >= 9) {
-     	 					$private_questions = array();
-      						for($qid = 9; $qid <= $numCols; $qid++) {
-        						$pqid = str_replace("pq_", "", $headerRow[$qid]);
-        						if(is_numeric($pqid)) {
-          							$private_questions[$qid] = $pqid;
-        						}
-      						} // for($qid = 6...
+	     	 					$private_questions = array();
+	      						for($qid = 9; $qid <= $numCols; $qid++) {
+	        						$pqid = str_replace("pq_", "", $headerRow[$qid]);
+	        						if(is_numeric($pqid)) {
+	          							$private_questions[$qid] = $pqid;
+	        						}
+	      						} // for($qid = 6...
 
-      						if(count($private_questions) > 0) {
-										// Get the user's id
-										$sql = "SELECT id FROM ".ATTENDEES_TABLE." WHERE firstName = %s AND lastName = %s ";
-										$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
-										if(count($res) > 0) {
-											$userId = $res[0]->id;
-      								foreach($private_questions as $key => $val) {
-        								if(strToUpper($row[$key]) == "Y") {
-          									$wpdb->insert(QUESTION_ATTENDEES_TABLE, array("attendeeID" => $userId,
-                                                        "questionID" => $val),
-                                                  									array("%d", "%d"));
-        								}
-      								}
-    								}
-      						} // if(count($priv...))
-        			} // if($numCols > = 9
+	      						if(count($private_questions) > 0) {
+									// Get the user's id
+									$sql = "SELECT id FROM ".ATTENDEES_TABLE." WHERE firstName = %s AND lastName = %s ";
+									$res = $wpdb->get_results($wpdb->prepare($sql, $fName, $lName));
+									if(count($res) > 0) {
+										$userId = $res[0]->id;
+											foreach($private_questions as $key => $val) {
+											if(strToUpper($row[$key]) == "Y") {
+	  											$wpdb->insert(QUESTION_ATTENDEES_TABLE, array("attendeeID" => $userId,
+	                                                "questionID" => $val),
+	                                          		array("%d", "%d"));
+											}
+											}
+									}
+	      						} // if(count($priv...))
+        					} // if($numCols > = 9
 						} // if(!empty($fName) && !empty($lName))
 					} else {
 						$headerRow = $row;
