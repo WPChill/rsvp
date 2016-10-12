@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.2.7
+ * @version 2.2.8
  */
 /*
 Plugin Name: RSVP
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
 Author: MDE Development, LLC
-Version: 2.2.7
+Version: 2.2.8
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -1281,15 +1281,40 @@ License: GPL
 		return $ids;
 	}
 
+	/**
+	 * Populates the custom question types
+	 *
+	 * @since 2.2.8
+	 */
+	function rsvp_populate_custom_question_types() {
+		global $wpdb;
+
+		$question_types = array(
+			array("questionType" => "shortAnswer", "friendlyName" => "Short Answer"),
+			array("questionType" => "multipleChoice", "friendlyName" => "Multiple Choice"),
+			array("questionType" => "longAnswer", "friendlyName" => "Long Answer"),
+			array("questionType" => "dropdown", "friendlyName" => "Drop Down"),
+			array("questionType" => "radio", "friendlyName" => "Radio"),
+		);
+
+		foreach($question_types as $qt) {
+			$qType = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM " . QUESTION_TYPE_TABLE . " WHERE questionType = %s ", $qt['questionType'] ) );
+			if( $qType == null ) {
+				$wpdb->insert( QUESTION_TYPE_TABLE ,
+					array(
+						"questionType" => $qt['questionType'],
+						"friendlyName" => $qt['friendlyName']),
+					array('%s', '%s'));
+			}
+		}
+	}
+
 	function rsvp_admin_custom_question() {
 		global $wpdb;
 
 		$answerQuestionTypes = rsvp_get_question_with_answer_type_ids();
 
-		$radioQuestionType = $wpdb->get_results("SELECT id FROM ".QUESTION_TYPE_TABLE." WHERE questionType = 'radio'");
-		if($radioQuestionType == 0) {
-			$wpdb->insert(QUESTION_TYPE_TABLE, array("questionType" => "radio", "friendlyName" => "Radio"), array('%s', '%s'));
-		}
+		rsvp_populate_custom_question_types();
 
 		if((count($_POST) > 0) && !empty($_POST['question']) && is_numeric($_POST['questionTypeID'])) {
 			check_admin_referer('rsvp_add_custom_question');
