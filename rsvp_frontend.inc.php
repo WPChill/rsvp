@@ -646,10 +646,10 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 		$sql = "SELECT firstName, lastName, rsvpStatus, note, kidsMeal, veggieMeal, email FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
 		$attendee = $wpdb->get_results($sql);
 		if(count($attendee) > 0) {
-			$body = "Hello, \r\n\r\n";
+			$body = __("Hello", "rsvp-plugin") . ", \r\n\r\n";
 
 			$body .= stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).
-							 " has submitted their RSVP and has RSVP'd with '".$attendee[0]->rsvpStatus."'.\r\n";
+							 " " . __("has submitted their RSVP and has RSVP'd with", "rsvp-plugin") . " '".$attendee[0]->rsvpStatus."'.\r\n";
 
      		if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
         		$body .= __("Kids Meal: ", "rsvp-plugin").$attendee[0]->kidsMeal."\r\n";
@@ -686,7 +686,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 
 			$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
       if(count($associations) > 0) {
-        $body .= "\r\n\r\n--== Associated Attendees ==--\r\n";
+        $body .= "\r\n\r\n--== " . __("Associated Attendees", "rsvp-plugin") . " ==--\r\n";
   			foreach($associations as $a) {
           $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
 
@@ -710,7 +710,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
       if(get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")
         $headers = 'From: '. $emailAddy . "\r\n";
 
-			wp_mail($emailAddy, "New RSVP Submission", $body, $headers);
+			wp_mail($emailAddy, __("New RSVP Submission", "rsvp-plugin"), $body, $headers);
 		}
 	}
 
@@ -726,7 +726,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
         $body .= "\r\n";
       }
 
-			$body .= "You have successfully RSVP'd with '".$attendee[0]->rsvpStatus."'.";
+			$body .= __("You have successfully RSVP'd with", "rsvp-plugin") . " '".$attendee[0]->rsvpStatus."'.";
 
 			$sql = "SELECT firstName, lastName, rsvpStatus, id, email FROM ".ATTENDEES_TABLE."
 			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
@@ -734,7 +734,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 
 			$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
       if(count($associations) > 0) {
-        $body .= "\r\n\r\n--== Associated Attendees ==--\r\n";
+        $body .= "\r\n\r\n--== " . __("Associated Attendees", "rsvp-plugin") . " ==--\r\n";
   			foreach($associations as $a) {
           $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
     			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
@@ -757,7 +757,7 @@ function rsvp_handleNewRsvp(&$output, &$text) {
         $headers = 'From: '. $emailAddy . "\r\n";
       }
 
-      wp_mail($attendee[0]->email, "RSVP Confirmation", $body, $headers);
+      wp_mail($attendee[0]->email, __("RSVP Confirmation", "rsvp-plugin"), $body, $headers);
     }
   }
 
@@ -880,10 +880,10 @@ function rsvp_handlersvp(&$output, &$text) {
 			$sql = "SELECT firstName, lastName, rsvpStatus, kidsMeal, veggieMeal, note, email FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
 			$attendee = $wpdb->get_results($sql);
 			if(count($attendee) > 0) {
-				$body = "Hello, \r\n\r\n";
+				$body = __("Hello", "rsvp-plugin") . ", \r\n\r\n";
 
 				$body .= stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).
-								 " has submitted their RSVP and has RSVP'd with '".$attendee[0]->rsvpStatus."'.";
+								 " " . __("has submitted their RSVP and has RSVP'd with") . " '".$attendee[0]->rsvpStatus."'.";
 
         		if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
           			$body .= __("Kids Meal: ", "rsvp-plugin").$attendee[0]->kidsMeal."\r\n";
@@ -908,7 +908,7 @@ function rsvp_handlersvp(&$output, &$text) {
   				ORDER BY q.sortOrder, q.id";
   			$aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
   			if(count($aRs) > 0) {
-          $body .= "\r\n\r\n--== Custom Questions ==--\r\n";
+          $body .= "\r\n\r\n--== " . __("Custom Questions", "rsvp-plugin") . " ==--\r\n";
   				foreach($aRs as $a) {
             $body .= stripslashes($a->question).": ".stripslashes($a->answer)."\r\n";
   				}
@@ -920,7 +920,7 @@ function rsvp_handlersvp(&$output, &$text) {
 
   			$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
         if(count($associations) > 0) {
-          $body .= "\r\n\r\n--== Associated Attendees ==--\r\n";
+          $body .= "\r\n\r\n--== " . __("Associated Attendees", "rsvp-plugin") . " ==--\r\n";
     			foreach($associations as $a) {
             $body .= stripslashes($a->firstName." ".$a->lastName)." RSVP status: ".$a->rsvpStatus."\r\n";
       			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
@@ -940,8 +940,7 @@ function rsvp_handlersvp(&$output, &$text) {
         $headers = "";
 				if(get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")
           $headers = 'From: '. $email . "\r\n";
-      			
-				wp_mail($email, "New RSVP Submission", $body, $headers);
+				wp_mail($email, __("New RSVP Submission", "rsvp-plugin"), $body, $headers);
 			}
 		}
 
@@ -949,7 +948,7 @@ function rsvp_handlersvp(&$output, &$text) {
   		$sql = "SELECT firstName, lastName, email, rsvpStatus FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
   		$attendee = $wpdb->get_results($sql);
   		if(count($attendee) > 0) {
-  			$body = "Hello ".stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).", \r\n\r\n";
+  			$body = __("Hello ", "rsvp-plugin") . stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).", \r\n\r\n";
 
         if(get_option(OPTION_RSVP_EMAIL_TEXT) != "") {
           $body .= "\r\n";
@@ -957,7 +956,7 @@ function rsvp_handlersvp(&$output, &$text) {
           $body .= "\r\n";
         }
 
-  			$body .= "You have successfully RSVP'd with '".$attendee[0]->rsvpStatus."'.";
+  			$body .= __("You have successfully RSVP'd with", "rsvp-plugin") . " '" . $attendee[0]->rsvpStatus . "'.";
 
   			$sql = "SELECT firstName, lastName, rsvpStatus, id FROM ".ATTENDEES_TABLE."
   			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
@@ -965,7 +964,7 @@ function rsvp_handlersvp(&$output, &$text) {
 
   			$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
         if(count($associations) > 0) {
-          $body .= "\r\n\r\n--== Associated Attendees ==--\r\n";
+          $body .= "\r\n\r\n--== " . __("Associated Attendees", "rsvp-plugin") . " ==--\r\n";
     			foreach($associations as $a) {
             $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
       			$sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
@@ -987,7 +986,7 @@ function rsvp_handlersvp(&$output, &$text) {
           $headers = 'From: '. $email . "\r\n";
         }
 
-        wp_mail($attendee[0]->email, "RSVP Confirmation", $body, $headers);
+        wp_mail($attendee[0]->email, __("RSVP Confirmation", "rsvp-plugin"), $body, $headers);
       }
     }
 

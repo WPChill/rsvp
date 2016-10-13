@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the RSVP package.
 msgid ""
 msgstr ""
-"Project-Id-Version: RSVP 2.2.0\n"
+"Project-Id-Version: RSVP 2.2.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/Wordpress-RSVP-"
 "Plugin\n"
-"POT-Creation-Date: 2016-06-12 13:57:03+00:00\n"
+"POT-Creation-Date: 2016-10-13 19:25:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,9 +20,7 @@ msgid ""
 msgstr ""
 
 #: rsvp_frontend.inc.php:32
-msgid ""
-"The deadline to RSVP for this wedding has passed, please contact the bride "
-"and groom to verify that there is still a seat for you."
+msgid "The deadline to RSVP for this event has passed."
 msgstr ""
 
 #: rsvp_frontend.inc.php:142
@@ -32,14 +30,14 @@ msgid ""
 msgstr ""
 
 #: rsvp_frontend.inc.php:148 rsvp_frontend.inc.php:165
-#: rsvp_frontend.inc.php:1149 wp-rsvp.php:554 wp-rsvp.php:561 wp-rsvp.php:570
-#: wp-rsvp.php:1080
+#: rsvp_frontend.inc.php:1161 wp-rsvp.php:554 wp-rsvp.php:561 wp-rsvp.php:570
+#: wp-rsvp.php:1094
 msgid "Yes"
 msgstr ""
 
 #: rsvp_frontend.inc.php:149 rsvp_frontend.inc.php:166
-#: rsvp_frontend.inc.php:1150 wp-rsvp.php:554 wp-rsvp.php:561 wp-rsvp.php:570
-#: wp-rsvp.php:1083
+#: rsvp_frontend.inc.php:1162 wp-rsvp.php:554 wp-rsvp.php:561 wp-rsvp.php:570
+#: wp-rsvp.php:1097
 msgid "No"
 msgstr ""
 
@@ -115,7 +113,7 @@ msgid ""
 "here:"
 msgstr ""
 
-#. #-#-#-#-#  rsvp-plugin.pot (RSVP 2.2.0)  #-#-#-#-#
+#. #-#-#-#-#  Wordpress-RSVP-Plugin.pot (RSVP 2.2.8)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: rsvp_frontend.inc.php:327 rsvp_frontend.inc.php:495
 msgid "RSVP"
@@ -125,11 +123,11 @@ msgstr ""
 msgid "A first and last name must be specified"
 msgstr ""
 
-#: rsvp_frontend.inc.php:461 rsvp_frontend.inc.php:1014
+#: rsvp_frontend.inc.php:461 rsvp_frontend.inc.php:1026
 msgid "Hi"
 msgstr ""
 
-#: rsvp_frontend.inc.php:466 rsvp_frontend.inc.php:1019
+#: rsvp_frontend.inc.php:466 rsvp_frontend.inc.php:1031
 msgid ""
 "There are a few more questions we need to ask you if you could please fill "
 "them out below to finish up the RSVP process."
@@ -156,116 +154,146 @@ msgstr ""
 msgid "<strong>We were unable to find anyone with a name of %1$s %2$s</strong>"
 msgstr ""
 
-#: rsvp_frontend.inc.php:655 rsvp_frontend.inc.php:882
+#: rsvp_frontend.inc.php:649 rsvp_frontend.inc.php:883
+msgid "Hello"
+msgstr ""
+
+#: rsvp_frontend.inc.php:652 rsvp_frontend.inc.php:886
+msgid "has submitted their RSVP and has RSVP'd with"
+msgstr ""
+
+#: rsvp_frontend.inc.php:655 rsvp_frontend.inc.php:889
 msgid "Kids Meal: "
 msgstr ""
 
-#: rsvp_frontend.inc.php:659 rsvp_frontend.inc.php:886
+#: rsvp_frontend.inc.php:659 rsvp_frontend.inc.php:893
 msgid "Vegetarian Meal: "
 msgstr ""
 
-#: rsvp_frontend.inc.php:663 rsvp_frontend.inc.php:890
+#: rsvp_frontend.inc.php:663 rsvp_frontend.inc.php:897
 msgid "Email: "
 msgstr ""
 
-#: rsvp_frontend.inc.php:667 rsvp_frontend.inc.php:894
+#: rsvp_frontend.inc.php:667 rsvp_frontend.inc.php:901
 msgid "Note: "
 msgstr ""
 
-#: rsvp_frontend.inc.php:716
+#: rsvp_frontend.inc.php:689 rsvp_frontend.inc.php:737
+#: rsvp_frontend.inc.php:923 rsvp_frontend.inc.php:967 wp-rsvp.php:531
+#: wp-rsvp.php:674 wp-rsvp.php:937 wp-rsvp.php:1106
+msgid "Associated Attendees"
+msgstr ""
+
+#: rsvp_frontend.inc.php:713 rsvp_frontend.inc.php:943
+msgid "New RSVP Submission"
+msgstr ""
+
+#: rsvp_frontend.inc.php:721 rsvp_frontend.inc.php:951
 msgid "Hello "
 msgstr ""
 
-#: rsvp_frontend.inc.php:997
+#: rsvp_frontend.inc.php:729 rsvp_frontend.inc.php:959
+msgid "You have successfully RSVP'd with"
+msgstr ""
+
+#: rsvp_frontend.inc.php:760 rsvp_frontend.inc.php:989
+msgid "RSVP Confirmation"
+msgstr ""
+
+#: rsvp_frontend.inc.php:911
+msgid "Custom Questions"
+msgstr ""
+
+#: rsvp_frontend.inc.php:1009
 msgid "Welcome back %s!"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1042
+#: rsvp_frontend.inc.php:1054
 msgid "Thank you"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1046
+#: rsvp_frontend.inc.php:1058
 msgid " for RSVPing."
 msgstr ""
 
-#: rsvp_frontend.inc.php:1049
+#: rsvp_frontend.inc.php:1061
 msgid " You have also RSVPed for - "
 msgstr ""
 
-#: rsvp_frontend.inc.php:1064
+#: rsvp_frontend.inc.php:1076
 msgid "Thank you "
 msgstr ""
 
-#: rsvp_frontend.inc.php:1071
+#: rsvp_frontend.inc.php:1083
 msgid " You will also need to know your password which is"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1076
+#: rsvp_frontend.inc.php:1088
 msgid "<br /><br />You have also RSVPed for - "
 msgstr ""
 
-#: rsvp_frontend.inc.php:1103
+#: rsvp_frontend.inc.php:1115
 msgid "Please enter your passcode to RSVP."
 msgstr ""
 
-#: rsvp_frontend.inc.php:1105
+#: rsvp_frontend.inc.php:1117
 msgid "Please enter your first name, last name and passcode to RSVP."
 msgstr ""
 
-#: rsvp_frontend.inc.php:1107
+#: rsvp_frontend.inc.php:1119
 msgid "Please enter your first and last name to RSVP."
 msgstr ""
 
-#: rsvp_frontend.inc.php:1119
+#: rsvp_frontend.inc.php:1131
 msgid "New Attendee Registration"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1123
+#: rsvp_frontend.inc.php:1135
 msgid "Need to modify your registration? Start with the below form."
 msgstr ""
 
-#: rsvp_frontend.inc.php:1129 wp-rsvp.php:668 wp-rsvp.php:921 wp-rsvp.php:1050
+#: rsvp_frontend.inc.php:1141 wp-rsvp.php:668 wp-rsvp.php:935 wp-rsvp.php:1064
 msgid "First Name"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1131 wp-rsvp.php:668 wp-rsvp.php:921 wp-rsvp.php:1054
+#: rsvp_frontend.inc.php:1143 wp-rsvp.php:668 wp-rsvp.php:935 wp-rsvp.php:1068
 msgid "Last Name"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1135 wp-rsvp.php:516 wp-rsvp.php:680 wp-rsvp.php:923
-#: wp-rsvp.php:1065
+#: rsvp_frontend.inc.php:1147 wp-rsvp.php:516 wp-rsvp.php:680 wp-rsvp.php:937
+#: wp-rsvp.php:1079
 msgid "Passcode"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1138
+#: rsvp_frontend.inc.php:1150
 msgid "Complete your RSVP!"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1168
+#: rsvp_frontend.inc.php:1180
 msgid "Person's first name"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1172
+#: rsvp_frontend.inc.php:1184
 msgid "Person's last name"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1177
+#: rsvp_frontend.inc.php:1189
 msgid "Person's email address"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1183
+#: rsvp_frontend.inc.php:1195
 msgid "Will this person be attending?"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1190
+#: rsvp_frontend.inc.php:1202
 msgid "Does this person need a kids meal?"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1200
+#: rsvp_frontend.inc.php:1212
 msgid "Does this person need a vegetarian meal?"
 msgstr ""
 
-#: rsvp_frontend.inc.php:1210
+#: rsvp_frontend.inc.php:1222
 msgid "Remove Guest"
 msgstr ""
 
@@ -430,15 +458,15 @@ msgstr ""
 msgid "List of current attendees"
 msgstr ""
 
-#: wp-rsvp.php:429 wp-rsvp.php:1208
+#: wp-rsvp.php:429 wp-rsvp.php:1222
 msgid "Bulk Actions"
 msgstr ""
 
-#: wp-rsvp.php:430 wp-rsvp.php:1209 wp-rsvp.php:1475
+#: wp-rsvp.php:430 wp-rsvp.php:1223 wp-rsvp.php:1514
 msgid "Delete"
 msgstr ""
 
-#: wp-rsvp.php:432 wp-rsvp.php:1211
+#: wp-rsvp.php:432 wp-rsvp.php:1225
 msgid "Apply"
 msgstr ""
 
@@ -470,15 +498,15 @@ msgstr ""
 msgid "Veggie Meals:"
 msgstr ""
 
-#: wp-rsvp.php:455 wp-rsvp.php:1004
+#: wp-rsvp.php:455 wp-rsvp.php:1018
 msgid "Attendee"
 msgstr ""
 
-#: wp-rsvp.php:465 wp-rsvp.php:668 wp-rsvp.php:921 wp-rsvp.php:1058
+#: wp-rsvp.php:465 wp-rsvp.php:668 wp-rsvp.php:935 wp-rsvp.php:1072
 msgid "Email"
 msgstr ""
 
-#: wp-rsvp.php:466 wp-rsvp.php:668 wp-rsvp.php:922 wp-rsvp.php:1072
+#: wp-rsvp.php:466 wp-rsvp.php:668 wp-rsvp.php:936 wp-rsvp.php:1086
 msgid "RSVP Status"
 msgstr ""
 
@@ -486,7 +514,7 @@ msgstr ""
 msgid "RSVP Date"
 msgstr ""
 
-#: wp-rsvp.php:478 wp-rsvp.php:671 wp-rsvp.php:922
+#: wp-rsvp.php:478 wp-rsvp.php:671 wp-rsvp.php:936
 msgid "Kids Meal"
 msgstr ""
 
@@ -494,55 +522,51 @@ msgstr ""
 msgid "Additional Attendee"
 msgstr ""
 
-#: wp-rsvp.php:500 wp-rsvp.php:677 wp-rsvp.php:923
+#: wp-rsvp.php:500 wp-rsvp.php:677 wp-rsvp.php:937
 msgid "Vegetarian"
 msgstr ""
 
-#: wp-rsvp.php:511 wp-rsvp.php:1088
+#: wp-rsvp.php:511 wp-rsvp.php:1102
 msgid "Custom Message"
 msgstr ""
 
-#: wp-rsvp.php:512 wp-rsvp.php:682 wp-rsvp.php:924
+#: wp-rsvp.php:512 wp-rsvp.php:682 wp-rsvp.php:938
 msgid "Note"
-msgstr ""
-
-#: wp-rsvp.php:531 wp-rsvp.php:674 wp-rsvp.php:923 wp-rsvp.php:1092
-msgid "Associated Attendees"
 msgstr ""
 
 #: wp-rsvp.php:695
 msgid "pre-fill URL"
 msgstr ""
 
-#: wp-rsvp.php:912
+#: wp-rsvp.php:926
 msgid "total records were imported"
 msgstr ""
 
-#: wp-rsvp.php:913
+#: wp-rsvp.php:927
 msgid "Continue to the RSVP"
 msgstr ""
 
-#: wp-rsvp.php:913
+#: wp-rsvp.php:927
 msgid "list"
 msgstr ""
 
-#: wp-rsvp.php:920
+#: wp-rsvp.php:934
 msgid ""
 "Select a file in the following file format: XLS, XLSX, CSV and ODS. It has "
 "to have the following layout:"
 msgstr ""
 
-#: wp-rsvp.php:924
+#: wp-rsvp.php:938
 msgid "Private Question Association"
 msgstr ""
 
-#: wp-rsvp.php:927
+#: wp-rsvp.php:941
 msgid ""
 "associated attendees should be separated by a comma it is assumed that the "
 "first space encountered will separate the first and last name."
 msgstr ""
 
-#: wp-rsvp.php:930
+#: wp-rsvp.php:944
 msgid ""
 "This can be multiple columns each column is associated with one of the "
 "following private questions. If you wish\n"
@@ -552,124 +576,124 @@ msgid ""
 "format of pq_* where * is a number."
 msgstr ""
 
-#: wp-rsvp.php:943
+#: wp-rsvp.php:957
 msgid "A header row is always expected."
 msgstr ""
 
-#: wp-rsvp.php:1004
+#: wp-rsvp.php:1018
 msgid "has been successfully saved"
 msgstr ""
 
-#: wp-rsvp.php:1006
+#: wp-rsvp.php:1020
 msgid "Continue to Attendee List"
 msgstr ""
 
-#: wp-rsvp.php:1007
+#: wp-rsvp.php:1021
 msgid "Add a Guest"
 msgstr ""
 
-#: wp-rsvp.php:1046 wp-rsvp.php:1145 wp-rsvp.php:1428
+#: wp-rsvp.php:1060 wp-rsvp.php:1159 wp-rsvp.php:1467
 msgid "Save"
 msgstr ""
 
-#: wp-rsvp.php:1077
+#: wp-rsvp.php:1091
 msgid "No Response"
 msgstr ""
 
-#: wp-rsvp.php:1120
+#: wp-rsvp.php:1134
 msgid "Custom Questions Answered"
 msgstr ""
 
-#: wp-rsvp.php:1123 wp-rsvp.php:1220 wp-rsvp.php:1443
+#: wp-rsvp.php:1137 wp-rsvp.php:1234 wp-rsvp.php:1482
 msgid "Question"
 msgstr ""
 
-#: wp-rsvp.php:1124 wp-rsvp.php:1383 wp-rsvp.php:1473
+#: wp-rsvp.php:1138 wp-rsvp.php:1422 wp-rsvp.php:1512
 msgid "Answer"
 msgstr ""
 
-#: wp-rsvp.php:1202
+#: wp-rsvp.php:1216
 msgid "List of current custom questions"
 msgstr ""
 
-#: wp-rsvp.php:1212
+#: wp-rsvp.php:1226
 msgid "Save Sort Order"
 msgstr ""
 
-#: wp-rsvp.php:1221 wp-rsvp.php:1455
+#: wp-rsvp.php:1235 wp-rsvp.php:1494
 msgid "Private Import Key"
 msgstr ""
 
-#: wp-rsvp.php:1334
+#: wp-rsvp.php:1373
 msgid "Custom Question saved"
 msgstr ""
 
-#: wp-rsvp.php:1336
+#: wp-rsvp.php:1375
 msgid "Continue to Question List"
 msgstr ""
 
-#: wp-rsvp.php:1337
+#: wp-rsvp.php:1376
 msgid "Add another Question"
 msgstr ""
 
-#: wp-rsvp.php:1432
+#: wp-rsvp.php:1471
 msgid "Question Type"
 msgstr ""
 
-#: wp-rsvp.php:1447
+#: wp-rsvp.php:1486
 msgid "Question Permission Level"
 msgstr ""
 
-#: wp-rsvp.php:1449
+#: wp-rsvp.php:1488
 msgid "Public"
 msgstr ""
 
-#: wp-rsvp.php:1450
+#: wp-rsvp.php:1489
 msgid "Private"
 msgstr ""
 
-#: wp-rsvp.php:1463
+#: wp-rsvp.php:1502
 msgid "Answers"
 msgstr ""
 
-#: wp-rsvp.php:1464
+#: wp-rsvp.php:1503
 msgid "Add new Answer"
 msgstr ""
 
-#: wp-rsvp.php:1486
+#: wp-rsvp.php:1525
 msgid "Attendees allowed to answer this question"
 msgstr ""
 
-#: wp-rsvp.php:1621
+#: wp-rsvp.php:1660
 msgid ""
 "Please enter an email address that we can use to contact you about the extra "
 "guest.  We have to keep a pretty close eye on the number of attendees.  "
 "Thanks!"
 msgstr ""
 
-#: wp-rsvp.php:1622
+#: wp-rsvp.php:1661
 msgid ""
 "If you are adding additional RSVPs please enter your email address in case "
 "we have questions"
 msgstr ""
 
-#: wp-rsvp.php:1623 wp-rsvp.php:1625 wp-rsvp.php:1627 wp-rsvp.php:1630
+#: wp-rsvp.php:1662 wp-rsvp.php:1664 wp-rsvp.php:1666 wp-rsvp.php:1669
 msgid "Please enter a last name"
 msgstr ""
 
-#: wp-rsvp.php:1624 wp-rsvp.php:1626 wp-rsvp.php:1628 wp-rsvp.php:1629
+#: wp-rsvp.php:1663 wp-rsvp.php:1665 wp-rsvp.php:1667 wp-rsvp.php:1668
 msgid "Please enter a first name"
 msgstr ""
 
-#: wp-rsvp.php:1631
+#: wp-rsvp.php:1670
 msgid "Please enter your first name"
 msgstr ""
 
-#: wp-rsvp.php:1632
+#: wp-rsvp.php:1671
 msgid "Please enter your last name"
 msgstr ""
 
-#: wp-rsvp.php:1633
+#: wp-rsvp.php:1672
 msgid "Please enter your password"
 msgstr ""
 
