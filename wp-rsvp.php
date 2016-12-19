@@ -1105,6 +1105,10 @@ License: GPL
 					<tr valign="top">
 						<th scope="row"><?php echo __("Associated Attendees", 'rsvp-plugin'); ?>:</th>
 						<td align="left">
+							<p>
+								<span style="margin-left: -5px;"><?php _e( "Non-Associated Attendees", "rsvp-plugin" ); ?></span>
+								<span style="margin-left:26px;"><?php _e( 'Associated Attendees', 'rsvp-plugin' ); ?></span>
+							</p>
 							<select name="associatedAttendees[]" id="associatedAttendeesSelect" multiple="multiple" size="5" style="height: 200px;">
 								<?php
 									$attendees = $wpdb->get_results("SELECT id, firstName, lastName FROM ".$wpdb->prefix."attendees ORDER BY lastName, firstName");
@@ -1461,10 +1465,11 @@ License: GPL
 				</script>
 				<form name="contact" action="admin.php?page=rsvp-admin-custom-question" method="post">
 					<input type="hidden" name="numNewAnswers" id="numNewAnswers" value="0" />
-          <input type="hidden" name="questionId" value="<?php echo $questionId; ?>" />
+					<input type="hidden" name="questionId" value="<?php echo $questionId; ?>" />
 					<?php wp_nonce_field('rsvp_add_custom_question'); ?>
 					<p class="submit">
 						<input type="submit" class="button-primary" value="<?php _e('Save', 'rsvp-plugin'); ?>" />
+						<a href="<?php echo admin_url( 'admin.php?page=rsvp-admin-questions' ); ?>"><?php _e( 'Back to custom question list', 'rsvp-plugin' ); ?></a>
 					</p>
 					<table id="customQuestions" class="form-table">
 						<tr valign="top">
@@ -1485,8 +1490,8 @@ License: GPL
 						<tr>
 							<th scope="row"><label for="permissionLevel"><?php echo __("Question Permission Level", 'rsvp-plugin'); ?>:</label></th>
 							<td align="left"><select name="permissionLevel" id="permissionLevel" size="1">
-								<option value="public" <?php echo ($permissionLevel == "public") ? " selected=\"selected\"" : ""; ?>><?php echo __("Public", 'rsvp-plugin'); ?></option>
-								<option value="private" <?php echo ($permissionLevel == "private") ? " selected=\"selected\"" : ""; ?>><?php echo __("Private", 'rsvp-plugin'); ?></option>
+								<option value="public" <?php echo ($permissionLevel == "public") ? " selected=\"selected\"" : ""; ?>><?php echo __("Everyone", 'rsvp-plugin'); ?></option>
+								<option value="private" <?php echo ($permissionLevel == "private") ? " selected=\"selected\"" : ""; ?>><?php echo __("Select People", 'rsvp-plugin'); ?></option>
 							</select></td>
 						</tr>
             <?php if(!$isNew && ($permissionLevel == "private")): ?>
@@ -1524,6 +1529,10 @@ License: GPL
 						<tr id="attendeesArea">
 							<th scope="row"><label for="attendees"><?php echo __("Attendees allowed to answer this question", 'rsvp-plugin'); ?>:</label></th>
 							<td>
+								<p>
+									<span style="margin-left: 30px;"><?php _e( "Available people", "rsvp-plugin" ); ?></span>
+									<span style="margin-left: 65px;"><?php _e( 'People that have access', 'rsvp-plugin' ); ?></span>
+								</p>
 								<select name="attendees[]" id="attendeesQuestionSelect" style="height:75px;" multiple="multiple">
 								<?php
 									$attendees = $wpdb->get_results("SELECT id, firstName, lastName FROM ".$wpdb->prefix."attendees ORDER BY lastName, firstName");

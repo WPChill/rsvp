@@ -179,6 +179,10 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp") {
 	$form .= "	<input type=\"hidden\" name=\"attendeeID\" value=\"".$attendeeID."\" />";
 	$form .= "	<input type=\"hidden\" name=\"rsvpStep\" value=\"$rsvpStep\" />";
 
+	if(!empty($attendee->personalGreeting)) {
+		$form .= rsvp_BeginningFormField("rsvpCustomGreeting", "").nl2br(stripslashes($attendee->personalGreeting)).RSVP_END_FORM_FIELD;
+	}
+
   // New Attendee fields when open registration is allowed
   if($attendeeID <= 0) {
     $form .= RSVP_START_PARA;
@@ -211,9 +215,7 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp") {
       "<input type=\"radio\" name=\"mainRsvp\" value=\"N\" id=\"mainRsvpN\" ".((($attendee->rsvpStatus == "No") || ($rsvp_saved_form_vars['mainRsvp'] == "N")) ? "checked=\"checked\"" : "")." /> ".
       "<label for=\"mainRsvpN\">".$noVerbiage."</label>".
     RSVP_END_FORM_FIELD;
-	if(!empty($attendee->personalGreeting)) {
-		$form .= rsvp_BeginningFormField("rsvpCustomGreeting", "").nl2br(stripslashes($attendee->personalGreeting)).RSVP_END_FORM_FIELD;
-	}
+
 	if(get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
 		$form .= rsvp_BeginningFormField("", "rsvpBorderTop").
       RSVP_START_PARA.$kidsVerbiage.RSVP_END_PARA.
