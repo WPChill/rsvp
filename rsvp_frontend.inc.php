@@ -419,19 +419,26 @@ function rsvp_buildAdditionalQuestions($attendeeID, $prefix) {
 
 function rsvp_find(&$output, &$text) {
 	global $wpdb, $rsvp_form_action;
-  $passcodeOptionEnabled = (rsvp_require_passcode()) ? true : false;
-  $passcodeOnlyOption = (rsvp_require_only_passcode_to_register()) ? true : false;
+	$passcodeOptionEnabled = (rsvp_require_passcode()) ? true : false;
+	$passcodeOnlyOption = (rsvp_require_only_passcode_to_register()) ? true : false;
 
 	$passcode = "";
 	if(isset($_REQUEST['passcode'])) {
 		$passcode = $_REQUEST['passcode'];
 	}
 
-	$firstName = $_REQUEST['firstName'];
-	$lastName = $_REQUEST['lastName'];
+	$firstName = '';
+	$lastName = '';
+	if( isset( $_REQUEST['firstName'] ) ) {
+		$firstName = $_REQUEST['firstName'];
+	}
+	
+	if( isset( $_REQUEST['lastName'] ) ) {
+		$lastName = $_REQUEST['lastName'];	
+	}
 
-	if(!$passcodeOnlyOption && ((strlen($_REQUEST['firstName']) <= 1) || (strlen($_REQUEST['lastName']) <= 1))) {
-		$output = "<p class=\"rsvpParagraph\" style=\"color:red\">".__("A first and last name must be specified", 'rsvp-plugin')."</p>\r\n";
+	if( ! $passcodeOnlyOption && ( ( strlen( $firstName ) <= 1 ) || ( strlen( $lastName ) <= 1 ) ) ) {
+		$output = "<p class=\"rsvpParagraph\" style=\"color:red\">" . __("A first and last name must be specified", 'rsvp-plugin') . "</p>\r\n";
 		$output .= rsvp_frontend_greeting();
 
 		return rsvp_handle_output($text, $output);
@@ -1071,37 +1078,32 @@ function frontend_rsvp_thankyou($thankYouPrimary, $thankYouAssociated) {
 }
 
 function rsvp_frontend_new_atendee_thankyou($thankYouPrimary, $thankYouAssociated, $password = "") {
-	/*$customTy = get_option(OPTION_THANKYOU);
-	if(!empty($customTy)) {
-		return nl2br($customTy);
-	} else {*/
-    $thankYouText = __("Thank you ", 'rsvp-plugin');
-    if(!empty($thankYouPrimary)) {
-      $thankYouText .= htmlspecialchars($thankYouPrimary);
-    }
-    $thankYouText .= __(" for RSVPing. To modify your RSVP just come back ".
-                    "to this page and enter in your first and last name.", 'rsvp-plugin');
-    if(!empty($password)) {
-      $thankYouText .= __(" You will also need to know your password which is", 'rsvp-plugin').
-                      " - <strong>$password</strong>";
-    }
+	$thankYouText = __("Thank you ", 'rsvp-plugin');
+	if( ! empty( $thankYouPrimary ) ) {
+		$thankYouText .= htmlspecialchars($thankYouPrimary);
+	}
+	$thankYouText .= __( " for RSVPing. To modify your RSVP just come back " .
+		"to this page and enter in your first and last name.", 'rsvp-plugin' );
+	if( ! empty( $password ) ) {
+		$thankYouText .= __( " You will also need to know your password which is", 'rsvp-plugin' ) .
+			" - <strong>$password</strong>";
+	}
 
-    if(count($thankYouAssociated) > 0) {
-      $thankYouText .= __("<br /><br />You have also RSVPed for - ", 'rsvp-plugin');
-      foreach($thankYouAssociated as $name) {
-        $thankYouText .= htmlspecialchars(" ".$name).", ";
-      }
-      $thankYouText = rtrim(trim($thankYouText), ",").".";
-    }
+	if( count( $thankYouAssociated ) > 0 ) {
+		$thankYouText .= __("<br /><br />You have also RSVPed for - ", 'rsvp-plugin');
+		foreach($thankYouAssociated as $name) {
+			$thankYouText .= htmlspecialchars(" ".$name).", ";
+		}
+		$thankYouText = rtrim(trim($thankYouText), ",").".";
+	}
 
-		return RSVP_START_CONTAINER.RSVP_START_PARA.$thankYouText.RSVP_END_PARA.RSVP_END_CONTAINER;
-	//}
+	return RSVP_START_CONTAINER.RSVP_START_PARA.$thankYouText.RSVP_END_PARA.RSVP_END_CONTAINER;
 }
 
-function rsvp_chomp_name($name, $maxLength) {
-	for($i = $maxLength; $maxLength >= 1; $i--) {
-		if(strlen($name) >= $i) {
-			return substr($name, 0, $i);
+function rsvp_chomp_name( $name, $maxLength ) {
+	for( $i = $maxLength; $maxLength >= 1; $i-- ) {
+		if( strlen( $name ) >= $i ) {
+			return substr( $name, 0, $i );
 		}
 	}
 }
