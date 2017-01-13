@@ -97,6 +97,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 
+= 2.3.2 =
+* Fixed a warning on the front-end when the first or last name were not inputted.
+
 = 2.3.1 =
 * Added a label above associating attendees in the edit form to make it more clear
 * Moved the "custom message" for each attendee to be above the RSVP question
