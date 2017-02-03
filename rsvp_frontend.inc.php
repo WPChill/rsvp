@@ -459,8 +459,8 @@ function rsvp_find(&$output, &$text) {
 
 	} else {
 		$attendee = $wpdb->get_row($wpdb->prepare("SELECT id, firstName, lastName, rsvpStatus
-																							 FROM ".ATTENDEES_TABLE."
-																							 WHERE firstName = %s AND lastName = %s", $firstName, $lastName));
+													FROM ".ATTENDEES_TABLE."
+													WHERE firstName = %s AND lastName = %s", $firstName, $lastName));
 	}
 
 	if($attendee != null) {
