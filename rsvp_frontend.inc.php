@@ -808,21 +808,26 @@ function rsvp_handlersvp(&$output, &$text) {
   																	array("%d"));
     }
 
-		rsvp_handleAdditionalQuestions($attendeeID, "mainquestion");
+	rsvp_handleAdditionalQuestions($attendeeID, "mainquestion");
 
-		$sql = "SELECT id, firstName FROM ".ATTENDEES_TABLE."
-		 	WHERE (id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
-				OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)) ";
-		$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
-		foreach($associations as $a) {
-      if(isset($_POST['attending'.$a->id]) && (($_POST['attending'.$a->id] == "Y") || ($_POST['attending'.$a->id] == "N"))) {
-        $thankYouAssociated[] = $a->firstName;
-				if($_POST['attending'.$a->id] == "Y") {
-					$rsvpStatus = "Yes";
-				} else {
-					$rsvpStatus = "No";
-				}
-        if(get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) != "Y") {
+	$sql = "SELECT id, firstName FROM ".ATTENDEES_TABLE."
+ 	WHERE (id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
+		OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d) OR
+    id IN (SELECT waa1.attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." waa1
+        INNER JOIN ".ASSOCIATED_ATTENDEES_TABLE." waa2 ON waa2.attendeeID = waa1.attendeeID  OR
+                                    waa1.associatedAttendeeID = waa2.attendeeID
+      WHERE waa2.associatedAttendeeID = %d AND waa1.attendeeID <> %d))";
+	$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID, $attendeeID, $attendeeID));
+	foreach($associations as $a) {
+		if(isset($_POST['attending'.$a->id]) && (($_POST['attending'.$a->id] == "Y") || ($_POST['attending'.$a->id] == "N"))) {
+       		$thankYouAssociated[] = $a->firstName;
+			if($_POST['attending'.$a->id] == "Y") {
+				$rsvpStatus = "Yes";
+			} else {
+				$rsvpStatus = "No";
+			}
+
+        	if(get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) != "Y") {
   				$wpdb->update(ATTENDEES_TABLE, array("rsvpDate" => date("Y-m-d"),
   								"rsvpStatus" => $rsvpStatus,
                   "email" => $_POST['attending'.$a->id."Email"],
@@ -923,11 +928,15 @@ function rsvp_handlersvp(&$output, &$text) {
   				}
   			}
 
-  			$sql = "SELECT firstName, lastName, rsvpStatus, id FROM ".ATTENDEES_TABLE."
-  			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
-  					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)";
+  			$sql = "SELECT id, firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE."
+ 				WHERE (id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
+					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d) OR
+    				id IN (SELECT waa1.attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." waa1
+        			INNER JOIN ".ASSOCIATED_ATTENDEES_TABLE." waa2 ON waa2.attendeeID = waa1.attendeeID  OR
+                                    waa1.associatedAttendeeID = waa2.attendeeID
+      			WHERE waa2.associatedAttendeeID = %d AND waa1.attendeeID <> %d))";
 
-  			$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
+  			$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID, $attendeeID, $attendeeID));
         if(count($associations) > 0) {
           $body .= "\r\n\r\n--== " . __("Associated Attendees", "rsvp-plugin") . " ==--\r\n";
     			foreach($associations as $a) {
@@ -967,11 +976,14 @@ function rsvp_handlersvp(&$output, &$text) {
 
   			$body .= __("You have successfully RSVP'd with", "rsvp-plugin") . " '" . $attendee[0]->rsvpStatus . "'.";
 
-  			$sql = "SELECT firstName, lastName, rsvpStatus, id FROM ".ATTENDEES_TABLE."
-  			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
-  					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)";
-
-  			$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
+  			$sql = "SELECT id, firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE."
+ 					WHERE (id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
+					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d) OR
+    				id IN (SELECT waa1.attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." waa1
+        				INNER JOIN ".ASSOCIATED_ATTENDEES_TABLE." waa2 ON waa2.attendeeID = waa1.attendeeID  OR
+                                    waa1.associatedAttendeeID = waa2.attendeeID
+      				WHERE waa2.associatedAttendeeID = %d AND waa1.attendeeID <> %d))";
+  			$associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID, $attendeeID, $attendeeID));
         if(count($associations) > 0) {
           $body .= "\r\n\r\n--== " . __("Associated Attendees", "rsvp-plugin") . " ==--\r\n";
     			foreach($associations as $a) {
