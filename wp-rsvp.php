@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.3.4
+ * @version 2.3.5
  */
 /*
 Plugin Name: RSVP
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
 Author: MDE Development, LLC
-Version: 2.3.4
+Version: 2.3.5
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -77,84 +77,83 @@ define("RSVP_END_CONTAINER", "</div>\r\n");
 define("RSVP_START_FORM_FIELD", "<div class=\"rsvpFormField\">\r\n");
 define("RSVP_END_FORM_FIELD", "</div>\r\n");
 
-  $my_plugin_file = __FILE__;
+$my_plugin_file = __FILE__;
 
-  if (isset($plugin)) {
-    $my_plugin_file = $plugin;
-  }
-  else if (isset($mu_plugin)) {
-    $my_plugin_file = $mu_plugin;
-  }
-  else if (isset($network_plugin)) {
-    $my_plugin_file = $network_plugin;
-  }
+if (isset($plugin)) {
+	$my_plugin_file = $plugin;
+} else if (isset($mu_plugin)) {
+	$my_plugin_file = $mu_plugin;
+} else if (isset($network_plugin)) {
+	$my_plugin_file = $network_plugin;
+}
 
-  define('RSVP_PLUGIN_FILE', $my_plugin_file);
-  define('RSVP_PLUGIN_PATH', WP_PLUGIN_DIR.'/'.basename(dirname($my_plugin_file)));
-	if((isset($_GET['page']) && (strToLower($_GET['page']) == 'rsvp-admin-export')) ||
-		 (isset($_POST['rsvp-bulk-action']) && (strToLower($_POST['rsvp-bulk-action']) == "export"))) {
-		add_action('init', 'rsvp_admin_export');
+define('RSVP_PLUGIN_FILE', $my_plugin_file);
+define('RSVP_PLUGIN_PATH', WP_PLUGIN_DIR.'/'.basename(dirname($my_plugin_file)));
+if((isset($_GET['page']) && (strToLower($_GET['page']) == 'rsvp-admin-export')) ||
+   (isset($_POST['rsvp-bulk-action']) && (strToLower($_POST['rsvp-bulk-action']) == "export"))) {
+	add_action('init', 'rsvp_admin_export');
+}
+
+require_once('external-libs/wp-simple-nonce/wp-simple-nonce.php');
+require_once("rsvp_frontend.inc.php");
+/*
+ * Description: Database setup for the rsvp plug-in.
+ */
+function rsvp_database_setup() {
+	global $wpdb;
+	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	require_once("rsvp_db_setup.inc.php");
+}
+
+function rsvp_install_passcode_field() {
+	global $wpdb;
+	$table = ATTENDEES_TABLE;
+	$sql = "SHOW COLUMNS FROM `$table` LIKE 'passcode'";
+	if(!$wpdb->get_results($sql)) {
+		$sql = "ALTER TABLE `$table` ADD `passcode` VARCHAR(50) NOT NULL DEFAULT '';";
+		$wpdb->query($sql);
+	}
+}
+
+function rsvp_require_passcode() {
+	return ((get_option(OPTION_RSVP_PASSCODE) == "Y") || (get_option(OPTION_RSVP_OPEN_REGISTRATION) == "Y") || (get_option(OPTION_RSVP_ONLY_PASSCODE) == "Y"));
+}
+
+function rsvp_require_only_passcode_to_register() {
+	return (get_option(OPTION_RSVP_ONLY_PASSCODE) == "Y");
+}
+
+function rsvp_require_unique_passcode() {
+	return rsvp_require_only_passcode_to_register();
+}
+
+function rsvp_is_passcode_unique($passcode, $attendeeID) {
+	global $wpdb;
+
+	$isUnique = false;
+
+	$sql = $wpdb->prepare("SELECT * FROM ".ATTENDEES_TABLE." WHERE id <> %d AND passcode = %s", $attendeeID, $passcode);
+	if(!$wpdb->get_results($sql)) {
+		$isUnique = true;
 	}
 
-	require_once("rsvp_frontend.inc.php");
-	/*
-	 * Description: Database setup for the rsvp plug-in.
-	 */
-	function rsvp_database_setup() {
-		global $wpdb;
-		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-		require_once("rsvp_db_setup.inc.php");
+	return $isUnique;
+}
+
+/**
+ * This generates a random 6 character passcode to be used for guests when the option is enabled.
+ */
+function rsvp_generate_passcode() {
+	$length = 6;
+	$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+	$passcode = "";
+
+	for ($p = 0; $p < $length; $p++) {
+    	$passcode .= $characters[mt_rand(0, strlen($characters))];
 	}
 
-	function rsvp_install_passcode_field() {
-		global $wpdb;
-		$table = ATTENDEES_TABLE;
-		$sql = "SHOW COLUMNS FROM `$table` LIKE 'passcode'";
-		if(!$wpdb->get_results($sql)) {
-			$sql = "ALTER TABLE `$table` ADD `passcode` VARCHAR(50) NOT NULL DEFAULT '';";
-			$wpdb->query($sql);
-		}
-	}
-
-  function rsvp_require_passcode() {
-    return ((get_option(OPTION_RSVP_PASSCODE) == "Y") || (get_option(OPTION_RSVP_OPEN_REGISTRATION) == "Y") || (get_option(OPTION_RSVP_ONLY_PASSCODE) == "Y"));
-  }
-
-  function rsvp_require_only_passcode_to_register() {
-    return (get_option(OPTION_RSVP_ONLY_PASSCODE) == "Y");
-  }
-
-  function rsvp_require_unique_passcode() {
-    return rsvp_require_only_passcode_to_register();
-  }
-
-  function rsvp_is_passcode_unique($passcode, $attendeeID) {
-    global $wpdb;
-
-    $isUnique = false;
-
-    $sql = $wpdb->prepare("SELECT * FROM ".ATTENDEES_TABLE." WHERE id <> %d AND passcode = %s", $attendeeID, $passcode);
-    if(!$wpdb->get_results($sql)) {
-      $isUnique = true;
-    }
-
-    return $isUnique;
-  }
-
-	/**
-	 * This generates a random 6 character passcode to be used for guests when the option is enabled.
-	 */
-	function rsvp_generate_passcode() {
-		$length = 6;
-    	$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-		$passcode = "";
-
-    	for ($p = 0; $p < $length; $p++) {
-        	$passcode .= $characters[mt_rand(0, strlen($characters))];
-    	}
-
-    	return $passcode;
-	}
+	return $passcode;
+}
 
 	function rsvp_admin_guestlist_options() {
     	global $wpdb;

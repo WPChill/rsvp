@@ -162,8 +162,8 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp") {
 			OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d))
 			 AND additionalAttendee = 'Y'";
 	$newRsvps = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
-  $yesText = __("Yes", 'rsvp-plugin');
-  $noText  = __("No", 'rsvp-plugin');
+	$yesText = __("Yes", 'rsvp-plugin');
+	$noText  = __("No", 'rsvp-plugin');
 	$yesVerbiage = ((trim(get_option(OPTION_YES_VERBIAGE)) != "") ? get_option(OPTION_YES_VERBIAGE) :
 		__("Yes, of course I will be there! Who doesn't like family, friends, weddings, and a good time?", 'rsvp-plugin'));
 	$noVerbiage = ((trim(get_option(OPTION_NO_VERBIAGE)) != "") ? get_option(OPTION_NO_VERBIAGE) :
@@ -178,6 +178,9 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp") {
 	$form = "<form id=\"rsvpForm\" name=\"rsvpForm\" method=\"post\" action=\"$rsvp_form_action\" autocomplete=\"off\">";
 	$form .= "	<input type=\"hidden\" name=\"attendeeID\" value=\"".$attendeeID."\" />";
 	$form .= "	<input type=\"hidden\" name=\"rsvpStep\" value=\"$rsvpStep\" />";
+	$simpleNonce = WPSimpleNonce::createNonce('rsvp_fe_form');
+	$form .= '	<input type="hidden" name="rsvp_nonce_name" value="' . $simpleNonce['name'] . '" />';
+    $form .= '	<input type="hidden" name="rsvp_nonce_value" value="' . $simpleNonce['value'] . '" />';
 
 	if(!empty($attendee->personalGreeting)) {
 		$form .= rsvp_BeginningFormField("rsvpCustomGreeting", "").nl2br(stripslashes($attendee->personalGreeting)).RSVP_END_FORM_FIELD;
@@ -525,16 +528,23 @@ function rsvp_find(&$output, &$text) {
 }
 
 function rsvp_handleNewRsvp(&$output, &$text) {
-  global $wpdb, $rsvp_saved_form_vars;
-  $thankYouPrimary = "";
-  $thankYouAssociated = array();
-  foreach($_POST as $key=>$val) {
-    $rsvp_saved_form_vars[$key] = $val;
-  }
+	global $wpdb, $rsvp_saved_form_vars;
+	$thankYouPrimary = "";
+	$thankYouAssociated = array();
+	foreach($_POST as $key=>$val) {
+		$rsvp_saved_form_vars[$key] = $val;
+	}
 
-  if(empty($_POST['attendeeFirstName']) || empty($_POST['attendeeLastName'])) {
-    return rsvp_handlenewattendee($output, $text);
-  }
+	if (! isset($_POST['rsvp_nonce_name']) || ! isset($_POST['rsvp_nonce_value']) ||
+	    ! WPSimpleNonce::checkNonce($_POST['rsvp_nonce_name'], $_POST['rsvp_nonce_value'])
+	) {
+	    return rsvp_handle_output($text, rsvp_frontend_greeting());
+	    exit;
+	}
+
+	if(empty($_POST['attendeeFirstName']) || empty($_POST['attendeeLastName'])) {
+		return rsvp_handlenewattendee($output, $text);
+	}
 
   	$rsvpPassword = "";
   	$rsvpStatus = "No";
@@ -775,8 +785,16 @@ function rsvp_handleNewRsvp(&$output, &$text) {
 
 function rsvp_handlersvp(&$output, &$text) {
 	global $wpdb;
-  $thankYouPrimary = "";
-  $thankYouAssociated = array();
+	$thankYouPrimary = "";
+	$thankYouAssociated = array();
+
+	if (! isset($_POST['rsvp_nonce_name']) || ! isset($_POST['rsvp_nonce_value']) ||
+        ! WPSimpleNonce::checkNonce($_POST['rsvp_nonce_name'], $_POST['rsvp_nonce_value'])
+    ) {
+        return rsvp_handle_output($text, rsvp_frontend_greeting());
+        exit;
+    }
+
 	if(is_numeric($_POST['attendeeID']) && ($_POST['attendeeID'] > 0)) {
 		// update their information and what not....
 		if(strToUpper($_POST['mainRsvp']) == "Y") {
