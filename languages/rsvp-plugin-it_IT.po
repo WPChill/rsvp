@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-01-16 16:37+0100\n"
+"PO-Revision-Date: 2017-03-03 19:03+0100\n"
 "Language-Team: \n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.8.12\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Last-Translator: \n"
 "Language: it_IT\n"
@@ -88,9 +88,7 @@ msgid ""
 "please send us an email."
 msgstr ""
 "Se hai <strong style=\"color:red;\">allergie o intolleranze alimentari</"
-"strong>, sei pregato di scriverle in &quot;notes&quot; .  Oppure, se ci vuoi "
-"mandare una email con la nota, sentiti libero di procedere.  Se hai altre "
-"domande, puoi mandarci una email."
+"strong>, scrivile qui. Oppure, se preferisci, mandaci un’email."
 
 #: rsvp_frontend.inc.php:186
 msgid "First Name: "
@@ -274,7 +272,7 @@ msgstr "Per favore inserisci il tuo nome, cognome e password per confermare."
 
 #: rsvp_frontend.inc.php:1119
 msgid "Please enter your first and last name to RSVP."
-msgstr "Inserisci il tuo Nome e Cognome per confermare la prenotazione"
+msgstr "Inserisci Nome e Cognome per confermare la tua presenza"
 
 #: rsvp_frontend.inc.php:1131
 msgid "New Attendee Registration"
@@ -300,7 +298,7 @@ msgstr "Password"
 
 #: rsvp_frontend.inc.php:1150
 msgid "Complete your RSVP!"
-msgstr "Completa la tua Registrazione!"
+msgstr "Conferma!"
 
 #: rsvp_frontend.inc.php:1180
 msgid "Person's first name"

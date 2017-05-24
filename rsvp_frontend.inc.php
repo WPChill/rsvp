@@ -808,8 +808,8 @@ function rsvp_handlersvp(&$output, &$text) {
     if(get_option(OPTION_RSVP_HIDE_EMAIL_FIELD) != "Y") {
   		$wpdb->update(ATTENDEES_TABLE, array("rsvpDate" => date("Y-m-d"),
   						"rsvpStatus" => $rsvpStatus,
-  						"note" => $_POST['rsvp_note'],
-              			"email" => $_POST['mainEmail'],
+  						"note" => isset($_POST['rsvp_note']) ? $_POST['rsvp_note'] : '',
+              			"email" => isset($_POST['mainEmail']) ? $_POST['mainEmail'] : '',
   						"kidsMeal" => ((isset($_POST['mainKidsMeal']) && (strToUpper($_POST['mainKidsMeal']) == "Y")) ? "Y" : "N"),
   						"veggieMeal" => ((isset($_POST['mainVeggieMeal']) && (strToUpper($_POST['mainVeggieMeal']) == "Y")) ? "Y" : "N")),
   																	array("id" => $attendeeID),
@@ -818,7 +818,7 @@ function rsvp_handlersvp(&$output, &$text) {
     } else {
   		$wpdb->update(ATTENDEES_TABLE, array("rsvpDate" => date("Y-m-d"),
   						"rsvpStatus" => $rsvpStatus,
-  						"note" => $_POST['rsvp_note'],
+  						"note" => isset($_POST['rsvp_note']) ? $_POST['rsvp_note'] : '',
   						"kidsMeal" => ((isset($_POST['mainKidsMeal']) && (strToUpper($_POST['mainKidsMeal']) == "Y")) ? "Y" : "N"),
   						"veggieMeal" => ((isset($_POST['mainVeggieMeal']) && (strToUpper($_POST['mainVeggieMeal']) == "Y")) ? "Y" : "N")),
   																	array("id" => $attendeeID),
