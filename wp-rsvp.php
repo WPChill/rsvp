@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.3.7
+ * @version 2.3.8
  */
 /*
 Plugin Name: RSVP
@@ -10,7 +10,7 @@ Text Domain: rsvp-plugin
 Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
 Author: MDE Development, LLC
-Version: 2.3.7
+Version: 2.3.8
 Author URI: http://www.swimordiesoftware.com
 License: GPL
 */
@@ -573,7 +573,7 @@ function rsvp_generate_passcode() {
 							<!--<td><?php
 								echo nl2br(stripslashes(trim($attendee->personalGreeting)));
 							?></td>-->
-							<td><?php echo nl2br(stripslashes(trim($attendee->note))); ?></td>
+							<td><?php echo nl2br(esc_html(stripslashes(trim($attendee->note)))); ?></td>
 							<?php
 							if(rsvp_require_passcode()) {
 							?>

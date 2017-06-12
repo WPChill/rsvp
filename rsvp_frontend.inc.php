@@ -1112,8 +1112,7 @@ function rsvp_frontend_new_atendee_thankyou($thankYouPrimary, $thankYouAssociate
 	if( ! empty( $thankYouPrimary ) ) {
 		$thankYouText .= htmlspecialchars($thankYouPrimary);
 	}
-	$thankYouText .= __( " for RSVPing. To modify your RSVP just come back " .
-		"to this page and enter in your first and last name.", 'rsvp-plugin' );
+	$thankYouText .= __( " for RSVPing. To modify your RSVP just come back to this page and enter in your first and last name.", 'rsvp-plugin' );
 	if( ! empty( $password ) ) {
 		$thankYouText .= __( " You will also need to know your password which is", 'rsvp-plugin' ) .
 			" - <strong>$password</strong>";
