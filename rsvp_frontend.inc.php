@@ -1,7 +1,7 @@
 <?php
 namespace rsvp;
 
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 class RsvpFrontEnd {
 	/**

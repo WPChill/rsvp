@@ -25,7 +25,7 @@ License: GPL
 #
 #        To allow people to rsvp create a new page and add "[rsvp]" to the text
 namespace rsvp;
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 require_once( "rsvp_frontend.inc.php" );
 
 class Rsvp {

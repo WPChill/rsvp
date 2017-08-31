@@ -10,7 +10,7 @@
   ],
   "autoload": {
     "psr-0": {
-      "rsvp": "src/"
+      "rsvp": "/"
     }
   },
   "minimum-stability": "dev",
@@ -41,11 +41,9 @@
     }
   ],
   "require": {
-    "monolog/monolog": "dev-master",
     "nuovo/spreadsheet-reader": "dev-master"
   },
   "require-dev": {
-    "phpunit/phpunit": "6.3.*",
     "calevans/wp-simple-nonce": "*"
   }
 }
