@@ -3,8 +3,13 @@
 namespace rsvp;
 require 'vendor/autoload.php';
 
+if ( class_exists( "RsvpSetup" ) ) {
+	$dl_pluginSeries = new RsvpSetup();
+}
+
 class RsvpSetup {
-	public static function db() {
+
+	public function __construct() {
 		global $wpdb;
 
 		$installed_ver = get_option( "rsvp_db_version" );

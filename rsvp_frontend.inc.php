@@ -3,6 +3,11 @@ namespace rsvp;
 
 require 'vendor/autoload.php';
 
+if ( class_exists( "RsvpFrontEnd" ) ) {
+	$dl_pluginSeries = new RsvpFrontEnd();
+}
+
+
 class RsvpFrontEnd {
 	/**
 	 * RsvpFrontEnd constructor.

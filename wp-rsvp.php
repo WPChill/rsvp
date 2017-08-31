@@ -28,6 +28,11 @@ namespace rsvp;
 require 'vendor/autoload.php';
 require_once( "rsvp_frontend.inc.php" );
 
+if ( class_exists( "Rsvp" ) ) {
+	$dl_pluginSeries = new Rsvp();
+}
+
+
 class Rsvp {
 
 	public function __construct() {
