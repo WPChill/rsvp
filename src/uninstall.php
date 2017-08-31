@@ -1,4 +1,5 @@
 <?php
+namespace rsvp;
 /**
  * Uninstall RSVP Plugin
  *

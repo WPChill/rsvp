@@ -1,0 +1,257 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rsvp-plugin_DE\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/rsvp\n"
+"POT-Creation-Date: 2014-12-01 02:14:34+00:00\n"
+"PO-Revision-Date: 2016-07-13 11:30-0700\n"
+"Last-Translator: marijnroukens <marijn-roukens@live.nl>\n"
+"Language-Team: LANGUAGE <gernot.weber@quantumnet.de>\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;__:1;"
+"_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;_x:1,2c;"
+"_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;esc_attr__:1;"
+"esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;esc_html_x:1,2c;"
+"comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Loco-Target-Locale: nl_NL\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: rsvp_frontend.inc.php:145
+#, c-format
+msgid ""
+"Hi %s it looks like you have already RSVP'd. Would you like to edit your "
+"reservation?"
+msgstr "Je hebt al aangegeven of je komt of niet, wil je dit veranderen?"
+
+#: rsvp_frontend.inc.php:151 rsvp_frontend.inc.php:168
+msgid "Yes"
+msgstr "Ja"
+
+#: rsvp_frontend.inc.php:152 rsvp_frontend.inc.php:169
+msgid "No"
+msgstr "Nee"
+
+#: rsvp_frontend.inc.php:171
+msgid ""
+"Yes, of course I will be there! Who doesn't like family, friends, weddings, and "
+"a good time?"
+msgstr "Natuurlijk ben ik erbij!"
+
+#: rsvp_frontend.inc.php:173
+msgid ""
+"Um, unfortunately, there is a Star Trek marathon on that day that I just cannot "
+"miss."
+msgstr "Helaas kan ik niet aanwezig zijn."
+
+#: rsvp_frontend.inc.php:175
+msgid ""
+"We have the option of getting cheese pizza for the kids (and only kids).  Do you "
+"want pizza instead of \"adult food?\""
+msgstr ""
+"We hebben de optie om een pizza voor de kinderen (alleen de kinderen) te "
+"bestellen, wil je hier gebruik van maken?"
+
+#: rsvp_frontend.inc.php:177
+msgid ""
+"We also have the option of getting individual vegetarian meals instead of the "
+"fish or meat.  Would you like a vegetarian dinner?"
+msgstr ""
+"We hebben ook de optie om vegetarisch eten te bestellen, wil je hier gebruik van "
+"maken?"
+
+#: rsvp_frontend.inc.php:179
+msgid ""
+"If you have any <strong style=\"color:red;\">food allergies</strong>, please "
+"indicate what they are in the &quot;notes&quot; section below.  Or, if you just "
+"want to send us a note, please feel free.  If you have any questions, please "
+"send us an email."
+msgstr ""
+"Als je enige voedsel allergieen hebt, of je wilt ons gewoon een berichtje sturen "
+"dan kan dat hier. Voor vragen kun je ons ook een mailtje sturen!"
+
+#: rsvp_frontend.inc.php:189
+msgid "First Name: "
+msgstr "Voornaam:"
+
+#: rsvp_frontend.inc.php:196
+msgid "Last Name: "
+msgstr "Achternaam:"
+
+#: rsvp_frontend.inc.php:206
+msgid "So, how about it?"
+msgstr "Dus, hoe zit het?"
+
+#: rsvp_frontend.inc.php:241 rsvp_frontend.inc.php:322
+msgid "Email Address"
+msgstr "E-Mail Adres"
+
+#: rsvp_frontend.inc.php:284
+msgid ""
+"The following people are associated with you.  At this time you can RSVP for "
+"them as well."
+msgstr ""
+"De volgende personen staan samen ingeschreven met jou, je kan voor hen aangeven "
+"of ze met je meekomen."
+
+#: rsvp_frontend.inc.php:289
+#, c-format
+msgid " Will %s be attending?"
+msgstr "Zal %s aanwezig zijn?"
+
+#: rsvp_frontend.inc.php:302
+#, c-format
+msgid "Does %s need a kids meal?"
+msgstr "Heeft %s een kindermaaltijd nodig?"
+
+#: rsvp_frontend.inc.php:312
+#, c-format
+msgid "Does %s need a vegetarian meal?"
+msgstr "Heeft %s een vegetarische maaltijd nodig?"
+
+#: rsvp_frontend.inc.php:335
+msgid ""
+"Did we slip up and forget to invite someone? If so, please add him or her here:"
+msgstr "Zijn we vergeten iemand uit te nodigen? Vul hem of haar dan hier in."
+
+#: rsvp_frontend.inc.php:371
+msgid "Person's first name"
+msgstr "Voornaam"
+
+#: rsvp_frontend.inc.php:375
+msgid "Person's last name"
+msgstr "Achternaam"
+
+#: rsvp_frontend.inc.php:380
+msgid "Person's email address"
+msgstr "E-Mail Adres"
+
+#: rsvp_frontend.inc.php:393
+msgid "Does this person need a kids meal?"
+msgstr "Heeft hij/zij een kindermaaltijd nodig?"
+
+#: rsvp_frontend.inc.php:403
+msgid "Does this person need a vegetarian meal?"
+msgstr "Heeft hij/zij een vegetarische maaltijd nodig?"
+
+#: rsvp_frontend.inc.php:532
+msgid "A first and last name must be specified"
+msgstr "Een voor en achternaam moet ingevuld worden."
+
+#: rsvp_frontend.inc.php:566 rsvp_frontend.inc.php:1061
+msgid ""
+"There are a few more questions we need to ask you if you could please fill them "
+"out below to finish up the RSVP process."
+msgstr ""
+"Er zijn nog een paar vragen die ingevuld moeten worden, als je ze invult kunnen "
+"we je definitief aanmelden."
+
+#: rsvp_frontend.inc.php:584
+msgid "We could not find an exact match but could any of the below entries be you?"
+msgstr ""
+"We hebben geen precieze match gevonden, ben jij toevallig een van deze personen?"
+
+#: rsvp_frontend.inc.php:1039
+msgid "Welcome back"
+msgstr "Welkom terug!"
+
+#: rsvp_frontend.inc.php:1056
+msgid "Hi"
+msgstr "Hallo"
+
+#: rsvp_frontend.inc.php:1084
+msgid "Thank you"
+msgstr "Dankjewel"
+
+#: rsvp_frontend.inc.php:1088
+msgid " for RSVPing."
+msgstr "Voor het aangeven of je komt of niet."
+
+#: rsvp_frontend.inc.php:1091
+msgid " You have also RSVPed for - "
+msgstr "Je hebt ook aangegeven of ze komen voor -"
+
+#: rsvp_frontend.inc.php:1106
+msgid "Thank you "
+msgstr "Dankjewel"
+
+#: rsvp_frontend.inc.php:1113
+msgid " You will also need to know your password which is"
+msgstr "Je moet ook je wachtwoord weten, dat is"
+
+#: rsvp_frontend.inc.php:1118
+msgid "<br /><br />You have also RSVPed for - "
+msgstr "<br /><br />Je hebt ook aangegeven of ze komen voor - "
+
+#: rsvp_frontend.inc.php:1145
+msgid "Please enter your passcode to RSVP."
+msgstr "Vul je unieke code in om verder te gaan"
+
+#: rsvp_frontend.inc.php:1147
+msgid "Please enter your first name, last name and passcode to RSVP."
+msgstr "Vul je voornaam, achternaam en unieke code in om aan te geven of je komt."
+
+#: rsvp_frontend.inc.php:1149
+msgid "Please enter your first and last name to RSVP."
+msgstr "Vul je voor en achternaam in om aan te geven of je komt."
+
+#: rsvp_frontend.inc.php:1173
+msgid "New Attendee Registration"
+msgstr "Nieuwe gast registratie"
+
+#: rsvp_frontend.inc.php:1177
+msgid "Need to modify your registration? Start with the below form."
+msgstr "Wil je je registratie aanpassen? Begin met het formulier hieronder."
+
+#: rsvp_frontend.inc.php:1183 wp-rsvp.php:1011
+msgid "First Name"
+msgstr "Voornaam"
+
+#: rsvp_frontend.inc.php:1185 wp-rsvp.php:1015
+msgid "Last Name"
+msgstr "Achternaam"
+
+#: rsvp_frontend.inc.php:1189
+msgid "Passcode"
+msgstr "Unieke code"
+
+#: rsvp_frontend.inc.php:1192
+msgid "Complete your RSVP!"
+msgstr "Maak je registratie compleet!"
+
+#: wp-rsvp.php:354
+msgid "Save Changes"
+msgstr "Veranderingen opslaan"
+
+#: wp-rsvp.php:434 wp-rsvp.php:1170
+msgid "Bulk Actions"
+msgstr "Bulk Actions"
+
+#: wp-rsvp.php:435 wp-rsvp.php:1171
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: wp-rsvp.php:437 wp-rsvp.php:1173
+msgid "Apply"
+msgstr "Aanpassen"
+
+#: wp-rsvp.php:438
+msgid "Export Attendees"
+msgstr "Exporteer aanwezigen"
+
+#: wp-rsvp.php:1007 wp-rsvp.php:1106 wp-rsvp.php:1377
+msgid "Save"
+msgstr "Opslaan"
+
+#: wp-rsvp.php:1019
+msgid "Email"
+msgstr "E-Mail"
+
+#: wp-rsvp.php:1174
+msgid "Save Sort Order"
+msgstr "Sla volgorde op"
