@@ -1,2 +1,3 @@
 /deploy.sh
 .DS_Store
+/vendor/
