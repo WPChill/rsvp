@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, reserve, wedding, guestlist, attendee management, event management, event planning, wedding planning, event registration, event, events, events management, events registration
 Requires at least: 3.0
 Tested up to: 4.8
-Stable tag: 2.3.8
+Stable tag: 2.3.9
 
 The RSVP Plugin was created to be a straightforward event management plugin to handle registrations for a single event.
 

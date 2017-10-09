@@ -2,17 +2,17 @@
 /**
  * @package rsvp
  * @author MDE Development, LLC
- * @version 2.3.8
+ * @version 2.3.9
  */
 /*
-Plugin Name: RSVP
-Text Domain: rsvp-plugin
-Plugin URI: http://wordpress.org/extend/plugins/rsvp/
-Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
-Author: MDE Development, LLC
-Version: 2.3.8
-Author URI: http://www.swimordiesoftware.com
-License: GPL
+* Plugin Name: RSVP
+* Text Domain: rsvp-plugin
+* Plugin URI: http://wordpress.org/extend/plugins/rsvp/
+* Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
+* Author: MDE Development, LLC
+* Version: 2.3.9
+* Author URI: http://www.swimordiesoftware.com
+* License: GPL
 */
 #
 # INSTALLATION: see readme.txt
