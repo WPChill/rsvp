@@ -97,6 +97,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 
+= 2.3.9 =
+* Changed all the "password" text to be "passcode" to have consistent text
+
 = 2.3.8 =
 * Fixed an issue where the note field is displayed in the attendee list screen without escaping causing a persistent XSS
 

@@ -348,7 +348,10 @@ function rsvp_admin_guestlist_options()
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="<?php echo RSVP_OPTION_CSS_STYLING; ?>"><?php echo __("Custom Styling:", 'rsvp-plugin'); ?></label></th>
-					<td align="left"><textarea name="<?php echo RSVP_OPTION_CSS_STYLING; ?>" id="<?php echo RSVP_OPTION_CSS_STYLING; ?>" rows="5" cols="60"><?php echo htmlspecialchars(get_option(RSVP_OPTION_CSS_STYLING)); ?></textarea></td>
+					<td align="left"><textarea name="<?php echo RSVP_OPTION_CSS_STYLING; ?>" id="<?php echo RSVP_OPTION_CSS_STYLING; ?>" rows="5" cols="60"><?php echo htmlspecialchars(get_option(RSVP_OPTION_CSS_STYLING)); ?></textarea>
+						<br />
+						<span class="description"><?php _e('Add custom CSS for the RSVP plugin. More details <a href="https://www.rsvpproplugin.com/knowledge-base/customizing-the-rsvp-pro-front-end/">here</a>', 'rsvp-plugin'); ?></span>
+					</td>
 				</tr>
 			</table>
 			<input type="hidden" name="action" value="update" />

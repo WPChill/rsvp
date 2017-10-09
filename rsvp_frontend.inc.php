@@ -538,9 +538,9 @@ function rsvp_find(&$output, &$text)
     }
 
     if (rsvp_require_only_passcode_to_register()) {
-        $notFoundText = sprintf(RSVP_START_PARA.__('<strong>We were unable to find anyone with the password you specified.</strong>', 'rsvp-plugin').RSVP_END_PARA);
+        $notFoundText = sprintf(RSVP_START_PARA.__('<strong>We were unable to find anyone with the passcode you specified.</strong>', 'rsvp-plugin').RSVP_END_PARA);
     } elseif (rsvp_require_passcode()) {
-        $notFoundText = sprintf(RSVP_START_PARA.__('<strong>We were unable to find anyone with a name of %1$s %2$s or the provided password was incorrect.</strong>', 'rsvp-plugin').RSVP_END_PARA, htmlspecialchars($firstName), htmlspecialchars($lastName));
+        $notFoundText = sprintf(RSVP_START_PARA.__('<strong>We were unable to find anyone with a name of %1$s %2$s or the provided passcode was incorrect.</strong>', 'rsvp-plugin').RSVP_END_PARA, htmlspecialchars($firstName), htmlspecialchars($lastName));
     } else {
         $notFoundText = sprintf(RSVP_START_PARA.__('<strong>We were unable to find anyone with a name of %1$s %2$s</strong>', 'rsvp-plugin').RSVP_END_PARA, htmlspecialchars($firstName), htmlspecialchars($lastName));
     }
@@ -1179,7 +1179,7 @@ function rsvp_frontend_new_atendee_thankyou($thankYouPrimary, $thankYouAssociate
     }
     $thankYouText .= __(" for RSVPing. To modify your RSVP just come back to this page and enter in your first and last name.", 'rsvp-plugin');
     if (! empty($password)) {
-        $thankYouText .= __(" You will also need to know your password which is", 'rsvp-plugin') .
+        $thankYouText .= __(" You will also need to know your passcode which is", 'rsvp-plugin') .
             " - <strong>$password</strong>";
     }
 
