@@ -276,7 +276,7 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp")
         "<textarea name=\"rsvp_note\" id=\"rsvp_note\" rows=\"7\" cols=\"50\">".((!empty($attendee->note)) ? $attendee->note : $rsvp_saved_form_vars['rsvp_note'])."</textarea>".RSVP_END_FORM_FIELD;
     }
 
-    $sql = "SELECT id, firstName, lastName, email, personalGreeting FROM ".ATTENDEES_TABLE."
+    $sql = "SELECT id, firstName, lastName, email, personalGreeting, rsvpStatus FROM ".ATTENDEES_TABLE."
 	 	WHERE (id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
 			OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d) OR
       id IN (SELECT waa1.attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." waa1
@@ -292,10 +292,10 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp")
                 $form .= "<div class=\"rsvpAdditionalAttendee\">\r\n";
                 $form .= "<div class=\"rsvpAdditionalAttendeeQuestions\">\r\n";
                 $form .= rsvp_BeginningFormField("", "").RSVP_START_PARA.sprintf(__(" Will %s be attending?", 'rsvp-plugin'), esc_html(stripslashes($a->firstName." ".$a->lastName))).RSVP_END_PARA.
-                "<input type=\"radio\" name=\"attending".$a->id."\" value=\"Y\" id=\"attending".$a->id."Y\" /> ".
-                "<label for=\"attending".$a->id."Y\">$yesText</label>
-  							<input type=\"radio\" name=\"attending".$a->id."\" value=\"N\" id=\"attending".$a->id."N\" /> ".
-                "<label for=\"attending".$a->id."N\">$noText</label>".
+                    "<input type=\"radio\" name=\"attending".$a->id."\" value=\"Y\" id=\"attending".$a->id."Y\" " . ( ( $a->rsvpStatus === 'Yes' ) ? 'checked="checked"' : '' ) . " /> ".
+                    "<label for=\"attending".$a->id."Y\">$yesText</label>
+					<input type=\"radio\" name=\"attending".$a->id."\" value=\"N\" id=\"attending".$a->id."N\" " . ( ( $a->rsvpStatus === 'No' ) ? 'checked="checked"' : '' ) . " /> ".
+                    "<label for=\"attending".$a->id."N\">$noText</label>".
                 RSVP_END_FORM_FIELD;
 
                 if (!empty($a->personalGreeting)) {
@@ -304,9 +304,9 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp")
 
                 if (get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
                     $form .= rsvp_BeginningFormField("", "").
-            RSVP_START_PARA.sprintf(__("Does %s need a kids meal?", 'rsvp-plugin'), htmlspecialchars($a->firstName)).
-              RSVP_END_PARA."&nbsp; ".
-            "<input type=\"radio\" name=\"attending".$a->id."KidsMeal\" value=\"Y\" id=\"attending".$a->id."KidsMealY\" /> ".
+                    RSVP_START_PARA.sprintf(__("Does %s need a kids meal?", 'rsvp-plugin'), htmlspecialchars($a->firstName)).
+                    RSVP_END_PARA."&nbsp; ".
+                    "<input type=\"radio\" name=\"attending".$a->id."KidsMeal\" value=\"Y\" id=\"attending".$a->id."KidsMealY\" /> ".
                     "<label for=\"attending".$a->id."KidsMealY\">$yesText</label>
   					<input type=\"radio\" name=\"attending".$a->id."KidsMeal\" value=\"N\" id=\"attending".$a->id."KidsMealN\" checked=\"checked\" /> ".
                     "<label for=\"attending".$a->id."KidsMealN\">$noText</label>".RSVP_END_FORM_FIELD;
@@ -379,10 +379,10 @@ function rsvp_buildAdditionalQuestions($attendeeID, $prefix)
     $output = "<div class=\"rsvpCustomQuestions\">";
 
     $sql = "SELECT q.id, q.question, questionType FROM ".QUESTIONS_TABLE." q
-					INNER JOIN ".QUESTION_TYPE_TABLE." qt ON qt.id = q.questionTypeID
-					WHERE q.permissionLevel = 'public'
-					  OR (q.permissionLevel = 'private' AND q.id IN (SELECT questionID FROM ".QUESTION_ATTENDEES_TABLE." WHERE attendeeID = $attendeeID))
-					ORDER BY q.sortOrder ";
+			INNER JOIN ".QUESTION_TYPE_TABLE." qt ON qt.id = q.questionTypeID
+			WHERE q.permissionLevel = 'public'
+		      OR (q.permissionLevel = 'private' AND q.id IN (SELECT questionID FROM ".QUESTION_ATTENDEES_TABLE." WHERE attendeeID = $attendeeID))
+			ORDER BY q.sortOrder ";
     $questions = $wpdb->get_results($sql);
     if (count($questions) > 0) {
         foreach ($questions as $q) {
@@ -975,7 +975,7 @@ function rsvp_handlersvp(&$output, &$text)
                 $body = __("Hello", "rsvp-plugin") . ", \r\n\r\n";
 
                 $body .= stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).
-                                 " " . __("has submitted their RSVP and has RSVP'd with") . " '".$attendee[0]->rsvpStatus."'.";
+                                 " " . __("has submitted their RSVP and has RSVP'd with") . " '".$attendee[0]->rsvpStatus."'.\r\n";
 
                 if (get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
                     $body .= __("Kids Meal: ", "rsvp-plugin").$attendee[0]->kidsMeal."\r\n";
