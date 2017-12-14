@@ -1,16 +1,16 @@
 <?php
 /**
  * @package rsvp
- * @author MDE Development, LLC
- * @version 2.4.0
+ * @author Swim or Die Software
+ * @version 2.4.1
  */
 /*
 * Plugin Name: RSVP
 * Text Domain: rsvp-plugin
 * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
-* Author: MDE Development, LLC
-* Version: 2.4.0
+* Author: Swim or Die Software
+* Version: 2.4.1
 * Author URI: http://www.swimordiesoftware.com
 * License: GPL
 */
@@ -710,9 +710,9 @@ function rsvp_admin_export()
     $csv .= "\r\n";
     foreach ($attendees as $a) {
         $fName = stripslashes($a->firstName);
-        $fName = mb_convert_encoding($fName, 'ISO-8859-1', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
+        $fName = rsvp_handle_text_encoding( $fName );
         $lName = stripslashes($a->lastName);
-        $lName = mb_convert_encoding($lName, 'ISO-8859-1', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
+        $lName = rsvp_handle_text_encoding( $lName );
         $csv .= "\"".$fName."\",\"".$lName."\",\"".stripslashes($a->email)."\",\"".($a->rsvpStatus)."\",";
 
         if (get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
@@ -726,7 +726,7 @@ function rsvp_admin_export()
 
         $associations = $wpdb->get_results($wpdb->prepare($sql, $a->id, $a->id));
         foreach ($associations as $assc) {
-            $csv .= trim(stripslashes($assc->firstName." ".$assc->lastName))."\r\n";
+            $csv .= rsvp_handle_text_encoding( trim( stripslashes( $assc->firstName." ".$assc->lastName ) ) )."\r\n";
         }
         $csv .= "\",";
 
@@ -803,10 +803,10 @@ function rsvp_admin_import()
             foreach ($data as $row) {
                 if ($i > 0) {
                     $fName = trim($row[0]);
-                    $fName = mb_convert_encoding($fName, 'UTF-8', mb_detect_encoding($fName, 'UTF-8, ISO-8859-1', true));
+                    $fName = rsvp_handle_text_encoding( $fName );
 
                     $lName = trim($row[1]);
-                    $lName = mb_convert_encoding($lName, 'UTF-8', mb_detect_encoding($lName, 'UTF-8, ISO-8859-1', true));
+                    $lName = rsvp_handle_text_encoding( $lName );
                     $email = trim($row[2]);
                     $rsvpStatus = "noresponse";
                     if (isset($row[3])) {
@@ -838,15 +838,15 @@ function rsvp_admin_import()
                         if (count($res) == 0) {
                             $wpdb->insert(
                                 ATTENDEES_TABLE,
-                                array("firstName"        => $fName,
-                                             "lastName"                 => $lName,
-                                             "email"                    => $email,
-                                             "personalGreeting"        => $personalGreeting,
-                                             "kidsMeal"                            => $kidsMeal,
-                                             "veggieMeal"                        => $vegetarian,
-                                             "rsvpStatus"                    => $rsvpStatus,
-                                             "passcode"                 => $passcode),
-                                       array('%s', '%s', '%s', '%s', '%s', '%s', '%s')
+                                array("firstName"		=> $fName,
+                                    "lastName"			=> $lName,
+                                    "email"				=> $email,
+                                    "personalGreeting"	=> $personalGreeting,
+                                    "kidsMeal"			=> $kidsMeal,
+                                    "veggieMeal"		=> $vegetarian,
+                                    "rsvpStatus"		=> $rsvpStatus,
+                                    "passcode"			=> $passcode),
+                                array('%s', '%s', '%s', '%s', '%s', '%s', '%s')
                             );
                             $count++;
                         } elseif (empty($res->email) && empty($res->passcode)) {
@@ -854,13 +854,13 @@ function rsvp_admin_import()
                             // associated attendee and we will want to update this record...
                             $wpdb->update(
                                 ATTENDEES_TABLE,
-                                array("email"            => $email,
-                                              "personalGreeting" => $personalGreeting,
-                                              "passcode"         => $passcode,
-                                              "rsvpStatus"       => $rsvpStatus),
-                                    array("id" => $res[0]->id),
-                                    array('%s', '%s', '%s', '%s'),
-                                    array('%d')
+                                array("email"			=> $email,
+                                    "personalGreeting" 	=> $personalGreeting,
+                                    "passcode"         	=> $passcode,
+                                    "rsvpStatus"       	=> $rsvpStatus),
+                                array("id" => $res[0]->id),
+                                array('%s', '%s', '%s', '%s'),
+                                array('%d')
                             );
                         }
 
@@ -885,8 +885,8 @@ function rsvp_admin_import()
 											 	WHERE firstName = %s AND lastName = %s ";
                                             $userRes = $wpdb->get_results($wpdb->prepare(
                                                 $sql,
-                                                        mb_convert_encoding(trim($user[0]), 'UTF-8', mb_detect_encoding(trim($user[0]), 'UTF-8, ISO-8859-1', true)),
-                                                        mb_convert_encoding(trim($user[1]), 'UTF-8', mb_detect_encoding(trim($user[1]), 'UTF-8, ISO-8859-1', true))
+                                                rsvp_handle_text_encoding( trim($user[0]) ),
+                                                rsvp_handle_text_encoding( trim($user[1]) )
                                             ));
                                             if (count($userRes) > 0) {
                                                 $newUserId = $userRes[0]->id;
@@ -895,9 +895,10 @@ function rsvp_admin_import()
                                                 $wpdb->insert(
                                                     ATTENDEES_TABLE,
                                                     array(
-                                                    "firstName" => mb_convert_encoding(trim($user[0]), 'UTF-8', mb_detect_encoding(trim($user[0]), 'UTF-8, ISO-8859-1', true)),
-                                                    "lastName" => mb_convert_encoding(trim($user[1]), 'UTF-8', mb_detect_encoding(trim($user[1]), 'UTF-8, ISO-8859-1', true))),
-                                                                           array('%s', '%s')
+                                                    "firstName" => rsvp_handle_text_encoding( trim($user[0]) ),
+                                                    "lastName" => rsvp_handle_text_encoding( trim($user[1]) ) 
+                                                	),
+                                                    array('%s', '%s')
                                                 );
                                                 $newUserId = $wpdb->insert_id;
                                                 $count++;
@@ -906,15 +907,15 @@ function rsvp_admin_import()
                                             $wpdb->insert(
                                                 ASSOCIATED_ATTENDEES_TABLE,
                                                 array("attendeeID" => $newUserId,
-                                                                                            "associatedAttendeeID" => $userId),
-                                                                                    array("%d", "%d")
+                                                		"associatedAttendeeID" => $userId),
+                                                array("%d", "%d")
                                             );
 
                                             $wpdb->insert(
                                                 ASSOCIATED_ATTENDEES_TABLE,
                                                 array("attendeeID" => $userId,
-                                                                                            "associatedAttendeeID" => $newUserId),
-                                                                                    array("%d", "%d")
+                                                    "associatedAttendeeID" => $newUserId),
+                                                array("%d", "%d")
                                             );
                                         }
                                     } // foreach($associatedUsers...
@@ -1741,6 +1742,21 @@ function rsvp_init()
     wp_enqueue_script('jquery_validate');
     wp_enqueue_script('rsvp_plugin');
     wp_enqueue_style("rsvp_css");
+}
+
+/**
+ * Handles converting text encodings for characters like umlauts that might be stored in different encodings
+ *
+ * @param  string $text The text we wish to handle the encoding against
+ * @return string       The converted text
+ */
+function rsvp_handle_text_encoding($text)
+{
+    if (function_exists('mb_convert_encoding') && function_exists('mb_detect_encoding')) {
+        return mb_convert_encoding($text, 'UTF-8', mb_detect_encoding($text, 'UTF-8, ISO-8859-1', true));
+    }
+
+    return $text;
 }
 
 /*
