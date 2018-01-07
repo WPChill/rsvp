@@ -787,6 +787,19 @@ function rsvp_handleNewRsvp(&$output, &$text)
 
             $body .= __("You have successfully RSVP'd with", "rsvp-plugin") . " '".$attendee[0]->rsvpStatus."'.";
 
+            $sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
+            LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d
+            WHERE (q.permissionLevel = 'public' OR
+            (q.permissionLevel = 'private' AND q.id IN (SELECT questionID FROM ".QUESTION_ATTENDEES_TABLE." WHERE attendeeID = %d)))
+            ORDER BY q.sortOrder, q.id";
+            $aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
+            if (count($aRs) > 0) {
+                foreach ($aRs as $ans) {
+                    $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
+                }
+                $body .= "\r\n";
+            }
+
             $sql = "SELECT firstName, lastName, rsvpStatus, id, email FROM ".ATTENDEES_TABLE."
 			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
 					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)";
@@ -1037,6 +1050,7 @@ function rsvp_handlersvp(&$output, &$text)
                 if (get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y") {
                     $headers = 'From: '. $email . "\r\n";
                 }
+
                 wp_mail($email, __("New RSVP Submission", "rsvp-plugin"), $body, $headers);
             }
         }
@@ -1054,6 +1068,19 @@ function rsvp_handlersvp(&$output, &$text)
                 }
 
                 $body .= __("You have successfully RSVP'd with", "rsvp-plugin") . " '" . $attendee[0]->rsvpStatus . "'.";
+
+                $sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
+                LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d
+                WHERE (q.permissionLevel = 'public' OR
+                (q.permissionLevel = 'private' AND q.id IN (SELECT questionID FROM ".QUESTION_ATTENDEES_TABLE." WHERE attendeeID = %d)))
+                ORDER BY q.sortOrder, q.id";
+                $aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
+                if (count($aRs) > 0) {
+                    foreach ($aRs as $ans) {
+                        $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
+                    }
+                    $body .= "\r\n";
+                }
 
                 $sql = "SELECT id, firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE."
  					WHERE (id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
