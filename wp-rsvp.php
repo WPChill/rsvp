@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.4.2
+ * @version 2.4.3
  */
 /*
 * Plugin Name: RSVP
@@ -10,7 +10,7 @@
 * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
 * Author: Swim or Die Software
-* Version: 2.4.2
+* Version: 2.4.3
 * Author URI: http://www.swimordiesoftware.com
 * License: GPL
 */
@@ -1716,7 +1716,7 @@ function rsvp_admin_scripts()
 function rsvp_init()
 {
     load_plugin_textdomain('rsvp-plugin', false, basename(dirname(__FILE__)) . '/languages/');
-    wp_register_script('jquery_validate', rsvp_getHttpProtocol()."://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js");
+    wp_register_script('jquery_validate',  plugins_url("jquery.validate.min.js", RSVP_PLUGIN_FILE) );
     wp_register_script('rsvp_plugin', plugins_url("rsvp_plugin.js", RSVP_PLUGIN_FILE));
     wp_localize_script(
             'rsvp_plugin',
