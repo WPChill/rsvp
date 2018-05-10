@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.4.3
+ * @version 2.4.4
  */
 /*
 * Plugin Name: RSVP
@@ -10,7 +10,7 @@
 * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
 * Author: Swim or Die Software
-* Version: 2.4.3
+* Version: 2.4.4
 * Author URI: http://www.swimordiesoftware.com
 * License: GPL
 */
@@ -817,11 +817,11 @@ function rsvp_admin_import()
                     }
                     $kidsMeal = "N";
                     $vegetarian = "N";
-                    if (isset($row[4]) && (strtolower($row[4]) == "Y")) {
+                    if (isset($row[4]) && (strtolower($row[4]) == "y")) {
                         $kidsMeal = "Y";
                     }
 
-                    if (isset($row[6]) && (strtolower($row[6]) == "Y")) {
+                    if (isset($row[6]) && (strtolower($row[6]) == "y")) {
                         $vegetarian = "Y";
                     }
 
@@ -1694,8 +1694,8 @@ function rsvp_register_settings()
     register_setting("rsvp-option-group", RSVP_OPTION_CSS_STYLING);
 
     wp_register_script('jquery_table_sort', plugins_url('jquery.tablednd_0_5.js', RSVP_PLUGIN_FILE));
-    wp_register_script('jquery_ui', rsvp_getHttpProtocol()."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.js");
-    wp_register_style('jquery_ui_stylesheet', rsvp_getHttpProtocol()."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/themes/redmond/jquery-ui.css");
+    wp_register_script('jquery_ui', (is_ssl() ? "https" : "http") ."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.js");
+    wp_register_style('jquery_ui_stylesheet', (is_ssl() ? "https" : "http")."://ajax.microsoft.com/ajax/jquery.ui/1.8.5/themes/redmond/jquery-ui.css");
 }
 
 function rsvp_admin_scripts()
@@ -1759,19 +1759,6 @@ function rsvp_handle_text_encoding($text)
     return $text;
 }
 
-/*
-This function checks to see if the page is running over SSL/HTTPs and will return the proper HTTP protocol.
-
-Postcondition: The caller will receive the proper HTTP protocol to use at the beginning of a URL.
-*/
-function rsvp_getHttpProtocol()
-{
-    if (isset($_SERVER['HTTPS'])  && (trim($_SERVER['HTTPS']) != "") && (strtolower(trim($_SERVER['HTTPS'])) != "off")) {
-        return "https";
-    }
-    return "http";
-}
-
 function rsvp_free_is_addslashes_enabled()
 {
     return get_magic_quotes_gpc();
@@ -1779,16 +1766,12 @@ function rsvp_free_is_addslashes_enabled()
 
 function rsvp_getCurrentPageURL()
 {
-  	$pageURL = rsvp_getHttpProtocol();
+	global $wp;
 
-	$pageURL .= "://";
-	$url = get_site_url();
-	$server_info = parse_url($url);
-	$domain = $server_info['host'];
-	if ($_SERVER["SERVER_PORT"] != "80") {
-		$pageURL .= $domain.":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-	} else {
-		$pageURL .= $domain.$_SERVER["REQUEST_URI"];
+	$pageURL = home_url( $wp->request );
+
+	if (get_option(OPTION_RSVP_DONT_USE_HASH) != "Y") {
+	    $pageURL .= "#rsvpArea";
 	}
 	return $pageURL;
 }

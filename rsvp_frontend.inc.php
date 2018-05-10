@@ -1,9 +1,5 @@
 <?php
-$rsvp_form_action = htmlspecialchars(rsvp_getCurrentPageURL());
-
-if (get_option(OPTION_RSVP_DONT_USE_HASH) != "Y") {
-    $rsvp_form_action .= "#rsvpArea";
-}
+$rsvp_form_action = '';
 $rsvp_saved_form_vars = array();
 // load some defaults
 $rsvp_saved_form_vars['mainRsvp'] = "";
@@ -19,11 +15,14 @@ function rsvp_handle_output($intialText, $rsvpText)
 function rsvp_frontend_handler($text)
 {
     global $wpdb;
+    global $rsvp_form_action;
     $passcodeOptionEnabled = (rsvp_require_passcode()) ? true : false;
     //QUIT if the replacement string doesn't exist
     if (!strstr($text, RSVP_FRONTEND_TEXT_CHECK)) {
         return $text;
     }
+
+    $rsvp_form_action = rsvp_getCurrentPageURL();
 
     // See if we should allow people to RSVP, etc...
     $openDate = get_option(OPTION_OPENDATE);
