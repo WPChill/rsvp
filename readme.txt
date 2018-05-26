@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, reserve, wedding, guestlist, attendee management, event management, event planning, wedding planning, event registration, event, events, events management, events registration
 Requires at least: 3.0
 Tested up to: 4.9.5
-Stable tag: 2.4.5
+Stable tag: 2.4.6
 
 The RSVP Plugin was created to be a straightforward event management plugin to handle registrations for a single event.
 
@@ -96,6 +96,12 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.4.6 =
+* Added in functions to support the WordPress 4.9.6 personal data eraser
+* Added in functions to support the WordPress 4.9.6 personal data exporter
+* Added in a function for handling the addition of RSVP Pro specific privacy policy information for a site
+* Fixed a problem with the frotnend form when the permalink structure was set to "plain" the form would no longer post to the correct page
 
 = 2.4.5 =
 * Fixed a bug with the latest release where it wasn't working when PATHINFO URL rewriting was done vs. the normal mod_rewrite URL rewrite

@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.4.5
+ * @version 2.4.6
  */
 /*
 * Plugin Name: RSVP
@@ -10,7 +10,7 @@
 * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
 * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
 * Author: Swim or Die Software
-* Version: 2.4.5
+* Version: 2.4.6
 * Author URI: http://www.swimordiesoftware.com
 * License: GPL
 */
@@ -165,6 +165,7 @@ function rsvp_generate_passcode()
 function rsvp_admin_guestlist_options()
 {
     global $wpdb;
+
     if (rsvp_require_unique_passcode()) {
         $sql = "SELECT id, passcode FROM ".ATTENDEES_TABLE." a
 				WHERE passcode <> '' AND (SELECT COUNT(*) FROM ".ATTENDEES_TABLE." WHERE passcode = a.passcode) > 1";
@@ -188,10 +189,10 @@ function rsvp_admin_guestlist_options()
         foreach ($attendees as $a) {
             $wpdb->update(
                 ATTENDEES_TABLE,
-                                        array("passcode" => rsvp_generate_passcode()),
-                                        array("id" => $a->id),
-                                        array("%s"),
-                                        array("%d")
+                array("passcode" => rsvp_generate_passcode()),
+                array("id" => $a->id),
+                array("%s"),
+                array("%d")
             );
         }
     } ?>
@@ -374,15 +375,7 @@ function rsvp_admin_guestlist()
     if ((count($_POST) > 0) && ($_POST['rsvp-bulk-action'] == "delete") && (is_array($_POST['attendee']) && (count($_POST['attendee']) > 0))) {
         foreach ($_POST['attendee'] as $attendee) {
             if (is_numeric($attendee) && ($attendee > 0)) {
-                $wpdb->query($wpdb->prepare(
-                    "DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d OR associatedAttendeeID = %d",
-                                                                        $attendee,
-                                                                        $attendee
-                ));
-                $wpdb->query($wpdb->prepare(
-                    "DELETE FROM ".ATTENDEES_TABLE." WHERE id = %d",
-                                                                        $attendee
-                ));
+            	rsvp_delete_attendee( $attendee );
             }
         }
     }
@@ -1005,14 +998,14 @@ function rsvp_admin_guest()
         if (isset($_POST['attendeeId']) && is_numeric($_POST['attendeeId']) && ($_POST['attendeeId'] > 0)) {
             $wpdb->update(
                 ATTENDEES_TABLE,
-                                        array("firstName" => trim($_POST['firstName']),
-                                              "lastName" => trim($_POST['lastName']),
+                array("firstName" => trim($_POST['firstName']),
+						"lastName" => trim($_POST['lastName']),
                         "email" => trim($_POST['email']),
-                                              "personalGreeting" => trim($_POST['personalGreeting']),
-                                                    "rsvpStatus" => trim($_POST['rsvpStatus'])),
-                                        array("id" => $_POST['attendeeId']),
-                                        array("%s", "%s", "%s", "%s", "%s"),
-                                        array("%d")
+						"personalGreeting" => trim($_POST['personalGreeting']),
+						"rsvpStatus" => trim($_POST['rsvpStatus'])),
+                array("id" => $_POST['attendeeId']),
+                array("%s", "%s", "%s", "%s", "%s"),
+                array("%d")
             );
             $attendeeId = $_POST['attendeeId'];
             $wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeId = %d", $attendeeId));
@@ -1021,11 +1014,11 @@ function rsvp_admin_guest()
             $wpdb->insert(
                 ATTENDEES_TABLE,
                 array("firstName" => trim($_POST['firstName']),
-                                                 "lastName" => trim($_POST['lastName']),
-                                         "email" => trim($_POST['email']),
-                                                                                     "personalGreeting" => trim($_POST['personalGreeting']),
-                                                                                     "rsvpStatus" => trim($_POST['rsvpStatus'])),
-                                           array('%s', '%s', '%s', '%s', '%s')
+                     "lastName" => trim($_POST['lastName']),
+                     "email" => trim($_POST['email']),
+                     "personalGreeting" => trim($_POST['personalGreeting']),
+                     "rsvpStatus" => trim($_POST['rsvpStatus'])),
+               	array('%s', '%s', '%s', '%s', '%s')
             );
 
             $attendeeId = $wpdb->insert_id;
@@ -1048,10 +1041,10 @@ function rsvp_admin_guest()
             }
             $wpdb->update(
                 ATTENDEES_TABLE,
-                                        array("passcode" => trim($passcode)),
-                                        array("id"=>$attendeeId),
-                                        array("%s"),
-                                        array("%d")
+                array("passcode" => trim($passcode)),
+                array("id"=>$attendeeId),
+                array("%s"),
+                array("%d")
             );
         } ?>
 		<p><?php echo __("Attendee", 'rsvp-plugin'); ?> <?php echo htmlspecialchars(stripslashes($_POST['firstName']." ".$_POST['lastName'])); ?> <?php echo __("has been successfully saved", 'rsvp-plugin'); ?></p>
@@ -1745,6 +1738,30 @@ function rsvp_init()
 }
 
 /**
+ * Function for deleting an attendee from the database
+ * 
+ * @param  integer $attendee_id The attendee ID we wish to delete
+ */
+function rsvp_delete_attendee( $attendee_id ) {
+	global $wpdb;
+
+	if( is_numeric( $attendee_id ) && ( $attendee_id > 0 ) ) {
+		$wpdb->query($wpdb->prepare(
+			"DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d OR associatedAttendeeID = %d",
+	        $attendee_id,
+	        $attendee_id
+	    ));
+
+		$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE attendeeID = %d', $attendee_id));
+
+	    $wpdb->query($wpdb->prepare(
+	        "DELETE FROM ".ATTENDEES_TABLE." WHERE id = %d",
+            $attendee_id
+	    ));
+	}
+}
+
+/**
  * Handles converting text encodings for characters like umlauts that might be stored in different encodings
  *
  * @param  string $text The text we wish to handle the encoding against
@@ -1785,8 +1802,9 @@ function rsvp_getCurrentPageURL()
 		if( isset( $parts['query'] ) && ( $parts['query'] != '' ) ) {
 			$pageURL .= '?' . $parts['query'];
 		}
+	} elseif( empty( $wp_rewrite->permalink_structure ) ) {		
+		$pageURL = get_permalink();
 	}
-
 
 	if (get_option(OPTION_RSVP_DONT_USE_HASH) != "Y") {
 	    $pageURL .= "#rsvpArea";
@@ -1806,12 +1824,145 @@ function rsvp_add_css()
 	}
 }
 
+function rsvp_add_privacy_policy_content() {
+	if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
+        return;
+    }
+ 
+    $content = __( 'All information entered either from an attendee or a WordPress admin for the RSVP 
+             plugin is never sent to external sites. The data stays in database tables 
+            on the WordPress instance.',
+        'rsvp_plugin' );
+ 
+    wp_add_privacy_policy_content(
+        'RSVP Plugin',
+        wp_kses_post( wpautop( $content, false ) )
+    );
+}
+
+/**
+ * Handles the data erasing for a given email address. 
+ * 
+ * @param  string  $email_address The email address we want to delete from the attendees table
+ * @param  integer $page          The page we are on
+ * @return array                  An array containing how many attendees were deleted
+ */
+function rsvp_data_eraser_handler( $email_address, $page = 1 ) {
+    global $wpdb;
+
+    $num_deleted = 0;
+    $sql = "SELECT id FROM " . ATTENDEES_TABLE . " WHERE email = %s";
+    $attendees = $wpdb->get_results( $wpdb->prepare( $sql, $email_address ) );
+    foreach( $attendees as $a ) {
+        rsvp_delete_attendee( $a->id );
+        $num_deleted++;
+    }
+
+    return array( 'items_removed' => $num_deleted,
+        'items_retained' => false, // We never retain items
+        'messages' => array( __('RSVP Data Erased Successfully', 'rsvp-plugin') ), 
+        'done' => true,
+    );
+}
+
+/**
+ * The data eraser registration that lets the core of WP know 
+ * we can handle erasing of the RSVP Plugin information 
+ * if it is ever requested. 
+ * 
+ * @param  array  $erasers The array of erasers already registered with this WP instance
+ * @return array           The erasers array now with the RSVP eraser added
+ */
+function rsvp_register_data_eraser( $erasers ) {
+    $erasers['rsvp-plugin'] = array(
+        'eraser_friendly_name' => __( 'RSVP Plugin', 'rsvp-plugin'),
+        'callback'             => 'rsvp_data_eraser_handler',
+    );
+    return $erasers;
+}
+
+/**
+ * Retrieves and packages up the exporter information for the new WordPress compliance functionality
+ * 
+ * @param  string  $email_address The email address we need to export the information for
+ * @param  integer $page          The current page
+ * @return array                  Containing the information and if everything is done being exported
+ */
+function rsvp_data_exporter_handler( $email_address, $page = 1 ) {
+    global $wpdb;
+
+    $export_items = array();
+    $sql = "SELECT a.id, a.firstName, a.lastName, a.rsvpDate, 
+      a.rsvpStatus, a.note, a.additionalAttendee, a.kidsMeal, 
+      a.veggieMeal, a.personalGreeting
+    FROM " . ATTENDEES_TABLE . " a 
+    WHERE email = %s";
+    $attendees = $wpdb->get_results( $wpdb->prepare( $sql, $email_address ) );
+    foreach( $attendees as $a ) {
+        $export_items['firstName'] = stripslashes( $a->firstName );
+        $export_items['lastName'] = stripslashes( $a->lastName );
+        $export_items['rsvpDate'] = $a->rsvpDate;
+        $export_items['rsvpStatus'] = stripslashes( $a->rsvpStatus );
+        $export_items['note'] = stripslashes( $a->note );
+        $export_items['additionalAttendee'] = stripslashes( $a->additionalAttendee );
+        $export_items['personalGreeting'] = stripslashes( $a->personalGreeting );
+        $export_items['veggieMeal'] = stripslashes( $a->veggieMeal );
+        $export_items['kidsMeal'] = stripslashes( $a->kidsMeal );
+        
+        // Print out the custom question information for the main event
+        $export_items = rsvp_data_exporter_custom_questions( $a->id, $export_items );      
+    }
+
+    return array(
+        'data' => $export_items,
+        'done' => true,
+    );
+}
+
+/**
+ * Retrieves the custom question and answers for export
+ * 
+ * @param  integer $attendee_id  The attendee we want to get the answers for
+ * @param  array   $export_items The current exported items that we need to add to
+ * @return array                 The export items with the custom questions added for the event passed in
+ */
+function rsvp_data_exporter_custom_questions( $attendee_id, $export_items ) {
+    global $wpdb;
+
+    $sql = "SELECT answer, question FROM " . ATTENDEE_ANSWERS . " aa 
+    JOIN " . QUESTIONS_TABLE . " q ON q.id = aa.questionID 
+    WHERE aa.attendeeID = %d";
+
+    $custom_questions = $wpdb->get_results( $wpdb->prepare( $sql, $attendee_id ) );
+    foreach( $custom_questions as $cq ) {
+        $export_items[stripslashes($cq->question)] = stripslashes( $cq->answer );
+    } 
+
+    return $export_items;
+}
+
+/**
+ * Registers the RSVP data exporter to WP core
+ * @param  array  $exporters The current array of exporters registered with this WP instance
+ * @return array             The exporters array now with the RSVP exporter added
+ */
+function rsvp_register_data_exporter( $exporters ) {
+    $exporters['rsvp-plugin'] = array(
+        'exporter_friendly_name' => __( 'RSVP Plugin', 'rsvp_plugin'),
+        'callback' => 'rsvp_data_exporter_handler',
+    );
+    return $exporters;
+}
+
 function rsvpshortcode_func($atts)
 {
 	return rsvp_frontend_handler("rsvp-pluginhere");
 }
 add_shortcode('rsvp', 'rsvpshortcode_func');
 
+add_action( 'admin_init', 'rsvp_add_privacy_policy_content');
+add_filter( 'wp_privacy_personal_data_erasers', 'rsvp_register_data_eraser', 10 );
+add_filter( 'wp_privacy_personal_data_exporters', 'rsvp_register_data_exporter', 10 );
 add_action('admin_menu', 'rsvp_modify_menu');
 add_action('admin_init', 'rsvp_register_settings');
 add_action('init', 'rsvp_init');
