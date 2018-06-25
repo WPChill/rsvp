@@ -2,13 +2,13 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.4.7
+ * @version 2.4.8
  * Plugin Name: RSVP
  * Text Domain: rsvp-plugin
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: Swim or Die Software
- * Version: 2.4.7
+ * Version: 2.4.8
  * Author URI: http://www.swimordiesoftware.com
  * License: GPL
  */
@@ -714,7 +714,7 @@ function rsvp_admin_export()
 
         $associations = $wpdb->get_results($wpdb->prepare($sql, $a->id, $a->id));
         foreach ($associations as $assc) {
-            $csv .= rsvp_handle_text_encoding( trim( stripslashes( $assc->firstName." ".$assc->lastName ) ) )."\r\n";
+            $csv .= rsvp_handle_text_encoding( trim( stripslashes( $assc->firstName." ".$assc->lastName ) ) ).", ";
         }
         $csv .= "\",";
 
