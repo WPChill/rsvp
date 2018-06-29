@@ -773,40 +773,40 @@ function rsvp_handleNewRsvp(&$output, &$text)
         }
     }
 
-    if ((get_option(OPTION_RSVP_GUEST_EMAIL_CONFIRMATION) == "Y") && !empty($_POST['mainEmail'])) {
-        $sql = "SELECT firstName, lastName, email, rsvpStatus FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
+    if ( ( 'Y' === get_option( OPTION_RSVP_GUEST_EMAIL_CONFIRMATION ) ) && ! empty( $_POST['mainEmail'] ) ) {
+        $sql = 'SELECT firstName, lastName, email, rsvpStatus FROM ' . ATTENDEES_TABLE . ' WHERE id= '.$attendeeID;
         $attendee = $wpdb->get_results($sql);
         if (count($attendee) > 0) {
-            $body = __("Hello ", "rsvp-plugin").stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).", \r\n\r\n";
+            $body = __("Hello ", "rsvp-plugin").stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).", <br /><br />";
 
             if (get_option(OPTION_RSVP_EMAIL_TEXT) != "") {
-                $body .= "\r\n";
+                $body .= "<br />";
                 $body .= get_option(OPTION_RSVP_EMAIL_TEXT);
-                $body .= "\r\n";
+                $body .= "<br />";
             }
 
-            $body .= __("You have successfully RSVP'd with", "rsvp-plugin") . " '".$attendee[0]->rsvpStatus."'.";
+            $body .= __("You have successfully RSVP'd with", "rsvp-plugin") . " '".$attendee[0]->rsvpStatus."'.<br /><br />";
 
             $sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
             LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d
             WHERE (q.permissionLevel = 'public' OR
             (q.permissionLevel = 'private' AND q.id IN (SELECT questionID FROM ".QUESTION_ATTENDEES_TABLE." WHERE attendeeID = %d)))
             ORDER BY q.sortOrder, q.id";
-            $aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
-            if (count($aRs) > 0) {
-                foreach ($aRs as $ans) {
-                    $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
-                }
-                $body .= "\r\n";
-            }
+			$aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
+			if ( count( $aRs ) > 0 ) {
+				foreach ( $aRs as $ans ) {
+					$body .= stripslashes( $ans->question ) . ': ' . stripslashes( $ans->answer )."<br />";
+				}
+				$body .= '<br />';
+			}
 
-            $sql = "SELECT firstName, lastName, rsvpStatus, id, email FROM ".ATTENDEES_TABLE."
+			$sql = "SELECT firstName, lastName, rsvpStatus, id, email FROM ".ATTENDEES_TABLE."
 			 	WHERE id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
 					OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d)";
 
             $associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
             if (count($associations) > 0) {
-                $body .= "\r\n\r\n--== " . __("Associated Attendees", "rsvp-plugin") . " ==--\r\n";
+                $body .= "<br /><br />--== " . __("Associated Attendees", "rsvp-plugin") . " ==--<br />";
                 foreach ($associations as $a) {
                     $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
                     $sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
@@ -819,14 +819,14 @@ function rsvp_handleNewRsvp(&$output, &$text)
                         foreach ($aRs as $ans) {
                             $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
                         }
-                        $body .= "\r\n";
+                        $body .= "<br />";
                     }
                 }
             }
             $emailAddy = get_option(OPTION_NOTIFY_EMAIL);
-            $headers = "";
+            $headers = array('Content-Type: text/html; charset=UTF-8');
             if (!empty($emailAddy) && (get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")) {
-                $headers = 'From: '. $emailAddy . "\r\n";
+                $headers[] = 'From: '. $emailAddy . "\r\n";
             }
 
             wp_mail($attendee[0]->email, __("RSVP Confirmation", "rsvp-plugin"), $body, $headers);
@@ -1059,15 +1059,15 @@ function rsvp_handlersvp(&$output, &$text)
             $sql = "SELECT firstName, lastName, email, rsvpStatus FROM ".ATTENDEES_TABLE." WHERE id= ".$attendeeID;
             $attendee = $wpdb->get_results($sql);
             if (count($attendee) > 0) {
-                $body = __("Hello ", "rsvp-plugin") . stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).", \r\n\r\n";
+                $body = __("Hello ", "rsvp-plugin") . stripslashes($attendee[0]->firstName)." ".stripslashes($attendee[0]->lastName).", <br /><br />";
 
                 if (get_option(OPTION_RSVP_EMAIL_TEXT) != "") {
-                    $body .= "\r\n";
+                    $body .= "<br />";
                     $body .= get_option(OPTION_RSVP_EMAIL_TEXT);
-                    $body .= "\r\n";
+                    $body .= "<br />";
                 }
 
-                $body .= __("You have successfully RSVP'd with", "rsvp-plugin") . " '" . $attendee[0]->rsvpStatus . "'.";
+                $body .= __("You have successfully RSVP'd with", "rsvp-plugin") . " '" . $attendee[0]->rsvpStatus . "'.<br />";
 
                 $sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
                 LEFT JOIN ".ATTENDEE_ANSWERS." ans ON q.id = ans.questionID AND ans.attendeeID = %d
@@ -1077,9 +1077,9 @@ function rsvp_handlersvp(&$output, &$text)
                 $aRs = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
                 if (count($aRs) > 0) {
                     foreach ($aRs as $ans) {
-                        $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
+                        $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."<br />";
                     }
-                    $body .= "\r\n";
+                    $body .= "<br />";
                 }
 
                 $sql = "SELECT id, firstName, lastName, rsvpStatus FROM ".ATTENDEES_TABLE."
@@ -1091,7 +1091,7 @@ function rsvp_handlersvp(&$output, &$text)
       				WHERE waa2.associatedAttendeeID = %d AND waa1.attendeeID <> %d))";
                 $associations = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID, $attendeeID, $attendeeID));
                 if (count($associations) > 0) {
-                    $body .= "\r\n\r\n--== " . __("Associated Attendees", "rsvp-plugin") . " ==--\r\n";
+                    $body .= "<br /><br />--== " . __("Associated Attendees", "rsvp-plugin") . " ==--<br />";
                     foreach ($associations as $a) {
                         $body .= stripslashes($a->firstName." ".$a->lastName)." rsvp status: ".$a->rsvpStatus."\r\n";
                         $sql = "SELECT question, answer FROM ".QUESTIONS_TABLE." q
@@ -1102,15 +1102,15 @@ function rsvp_handlersvp(&$output, &$text)
                         $aRs = $wpdb->get_results($wpdb->prepare($sql, $a->id, $a->id));
                         if (count($aRs) > 0) {
                             foreach ($aRs as $ans) {
-                                $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."\r\n";
+                                $body .= stripslashes($ans->question).": ".stripslashes($ans->answer)."<br />";
                             }
-                            $body .= "\r\n";
+                            $body .= "<br />";
                         }
                     }
                 }
-                $headers = "";
+                $headers = array('Content-Type: text/html; charset=UTF-8');
                 if (!empty($email) && (get_option(OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM) != "Y")) {
-                    $headers = 'From: '. $email . "\r\n";
+                    $headers []= 'From: '. $email . "\r\n";
                 }
 
                 wp_mail($attendee[0]->email, __("RSVP Confirmation", "rsvp-plugin"), $body, $headers);
