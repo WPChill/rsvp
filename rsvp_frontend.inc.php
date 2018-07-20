@@ -294,8 +294,8 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp")
                 $form .= "<div class=\"rsvpAdditionalAttendeeQuestions\">\r\n";
                 $form .= rsvp_BeginningFormField("", "").RSVP_START_PARA.sprintf(__(" Will %s be attending?", 'rsvp-plugin'), esc_html(stripslashes($a->firstName." ".$a->lastName))).RSVP_END_PARA.
                     "<input type=\"radio\" name=\"attending".$a->id."\" value=\"Y\" id=\"attending".$a->id."Y\" " . ( ( $a->rsvpStatus === 'Yes' ) ? 'checked="checked"' : '' ) . " /> ".
-                    "<label for=\"attending".$a->id."Y\">$yesText</label>
-					<input type=\"radio\" name=\"attending".$a->id."\" value=\"N\" id=\"attending".$a->id."N\" " . ( ( $a->rsvpStatus === 'No' ) ? 'checked="checked"' : '' ) . " /> ".
+                    "<label for=\"attending".$a->id."Y\">$yesText</label>".
+					"<br/><input type=\"radio\" name=\"attending".$a->id."\" value=\"N\" id=\"attending".$a->id."N\" " . ( ( $a->rsvpStatus === 'No' ) ? 'checked="checked"' : '' ) . " /> ".
                     "<label for=\"attending".$a->id."N\">$noText</label>".
                 RSVP_END_FORM_FIELD;
 
