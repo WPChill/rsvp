@@ -2,13 +2,13 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.5.0
+ * @version 2.5.1
  * Plugin Name: RSVP
  * Text Domain: rsvp-plugin
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: Swim or Die Software
- * Version: 2.5.0
+ * Version: 2.5.1
  * Author URI: http://www.swimordiesoftware.com
  * License: GPL
  */
@@ -376,21 +376,23 @@ function rsvp_admin_guestlist()
     }
 
     $sql = "SELECT id, firstName, lastName, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, personalGreeting, passcode, email, rsvpDate FROM ".ATTENDEES_TABLE;
-    $orderBy = " lastName, firstName";
-    if (isset($_GET['sort'])) {
-        if (strToLower($_GET['sort']) == "rsvpstatus") {
-            $orderBy = " rsvpStatus ".((strtolower($_GET['sortDirection']) == "desc") ? "DESC" : "ASC") .", ".$orderBy;
-        } elseif (strToLower($_GET['sort']) == "attendee") {
-            $direction = ((strtolower($_GET['sortDirection']) == "desc") ? "DESC" : "ASC");
-            $orderBy = " lastName $direction, firstName $direction";
-        } elseif (strToLower($_GET['sort']) == "kidsmeal") {
-            $orderBy = " kidsMeal ".((strtolower($_GET['sortDirection']) == "desc") ? "DESC" : "ASC") .", ".$orderBy;
-        } elseif (strToLower($_GET['sort']) == "additional") {
-            $orderBy = " additionalAttendee ".((strtolower($_GET['sortDirection']) == "desc") ? "DESC" : "ASC") .", ".$orderBy;
-        } elseif (strToLower($_GET['sort']) == "vegetarian") {
-            $orderBy = " veggieMeal ".((strtolower($_GET['sortDirection']) == "desc") ? "DESC" : "ASC") .", ".$orderBy;
-        }
-    }
+	$orderBy = ' lastName, firstName';
+	if ( isset( $_GET['sort'] ) ) {
+		if (strToLower($_GET['sort']) == "rsvpstatus") {
+	    	$orderBy = " rsvpStatus ".((strtolower($_GET['sortDirection']) == "desc") ? "DESC" : "ASC") .", ".$orderBy;
+	    } elseif (strToLower($_GET['sort']) == "attendee") {
+	    	$direction = ((strtolower($_GET['sortDirection']) == "desc") ? "DESC" : "ASC");
+	    	$orderBy = " lastName $direction, firstName $direction";
+	    } elseif (strToLower($_GET['sort']) == "kidsmeal") {
+	    	$orderBy = " kidsMeal ".((strtolower($_GET['sortDirection']) == "desc") ? "DESC" : "ASC") .", ".$orderBy;
+	    } elseif (strToLower($_GET['sort']) == "additional") {
+	    	$orderBy = " additionalAttendee ".((strtolower($_GET['sortDirection']) == "desc") ? "DESC" : "ASC") .", ".$orderBy;
+	    } elseif (strToLower($_GET['sort']) == "vegetarian") {
+	    	$orderBy = " veggieMeal ".((strtolower($_GET['sortDirection']) == "desc") ? "DESC" : "ASC") .", ".$orderBy;
+	    } elseif ( strToLower( $_GET['sort'] === 'rsvpDate' ) ) {
+	    	$orderBy = " rsvpDate ".((strtolower($_GET['sortDirection']) == "desc") ? "DESC" : "ASC") . ', ' . $orderBy;
+	    }
+	}
     $sql .= " ORDER BY ".$orderBy;
     $attendees = $wpdb->get_results($sql);
     $sort = "";
@@ -474,7 +476,16 @@ function rsvp_admin_guestlist()
                                 echo((($sort == "rsvpStatus") && ($sortDirection == "desc")) ? "_selected" : ""); ?>.gif" width="11" height="9"
 								alt="Sort Descending RSVP Status" title="Sort Descending RSVP Status" border="0"></a>
 					</th>
-					<th scope="col" id="rsvpDate" class="manage-column column-title"><?php echo __("RSVP Date", 'rsvp-pro-plugin'); ?></th>
+					<th scope="col" id="rsvpDate" class="manage-column column-title"><?php echo __("RSVP Date", 'rsvp-pro-plugin'); ?><br />
+						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpDate&amp;sortDirection=asc">
+							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
+                                echo((($sort == "rsvpDate") && ($sortDirection == "asc")) ? "_selected" : ""); ?>.gif" width="11" height="9"
+								alt="Sort Ascending RSVP Date" title="Sort Ascending RSVP Date" border="0"></a> &nbsp;
+						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpDate&amp;sortDirection=desc">
+							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
+                                echo((($sort == "rsvpDate") && ($sortDirection == "desc")) ? "_selected" : ""); ?>.gif" width="11" height="9"
+								alt="Sort Descending RSVP Date" title="Sort Descending RSVP Date" border="0"></a>
+					</th>
 					<?php if (get_option(OPTION_HIDE_KIDS_MEAL) != "Y") {
                                     ?>
 					<th scope="col" id="kidsMeal" class="manage-column column-title" style=""><?php echo __("Kids Meal", 'rsvp-plugin'); ?><br />
