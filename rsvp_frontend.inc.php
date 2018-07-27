@@ -8,32 +8,32 @@ $rsvp_saved_form_vars['attendeeFirstName'] = '';
 $rsvp_saved_form_vars['attendeeLastName']  = '';
 
 function rsvp_handle_output( $intial_text, $rsvp_text ) {
-    $rsvp_text = '<a name="rsvpArea" id="rsvpArea"></a>' . $rsvp_text;
-    remove_filter( 'the_content', 'wpautop' );
-    return str_replace( RSVP_FRONTEND_TEXT_CHECK, $rsvp_text, $intial_text );
+	$rsvp_text = '<a name="rsvpArea" id="rsvpArea"></a>' . $rsvp_text;
+	remove_filter( 'the_content', 'wpautop' );
+	return str_replace( RSVP_FRONTEND_TEXT_CHECK, $rsvp_text, $intial_text );
 }
 
-function rsvp_frontend_handler( $text ){
-    global $wpdb;
-    global $rsvp_form_action;
-    $passcodeOptionEnabled = (rsvp_require_passcode()) ? true : false;
-    //QUIT if the replacement string doesn't exist
-    if (!strstr($text, RSVP_FRONTEND_TEXT_CHECK)) {
-        return $text;
-}
+function rsvp_frontend_handler( $text ) {
+	global $wpdb;
+	global $rsvp_form_action;
+	$passcodeOptionEnabled = ( rsvp_require_passcode() ) ? true : false;
+	//QUIT if the replacement string doesn't exist
+	if ( ! strstr( $text, RSVP_FRONTEND_TEXT_CHECK ) ) {
+		return $text;
+	}
 
-    $rsvp_form_action = rsvp_getCurrentPageURL();
+	$rsvp_form_action = rsvp_getCurrentPageURL();
 
-    // See if we should allow people to RSVP, etc...
-    $openDate = get_option(OPTION_OPENDATE);
-    $closeDate = get_option(OPTION_DEADLINE);
-    if ((strtotime($openDate) !== false) && (strtotime($openDate) > time())) {
-        return rsvp_handle_output($text, RSVP_START_PARA.sprintf(__("I am sorry but the ability to RSVP for our wedding won't open till <strong>%s</strong>", 'rsvp-plugin'), date_i18n(get_option('date_format'), strtotime($openDate))).RSVP_END_PARA);
-    }
+	// See if we should allow people to RSVP, etc...
+	$openDate  = get_option( OPTION_OPENDATE );
+	$closeDate = get_option( OPTION_DEADLINE );
+	if ( ( strtotime( $openDate ) !== false ) && ( strtotime( $openDate ) > time() ) ) {
+		return rsvp_handle_output( $text, RSVP_START_PARA . sprintf( __( "I am sorry but the ability to RSVP for our wedding won't open till <strong>%s</strong>", 'rsvp-plugin' ), date_i18n( get_option( 'date_format' ), strtotime( $openDate ) ) ).RSVP_END_PARA );
+	}
 
-    if ((strtotime($closeDate) !== false) && (strtotime($closeDate) < time())) {
-        return rsvp_handle_output($text, RSVP_START_PARA.__("The deadline to RSVP for this event has passed.", 'rsvp-plugin').RSVP_END_PARA);
-    }
+	if ((strtotime($closeDate) !== false) && (strtotime($closeDate) < time())) {
+		return rsvp_handle_output($text, RSVP_START_PARA.__("The deadline to RSVP for this event has passed.", 'rsvp-plugin').RSVP_END_PARA);
+	}
 
     if (isset($_POST['rsvpStep'])) {
         $output = "";
@@ -236,7 +236,7 @@ function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp")
 
     $form .= RSVP_END_PARA.
     rsvp_BeginningFormField("", "").
-    "<input type=\"radio\" name=\"mainRsvp\" value=\"Y\" id=\"mainRsvpY\" ".((($attendee->rsvpStatus == "No") || ($rsvp_saved_form_vars['mainRsvp'] == "N")) ? "" : "checked=\"checked\"")." class=\"form-control\" /> <label for=\"mainRsvpY\">".$yesVerbiage."</label>".
+    "<input type=\"radio\" name=\"mainRsvp\" value=\"Y\" id=\"mainRsvpY\" ".((($attendee->rsvpStatus == "No") || ($rsvp_saved_form_vars['mainRsvp'] == "N")) ? "" : "checked=\"checked\"")." /> <label for=\"mainRsvpY\">".$yesVerbiage."</label>".
     RSVP_END_FORM_FIELD.
     rsvp_BeginningFormField("", "").
       "<input type=\"radio\" name=\"mainRsvp\" value=\"N\" id=\"mainRsvpN\" ".((($attendee->rsvpStatus == "No") || ($rsvp_saved_form_vars['mainRsvp'] == "N")) ? "checked=\"checked\"" : "")." /> ".
