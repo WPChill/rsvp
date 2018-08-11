@@ -2,13 +2,13 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.5.2
+ * @version 2.5.3
  * Plugin Name: RSVP
  * Text Domain: rsvp-plugin
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: Swim or Die Software
- * Version: 2.5.2
+ * Version: 2.5.3
  * Author URI: http://www.swimordiesoftware.com
  * License: GPL
  */
@@ -89,18 +89,22 @@ if ((isset($_GET['page']) && (strToLower($_GET['page']) == 'rsvp-admin-export'))
     add_action('init', 'rsvp_admin_export');
 }
 
-require_once('external-libs/wp-simple-nonce/wp-simple-nonce.php');
-require_once("rsvp_frontend.inc.php");
-/*
- * Description: Database setup for the rsvp plug-in.
+require_once 'external-libs/wp-simple-nonce/wp-simple-nonce.php';
+require_once 'rsvp_frontend.inc.php';
+
+/**
+ * Database setup for the rsvp plug-in.
  */
-function rsvp_database_setup()
-{
-    global $wpdb;
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    require_once("rsvp_db_setup.inc.php");
+function rsvp_database_setup() {
+	global $wpdb;
+	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	require_once("rsvp_db_setup.inc.php");
 }
 
+/**
+ * Checks to see if the passcode field is installed in the attendees table, if not
+ * it will add the field.
+ */
 function rsvp_install_passcode_field()
 {
     global $wpdb;
@@ -783,29 +787,31 @@ function rsvp_admin_export()
     exit();
 }
 
-function rsvp_admin_import()
-{
-    global $wpdb;
-    if (count($_FILES) > 0) {
-        check_admin_referer('rsvp-import');
-        require('spreadsheet-reader/php-excel-reader/excel_reader2.php');
-        require('spreadsheet-reader/SpreadsheetReader.php');
+/**
+ * Handles importing of attendees.
+ */
+function rsvp_admin_import() {
+	global $wpdb;
+	if (count($_FILES) > 0) {
+		check_admin_referer('rsvp-import');
+		require('spreadsheet-reader/php-excel-reader/excel_reader2.php');
+		require('spreadsheet-reader/SpreadsheetReader.php');
 
-        $data = new SpreadsheetReader($_FILES['importFile']['tmp_name'], $_FILES['importFile']['name']);
-        $numCols = count($data->current());
+		$data = new SpreadsheetReader($_FILES['importFile']['tmp_name'], $_FILES['importFile']['name']);
+		$numCols = count( $data->current() );
 
-        if ($numCols >= 2) {
-            $headerRow = array();
-            $count = 0;
-            $i = 0;
+		if ( $numCols >= 2 ) {
+			$headerRow = array();
+			$count = 0;
+			$i = 0;
 
-            foreach ($data as $row) {
-                if ($i > 0) {
+			foreach ( $data as $row ) {
+				if ( $i > 0 ) {
                     $fName = trim($row[0]);
-                    $fName = rsvp_handle_text_encoding( $fName );
+                    $fName = rsvp_smart_quote_replace( rsvp_handle_text_encoding( $fName ) );
 
                     $lName = trim($row[1]);
-                    $lName = rsvp_handle_text_encoding( $lName );
+                    $lName = rsvp_smart_quote_replace( rsvp_handle_text_encoding( $lName ) );
                     $email = trim($row[2]);
                     $rsvpStatus = "noresponse";
                     if (isset($row[3])) {
@@ -994,40 +1000,46 @@ function rsvp_admin_import()
     }
 }
 
-function rsvp_admin_guest()
-{
+/**
+ * Handles the displaying of the attendee edit form.
+ */
+function rsvp_admin_guest() {
     global $wpdb;
     if ((count($_POST) > 0) && !empty($_POST['firstName']) && !empty($_POST['lastName'])) {
         check_admin_referer('rsvp_add_guest');
         $passcode = (isset($_POST['passcode'])) ? $_POST['passcode'] : "";
 
         if (isset($_POST['attendeeId']) && is_numeric($_POST['attendeeId']) && ($_POST['attendeeId'] > 0)) {
-            $wpdb->update(
-                ATTENDEES_TABLE,
-                array("firstName" => trim($_POST['firstName']),
-						"lastName" => trim($_POST['lastName']),
-                        "email" => trim($_POST['email']),
-						"personalGreeting" => trim($_POST['personalGreeting']),
-						"rsvpStatus" => trim($_POST['rsvpStatus'])),
-                array("id" => $_POST['attendeeId']),
-                array("%s", "%s", "%s", "%s", "%s"),
-                array("%d")
-            );
-            $attendeeId = $_POST['attendeeId'];
-            $wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeId = %d", $attendeeId));
-            $wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d", $attendeeId));
-        } else {
-            $wpdb->insert(
-                ATTENDEES_TABLE,
-                array("firstName" => trim($_POST['firstName']),
-                     "lastName" => trim($_POST['lastName']),
-                     "email" => trim($_POST['email']),
-                     "personalGreeting" => trim($_POST['personalGreeting']),
-                     "rsvpStatus" => trim($_POST['rsvpStatus'])),
-               	array('%s', '%s', '%s', '%s', '%s')
-            );
+			$wpdb->update(
+				ATTENDEES_TABLE,
+				array(
+					'firstName'        => rsvp_smart_quote_replace( trim( wp_unslash( $_POST['firstName'] ) ) ),
+					'lastName'         => rsvp_smart_quote_replace( trim( wp_unslash( $_POST['lastName'] ) ) ),
+					'email'            => trim( wp_unslash( $_POST['email'] ) ),
+					'personalGreeting' => trim( wp_unslash( $_POST['personalGreeting'] ) ),
+					'rsvpStatus'       => trim( wp_unslash( $_POST['rsvpStatus'] ) )
+				),
+				array( 'id' => $_POST['attendeeId'] ),
+				array( '%s', '%s', '%s', '%s', '%s' ),
+				array( '%d' )
+			);
+			$attendeeId = $_POST['attendeeId'];
+			$wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeId = %d", $attendeeId));
+			$wpdb->query($wpdb->prepare("DELETE FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d", $attendeeId));
+		} else {
+			$wpdb->insert(
+				ATTENDEES_TABLE,
+				array(
+					'firstName'        => rsvp_smart_quote_replace( trim( $_POST['firstName'] ) ),
+					'lastName'         => rsvp_smart_quote_replace( trim( $_POST['lastName'] ) ),
+					'email'            => trim($_POST['email']),
+					'personalGreeting' => trim($_POST['personalGreeting']),
+					'rsvpStatus'       => trim($_POST['rsvpStatus'])
+				),
+				array( '%s', '%s', '%s', '%s', '%s' )
+			);
 
-            $attendeeId = $wpdb->insert_id;
+			$attendeeId = $wpdb->insert_id;
         }
         if (isset($_POST['associatedAttendees']) && is_array($_POST['associatedAttendees'])) {
             foreach ($_POST['associatedAttendees'] as $aid) {
@@ -1948,21 +1960,36 @@ function rsvp_data_exporter_custom_questions( $attendee_id, $export_items ) {
 }
 
 /**
+ * Replace a smart quote with an actual single-quote so that people can
+ * find themselves when they do a search on the front-end.
+ *
+ * @param  string $in The string we want to replace smart-quotes with single-quotes.
+ * @return string     The string that has had the values replaced.
+ */
+function rsvp_smart_quote_replace( $in ) {
+	return str_replace( '’', '\'', $in );
+}
+
+/**
  * Registers the RSVP data exporter to WP core
  * @param  array  $exporters The current array of exporters registered with this WP instance
  * @return array             The exporters array now with the RSVP exporter added
  */
 function rsvp_register_data_exporter( $exporters ) {
-    $exporters['rsvp-plugin'] = array(
-        'exporter_friendly_name' => __( 'RSVP Plugin', 'rsvp_plugin'),
-        'callback' => 'rsvp_data_exporter_handler',
-    );
-    return $exporters;
+	$exporters['rsvp-plugin'] = array(
+		'exporter_friendly_name' => __( 'RSVP Plugin', 'rsvp_plugin' ),
+		'callback'               => 'rsvp_data_exporter_handler',
+	);
+	return $exporters;
 }
 
-function rsvpshortcode_func($atts)
-{
-	return rsvp_frontend_handler("rsvp-pluginhere");
+/**
+ * RSVP shortcode handler
+ * @param  array  $atts The array of attributes for this shortcode.
+ * @return string       The output of the page.
+ */
+function rsvpshortcode_func( $atts ) {
+	return rsvp_frontend_handler( 'rsvp-pluginhere ');
 }
 add_shortcode('rsvp', 'rsvpshortcode_func');
 

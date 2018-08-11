@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, event, event management, attendee management, event planning, wedding planning, event registration, events, events management, events registration, reserve, wedding, guestlist
 Requires at least: 3.0
 Tested up to: 4.9.5
-Stable tag: 2.5.2
+Stable tag: 2.5.3
 
 The RSVP Plugin was created to be a straightforward event management plugin to handle registrations for a single event.
 
@@ -96,6 +96,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.5.3 =
+* Did a replace of smart/stylized single quotes when importing or adding an attendee. This is to handle the case where another program replaces the smart-quote and attendees try to find themselves but they can't because of the smart-quote
 
 = 2.5.2 =
 * Removed a CSS class for the primary "Yes" for RSVP. As it was causing issues with themes.
