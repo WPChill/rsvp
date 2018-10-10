@@ -36,7 +36,6 @@ Looking for some additional functionality?
 * Public attendee lists
 * Ability to send mass emails
 * More info at <a target="_new" href="https://www.rsvpproplugin.com"/>https://rsvpproplugin.com</a>
-* <a target="_new" href="https://demo.rsvpproplugin.com">Demo available here</a>
 
 = SUBMITTING PATCHES =
 What?! You found a bug, well we'd love to have a patch or issue posted at our <a href="https://github.com/SwimOrDieSoftware/Wordpress-RSVP-Plugin" target="_blank">GitHub page for RSVP Plugin.</a> If for whatever reason we don't want to accept a request we will tell you why and work with you to figure out a way to get it accepted. Also, if your pull request is accepted we will credit you in the plugin's changelog.
