@@ -2,13 +2,13 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.5.4
+ * @version 2.5.5
  * Plugin Name: RSVP
  * Text Domain: rsvp-plugin
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: Swim or Die Software
- * Version: 2.5.4
+ * Version: 2.5.5
  * Author URI: http://www.swimordiesoftware.com
  * License: GPL
  */
@@ -19,66 +19,66 @@
 //        To add, edit, delete and see rsvp status there will be a new RSVP admin
 //        area just go there.
 //        To allow people to rsvp create a new page and add "[rsvp]" to the text
-define("ATTENDEES_TABLE", $wpdb->prefix."attendees");
-define("ASSOCIATED_ATTENDEES_TABLE", $wpdb->prefix."associatedAttendees");
-define("QUESTIONS_TABLE", $wpdb->prefix."rsvpCustomQuestions");
-define("QUESTION_TYPE_TABLE", $wpdb->prefix."rsvpQuestionTypes");
-define("ATTENDEE_ANSWERS", $wpdb->prefix."attendeeAnswers");
-define("QUESTION_ANSWERS_TABLE", $wpdb->prefix."rsvpCustomQuestionAnswers");
-define("QUESTION_ATTENDEES_TABLE", $wpdb->prefix."rsvpCustomQuestionAttendees");
-define("RSVP_FRONTEND_TEXT_CHECK", "rsvp-pluginhere");
-define("OPTION_GREETING", "rsvp_custom_greeting");
-define("OPTION_THANKYOU", "rsvp_custom_thankyou");
-define("OPTION_DEADLINE", "rsvp_deadline");
-define("OPTION_OPENDATE", 'rsvp_opendate');
-define("OPTION_YES_VERBIAGE", "rsvp_yes_verbiage");
-define("OPTION_NO_VERBIAGE", "rsvp_no_verbiage");
-define("OPTION_KIDS_MEAL_VERBIAGE", "rsvp_kids_meal_verbiage");
-define("OPTION_VEGGIE_MEAL_VERBIAGE", "rsvp_veggie_meal_verbiage");
-define("OPTION_NOTE_VERBIAGE", "rsvp_note_verbiage");
-define("RSVP_OPTION_HIDE_NOTE", "rsvp_hide_note_field");
-define("OPTION_HIDE_VEGGIE", "rsvp_hide_veggie");
-define("OPTION_HIDE_KIDS_MEAL", "rsvp_hide_kids_meal");
-define("OPTION_HIDE_ADD_ADDITIONAL", "rsvp_hide_add_additional");
-define("OPTION_NOTIFY_ON_RSVP", "rsvp_notify_when_rsvp");
-define("OPTION_NOTIFY_EMAIL", "rsvp_notify_email_address");
-define("OPTION_DEBUG_RSVP_QUERIES", "rsvp_debug_queries");
-define("OPTION_WELCOME_TEXT", "rsvp_custom_welcome");
-define("OPTION_RSVP_QUESTION", "rsvp_custom_question_text");
-define("OPTION_RSVP_CUSTOM_YES_NO", "rsvp_custom_yes_no");
-define("OPTION_RSVP_PASSCODE", "rsvp_passcode");
-define("OPTION_RSVP_OPEN_REGISTRATION", "rsvp_open_registration");
-define("OPTION_RSVP_DONT_USE_HASH", "rsvp_dont_use_has");
-define("OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE", "rsvp_add_additional_verbiage");
-define("OPTION_RSVP_GUEST_EMAIL_CONFIRMATION", "rsvp_guest_email_confirmation");
-define("OPTION_RSVP_NUM_ADDITIONAL_GUESTS", "rsvp_num_additional_guests");
-define("OPTION_RSVP_HIDE_EMAIL_FIELD", "rsvp_hide_email_field");
-define("OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM", "rsvp_disable_custom_from_email");
-define("OPTION_RSVP_ONLY_PASSCODE", "rsvp_only_passcode");
-define("OPTION_RSVP_EMAIL_TEXT", "rsvp_email_text");
-define("OPTION_RSVP_DISABLE_USER_SEARCH", "rsvp_disable_user_search");
-define("RSVP_OPTION_DELETE_DATA_ON_UNINSTALL", "rsvp_delete_data_on_uninstall");
-define("RSVP_OPTION_CSS_STYLING", "rsvp_css_styling");
-define("RSVP_DB_VERSION", "11");
-define("QT_SHORT", "shortAnswer");
-define("QT_MULTI", "multipleChoice");
-define("QT_LONG", "longAnswer");
-define("QT_DROP", "dropdown");
-define("QT_RADIO", "radio");
-define("RSVP_START_PARA", "<p class=\"rsvpParagraph\">");
-define("RSVP_END_PARA", "</p>\r\n");
-define("RSVP_START_CONTAINER", "<div id=\"rsvpPlugin\">\r\n");
-define("RSVP_END_CONTAINER", "</div>\r\n");
-define("RSVP_START_FORM_FIELD", "<div class=\"rsvpFormField\">\r\n");
-define("RSVP_END_FORM_FIELD", "</div>\r\n");
+define( 'ATTENDEES_TABLE', $wpdb->prefix."attendees" );
+define( 'ASSOCIATED_ATTENDEES_TABLE', $wpdb->prefix."associatedAttendees" );
+define( 'QUESTIONS_TABLE', $wpdb->prefix."rsvpCustomQuestions" );
+define( 'QUESTION_TYPE_TABLE', $wpdb->prefix."rsvpQuestionTypes" );
+define( 'ATTENDEE_ANSWERS', $wpdb->prefix."attendeeAnswers" );
+define( 'QUESTION_ANSWERS_TABLE', $wpdb->prefix."rsvpCustomQuestionAnswers" );
+define( 'QUESTION_ATTENDEES_TABLE', $wpdb->prefix."rsvpCustomQuestionAttendees" );
+define( 'RSVP_FRONTEND_TEXT_CHECK', "rsvp-pluginhere" );
+define( 'OPTION_GREETING', "rsvp_custom_greeting" );
+define( 'OPTION_THANKYOU', "rsvp_custom_thankyou" );
+define( 'OPTION_DEADLINE', "rsvp_deadline" );
+define( 'OPTION_OPENDATE', 'rsvp_opendate' );
+define( 'OPTION_YES_VERBIAGE', "rsvp_yes_verbiage" );
+define( 'OPTION_NO_VERBIAGE', "rsvp_no_verbiage" );
+define( 'OPTION_KIDS_MEAL_VERBIAGE', "rsvp_kids_meal_verbiage" );
+define( 'OPTION_VEGGIE_MEAL_VERBIAGE', "rsvp_veggie_meal_verbiage" );
+define( 'OPTION_NOTE_VERBIAGE', "rsvp_note_verbiage" );
+define( 'RSVP_OPTION_HIDE_NOTE', "rsvp_hide_note_field" );
+define( 'OPTION_HIDE_VEGGIE', "rsvp_hide_veggie" );
+define( 'OPTION_HIDE_KIDS_MEAL', "rsvp_hide_kids_meal" );
+define( 'OPTION_HIDE_ADD_ADDITIONAL', "rsvp_hide_add_additional" );
+define( 'OPTION_NOTIFY_ON_RSVP', "rsvp_notify_when_rsvp" );
+define( 'OPTION_NOTIFY_EMAIL', "rsvp_notify_email_address" );
+define( 'OPTION_DEBUG_RSVP_QUERIES', "rsvp_debug_queries" );
+define( 'OPTION_WELCOME_TEXT', "rsvp_custom_welcome" );
+define( 'OPTION_RSVP_QUESTION', "rsvp_custom_question_text" );
+define( 'OPTION_RSVP_CUSTOM_YES_NO', "rsvp_custom_yes_no" );
+define( 'OPTION_RSVP_PASSCODE', "rsvp_passcode" );
+define( 'OPTION_RSVP_OPEN_REGISTRATION', "rsvp_open_registration" );
+define( 'OPTION_RSVP_DONT_USE_HASH', "rsvp_dont_use_has" );
+define( 'OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE', "rsvp_add_additional_verbiage" );
+define( 'OPTION_RSVP_GUEST_EMAIL_CONFIRMATION', "rsvp_guest_email_confirmation" );
+define( 'OPTION_RSVP_NUM_ADDITIONAL_GUESTS', "rsvp_num_additional_guests" );
+define( 'OPTION_RSVP_HIDE_EMAIL_FIELD', "rsvp_hide_email_field" );
+define( 'OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM', "rsvp_disable_custom_from_email" );
+define( 'OPTION_RSVP_ONLY_PASSCODE', "rsvp_only_passcode" );
+define( 'OPTION_RSVP_EMAIL_TEXT', "rsvp_email_text" );
+define( 'OPTION_RSVP_DISABLE_USER_SEARCH', "rsvp_disable_user_search" );
+define( 'RSVP_OPTION_DELETE_DATA_ON_UNINSTALL', "rsvp_delete_data_on_uninstall" );
+define( 'RSVP_OPTION_CSS_STYLING', "rsvp_css_styling" );
+define( 'RSVP_DB_VERSION', "11" );
+define( 'QT_SHORT', "shortAnswer" );
+define( 'QT_MULTI', "multipleChoice" );
+define( 'QT_LONG', "longAnswer" );
+define( 'QT_DROP', "dropdown" );
+define( 'QT_RADIO', "radio" );
+define( 'RSVP_START_PARA', "<p class=\"rsvpParagraph\">" );
+define( 'RSVP_END_PARA', "</p>\r\n" );
+define( 'RSVP_START_CONTAINER', "<div id=\"rsvpPlugin\">\r\n" );
+define( 'RSVP_END_CONTAINER', "</div>\r\n" );
+define( 'RSVP_START_FORM_FIELD', "<div class=\"rsvpFormField\">\r\n" );
+define( 'RSVP_END_FORM_FIELD', "</div>\r\n" );
 
 $my_plugin_file = __FILE__;
 
-if (isset($plugin)) {
+if ( isset( $plugin ) ) {
     $my_plugin_file = $plugin;
-} elseif (isset($mu_plugin)) {
+} elseif ( isset( $mu_plugin ) ) {
     $my_plugin_file = $mu_plugin;
-} elseif (isset($network_plugin)) {
+} elseif ( isset( $network_plugin ) ) {
     $my_plugin_file = $network_plugin;
 }
 
@@ -1724,35 +1724,38 @@ function rsvp_admin_scripts()
     wp_enqueue_script("rsvp_admin");
 }
 
-function rsvp_init()
-{
-    load_plugin_textdomain('rsvp-plugin', false, basename(dirname(__FILE__)) . '/languages/');
-    wp_register_script('jquery_validate',  plugins_url("jquery.validate.min.js", RSVP_PLUGIN_FILE) );
-    wp_register_script('rsvp_plugin', plugins_url("rsvp_plugin.js", RSVP_PLUGIN_FILE));
-    wp_localize_script(
-            'rsvp_plugin',
-            'rsvp_plugin_vars',
-            array(
-                               'askEmail' => __("Please enter an email address that we can use to contact you about the extra guest.  We have to keep a pretty close eye on the number of attendees.  Thanks!", 'rsvp-plugin'),
-                               'customNote' => __("If you are adding additional RSVPs please enter your email address in case we have questions", 'rsvp-plugin'),
-                               'newAttending1LastName' => __("Please enter a last name", 'rsvp-plugin'),
-                               'newAttending1FirstName' => __("Please enter a first name", 'rsvp-plugin'),
-                               'newAttending2LastName' => __("Please enter a last name", 'rsvp-plugin'),
-                               'newAttending2FirstName' => __("Please enter a first name", 'rsvp-plugin'),
-                               'newAttending3LastName' => __("Please enter a last name", 'rsvp-plugin'),
-                               'newAttending3FirstName' => __("Please enter a first name", 'rsvp-plugin'),
-                               'attendeeFirstName' => __("Please enter a first name", 'rsvp-plugin'),
-                               'attendeeLastName' => __("Please enter a last name", 'rsvp-plugin'),
-                               'firstName' => __("Please enter your first name", 'rsvp-plugin'),
-                               'lastName' => __("Please enter your last name", 'rsvp-plugin'),
-                               'passcode' => __("Please enter your password", 'rsvp-plugin')
-                               )
-            );
-    wp_register_style('rsvp_css', plugins_url("rsvp_plugin.css", RSVP_PLUGIN_FILE));
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('jquery_validate');
-    wp_enqueue_script('rsvp_plugin');
-    wp_enqueue_style("rsvp_css");
+/**
+ * Function for loading the needed assets for the plugin.
+ */
+function rsvp_init() {
+	load_plugin_textdomain( 'rsvp-plugin', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+	wp_register_script( 'jquery_validate', plugins_url( 'jquery.validate.min.js', RSVP_PLUGIN_FILE ), array( 'jquery' ) );
+	wp_register_script( 'rsvp_plugin', plugins_url( 'rsvp_plugin.js', RSVP_PLUGIN_FILE ), array( 'jquery' ) );
+	wp_localize_script(
+		'rsvp_plugin',
+		'rsvp_plugin_vars',
+		array(
+			'askEmail'               => __( 'Please enter an email address that we can use to contact you about the extra guest.  We have to keep a pretty close eye on the number of attendees.  Thanks!', 'rsvp-plugin' ),
+			'customNote'             => __( 'If you are adding additional RSVPs please enter your email address in case we have questions', 'rsvp-plugin' ),
+			'newAttending1LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
+			'newAttending1FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
+			'newAttending2LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
+			'newAttending2FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
+			'newAttending3LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
+			'newAttending3FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
+			'attendeeFirstName'      => __( 'Please enter a first name', 'rsvp-plugin' ),
+			'attendeeLastName'       => __( 'Please enter a last name', 'rsvp-plugin' ),
+			'firstName'              => __( 'Please enter your first name', 'rsvp-plugin' ),
+			'lastName'               => __( 'Please enter your last name', 'rsvp-plugin' ),
+			'passcode'               => __( 'Please enter your password', 'rsvp-plugin' ),
+		)
+	);
+
+	wp_register_style( 'rsvp_css', plugins_url( 'rsvp_plugin.css', RSVP_PLUGIN_FILE ) );
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'jquery_validate' );
+	wp_enqueue_script( 'rsvp_plugin' );
+	wp_enqueue_style( 'rsvp_css' );
 }
 
 /**
@@ -1826,18 +1829,17 @@ function rsvp_getCurrentPageURL()
 	}
 
 	if (get_option(OPTION_RSVP_DONT_USE_HASH) != "Y") {
-	    $pageURL .= "#rsvpArea";
+		$pageURL .= "#rsvpArea";
 	}
 	return $pageURL;
 }
 
-function rsvp_add_css()
-{
-	$css = get_option(RSVP_OPTION_CSS_STYLING);
+function rsvp_add_css() {
+	$css = get_option( RSVP_OPTION_CSS_STYLING );
 
-	if (!empty($css)) {
-		$output = "<!-- RSVP Free Styling -->";
-		$output .= "<style type=\"text/css\">" . $css . "</style>";
+	if ( !empty( $css ) ) {
+		$output = '<!-- RSVP Free Styling -->';
+		$output .= '<style type="text/css">' . $css . '</style>';
 
 		echo $output;
 	}
@@ -1845,119 +1847,120 @@ function rsvp_add_css()
 
 function rsvp_add_privacy_policy_content() {
 	if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
-        return;
-    }
- 
-    $content = __( 'All information entered either from an attendee or a WordPress admin for the RSVP 
-             plugin is never sent to external sites. The data stays in database tables 
-            on the WordPress instance.',
-        'rsvp_plugin' );
- 
-    wp_add_privacy_policy_content(
-        'RSVP Plugin',
-        wp_kses_post( wpautop( $content, false ) )
-    );
+		return;
+	}
+
+	$content = __( 'All information entered either from an attendee or a WordPress admin for the RSVP 
+	         plugin is never sent to external sites. The data stays in database tables 
+	        on the WordPress instance.',
+		'rsvp_plugin' );
+
+	wp_add_privacy_policy_content(
+		'RSVP Plugin',
+		wp_kses_post( wpautop( $content, false ) )
+	);
 }
 
 /**
  * Handles the data erasing for a given email address. 
- * 
- * @param  string  $email_address The email address we want to delete from the attendees table
- * @param  integer $page          The page we are on
- * @return array                  An array containing how many attendees were deleted
+ *
+ * @param  string  $email_address The email address we want to delete from the attendees table.
+ * @param  integer $page          The page we are on.
+ * @return array                  An array containing how many attendees were deleted.
  */
 function rsvp_data_eraser_handler( $email_address, $page = 1 ) {
-    global $wpdb;
+	global $wpdb;
 
-    $num_deleted = 0;
-    $sql = "SELECT id FROM " . ATTENDEES_TABLE . " WHERE email = %s";
-    $attendees = $wpdb->get_results( $wpdb->prepare( $sql, $email_address ) );
-    foreach( $attendees as $a ) {
-        rsvp_delete_attendee( $a->id );
-        $num_deleted++;
-    }
+	$num_deleted = 0;
+	$sql = "SELECT id FROM " . ATTENDEES_TABLE . " WHERE email = %s";
+	$attendees = $wpdb->get_results( $wpdb->prepare( $sql, $email_address ) );
+	foreach( $attendees as $a ) {
+		rsvp_delete_attendee( $a->id );
+		$num_deleted++;
+	}
 
-    return array( 'items_removed' => $num_deleted,
-        'items_retained' => false, // We never retain items
-        'messages' => array( __('RSVP Data Erased Successfully', 'rsvp-plugin') ), 
-        'done' => true,
-    );
+	return array(
+    	'items_removed'  => $num_deleted,
+		'items_retained' => false,// We never retain items.
+		'messages'       => array( __('RSVP Data Erased Successfully', 'rsvp-plugin') ),
+		'done'           => true,
+	);
 }
 
 /**
  * The data eraser registration that lets the core of WP know 
  * we can handle erasing of the RSVP Plugin information 
  * if it is ever requested. 
- * 
- * @param  array  $erasers The array of erasers already registered with this WP instance
- * @return array           The erasers array now with the RSVP eraser added
+ *
+ * @param  array  $erasers The array of erasers already registered with this WP instance.
+ * @return array           The erasers array now with the RSVP eraser added.
  */
 function rsvp_register_data_eraser( $erasers ) {
-    $erasers['rsvp-plugin'] = array(
-        'eraser_friendly_name' => __( 'RSVP Plugin', 'rsvp-plugin'),
-        'callback'             => 'rsvp_data_eraser_handler',
-    );
-    return $erasers;
+	$erasers['rsvp-plugin'] = array(
+		'eraser_friendly_name' => __( 'RSVP Plugin', 'rsvp-plugin'),
+		'callback'             => 'rsvp_data_eraser_handler',
+	);
+	return $erasers;
 }
 
 /**
  * Retrieves and packages up the exporter information for the new WordPress compliance functionality
- * 
- * @param  string  $email_address The email address we need to export the information for
- * @param  integer $page          The current page
- * @return array                  Containing the information and if everything is done being exported
+ *
+ * @param  string  $email_address The email address we need to export the information for.
+ * @param  integer $page          The current page.
+ * @return array                  Containing the information and if everything is done being exported.
  */
 function rsvp_data_exporter_handler( $email_address, $page = 1 ) {
-    global $wpdb;
+	global $wpdb;
 
-    $export_items = array();
-    $sql = "SELECT a.id, a.firstName, a.lastName, a.rsvpDate, 
+	$export_items = array();
+	$sql = "SELECT a.id, a.firstName, a.lastName, a.rsvpDate, 
       a.rsvpStatus, a.note, a.additionalAttendee, a.kidsMeal, 
       a.veggieMeal, a.personalGreeting
     FROM " . ATTENDEES_TABLE . " a 
     WHERE email = %s";
-    $attendees = $wpdb->get_results( $wpdb->prepare( $sql, $email_address ) );
-    foreach( $attendees as $a ) {
-        $export_items['firstName'] = stripslashes( $a->firstName );
-        $export_items['lastName'] = stripslashes( $a->lastName );
-        $export_items['rsvpDate'] = $a->rsvpDate;
-        $export_items['rsvpStatus'] = stripslashes( $a->rsvpStatus );
-        $export_items['note'] = stripslashes( $a->note );
-        $export_items['additionalAttendee'] = stripslashes( $a->additionalAttendee );
-        $export_items['personalGreeting'] = stripslashes( $a->personalGreeting );
-        $export_items['veggieMeal'] = stripslashes( $a->veggieMeal );
-        $export_items['kidsMeal'] = stripslashes( $a->kidsMeal );
-        
-        // Print out the custom question information for the main event
-        $export_items = rsvp_data_exporter_custom_questions( $a->id, $export_items );      
-    }
+	$attendees = $wpdb->get_results( $wpdb->prepare( $sql, $email_address ) );
+	foreach ( $attendees as $a ) {
+		$export_items['firstName']          = stripslashes( $a->firstName );
+		$export_items['lastName']           = stripslashes( $a->lastName );
+		$export_items['rsvpDate']           = $a->rsvpDate;
+		$export_items['rsvpStatus']         = stripslashes( $a->rsvpStatus );
+		$export_items['note']               = stripslashes( $a->note );
+		$export_items['additionalAttendee'] = stripslashes( $a->additionalAttendee );
+		$export_items['personalGreeting']   = stripslashes( $a->personalGreeting );
+		$export_items['veggieMeal']         = stripslashes( $a->veggieMeal );
+		$export_items['kidsMeal']           = stripslashes( $a->kidsMeal );
 
-    return array(
-        'data' => $export_items,
-        'done' => true,
-    );
+		// Print out the custom question information for the main event.
+		$export_items = rsvp_data_exporter_custom_questions( $a->id, $export_items );
+	}
+
+	return array(
+		'data' => $export_items,
+		'done' => true,
+	);
 }
 
 /**
  * Retrieves the custom question and answers for export
- * 
- * @param  integer $attendee_id  The attendee we want to get the answers for
- * @param  array   $export_items The current exported items that we need to add to
- * @return array                 The export items with the custom questions added for the event passed in
+ *
+ * @param  integer $attendee_id  The attendee we want to get the answers for.
+ * @param  array   $export_items The current exported items that we need to add to.
+ * @return array                 The export items with the custom questions added for the event passed in.
  */
 function rsvp_data_exporter_custom_questions( $attendee_id, $export_items ) {
-    global $wpdb;
+	global $wpdb;
 
-    $sql = "SELECT answer, question FROM " . ATTENDEE_ANSWERS . " aa 
-    JOIN " . QUESTIONS_TABLE . " q ON q.id = aa.questionID 
-    WHERE aa.attendeeID = %d";
+	$sql = "SELECT answer, question FROM " . ATTENDEE_ANSWERS . " aa 
+	JOIN " . QUESTIONS_TABLE . " q ON q.id = aa.questionID 
+	WHERE aa.attendeeID = %d";
 
-    $custom_questions = $wpdb->get_results( $wpdb->prepare( $sql, $attendee_id ) );
-    foreach( $custom_questions as $cq ) {
-        $export_items[stripslashes($cq->question)] = stripslashes( $cq->answer );
-    } 
+	$custom_questions = $wpdb->get_results( $wpdb->prepare( $sql, $attendee_id ) );
+	foreach( $custom_questions as $cq ) {
+		$export_items[stripslashes( $cq->question )] = stripslashes( $cq->answer );
+	} 
 
-    return $export_items;
+	return $export_items;
 }
 
 /**
@@ -1973,8 +1976,9 @@ function rsvp_smart_quote_replace( $in ) {
 
 /**
  * Registers the RSVP data exporter to WP core
- * @param  array  $exporters The current array of exporters registered with this WP instance
- * @return array             The exporters array now with the RSVP exporter added
+ *
+ * @param  array  $exporters The current array of exporters registered with this WP instance.
+ * @return array             The exporters array now with the RSVP exporter added.
  */
 function rsvp_register_data_exporter( $exporters ) {
 	$exporters['rsvp-plugin'] = array(
@@ -1986,21 +1990,20 @@ function rsvp_register_data_exporter( $exporters ) {
 
 /**
  * RSVP shortcode handler
+ *
  * @param  array  $atts The array of attributes for this shortcode.
  * @return string       The output of the page.
  */
 function rsvpshortcode_func( $atts ) {
 	return rsvp_frontend_handler( 'rsvp-pluginhere ');
 }
-add_shortcode('rsvp', 'rsvpshortcode_func');
-
-add_action( 'admin_init', 'rsvp_add_privacy_policy_content');
+add_shortcode( 'rsvp', 'rsvpshortcode_func' );
+add_action( 'admin_init', 'rsvp_add_privacy_policy_content' );
 add_filter( 'wp_privacy_personal_data_erasers', 'rsvp_register_data_eraser', 10 );
 add_filter( 'wp_privacy_personal_data_exporters', 'rsvp_register_data_exporter', 10 );
-add_action('admin_menu', 'rsvp_modify_menu');
-add_action('admin_init', 'rsvp_register_settings');
-add_action('init', 'rsvp_init');
-add_action('wp_head', 'rsvp_add_css');
-add_filter('the_content', 'rsvp_frontend_handler');
-register_activation_hook(__FILE__, 'rsvp_database_setup');
-?>
+add_action( 'admin_menu', 'rsvp_modify_menu' );
+add_action( 'admin_init', 'rsvp_register_settings' );
+add_action( 'init', 'rsvp_init' );
+add_action( 'wp_head', 'rsvp_add_css' );
+add_filter( 'the_content', 'rsvp_frontend_handler' );
+register_activation_hook( __FILE__, 'rsvp_database_setup' );

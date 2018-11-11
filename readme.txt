@@ -3,8 +3,8 @@ Contributors: mdedev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: rsvp, event, event management, attendee management, event planning, wedding planning, event registration, events, events management, events registration, reserve, wedding, guestlist
 Requires at least: 3.0
-Tested up to: 4.9.5
-Stable tag: 2.5.4
+Tested up to: 4.9.8
+Stable tag: 2.5.5
 
 The RSVP Plugin was created to be a straightforward event management plugin to handle registrations for a single event.
 
@@ -15,6 +15,8 @@ The RSVP Plugin was created to be a straightforward event management plugin to h
 > If you are looking for a quicker or more in-depth support response it is suggested to check out <a href="https://www.rsvpproplugin.com/" target="_blank" title="[new window to RSVP Pro]">RSVP Pro</a> or you can <a href="https://www.rsvpproplugin.com/contact/" target="_blank">Contact Us</a> and we will help you as best as possible.
 
 Create and manage your event with ease. The RSVP plugin has been around for over five years now and will continue to be around as an easy and full-featured event management plugin. We know how stressful running an event can be, we are here to make it less so.
+
+[](http://coderisk.com/wp/plugin/rsvp/RIPS-Mhf7f5NONE)
 
 = FEATURES =
 * Easy to customize text
@@ -95,6 +97,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.5.5 =
+* Made it so the JavaScript libraries list jQuery as a requirement.
 
 = 2.5.4 =
 * Added a trailing slash to the form links as this was causing some sites to do redirects instead of posting correctly.
