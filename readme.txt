@@ -16,8 +16,6 @@ The RSVP Plugin was created to be a straightforward event management plugin to h
 
 Create and manage your event with ease. The RSVP plugin has been around for over five years now and will continue to be around as an easy and full-featured event management plugin. We know how stressful running an event can be, we are here to make it less so.
 
-[](http://coderisk.com/wp/plugin/rsvp/RIPS-Mhf7f5NONE)
-
 = FEATURES =
 * Easy to customize text
 * No need to know a passcode to RSVP
