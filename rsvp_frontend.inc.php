@@ -173,27 +173,26 @@ function rsvp_frontend_prompt_to_edit($attendee)
     return $prompt;
 }
 
-function rsvp_frontend_main_form($attendeeID, $rsvpStep = "handleRsvp")
-{
-    global $wpdb, $rsvp_form_action, $rsvp_saved_form_vars;
-    $attendee = $wpdb->get_row($wpdb->prepare("SELECT id, firstName, lastName, email, rsvpStatus, note, 
+function rsvp_frontend_main_form( $attendeeID, $rsvpStep = "handleRsvp" ) {
+	global $wpdb, $rsvp_form_action, $rsvp_saved_form_vars;
+	$attendee = $wpdb->get_row($wpdb->prepare("SELECT id, firstName, lastName, email, rsvpStatus, note, 
                                                kidsMeal, additionalAttendee, veggieMeal, personalGreeting
                                             FROM ".ATTENDEES_TABLE."
 											WHERE id = %d", $attendeeID));
-    $sql = "SELECT id FROM ".ATTENDEES_TABLE."
+	$sql = "SELECT id FROM ".ATTENDEES_TABLE."
 	 	WHERE (id IN (SELECT attendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE associatedAttendeeID = %d)
 			OR id in (SELECT associatedAttendeeID FROM ".ASSOCIATED_ATTENDEES_TABLE." WHERE attendeeID = %d))
 			 AND additionalAttendee = 'Y'";
-    $newRsvps = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
-    $yesText = __("Yes", 'rsvp-plugin');
-    $noText  = __("No", 'rsvp-plugin');
-    $yesVerbiage = ((trim(get_option(OPTION_YES_VERBIAGE)) != "") ? get_option(OPTION_YES_VERBIAGE) :
-        __("Yes, of course I will be there! Who doesn't like family, friends, weddings, and a good time?", 'rsvp-plugin'));
-    $noVerbiage = ((trim(get_option(OPTION_NO_VERBIAGE)) != "") ? get_option(OPTION_NO_VERBIAGE) :
-            __("Um, unfortunately, there is a Star Trek marathon on that day that I just cannot miss.", 'rsvp-plugin'));
-    $kidsVerbiage = ((trim(get_option(OPTION_KIDS_MEAL_VERBIAGE)) != "") ? get_option(OPTION_KIDS_MEAL_VERBIAGE) :
+	$newRsvps = $wpdb->get_results($wpdb->prepare($sql, $attendeeID, $attendeeID));
+	$yesText = __( 'Yes', 'rsvp-plugin' );
+	$noText  = __( 'No', 'rsvp-plugin' );
+	$yesVerbiage = ((trim(get_option(OPTION_YES_VERBIAGE)) != "") ? get_option(OPTION_YES_VERBIAGE) :
+		__( 'Yes, I will attend.', 'rsvp-plugin' ) );
+	$noVerbiage = ((trim(get_option(OPTION_NO_VERBIAGE)) != "") ? get_option(OPTION_NO_VERBIAGE) :
+		__( 'No, I will not be able to attend.', 'rsvp-plugin' ) );
+	$kidsVerbiage = ((trim(get_option(OPTION_KIDS_MEAL_VERBIAGE)) != "") ? get_option(OPTION_KIDS_MEAL_VERBIAGE) :
                     __("We have the option of getting cheese pizza for the kids (and only kids).  Do you want pizza instead of \"adult food?\"", 'rsvp-plugin'));
-    $veggieVerbiage = ((trim(get_option(OPTION_VEGGIE_MEAL_VERBIAGE)) != "") ? get_option(OPTION_VEGGIE_MEAL_VERBIAGE) :
+	$veggieVerbiage = ((trim(get_option(OPTION_VEGGIE_MEAL_VERBIAGE)) != "") ? get_option(OPTION_VEGGIE_MEAL_VERBIAGE) :
                     __("We also have the option of getting individual vegetarian meals instead of the fish or meat.  Would you like a vegetarian dinner?", 'rsvp-plugin'));
     $noteVerbiage = ((trim(get_option(OPTION_NOTE_VERBIAGE)) != "") ? get_option(OPTION_NOTE_VERBIAGE) :
         __("If you have any <strong style=\"color:red;\">food allergies</strong>, please indicate what they are in the &quot;notes&quot; section below.  Or, if you just want to send us a note, please feel free.  If you have any questions, please send us an email.", 'rsvp-plugin'));
