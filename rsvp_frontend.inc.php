@@ -531,11 +531,11 @@ function rsvp_find ( &$output, &$text ) {
 	$first_name = '';
 	$last_name  = '';
 	if ( isset( $_REQUEST['firstName'] ) ) {
-		$first_name = $_REQUEST['firstName'];
+		$first_name = stripslashes_deep( $_REQUEST['firstName'] );
 	}
 
 	if ( isset( $_REQUEST['lastName'] ) ) {
-		$last_name = $_REQUEST['lastName'];
+		$last_name = stripslashes_deep( $_REQUEST['lastName'] );
 	}
 
 	if ( ! $passcode_only_option && ( ( strlen($first_name ) <= 1 ) || ( strlen( $last_name ) <= 1 ) ) ) {
