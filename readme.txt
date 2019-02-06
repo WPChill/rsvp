@@ -14,7 +14,7 @@ The RSVP Plugin was created to be a straightforward event management plugin to h
 >
 > If you are looking for a quicker or more in-depth support response it is suggested to check out <a href="https://www.rsvpproplugin.com/" target="_blank" title="[new window to RSVP Pro]">RSVP Pro</a> or you can <a href="https://www.rsvpproplugin.com/contact/" target="_blank">Contact Us</a> and we will help you as best as possible.
 
-Create and manage your event with ease. The RSVP plugin has been around for over five years now and will continue to be around as an easy and full-featured event management plugin. We know how stressful running an event can be, we are here to make it less so.
+Create and manage your event with ease. The RSVP plugin has been around for almost ten years now and will continue to be around as an easy and full-featured event management plugin. We know how stressful running an event can be, we are here to make it less so.
 
 = FEATURES =
 * Easy to customize text
@@ -36,6 +36,8 @@ Looking for some additional functionality?
 * Public attendee lists
 * Ability to send mass emails
 * More info at <a target="_new" href="https://www.rsvpproplugin.com/">https://rsvpproplugin.com</a>
+
+<a href="https://www.rsvpproplugin.com/knowledge-base/installing-free-version/">Detailed installation instructions</a>
 
 = SUBMITTING PATCHES =
 What?! You found a bug, well we'd love to have a patch or issue posted at our <a href="https://github.com/SwimOrDieSoftware/Wordpress-RSVP-Plugin" target="_blank">GitHub page for RSVP Plugin.</a> If for whatever reason we don't want to accept a request we will tell you why and work with you to figure out a way to get it accepted. Also, if your pull request is accepted we will credit you in the plugin's changelog.
@@ -72,7 +74,7 @@ Yes. Below are the styles for the plugin:
 
 = I need help =
 
-I am here to help, contact me at mike AT mde DASH dev.com
+I am here to help, contact me at mike@mde-dev.com
 
 = Is there a GitHub Repository? =
 
