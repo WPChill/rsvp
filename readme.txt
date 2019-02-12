@@ -32,8 +32,6 @@ The RSVP Plugin installation guide is located at <a href="https://www.rsvpproplu
 * Relate attendees to make it easier for groups and families to RSVP together
 * Email notifications
 
-Looking for some additional functionality?
-
 = ADDITIONAL FEATURES IN <a target="_new" href="https://www.rsvpproplugin.com/">RSVP Pro</a> =
 * Multiple events
 * Even more text customizations
