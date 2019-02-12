@@ -9,35 +9,38 @@ Stable tag: 2.5.8
 The RSVP Plugin was created to be a straightforward event management plugin to handle registrations for a single event.
 
 == Description ==
+The RSVP plugin was created to help manage attendees for your events. It was initially created for my wedding and has since been used across thousands of events including:
+* Weddings
+* Business conferences
+* Church gatherings
+* Other community events
+* Birthdays
+* And much much more
+The plugin front-end can be easily modified via admin options screen. All attendees can be viewed and managed in the admin area. If you want even more functionality check out <a target="_new" href="https://www.rsvpproplugin.com/">RSVP Pro</a> which has many more features to make running your events a little easier (because no matter what events can be tough).
 
-> <strong>A word about support:</strong> We are always here to help you with your RSVP plugin needs. However, we do only check in on the main WordPress forums bi-weekly.
->
-> If you are looking for a quicker or more in-depth support response it is suggested to check out <a href="https://www.rsvpproplugin.com/" target="_blank" title="[new window to RSVP Pro]">RSVP Pro</a> or you can <a href="https://www.rsvpproplugin.com/contact/" target="_blank">Contact Us</a> and we will help you as best as possible.
-
-Create and manage your event with ease. The RSVP plugin has been around for almost ten years now and will continue to be around as an easy and full-featured event management plugin. We know how stressful running an event can be, we are here to make it less so.
+The RSVP Plugin installation guide is located at <a href="https://www.rsvpproplugin.com/knowledge-base/installing-free-version/">https://www.rsvpproplugin.com/knowledge-base/installing-free-version/</a>. 
 
 = FEATURES =
+* Open or closed attendee lists
+* Custom questions
+* Import/export attendees
+* Ability to add additional attendees
 * Easy to customize text
 * No need to know a passcode to RSVP
 * Ability to set a passcode per attendee
 * Easy attendee management
 * Relate attendees to make it easier for groups and families to RSVP together
 * Email notifications
-* Custom questions
-* Import/export attendees
-* Open or set attendee list registration
-* Ability for +1s
 
 Looking for some additional functionality?
 
-= ADDITIONAL FEATURES IN THE <a target="_new" href="https://www.rsvpproplugin.com/">PREMIUM VERSION</a> =
+= ADDITIONAL FEATURES IN <a target="_new" href="https://www.rsvpproplugin.com/">RSVP Pro</a> =
 * Multiple events
 * Even more text customizations
 * Public attendee lists
-* Ability to send mass emails
+* Ability to send notifications and reminders
+* AJAX based front-end
 * More info at <a target="_new" href="https://www.rsvpproplugin.com/">https://rsvpproplugin.com</a>
-
-<a href="https://www.rsvpproplugin.com/knowledge-base/installing-free-version/">Detailed installation instructions</a>
 
 = SUBMITTING PATCHES =
 What?! You found a bug, well we'd love to have a patch or issue posted at our <a href="https://github.com/SwimOrDieSoftware/Wordpress-RSVP-Plugin" target="_blank">GitHub page for RSVP Plugin.</a> If for whatever reason we don't want to accept a request we will tell you why and work with you to figure out a way to get it accepted. Also, if your pull request is accepted we will credit you in the plugin's changelog.
