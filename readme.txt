@@ -3,19 +3,21 @@ Contributors: mdedev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: rsvp, event, event management, attendee management, event planning, wedding planning, event registration, events, events management, events registration, reserve, wedding, guestlist
 Requires at least: 3.0
-Tested up to: 5.0.0
+Tested up to: 5.1.0
 Stable tag: 2.5.8
 
 The RSVP Plugin was created to be a straightforward event management plugin to handle registrations for a single event.
 
 == Description ==
 The RSVP plugin was created to help manage attendees for your events. It was initially created for my wedding and has since been used across thousands of events including:
+
 * Weddings
 * Business conferences
 * Church gatherings
 * Other community events
 * Birthdays
 * And much much more
+
 The plugin front-end can be easily modified via admin options screen. All attendees can be viewed and managed in the admin area. If you want even more functionality check out <a target="_new" href="https://www.rsvpproplugin.com/">RSVP Pro</a> which has many more features to make running your events a little easier (because no matter what events can be tough).
 
 The RSVP Plugin installation guide is located at <a href="https://www.rsvpproplugin.com/knowledge-base/installing-free-version/">https://www.rsvpproplugin.com/knowledge-base/installing-free-version/</a>. 
