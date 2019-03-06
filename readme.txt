@@ -18,20 +18,19 @@ The RSVP plugin was created to help manage attendees for your events. It was ini
 * Birthdays
 * And much much more
 
-The plugin front-end can be easily modified via admin options screen. All attendees can be viewed and managed in the admin area. If you want even more functionality check out <a target="_new" href="https://www.rsvpproplugin.com/">RSVP Pro</a> which has many more features to make running your events a little easier (because no matter what events can be tough).
+Many options to customize the front-end accessible from the WordPress admin area. Attendee management is available via WordPress admin. If you want even more functionality check out <a target="_new" href="https://www.rsvpproplugin.com/">RSVP Pro</a> which gives you the ability to do multiple events, setup reminder emails, translate easier and much much more.
 
-The RSVP Plugin installation guide is located at <a href="https://www.rsvpproplugin.com/knowledge-base/installing-free-version/">https://www.rsvpproplugin.com/knowledge-base/installing-free-version/</a>. 
+<a href="https://www.rsvpproplugin.com/knowledge-base/installing-free-version/">RSVP Plugin installation guide</a>. 
 
 = FEATURES =
-* Open or closed attendee lists
+* Open registration or private attendee list
 * Custom questions
-* Import/export attendees
-* Ability to add additional attendees
+* Import and export attendees
+* Ability for attendees to add additional guests
 * Easy to customize text
-* No need to know a passcode to RSVP
-* Ability to set a passcode per attendee
+* Passcode or no passcode to RSVP
 * Easy attendee management
-* Relate attendees to make it easier for groups and families to RSVP together
+* Associate attendees to make it easier for groups/families to RSVP all at the same time
 * Email notifications
 
 = ADDITIONAL FEATURES IN <a target="_new" href="https://www.rsvpproplugin.com/">RSVP Pro</a> =
