@@ -250,7 +250,7 @@ function rsvp_frontend_main_form( $attendee_id, $rsvp_step = 'handleRsvp' ) {
 	$veggie_verbiage = ( ( trim( get_option( OPTION_VEGGIE_MEAL_VERBIAGE ) ) !== '' ) ? get_option( OPTION_VEGGIE_MEAL_VERBIAGE ) :
 		__( 'We also have the option of getting individual vegetarian meals instead of the fish or meat.  Would you like a vegetarian dinner?', 'rsvp-plugin' ) );
 	$note_verbiage   = ( ( trim( get_option( OPTION_NOTE_VERBIAGE ) ) !== '' ) ? get_option( OPTION_NOTE_VERBIAGE ) :
-		__( 'If you have any <strong style=\"color:red;\">food allergies</strong>, please indicate what they are in the &quot;notes&quot; section below.  Or, if you just want to send us a note, please feel free.  If you have any questions, please send us an email.', 'rsvp-plugin' ) );
+		__( 'If you have any <strong style="color:red;">food allergies</strong>, please indicate what they are in the &quot;notes&quot; section below.  Or, if you just want to send us a note, please feel free.  If you have any questions, please send us an email.', 'rsvp-plugin' ) );
 
 	$form         = '<form id="rsvpForm" name="rsvpForm" method="post" action="' . $rsvp_form_action . '" autocomplete="off">';
 	$form        .= '	<input type="hidden" name="attendeeID" value="' . $attendee_id . '" />';
