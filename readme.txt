@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=miked
 Tags: rsvp, event, event management, attendee management, event planning, wedding planning, event registration, events, events management, events registration, reserve, wedding, guestlist
 Requires at least: 3.0
 Tested up to: 5.1.0
-Stable tag: 2.6.1
+Stable tag: 2.6.2
 
 The RSVP Plugin was created to be a straightforward event management plugin to handle registrations for a single event.
 
@@ -99,6 +99,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.6.2 =
+* Fixed another problem with the admin attendee list not being properly formatted all of the time.
 
 = 2.6.1 =
 * Fixed a problem inside of the attendee list that was caused by the code reformatting.
