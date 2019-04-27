@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - RSVP and Event Management Plugin - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-04-14 14:37+0200\n"
+"PO-Revision-Date: 2019-04-24 20:04+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "Language: nl\n"
 "Project-Id-Version: Plugins - RSVP and Event Management Plugin - Stable (latest release)\n"
 "POT-Creation-Date: \n"
@@ -85,7 +85,7 @@ msgid "RSVP Confirmation"
 msgstr "RSVP-bevestiging"
 
 #: rsvp_frontend.inc.php:940
-msgid "You have successfully RSVP&apos;d with"
+msgid "You have successfully RSVP'd with"
 msgstr "Je hebt succesvol ge-RSVP&apos;d met"
 
 #: rsvp_frontend.inc.php:904
@@ -93,7 +93,7 @@ msgid "New RSVP Submission"
 msgstr "Nieuwe RSVP-inschrijving"
 
 #: rsvp_frontend.inc.php:842
-msgid "has submitted their RSVP and has RSVP&apos;d with"
+msgid "has submitted their RSVP and has RSVP'd with"
 msgstr "heeft de RSVP ingediend en heeft ge-RSVP&apos;d met"
 
 #: rsvp_frontend.inc.php:839
@@ -534,15 +534,15 @@ msgid "Will this person be attending?"
 msgstr "Zal deze persoon aanwezig zijn?"
 
 #: rsvp_frontend.inc.php:1425
-msgid "Person&quot;s email address"
+msgid "Person's email address"
 msgstr "E-mailadres"
 
 #: rsvp_frontend.inc.php:1420
-msgid "Person&quot;s last name"
+msgid "Person's last name"
 msgstr "Achternaam"
 
 #: rsvp_frontend.inc.php:1416
-msgid "Person&quot;s first name"
+msgid "Person's first name"
 msgstr "Voornaam"
 
 #: rsvp_frontend.inc.php:1383
@@ -704,9 +704,9 @@ msgid "Yes"
 msgstr "Ja"
 
 #: rsvp_frontend.inc.php:208
-msgid "Hi %s it looks like you have already RSVP&apos;d. Would you like to edit your reservation?"
+msgid "Hi %s it looks like you have already RSVP'd. Would you like to edit your reservation?"
 msgstr "Hi %s, het ziet ernaar uit dat je al aangegeven hebt of je komt of niet, wil je dit veranderen?"
 
 #: rsvp_frontend.inc.php:44
-msgid "I am sorry but the ability to RSVP for our wedding won&quot;t open till <strong>%s</strong>"
+msgid "I am sorry but the ability to RSVP for our wedding won't open till <strong>%s</strong>"
 msgstr "Sorry, maar aangeven of je op onze bruiloft komt kan pas vanaf <strong>%s</strong>"
