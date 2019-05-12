@@ -844,8 +844,10 @@ function rsvp_handle_notifications( $attendee_id ) {
 		if ( $attendee !== null ) {
 			$body = __( 'Hello', 'rsvp-plugin' ) . ", \r\n\r\n";
 
-			$body .= stripslashes_deep( $attendee->firstName ) . ' ' . stripslashes_deep( $attendee->lastName ) .
-				' ' . __( 'has submitted their RSVP and has RSVP\'d with', 'rsvp-plugin' ) . ' \'' . $attendee->rsvpStatus . "'.\r\n";
+			$body .= sprintf( __( '%1$s %2$s has submitted their RSVP and has RSVP\'d with %3$s.', 'rsvp-plugin' ), 
+				wp_unslash( $attendee->firstName ), 
+				wp_unslash( $attendee->lastName ),
+				 $attendee->rsvpStatus ) . "\r\n";
 
 			if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ) {
 				$body .= __( 'Kids Meal: ', 'rsvp-plugin' ) . $attendee->kidsMeal . "\r\n";
@@ -884,7 +886,10 @@ function rsvp_handle_notifications( $attendee_id ) {
 			if ( count( $associations ) > 0 ) {
 				$body .= "\r\n\r\n--== " . __( 'Associated Attendees', 'rsvp-plugin' ) . " ==--\r\n";
 				foreach ( $associations as $a ) {
-					$body .= stripslashes_deep( $a->firstName . ' ' . $a->lastName ) . ' rsvp status: ' . $a->rsvpStatus . "\r\n";
+					$body .= sprintf( __( '%1$s %2$s rsvp status: %3$s', 'rsvp-plugin' ), 
+						wp_unslash( $a->firstName ),
+						wp_unslash( $a->lastName ), 
+						$a->rsvpStatus ) . "\r\n";
 
 					$sql  = 'SELECT question, answer FROM ' . QUESTIONS_TABLE . ' q
 						LEFT JOIN ' . ATTENDEE_ANSWERS . ' ans ON q.id = ans.questionID AND ans.attendeeID = %d
@@ -915,7 +920,10 @@ function rsvp_handle_notifications( $attendee_id ) {
 		$sql      = 'SELECT firstName, lastName, email, rsvpStatus, passcode, kidsMeal, veggieMeal, note FROM ' . ATTENDEES_TABLE . ' WHERE id = %d';
 		$attendee = $wpdb->get_row( $wpdb->prepare( $sql, $attendee_id ) );
 		if ( null !== $attendee ) {
-			$body = __( 'Hello ', 'rsvp-plugin' ) . stripslashes_deep( $attendee->firstName ) . ' ' . stripslashes_deep( $attendee->lastName ) . ', <br /><br />';
+			$body = sprintf( __( 'Hello %1$s %2$s,', 'rsvp-plugin' ), 
+				stripslashes_deep( $attendee->firstName ), 
+				stripslashes_deep( $attendee->lastName )
+			) . '<br /><br />';
 
 			if ( get_option( OPTION_RSVP_EMAIL_TEXT ) != '' ) {
 				$body .= '<br />';
@@ -1241,7 +1249,10 @@ function rsvp_foundAttendee( &$output, &$text ) {
 		if ( $attendee != null ) {
 			$output = RSVP_START_CONTAINER;
 			if ( strtolower( $attendee->rsvpStatus ) == 'noresponse' ) {
-				$output .= RSVP_START_PARA . __( 'Hi', 'rsvp-plugin' ) . ' ' . htmlspecialchars( stripslashes_deep( $attendee->firstName . ' ' . $attendee->lastName ) ) . '!' . RSVP_END_PARA;
+				$output .= RSVP_START_PARA . sprintf( __( 'Hi %1$s %2$s!', 'rsvp-plugin' ),
+					htmlspecialchars( stripslashes_deep( $attendee->firstName ) ),
+					htmlspecialchars( srtipslashes_deep( $attendee->lastName ) )
+				) . RSVP_END_PARA;
 
 				if ( trim( get_option( OPTION_WELCOME_TEXT ) ) != '' ) {
 					$output .= RSVP_START_PARA . trim( get_option( OPTION_WELCOME_TEXT ) ) . RSVP_END_PARA;
@@ -1419,7 +1430,7 @@ function rsvp_inject_add_guests_js( $attendee_id ) {
 		var numAdditional = jQuery(\"#additionalRsvp\").val();
 		numAdditional++;
 		if(numAdditional > " . $num_guests . ") {
-			alert('" . __( 'You have already added ' . $num_guests . " additional rsvp\'s you can add no more.", 'rsvp-plugin' ) . "');
+			alert('" . sprintf( __( 'You have already added %1$d additional rsvp\\\'s you can add no more.', 'rsvp-plugin' ), $num_guests ) . "');
 		} else {
 			jQuery(\"#additionalRsvpContainer\").append(\"<div class=\\\"rsvpAdditionalAttendee\\\">\" + \r\n
                     \"<div class=\\\"rsvpAdditionalAttendeeQuestions\\\">\" + \r\n

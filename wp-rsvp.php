@@ -2,13 +2,13 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.6.2
+ * @version 2.6.3
  * Plugin Name: RSVP
  * Text Domain: rsvp-plugin
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: Swim or Die Software
- * Version: 2.6.2
+ * Version: 2.6.3
  * Author URI: http://www.swimordiesoftware.com
  * License: GPL
  */
@@ -1159,7 +1159,10 @@ function rsvp_admin_guest() {
 			);
 		}
 		?>
-		<p><?php echo __( 'Attendee', 'rsvp-plugin' ); ?> <?php echo htmlspecialchars( stripslashes( $_POST['firstName'] . ' ' . $_POST['lastName'] ) ); ?> <?php echo __( 'has been successfully saved', 'rsvp-plugin' ); ?></p>
+		<p><?php echo sprintf( __( 'Attendee %1$s %2$s has been successfully saved.', 'rsvp-plugin' ), 
+			htmlspecialchars( stripslashes( $_POST['firstName'] ) ),
+			htmlspecialchars( stripslashes( $_POST['lastName'] ) )
+			); ?></p>
 		<p>
 			<a href="<?php echo get_option( 'siteurl' ); ?>/wp-admin/admin.php?page=rsvp-top-level"><?php echo __( 'Continue to Attendee List', 'rsvp-plugin' ); ?></a> |
 			<a href="<?php echo get_option( 'siteurl' ); ?>/wp-admin/admin.php?page=rsvp-admin-guest"><?php echo __( 'Add a Guest', 'rsvp-plugin' ); ?></a>
