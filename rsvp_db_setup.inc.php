@@ -8,7 +8,7 @@ if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
 	`lastName` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 	`rsvpDate` DATE NULL ,
 	`rsvpStatus` ENUM( 'Yes', 'No', 'NoResponse' ) NOT NULL DEFAULT 'NoResponse',
-	`note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+	`note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NULL,
 	`kidsMeal` ENUM( 'Y', 'N' ) NOT NULL DEFAULT 'N',
 	`additionalAttendee` ENUM( 'Y', 'N' ) NOT NULL DEFAULT 'N',
 	`veggieMeal` ENUM( 'Y', 'N' ) NOT NULL DEFAULT 'N', 
@@ -161,6 +161,12 @@ $table = $wpdb->prefix . 'attendees';
 if ( (int) $installed_ver < 11 || ( $wpdb->get_var( "SHOW COLUMNS FROM `$table` LIKE 'email'" ) != 'email' ) ) {
 	$sql = 'ALTER TABLE ' . $table . ' ADD `email` VARCHAR( 250 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;';
 	$wpdb->query( $sql );
-	update_option( 'rsvp_db_version', RSVP_DB_VERSION );
+}
+
+$table    = $wpdb->prefix . 'attendees';
+$col_info = $wpdb->get_row( 'SHOW FULL COLUMNS FROM ' . $table . ' WHERE Field="note" AND Collation<>"utf8mb4_unicode_520_ci"' );
+if ( ( int ) $installed_ver < 12 || ( $col_info !== null ) ) {
+	$sql = 'ALTER TABLE ' . $table . ' MODIFY note text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci';
+	$wpdb->query( $sql );
 }
 update_option( 'rsvp_db_version', RSVP_DB_VERSION );

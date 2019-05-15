@@ -2,13 +2,13 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.6.3
+ * @version 2.6.4
  * Plugin Name: RSVP
  * Text Domain: rsvp-plugin
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: Swim or Die Software
- * Version: 2.6.3
+ * Version: 2.6.4
  * Author URI: http://www.swimordiesoftware.com
  * License: GPL
  */
@@ -53,7 +53,7 @@ define( 'OPTION_RSVP_EMAIL_TEXT', 'rsvp_email_text' );
 define( 'OPTION_RSVP_DISABLE_USER_SEARCH', 'rsvp_disable_user_search' );
 define( 'RSVP_OPTION_DELETE_DATA_ON_UNINSTALL', 'rsvp_delete_data_on_uninstall' );
 define( 'RSVP_OPTION_CSS_STYLING', 'rsvp_css_styling' );
-define( 'RSVP_DB_VERSION', '11' );
+define( 'RSVP_DB_VERSION', '12' );
 define( 'QT_SHORT', 'shortAnswer' );
 define( 'QT_MULTI', 'multipleChoice' );
 define( 'QT_LONG', 'longAnswer' );

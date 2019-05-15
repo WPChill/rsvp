@@ -1285,11 +1285,7 @@ function frontend_rsvp_thankyou( $thank_you_primary, $thank_you_associated ) {
 	if ( ! empty( $custom_ty ) ) {
 		return nl2br( $custom_ty );
 	} else {
-		$ty_text = __( 'Thank you', 'rsvp-plugin' );
-		if ( ! empty( $thank_you_primary ) ) {
-			$ty_text .= ' ' . htmlspecialchars( $thank_you_primary );
-		}
-		$ty_text .= __( ' for RSVPing.', 'rsvp-plugin' );
+		$ty_text = sprintf( __( 'Thank you %1$s for RSVPing.', 'rsvp-plugin' ), esc_html( $thank_you_primary ) );
 
 		if ( count( $thank_you_associated ) > 0 ) {
 			$ty_text .= __( ' You have also RSVPed for - ', 'rsvp-plugin' );
@@ -1311,13 +1307,10 @@ function frontend_rsvp_thankyou( $thank_you_primary, $thank_you_associated ) {
  * @return string                       The HTML that should be displayed to the user.
  */
 function rsvp_frontend_new_atendee_thankyou( $thank_you_primary, $thank_you_associated, $password = '' ) {
-	$thank_you_text = __( 'Thank you ', 'rsvp-plugin' );
-	if ( ! empty( $thank_you_primary ) ) {
-		$thank_you_text .= htmlspecialchars( $thank_you_primary );
-	}
-	$thank_you_text .= __( ' for RSVPing. To modify your RSVP just come back to this page and enter in your first and last name.', 'rsvp-plugin' );
+	$thank_you_text = sprintf( __( 'Thank you %1$s for RSVPing. To modify your RSVP just come back to this page and enter in your first and last name.', 'rsvp-plugin' ), esc_html( $thank_you_primary ) );
+
 	if ( ! empty( $password ) ) {
-		$thank_you_text .= __( ' You will also need to know your passcode which is', 'rsvp-plugin' ) .
+		$thank_you_text .= ' ' . __( 'You will also need to know your passcode which is', 'rsvp-plugin' ) .
 			" - <strong>$password</strong>";
 	}
 
