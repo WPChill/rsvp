@@ -8,7 +8,7 @@ if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
 	`lastName` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 	`rsvpDate` DATE NULL ,
 	`rsvpStatus` ENUM( 'Yes', 'No', 'NoResponse' ) NOT NULL DEFAULT 'NoResponse',
-	`note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NULL,
+	`note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
 	`kidsMeal` ENUM( 'Y', 'N' ) NOT NULL DEFAULT 'N',
 	`additionalAttendee` ENUM( 'Y', 'N' ) NOT NULL DEFAULT 'N',
 	`veggieMeal` ENUM( 'Y', 'N' ) NOT NULL DEFAULT 'N', 
