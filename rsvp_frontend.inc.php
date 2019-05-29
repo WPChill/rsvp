@@ -1251,7 +1251,7 @@ function rsvp_foundAttendee( &$output, &$text ) {
 			if ( strtolower( $attendee->rsvpStatus ) == 'noresponse' ) {
 				$output .= RSVP_START_PARA . sprintf( __( 'Hi %1$s %2$s!', 'rsvp-plugin' ),
 					htmlspecialchars( stripslashes_deep( $attendee->firstName ) ),
-					htmlspecialchars( srtipslashes_deep( $attendee->lastName ) )
+					htmlspecialchars( stripslashes_deep( $attendee->lastName ) )
 				) . RSVP_END_PARA;
 
 				if ( trim( get_option( OPTION_WELCOME_TEXT ) ) != '' ) {
