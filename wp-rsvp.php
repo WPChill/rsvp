@@ -2,16 +2,19 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.6.6
+ * @version 2.6.7
  * Plugin Name: RSVP
  * Text Domain: rsvp-plugin
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: Swim or Die Software
- * Version: 2.6.6
+ * Version: 2.6.7
  * Author URI: http://www.swimordiesoftware.com
  * License: GPL
  */
+
+use Box\Spout\Reader\ReaderFactory;
+use Box\Spout\Common\Type;
 
 define( 'ATTENDEES_TABLE', $wpdb->prefix . 'attendees' );
 define( 'ASSOCIATED_ATTENDEES_TABLE', $wpdb->prefix . 'associatedAttendees' );
@@ -224,8 +227,11 @@ function rsvp_admin_guestlist_options() {
 					<td align="left"><input type="text" name="rsvp_deadline" id="rsvp_deadline" value="<?php echo htmlspecialchars( get_option( OPTION_DEADLINE ) ); ?>" /></td>
 				</tr>
 				<tr valign="top">
-					<th scope="row"><label for="rsvp_num_additional_guests"><?php echo __( 'Number of Additional Guests Allowed (default is three):', 'rsvp-plugin' ); ?></label></th>
-					<td align="left"><input type="text" name="rsvp_num_additional_guests" id="rsvp_num_additional_guests" value="<?php echo htmlspecialchars( get_option( OPTION_RSVP_NUM_ADDITIONAL_GUESTS ) ); ?>" /></td>
+					<th scope="row"><label for="rsvp_num_additional_guests"><?php echo __( 'Number of Additional Guests Allowed:', 'rsvp-plugin' ); ?></label></th>
+					<td align="left"><input type="text" name="rsvp_num_additional_guests" id="rsvp_num_additional_guests" value="<?php echo htmlspecialchars( get_option( OPTION_RSVP_NUM_ADDITIONAL_GUESTS ) ); ?>" />
+						<br />
+						<span class="description"><?php _e( 'Default is three', 'rsvp-plugin' ); ?></span>
+					</td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="rsvp_custom_greeting"><?php echo __( 'Custom Greeting:', 'rsvp-plugin' ); ?></label></th>
@@ -233,8 +239,11 @@ function rsvp_admin_guestlist_options() {
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="rsvp_custom_welcome"><?php echo __( 'Custom Welcome:', 'rsvp-plugin' ); ?></label></th>
-					<td align="left"><?php echo __( 'Default is: &quot;There are a few more questions we need to ask you if you could please fill them out below to finish up the RSVP process.&quot;', 'rsvp-plugin' ); ?><br />
-						<textarea name="rsvp_custom_welcome" id="rsvp_custom_welcome" rows="5" cols="60"><?php echo htmlspecialchars( get_option( OPTION_WELCOME_TEXT ) ); ?></textarea></td>
+					<td align="left">
+						<textarea name="rsvp_custom_welcome" id="rsvp_custom_welcome" rows="5" cols="60"><?php echo htmlspecialchars( get_option( OPTION_WELCOME_TEXT ) ); ?></textarea>
+						<br />
+						<span class="description"><?php _e( 'Default is: &quot;There are a few more questions we need to ask you if you could please fill them out below to finish up the RSVP process.&quot;', 'rsvp-plugin' ); ?></span>
+					</td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="<?php echo OPTION_RSVP_EMAIL_TEXT; ?>"><?php echo __( 'Email Text: <br />Sent to guests in confirmation, at top of email', 'rsvp-plugin' ); ?></label></th>
@@ -242,24 +251,36 @@ function rsvp_admin_guestlist_options() {
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="rsvp_custom_question_text"><?php echo __( 'RSVP Question Verbiage:', 'rsvp-plugin' ); ?></label></th>
-					<td align="left"><?php echo __( 'Default is: &quot;So, how about it?&quot;', 'rsvp-plugin' ); ?><br />
+					<td align="left">
 						<input type="text" name="rsvp_custom_question_text" id="rsvp_custom_question_text"
-						value="<?php echo htmlspecialchars( get_option( OPTION_RSVP_QUESTION ) ); ?>" size="65" /></td>
+						value="<?php echo htmlspecialchars( get_option( OPTION_RSVP_QUESTION ) ); ?>" size="65" />
+						<br />
+						<span class="description"><?php echo __( 'Default is: &quot;So, how about it?&quot;', 'rsvp-plugin' ); ?></span>
+					</td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="rsvp_yes_verbiage"><?php echo __( 'RSVP Yes Verbiage:', 'rsvp-plugin' ); ?></label></th>
 					<td align="left"><input type="text" name="rsvp_yes_verbiage" id="rsvp_yes_verbiage"
-						value="<?php echo htmlspecialchars( get_option( OPTION_YES_VERBIAGE ) ); ?>" size="65" /></td>
+						value="<?php echo htmlspecialchars( get_option( OPTION_YES_VERBIAGE ) ); ?>" size="65" />
+						<br />
+						<span class="description"><?php _e( 'Default is: &quot;Yes, I will attend.&quot;', 'rsvp-plugin' ); ?></span>
+					</td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="rsvp_no_verbiage"><?php echo __( 'RSVP No Verbiage:', 'rsvp-plugin' ); ?></label></th>
 					<td align="left"><input type="text" name="rsvp_no_verbiage" id="rsvp_no_verbiage"
-						value="<?php echo htmlspecialchars( get_option( OPTION_NO_VERBIAGE ) ); ?>" size="65" /></td>
+						value="<?php echo htmlspecialchars( get_option( OPTION_NO_VERBIAGE ) ); ?>" size="65" />
+						<br />
+						<span class="description"><?php _e( 'Default is: &quot;No, I will not be able to attend.&quot;', 'rsvp-plugin' ); ?></span>
+					</td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="rsvp_kids_meal_verbiage"><?php echo __( 'RSVP Kids Meal Verbiage:', 'rsvp-plugin' ); ?></label></th>
 					<td align="left"><input type="text" name="rsvp_kids_meal_verbiage" id="rsvp_kids_meal_verbiage"
-						value="<?php echo htmlspecialchars( get_option( OPTION_KIDS_MEAL_VERBIAGE ) ); ?>" size="65" /></td>
+						value="<?php echo htmlspecialchars( get_option( OPTION_KIDS_MEAL_VERBIAGE ) ); ?>" size="65" />
+						<br />
+						<span class="description"><?php _e( 'Default is: &quot;We have the option of getting cheese pizza for the kids (and only kids). Do you want pizza instead of \'adult food?\'&quot;', 'rsvp-plugin' ); ?></span>
+					</td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="rsvp_hide_kids_meal"><?php echo __( 'Hide Kids Meal Question:', 'rsvp-plugin' ); ?></label></th>
@@ -269,7 +290,10 @@ function rsvp_admin_guestlist_options() {
 				<tr valign="top">
 					<th scope="row"><label for="rsvp_veggie_meal_verbiage"><?php echo __( 'RSVP Vegetarian Meal Verbiage:', 'rsvp-plugin' ); ?></label></th>
 					<td align="left"><input type="text" name="rsvp_veggie_meal_verbiage" id="rsvp_veggie_meal_verbiage"
-						value="<?php echo htmlspecialchars( get_option( OPTION_VEGGIE_MEAL_VERBIAGE ) ); ?>" size="65" /></td>
+						value="<?php echo htmlspecialchars( get_option( OPTION_VEGGIE_MEAL_VERBIAGE ) ); ?>" size="65" />
+						<br />
+						<span class="description"><?php _e( 'Default is: &quot;We also have the option of getting individual vegetarian meals instead of the fish or meat. Would you like a vegetarian dinner?&quot;', 'rsvp-plugin' ); ?></span>
+					</td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="rsvp_hide_veggie"><?php echo __( 'Hide Vegetarian Meal Question:', 'rsvp-plugin' ); ?></label></th>
@@ -278,17 +302,23 @@ function rsvp_admin_guestlist_options() {
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="rsvp_note_verbiage"><?php echo __( 'Note Verbiage:', 'rsvp-plugin' ); ?></label></th>
-					<td align="left"><textarea name="rsvp_note_verbiage" id="rsvp_note_verbiage" rows="3" cols="60">
-					<?php
+					<td align="left"><textarea name="rsvp_note_verbiage" id="rsvp_note_verbiage" rows="3" cols="60"><?php
 						echo htmlspecialchars( get_option( OPTION_NOTE_VERBIAGE ) );
-					?>
-						</textarea></td>
+					?></textarea>
+					<br />
+					<span class="description"><?php _e( 'Default is: &quot;If you have any food allergies, please indicate what they are in the &quot;notes&quot; section below. Or, if you just want to send us a note, please feel free. If you have any questions, please send us an email.&quot;', 'rsvp-plugin' ); ?></span>
+				</td>
 				</tr>
-				  <tr valign="top">
+				<tr valign="top">
 					<th scope="row"><label for="rsvp_hide_note_field"><?php echo __( 'Hide Note Field:', 'rsvp-plugin' ); ?></label></th>
 					<td align="left"><input type="checkbox" name="rsvp_hide_note_field" id="rsvp_hide_note_field" value="Y"
 						<?php echo( ( get_option( RSVP_OPTION_HIDE_NOTE ) == 'Y' ) ? ' checked="checked"' : '' ); ?> /></td>
-				  </tr>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label for="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>"><?php echo __( 'Hide email field on rsvp form:', 'rsvp-plugin' ); ?></label></th>
+					<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>" id="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>"
+						value="Y" <?php echo( ( get_option( OPTION_RSVP_HIDE_EMAIL_FIELD ) == 'Y' ) ? ' checked="checked"' : '' ); ?> /></td>
+				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="rsvp_custom_thankyou"><?php echo __( 'Custom Thank You:', 'rsvp-plugin' ); ?></label></th>
 					<td align="left"><textarea name="rsvp_custom_thankyou" id="rsvp_custom_thankyou" rows="5" cols="60"><?php echo htmlspecialchars( get_option( OPTION_THANKYOU ) ); ?></textarea></td>
@@ -300,9 +330,11 @@ function rsvp_admin_guestlist_options() {
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="<?php echo OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE; ?>"><?php echo __( 'Add Additional Verbiage:', 'rsvp-plugin' ); ?></label></th>
-					<td align="left"><?php echo __( 'Default is: &quot;Did we slip up and forget to invite someone? If so, please add him or her here:&quot;', 'rsvp-plugin' ); ?><br />
-						<input type="text" name="<?php echo OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE; ?>" id="<?php echo OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE; ?>"
-						value="<?php echo htmlspecialchars( get_option( OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE ) ); ?>" size="65" /></td>
+					<td align="left"><input type="text" name="<?php echo OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE; ?>" id="<?php echo OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE; ?>"
+						value="<?php echo htmlspecialchars( get_option( OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE ) ); ?>" size="65" />
+						<br />
+						<span class="description"><?php _e( 'Default is: &quot;Did we slip up and forget to invite someone? If so, please add him or her here:&quot;', 'rsvp-plugin' ); ?></span>
+					</td>
 				</tr>
 				<tr>
 					<th scope="row"><label for="rsvp_notify_when_rsvp"><?php echo __( 'Notify When Guest RSVPs', 'rsvp-plugin' ); ?></label></th>
@@ -338,11 +370,6 @@ function rsvp_admin_guestlist_options() {
 					<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_DONT_USE_HASH; ?>" id="<?php echo OPTION_RSVP_DONT_USE_HASH; ?>" value="Y"
 						<?php echo( ( get_option( OPTION_RSVP_DONT_USE_HASH ) == 'Y' ) ? ' checked="checked"' : '' ); ?> /></td>
 				  </tr>
-				<tr valign="top">
-					<th scope="row"><label for="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>"><?php echo __( 'Hide email field on rsvp form:', 'rsvp-plugin' ); ?></label></th>
-					<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>" id="<?php echo OPTION_RSVP_HIDE_EMAIL_FIELD; ?>"
-						value="Y" <?php echo( ( get_option( OPTION_RSVP_HIDE_EMAIL_FIELD ) == 'Y' ) ? ' checked="checked"' : '' ); ?> /></td>
-				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="<?php echo OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM; ?>"><?php echo __( 'Do not use the specified notification email as the from email<br /> (if you are not receiving email notifications try this):', 'rsvp-plugin' ); ?></label></th>
 					<td align="left"><input type="checkbox" name="<?php echo OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM; ?>" id="<?php echo OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM; ?>"
@@ -847,27 +874,58 @@ function rsvp_admin_export() {
 }
 
 /**
+ * Gets the file type based on the users uploaded extension.
+ *
+ * @param  string $file_path The file name that the user uploaded for importing.
+ * @return object            Null or the Spout type used for parsing the files.
+ */
+function rsvp_free_import_get_file_type( $file_path ) {
+	$ext = strtolower( pathinfo( $file_path, PATHINFO_EXTENSION ) );
+
+	if ( 'csv' === $ext ) {
+		return Type::CSV;
+	} elseif ( 'xlsx' === $ext ) {
+		return Type::XLSX;
+	} elseif ( 'ods' === $ext ) {
+		return Type::ODS;
+	}
+
+	return null;
+}
+
+/**
  * Handles importing of attendees.
  */
 function rsvp_admin_import() {
 	global $wpdb;
 	if ( count( $_FILES ) > 0 ) {
 		check_admin_referer( 'rsvp-import' );
-		require 'spreadsheet-reader/php-excel-reader/excel_reader2.php';
-		require 'spreadsheet-reader/SpreadsheetReader.php';
+		require 'external-libs/spout/src/Spout/Autoloader/autoload.php';
 
-		$data    = new SpreadsheetReader( $_FILES['importFile']['tmp_name'], $_FILES['importFile']['name'] );
-		$numCols = count( $data->current() );
+		$file_type = rsvp_free_import_get_file_type( $_FILES['importFile']['name'] );
 
-		if ( $numCols >= 2 ) {
-			$headerRow = array();
-			$count     = 0;
-			$i         = 0;
+		if ( null === $file_type ) {
+			?>
+			<p><?php _e( 'Unsupported file type, only XLSX, CSV, and ODS are supported.', 'rsvp-plugin' ); ?></p>
+			<?php
+			return;
+		}
 
-			foreach ( $data as $row ) {
-				if ( $i > 0 ) {
-					$fName = trim( $row[0] );
-					$fName = rsvp_smart_quote_replace( rsvp_handle_text_encoding( $fName ) );
+		$reader    = ReaderFactory::create( $file_type );
+		$i         = 0;
+		$count     = 0;
+		$headerRow = array();
+		$reader->open( $_FILES['importFile']['tmp_name'] );
+		foreach ( $reader->getSheetIterator() as $sheet ) {
+			foreach ( $sheet->getRowIterator() as $row ) {
+				if ( count( $row  ) <= 2 ) {
+					break;
+				}
+
+				if ( $i > 0 ) { // We want to skip the first row.
+					$numCols = count( $row );
+					$fName   = trim( $row[0] );
+					$fName   = rsvp_smart_quote_replace( rsvp_handle_text_encoding( $fName ) );
 
 					$lName      = trim( $row[1] );
 					$lName      = rsvp_smart_quote_replace( rsvp_handle_text_encoding( $lName ) );
@@ -1032,17 +1090,18 @@ function rsvp_admin_import() {
 					$headerRow = $row;
 				}
 				$i++;
-			} // foreach $data as $row
-			?>
+			}
+			break;
+		}
+		?>
 		<p><strong><?php echo $count; ?></strong> <?php echo __( 'total records were imported', 'rsvp-plugin' ); ?>.</p>
 		<p><?php echo __( 'Continue to the RSVP', 'rsvp-plugin' ); ?> <a href="admin.php?page=rsvp-top-level"><?php echo __( 'list', 'rsvp-plugin' ); ?></a></p>
-			<?php
-		}
+	<?php
 	} else {
 		?>
 		<form name="rsvp_import" method="post" enctype="multipart/form-data">
 			<?php wp_nonce_field( 'rsvp-import' ); ?>
-			<p><?php echo __( 'Select a file in the following file format: XLS, XLSX, CSV and ODS. It has to have the following layout:', 'rsvp-plugin' ); ?><br />
+			<p><?php echo __( 'Select a file in the following file format: XLSX, CSV and ODS. It has to have the following layout:', 'rsvp-plugin' ); ?><br />
 			<strong><?php echo __( 'First Name', 'rsvp-plugin' ); ?></strong> | <strong><?php echo __( 'Last Name', 'rsvp-plugin' ); ?></strong> | <strong><?php echo __( 'Email', 'rsvp-plugin' ); ?></strong> |
 			<strong><?php echo __( 'RSVP Status', 'rsvp-plugin' ); ?></strong> | <strong><?php echo __( 'Kids Meal', 'rsvp-plugin' ); ?></strong> |
 	<strong><?php echo __( 'Associated Attendees', 'rsvp-plugin' ); ?>*</strong> | <strong><?php echo __( 'Vegetarian', 'rsvp-plugin' ); ?></strong> | <strong><?php echo __( 'Passcode', 'rsvp-plugin' ); ?></strong> |
