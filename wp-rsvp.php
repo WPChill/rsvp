@@ -2,13 +2,13 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.6.7
+ * @version 2.6.8
  * Plugin Name: RSVP
  * Text Domain: rsvp-plugin
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: Swim or Die Software
- * Version: 2.6.7
+ * Version: 2.6.8
  * Author URI: http://www.swimordiesoftware.com
  * License: GPL
  */
@@ -214,7 +214,7 @@ function rsvp_admin_guestlist_options() {
 		});
 	</script>
 	<div class="wrap">
-		<h2><?php echo __( 'RSVP Guestlist Options', 'rsvp-plugin' ); ?></h2>
+		<h2><?php echo __( 'RSVP Plugin Settings', 'rsvp-plugin' ); ?></h2>
 		<form method="post" action="options.php">
 			<?php settings_fields( 'rsvp-option-group' ); ?>
 			<table class="form-table">
@@ -1873,8 +1873,8 @@ function rsvp_modify_menu() {
 
 	$page = add_submenu_page(
 		'rsvp-top-level',
-		'RSVP Options',    // page title
-		'RSVP Options',    // subpage title
+		'RSVP Settings',    // page title
+		'RSVP Settings',    // subpage title
 		'manage_options',    // access
 		'rsvp-options',        // current file
 		'rsvp_admin_guestlist_options'    // options function above

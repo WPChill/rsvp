@@ -269,14 +269,14 @@ function rsvp_frontend_main_form( $attendee_id, $rsvp_step = 'handleRsvp' ) {
 	if ( $attendee_id <= 0 ) {
 		$form .= RSVP_START_PARA;
 		$form .= rsvp_BeginningFormField( '', '' ) .
-			'<label for="attendeeFirstName">' . __( 'First Name: ', 'rsvp-plugin' ) . '</label>' .
+			'<label for="attendeeFirstName">' . __( 'First Name', 'rsvp-plugin' ) . '</label>' .
 			'<input type="text" name="attendeeFirstName" id="attendeeFirstName" value="' . esc_html( $rsvp_saved_form_vars['attendeeFirstName'] ) . '" />' .
 			RSVP_END_FORM_FIELD;
 		$form .= RSVP_END_PARA;
 
 		$form .= RSVP_START_PARA;
 		$form .= rsvp_BeginningFormField( '', '' ) .
-			'<label for="attendeeLastName">' . __( 'Last Name: ', 'rsvp-plugin' ) . '</label>' .
+			'<label for="attendeeLastName">' . __( 'Last Name', 'rsvp-plugin' ) . '</label>' .
 			'<input type="text" name="attendeeLastName" id="attendeeLastName" value="' . htmlspecialchars( $rsvp_saved_form_vars['attendeeLastName'] ) . '" />' . RSVP_END_FORM_FIELD;
 		$form .= RSVP_END_PARA;
 	}
@@ -289,10 +289,10 @@ function rsvp_frontend_main_form( $attendee_id, $rsvp_step = 'handleRsvp' ) {
 	}
 
 	$form .= RSVP_END_PARA . rsvp_BeginningFormField( '', '' ) .
-		'<input type="radio" name="mainRsvp" value="Y" id="mainRsvpY" ' . ( ( ( $attendee->rsvpStatus === 'No' ) || ( $rsvp_saved_form_vars['mainRsvp'] == 'N' ) ) ? '' : 'checked="checked"' ) . ' /> <label for="mainRsvpY">' . $yes_verbiage . '</label>' .
+		'<input type="radio" name="mainRsvp" value="Y" id="mainRsvpY" ' . ( ( ( ( $attendee !== null ) && ( $attendee->rsvpStatus === 'No' ) ) || ( $rsvp_saved_form_vars['mainRsvp'] == 'N' ) ) ? '' : 'checked="checked"' ) . ' /> <label for="mainRsvpY">' . $yes_verbiage . '</label>' .
 		RSVP_END_FORM_FIELD .
 		rsvp_BeginningFormField( '', '' ) .
-		'<input type="radio" name="mainRsvp" value="N" id="mainRsvpN" ' . ( ( ( $attendee->rsvpStatus == 'No' ) || ( $rsvp_saved_form_vars['mainRsvp'] == 'N' ) ) ? 'checked="checked"' : '' ) . ' /> ' .
+		'<input type="radio" name="mainRsvp" value="N" id="mainRsvpN" ' . ( ( ( ( $attendee !== null ) && ( $attendee->rsvpStatus == 'No' ) ) || ( $rsvp_saved_form_vars['mainRsvp'] == 'N' ) ) ? 'checked="checked"' : '' ) . ' /> ' .
 		'<label for="mainRsvpN">' . $no_verbiage . '</label>' .
 		RSVP_END_FORM_FIELD;
 
@@ -300,8 +300,8 @@ function rsvp_frontend_main_form( $attendee_id, $rsvp_step = 'handleRsvp' ) {
 		$form .= rsvp_BeginningFormField( '', 'rsvpBorderTop' ) .
 			RSVP_START_PARA . $kids_verbiage . RSVP_END_PARA .
 			'<input type="radio" name="mainKidsMeal" value="Y" id="mainKidsMealY" ' .
-			( ( ( $attendee->kidsMeal === 'Y' ) || ( isset( $rsvp_saved_form_vars['mainKidsMeal'] ) && ( $rsvp_saved_form_vars['mainKidsMeal'] == 'Y' ) ) ) ? 'checked="checked"' : '' ) . ' /> <label for="mainKidsMealY">' . $yes_text . '</label> ' .
-			'<input type="radio" name="mainKidsMeal" value="N" id="mainKidsMealN" ' . ( ( ( $attendee->kidsMeal == 'Y' ) || ( isset( $rsvp_saved_form_vars['mainKidsMeal'] ) && ( $rsvp_saved_form_vars['mainKidsMeal'] == 'Y' ) ) ) ? '' : 'checked="checked"' ) . ' /> <label for="mainKidsMealN">' . $no_text . '</label>' .
+			( ( ( ( $attendee !== null ) && ( $attendee->kidsMeal === 'Y' ) ) || ( isset( $rsvp_saved_form_vars['mainKidsMeal'] ) && ( $rsvp_saved_form_vars['mainKidsMeal'] == 'Y' ) ) ) ? 'checked="checked"' : '' ) . ' /> <label for="mainKidsMealY">' . $yes_text . '</label> ' .
+			'<input type="radio" name="mainKidsMeal" value="N" id="mainKidsMealN" ' . ( ( ( ( $attendee !== null ) && ( $attendee->kidsMeal == 'Y' ) ) || ( isset( $rsvp_saved_form_vars['mainKidsMeal'] ) && ( $rsvp_saved_form_vars['mainKidsMeal'] == 'Y' ) ) ) ? '' : 'checked="checked"' ) . ' /> <label for="mainKidsMealN">' . $no_text . '</label>' .
 			RSVP_END_FORM_FIELD;
 	}
 
@@ -309,16 +309,22 @@ function rsvp_frontend_main_form( $attendee_id, $rsvp_step = 'handleRsvp' ) {
 		$form .= rsvp_BeginningFormField( '', 'rsvpBorderTop' ) .
 			RSVP_START_PARA . $veggie_verbiage . RSVP_END_PARA .
 			'<input type="radio" name="mainVeggieMeal" value="Y" id="mainVeggieMealY" ' .
-			( ( ( $attendee->veggieMeal === 'Y' ) || ( isset( $rsvp_saved_form_vars['mainVeggieMeal'] ) && ( $rsvp_saved_form_vars['mainVeggieMeal'] == 'Y' ) ) ) ? 'checked="checked"' : '' ) . '/> <label for="mainVeggieMealY">' . $yes_text . '</label> ' .
+			( ( ( ( $attendee !== null ) && ( $attendee->veggieMeal === 'Y' ) ) || ( isset( $rsvp_saved_form_vars['mainVeggieMeal'] ) && ( $rsvp_saved_form_vars['mainVeggieMeal'] == 'Y' ) ) ) ? 'checked="checked"' : '' ) . '/> <label for="mainVeggieMealY">' . $yes_text . '</label> ' .
 			'<input type="radio" name="mainVeggieMeal" value="N" id="mainVeggieMealN" ' .
-			( ( ( $attendee->veggieMeal == 'Y' ) || ( isset( $rsvp_saved_form_vars['mainVeggieMeal'] ) && ( $rsvp_saved_form_vars['mainVeggieMeal'] == 'Y' ) ) ) ? '' : 'checked="checked"' ) . ' /> <label for="mainVeggieMealN">' . $no_text . '</label>' .
+			( ( ( ( $attendee !== null ) && ( $attendee->veggieMeal == 'Y' ) ) || ( isset( $rsvp_saved_form_vars['mainVeggieMeal'] ) && ( $rsvp_saved_form_vars['mainVeggieMeal'] == 'Y' ) ) ) ? '' : 'checked="checked"' ) . ' /> <label for="mainVeggieMealN">' . $no_text . '</label>' .
 			RSVP_END_FORM_FIELD;
 	}
 
 	if ( 'Y' !== get_option( OPTION_RSVP_HIDE_EMAIL_FIELD ) ) {
+		$email_value = '';
+
+		if ( $attendee !== null ) {
+			$email_value = stripslashes_deep( $attendee->email );
+		}
+
 		$form .= rsvp_BeginningFormField( '', 'rsvpBorderTop' ) .
 			'<label for="mainEmail">' . __( 'Email Address', 'rsvp-plugin' ) . '</label>' .
-			'<input type="text" name="mainEmail" id="mainEmail" value="' . esc_html( $attendee->email ) . '" />' .
+			'<input type="text" name="mainEmail" id="mainEmail" value="' . esc_html( $email_value ) . '" />' .
 			RSVP_END_FORM_FIELD;
 	}
 
@@ -1386,13 +1392,13 @@ function rsvp_frontend_greeting() {
 	$output .= "<form name=\"rsvp\" method=\"post\" id=\"rsvp\" action=\"$rsvp_form_action\" autocomplete=\"off\">\r\n";
 	$output .= '	<input type="hidden" name="rsvpStep" value="find" />';
 	if ( ! rsvp_require_only_passcode_to_register() ) {
-		$output .= RSVP_START_PARA . '<label for="firstName">' . __( 'First Name', 'rsvp-plugin' ) . ':</label>
+		$output .= RSVP_START_PARA . '<label for="firstName">' . __( 'First Name', 'rsvp-plugin' ) . '</label>
 		<input type="text" name="firstName" id="firstName" size="30" value="" class="required" />' . RSVP_END_PARA;
-		$output .= RSVP_START_PARA . '<label for="lastName">' . __( 'Last Name', 'rsvp-plugin' ) . ':</label>
+		$output .= RSVP_START_PARA . '<label for="lastName">' . __( 'Last Name', 'rsvp-plugin' ) . '</label>
 		<input type="text" name="lastName" id="lastName" size="30" value="" class="required" />' . RSVP_END_PARA;
 	}
 	if ( rsvp_require_passcode() ) {
-		$output .= RSVP_START_PARA . '<label for="passcode">' . __( 'Passcode', 'rsvp-plugin' ) . ':</label>
+		$output .= RSVP_START_PARA . '<label for="passcode">' . __( 'Passcode', 'rsvp-plugin' ) . '</label>
 		<input type="password" name="passcode" id="passcode" size="30" value="" class="required" autocomplete="off" />' . RSVP_END_PARA;
 	}
 	$output .= RSVP_START_PARA . '<input type="submit" value="' . __( 'Complete your RSVP!', 'rsvp-plugin' ) . '" />' . RSVP_END_PARA;
