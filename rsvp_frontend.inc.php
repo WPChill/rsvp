@@ -41,7 +41,7 @@ function rsvp_frontend_handler( $text ) {
 	$openDate  = get_option( OPTION_OPENDATE );
 	$closeDate = get_option( OPTION_DEADLINE );
 	if ( ( strtotime( $openDate ) !== false ) && ( strtotime( $openDate ) > time() ) ) {
-		return rsvp_handle_output( $text, RSVP_START_PARA . sprintf( __( "I am sorry but the ability to RSVP for our wedding won't open till <strong>%s</strong>", 'rsvp-plugin' ), date_i18n( get_option( 'date_format' ), strtotime( $openDate ) ) ) . RSVP_END_PARA );
+		return rsvp_handle_output( $text, RSVP_START_PARA . sprintf( __( "The ability to RSVP for this event will open on <strong>%s</strong>", 'rsvp-plugin' ), date_i18n( get_option( 'date_format' ), strtotime( $openDate ) ) ) . RSVP_END_PARA );
 	}
 
 	if ( ( strtotime( $closeDate ) !== false ) && ( strtotime( $closeDate ) < time() ) ) {
