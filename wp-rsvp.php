@@ -620,7 +620,7 @@ function rsvp_admin_guestlist() {
 					<tr class="<?php echo( ( $i % 2 == 0 ) ? 'alternate' : '' ); ?> author-self">
 						<th scope="row" class="check-column"><input type="checkbox" name="attendee[]" value="<?php echo $attendee->id; ?>" /></th>
 						<td>
-							<a href="<?php echo get_option( 'siteurl' ); ?>/wp-admin/admin.php?page=rsvp-admin-guest&amp;id=<?php echo $attendee->id; ?>"><?php echo htmlspecialchars( stripslashes( $attendee->firstName ) . ' ' . stripslashes( $attendee->lastName ) ); ?></a>
+							<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-guest&amp;id=<?php echo $attendee->id; ?>"><?php echo htmlspecialchars( stripslashes( $attendee->firstName ) . ' ' . stripslashes( $attendee->lastName ) ); ?></a>
 						</td>
 						  <!--<td><?php echo htmlspecialchars( stripslashes( $attendee->email ) ); ?></td>-->
 						<td><?php echo $attendee->rsvpStatus; ?></td>
@@ -1223,8 +1223,8 @@ function rsvp_admin_guest() {
 			htmlspecialchars( stripslashes( $_POST['lastName'] ) )
 			); ?></p>
 		<p>
-			<a href="<?php echo get_option( 'siteurl' ); ?>/wp-admin/admin.php?page=rsvp-top-level"><?php echo __( 'Continue to Attendee List', 'rsvp-plugin' ); ?></a> |
-			<a href="<?php echo get_option( 'siteurl' ); ?>/wp-admin/admin.php?page=rsvp-admin-guest"><?php echo __( 'Add a Guest', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-top-level"><?php echo __( 'Continue to Attendee List', 'rsvp-plugin' ); ?></a> |
+			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-guest"><?php echo __( 'Add a Guest', 'rsvp-plugin' ); ?></a>
 		</p>
 		<?php
 	} else {
@@ -1465,7 +1465,7 @@ function rsvp_admin_questions() {
 					<tr class="<?php echo( ( $i % 2 == 0 ) ? 'alternate' : '' ); ?> author-self" id="<?php echo $q->id; ?>">
 						<th scope="row" class="check-column"><input type="checkbox" name="q[]" value="<?php echo $q->id; ?>" /></th>
 						<td>
-							<a href="<?php echo get_option( 'siteurl' ); ?>/wp-admin/admin.php?page=rsvp-admin-custom-question&amp;id=<?php echo $q->id; ?>"><?php echo htmlspecialchars( stripslashes( $q->question ) ); ?></a>
+							<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-custom-question&amp;id=<?php echo $q->id; ?>"><?php echo htmlspecialchars( stripslashes( $q->question ) ); ?></a>
 							<input type="hidden" name="sortOrder<?php echo $q->id; ?>" id="sortOrder<?php echo $q->id; ?>" value="<?php echo $q->sortOrder; ?>" />
 						</td>
 		  <td>
@@ -1633,11 +1633,10 @@ function rsvp_admin_custom_question() {
 				}
 			}
 		}
-		?>
 		<p><?php echo __( 'Custom Question saved', 'rsvp-plugin' ); ?></p>
 		<p>
-			<a href="<?php echo get_option( 'siteurl' ); ?>/wp-admin/admin.php?page=rsvp-admin-questions"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a> |
-			<a href="<?php echo get_option( 'siteurl' ); ?>/wp-admin/admin.php?page=rsvp-admin-custom-question"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-questions"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a> |
+			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-custom-question"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
 		</p>
 		<?php
 	} else {
