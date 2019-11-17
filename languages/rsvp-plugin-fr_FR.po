@@ -119,8 +119,8 @@ msgstr ""
 "confirmer leur présence."
 
 #: rsvp_frontend.inc.php:267
-msgid " Will %s be attending?"
-msgstr " %s sera-t-il/elle présent(e) ?"
+msgid "Will %s be attending?"
+msgstr "%s sera-t-il/elle présent(e) ?"
 
 #: rsvp_frontend.inc.php:280
 msgid "Does %s need a kids meal?"
