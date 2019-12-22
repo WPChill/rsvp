@@ -335,6 +335,12 @@ msgstr "Cette personne a-t-elle besoin d'un repas végétarien ?"
 msgid "Remove Guest"
 msgstr "Supprimer un invité"
 
+#: rsvp_frontend.inc.php:1432
+msgid ""
+"You have already added %1$d additional rsvp\\\'s you can add no more."
+msgstr ""
+"Vous avez déjà ajouté %1$d invité(s), vous ne pouvez pas en ajouter plus."
+
 #: wp-rsvp.php:198
 msgid "RSVP Guestlist Options"
 msgstr "Options de réponse à la liste des invités"
