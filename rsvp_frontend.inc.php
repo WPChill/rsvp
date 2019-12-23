@@ -409,8 +409,8 @@ function rsvp_frontend_main_form( $attendee_id, $rsvp_step = 'handleRsvp' ) {
 		$form .= "<h3>$text</h3>\r\n";
 		$form .= '<div id="additionalRsvpContainer">' . "\r\n" .
 			'<input type="hidden" name="additionalRsvp" id="additionalRsvp" value="' . count( $new_rsvps ) . '" />
-			<div style="text-align:right" id="addRsvpButtonContainer"><img ' .
-			'src="' . get_option( 'siteurl' ) . '/wp-content/plugins/rsvp/plus.png" width="24" height="24" border="0" id="addRsvp" /></div>' .
+			<div style="text-align:right" id="addRsvpButtonContainer">
+				<button id="addRsvp">' . __( 'Add Additional Guest' ) . '</button></div>' .
 		'</div>';
 	}
 

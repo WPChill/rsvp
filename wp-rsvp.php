@@ -2,13 +2,13 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.6.9
+ * @version 2.7.0
  * Plugin Name: RSVP
  * Text Domain: rsvp-plugin
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: Swim or Die Software
- * Version: 2.6.9
+ * Version: 2.7.0
  * Author URI: http://www.swimordiesoftware.com
  * License: GPL
  */
@@ -84,6 +84,10 @@ define( 'RSVP_PLUGIN_PATH', WP_PLUGIN_DIR . '/' . basename( dirname( $my_plugin_
 if ( ( isset( $_GET['page'] ) && ( strToLower( $_GET['page'] ) == 'rsvp-admin-export' ) ) ||
    ( isset( $_POST['rsvp-bulk-action'] ) && ( 'export' === strToLower( $_POST['rsvp-bulk-action'] ) ) ) ) {
 	add_action( 'init', 'rsvp_admin_export' );
+}
+
+if ( isset( $_GET['page'] ) && ( 'rsvp-upgrade-to-pro' === strtolower( $_GET['page'] ) ) ) {
+	add_action( 'init', 'rsvp_upgrade_to_pro' );
 }
 
 require_once 'external-libs/wp-simple-nonce/wp-simple-nonce.php';
@@ -447,15 +451,6 @@ function rsvp_admin_guestlist() {
 		$sortDirection = $_GET['sortDirection'];
 	}
 	?>
-  <div class="notice"><p><?php
-	echo __(
-		'<a href="https://www.rsvpproplugin.com/rsvp-premium-discount-code/">Click here</a> to get an 
-		exclusive 20% off the price of RSVP Pro for RSVP free users. With the RSVP Pro version you 
-		can have multiple events, easily communicate with attendees, and 
-		<a href="https://www.rsvpproplugin.com" target="_blank">much much more</a>.',
-		'rsvp-plugin'
-	);
-	?></p></div>
 	<script type="text/javascript" language="javascript">
 		jQuery(document).ready(function() {
 			jQuery("#cb").click(function() {
@@ -1384,6 +1379,11 @@ function rsvp_admin_guest() {
 function rsvp_admin_questions() {
 	global $wpdb;
 
+	if ( isset( $_GET['action'] ) && ( 'add' === strtolower( $_GET['action' ] ) ) ) {
+		rsvp_admin_custom_question();
+		return;
+	}
+
 	if ( ( count( $_POST ) > 0 ) && ( $_POST['rsvp-bulk-action'] == 'delete' ) && ( is_array( $_POST['q'] ) && ( count( $_POST['q'] ) > 0 ) ) ) {
 		foreach ( $_POST['q'] as $q ) {
 			if ( is_numeric( $q ) && ( $q > 0 ) ) {
@@ -1444,6 +1444,7 @@ function rsvp_admin_questions() {
 					</select>
 					<input type="submit" value="<?php _e( 'Apply', 'rsvp' ); ?>" name="doaction" id="doaction" class="button-secondary action" onclick="document.getElementById('rsvp-bulk-action').value = document.getElementById('rsvp-action-top').value;" />
 					<input type="submit" value="<?php _e( 'Save Sort Order', 'rsvp' ); ?>" name="saveSortButton" id="saveSortButton" class="button-secondary action" onclick="document.getElementById('rsvp-bulk-action').value = 'saveSortOrder';" />
+					&nbsp; <a href="<?php echo add_query_arg( 'action', 'add' ); ?>" class="button-secondary action"><?php _e( 'Add New', 'rsvp' ); ?></a>
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -1633,6 +1634,7 @@ function rsvp_admin_custom_question() {
 				}
 			}
 		}
+		?>
 		<p><?php echo __( 'Custom Question saved', 'rsvp-plugin' ); ?></p>
 		<p>
 			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-questions"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a> |
@@ -1813,6 +1815,10 @@ function rsvp_admin_custom_question() {
 	}
 }
 
+function rsvp_upgrade_to_pro() {
+	wp_redirect( 'https://www.rsvpproplugin.com' );
+}
+
 function rsvp_modify_menu() {
 	$page = add_menu_page(
 		'RSVP Plugin',
@@ -1862,21 +1868,21 @@ function rsvp_modify_menu() {
 
 	$page = add_submenu_page(
 		'rsvp-top-level',
-		'Add Custom Question',
-		'Add Custom Question',
-		'publish_posts',
-		'rsvp-admin-custom-question',
-		'rsvp_admin_custom_question'
-	);
-	add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
-
-	$page = add_submenu_page(
-		'rsvp-top-level',
 		'RSVP Settings',    // page title
 		'RSVP Settings',    // subpage title
 		'manage_options',    // access
 		'rsvp-options',        // current file
 		'rsvp_admin_guestlist_options'    // options function above
+	);
+	add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
+
+	$page = add_submenu_page(
+		'rsvp-top-level',
+		'Upgrade to Pro',
+		'<span id="rsvp_upgrade_to_pro_link">Upgrade to Pro</span>',
+		'publish_posts',
+		'rsvp-upgrade-to-pro',
+		'rsvp_upgrade_to_pro'
 	);
 	add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
 }

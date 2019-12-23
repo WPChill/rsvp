@@ -40,3 +40,7 @@ input.error, textarea.error { border: 2px solid red; }
 .rsvpParagraph .required {
   position: relative;
 }
+#rsvp_upgrade_to_pro_link {
+  font-weight:bold;
+  color: red;
+}
