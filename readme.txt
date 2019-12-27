@@ -102,6 +102,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 = 2.7.1 =
 * Fixed a problem where the "add new" custom questions change in 2.7.0 broke more of the functionality in the custom questions area.
+* Updated German translation courtesy of Stefan Profanter.
 
 = 2.7.0 =
 * Change by Christopher Moncayo changing from using the "site_url" option and using the get_site_url function instead
