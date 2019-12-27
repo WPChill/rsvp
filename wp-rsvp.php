@@ -2,13 +2,13 @@
 /**
  * @package rsvp
  * @author Swim or Die Software
- * @version 2.7.0
+ * @version 2.7.1
  * Plugin Name: RSVP
  * Text Domain: rsvp-plugin
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: Swim or Die Software
- * Version: 2.7.0
+ * Version: 2.7.1
  * Author URI: http://www.swimordiesoftware.com
  * License: GPL
  */
@@ -1466,7 +1466,11 @@ function rsvp_admin_questions() {
 					<tr class="<?php echo( ( $i % 2 == 0 ) ? 'alternate' : '' ); ?> author-self" id="<?php echo $q->id; ?>">
 						<th scope="row" class="check-column"><input type="checkbox" name="q[]" value="<?php echo $q->id; ?>" /></th>
 						<td>
-							<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-custom-question&amp;id=<?php echo $q->id; ?>"><?php echo htmlspecialchars( stripslashes( $q->question ) ); ?></a>
+							<a href="<?php echo add_query_arg( array(
+								'action' => 'add',
+								'id'     => $q->id,
+								)
+							) ?>"><?php echo htmlspecialchars( stripslashes( $q->question ) ); ?></a>
 							<input type="hidden" name="sortOrder<?php echo $q->id; ?>" id="sortOrder<?php echo $q->id; ?>" value="<?php echo $q->sortOrder; ?>" />
 						</td>
 		  <td>
@@ -1638,7 +1642,7 @@ function rsvp_admin_custom_question() {
 		<p><?php echo __( 'Custom Question saved', 'rsvp-plugin' ); ?></p>
 		<p>
 			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-questions"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a> |
-			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-custom-question"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-questions&action=add"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
 		</p>
 		<?php
 	} else {
@@ -1726,7 +1730,7 @@ function rsvp_admin_custom_question() {
 					})
 				});
 			</script>
-			<form name="contact" action="admin.php?page=rsvp-admin-custom-question" method="post">
+			<form name="contact" action="<?php echo add_query_arg( 'action', 'add' ); ?>" method="post">
 				<input type="hidden" name="numNewAnswers" id="numNewAnswers" value="0" />
 				<input type="hidden" name="questionId" value="<?php echo $questionId; ?>" />
 				<?php wp_nonce_field( 'rsvp_add_custom_question' ); ?>
