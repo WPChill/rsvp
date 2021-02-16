@@ -618,11 +618,11 @@ function rsvp_admin_guestlist(){
 				</div>
 				<div class="clear"></div>
 			</div>
-			<table class="widefat post fixed" cellspacing="0">
+			<table class="wp-list-table widefat post fixed" cellspacing="0">
 				<thead>
 				<tr>
-					<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
-																								 id="cb"/></th>
+					<td scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
+																								 id="cb"/></td>
 					<th scope="col" id="attendeeName" class="manage-column column-title"
 						style=""><?php echo __( 'Attendee', 'rsvp-plugin' ); ?><br/>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=attendee&amp;sortDirection=asc">
@@ -749,105 +749,233 @@ function rsvp_admin_guestlist(){
 						style=""><?php echo __( 'Associated Attendees', 'rsvp-plugin' ); ?></th>
 				</tr>
 				</thead>
-			</table>
-			<div>
-				<table class="widefat post fixed" cellspacing="0">
-					<?php
-					$i = 0;
-					foreach ( $attendees as $attendee ){
-						?>
-						<tr class="<?php echo( ( $i % 2 == 0 ) ? 'alternate' : '' ); ?> author-self">
-							<th scope="row" class="check-column"><input type="checkbox" name="attendee[]"
-																		value="<?php echo $attendee->id; ?>"/></th>
-							<td>
-								<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-guest&amp;id=<?php echo $attendee->id; ?>"><?php echo htmlspecialchars( stripslashes( $attendee->firstName ) . ' ' . stripslashes( $attendee->lastName ) ); ?></a>
-							</td>
-							<!--<td><?php echo htmlspecialchars( stripslashes( $attendee->email ) ); ?></td>-->
-							<td><?php echo $attendee->rsvpStatus; ?></td>
-							<td><?php echo $attendee->rsvpDate; ?></td>
-							<?php
-							if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ){
-								?>
-								<td>
-									<?php
-									if ( $attendee->rsvpStatus == 'NoResponse' ){
-										echo '--';
-									} else {
-										echo( ( $attendee->kidsMeal == 'Y' ) ? __( 'Yes', 'rsvp-plugin' ) : __( 'No', 'rsvp-plugin' ) );
-									}
-									?>
-								</td>
-								<?php
-							}
+				<tbody>
+				<?php
+				$i = 0;
+				foreach ( $attendees as $attendee ){
+					?>
+					<tr class="<?php echo( ( $i % 2 == 0 ) ? 'alternate' : '' ); ?> author-self">
+						<th scope="row" class="check-column"><input type="checkbox" name="attendee[]"
+																	value="<?php echo $attendee->id; ?>"/></th>
+						<td>
+							<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-guest&amp;id=<?php echo $attendee->id; ?>"><?php echo htmlspecialchars( stripslashes( $attendee->firstName ) . ' ' . stripslashes( $attendee->lastName ) ); ?></a>
+						</td>
+						<!--<td><?php echo htmlspecialchars( stripslashes( $attendee->email ) ); ?></td>-->
+						<td><?php echo $attendee->rsvpStatus; ?></td>
+						<td><?php echo $attendee->rsvpDate; ?></td>
+						<?php
+						if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ){
 							?>
 							<td>
 								<?php
 								if ( $attendee->rsvpStatus == 'NoResponse' ){
 									echo '--';
 								} else {
-									echo( ( $attendee->additionalAttendee == 'Y' ) ? __( 'Yes', 'rsvp-plugin' ) : __( 'No', 'rsvp-plugin' ) );
+									echo( ( $attendee->kidsMeal == 'Y' ) ? __( 'Yes', 'rsvp-plugin' ) : __( 'No', 'rsvp-plugin' ) );
 								}
 								?>
 							</td>
+							<?php
+						}
+						?>
+						<td>
+							<?php
+							if ( $attendee->rsvpStatus == 'NoResponse' ){
+								echo '--';
+							} else {
+								echo( ( $attendee->additionalAttendee == 'Y' ) ? __( 'Yes', 'rsvp-plugin' ) : __( 'No', 'rsvp-plugin' ) );
+							}
+							?>
+						</td>
 
-							<?php
-							if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ){
-								?>
-								<td>
-									<?php
-									if ( $attendee->rsvpStatus == 'NoResponse' ){
-										echo '--';
-									} else {
-										echo( ( $attendee->veggieMeal == 'Y' ) ? __( 'Yes', 'rsvp-plugin' ) : __( 'No', 'rsvp-plugin' ) );
-									}
-									?>
-								</td>
-								<?php
-							}
-							?>
-							<!--<td>
 						<?php
-							echo nl2br( stripslashes( trim( $attendee->personalGreeting ) ) );
-							?>
-							</td>-->
-							<td><?php echo nl2br( esc_html( stripslashes( trim( $attendee->note ) ) ) ); ?></td>
-							<?php
-							if ( rsvp_require_passcode() ){
-								?>
-								<td><?php echo $attendee->passcode; ?></td>
-								<?php
-							}
-							$sql = 'SELECT question, answer FROM ' . QUESTIONS_TABLE . ' q
-								LEFT JOIN ' . ATTENDEE_ANSWERS . ' ans ON q.id = ans.questionID AND ans.attendeeID = %d
-								ORDER BY q.sortOrder, q.id';
-							$aRs = $wpdb->get_results( $wpdb->prepare( $sql, $attendee->id ) );
-							if ( count( $aRs ) > 0 ){
-								foreach ( $aRs as $a ){
-									?>
-									<td><?php echo htmlspecialchars( stripslashes( $a->answer ) ); ?></td>
-									<?php
-								}
-							}
+						if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ){
 							?>
 							<td>
 								<?php
-								$sql = 'SELECT firstName, lastName FROM ' . ATTENDEES_TABLE . '
-							 	WHERE id IN (SELECT attendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE associatedAttendeeID = %d)
-									OR id in (SELECT associatedAttendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d)';
-
-								$associations = $wpdb->get_results( $wpdb->prepare( $sql, $attendee->id, $attendee->id ) );
-								foreach ( $associations as $a ){
-									echo htmlspecialchars( stripslashes( $a->firstName . ' ' . $a->lastName ) ) . '<br />';
+								if ( $attendee->rsvpStatus == 'NoResponse' ){
+									echo '--';
+								} else {
+									echo( ( $attendee->veggieMeal == 'Y' ) ? __( 'Yes', 'rsvp-plugin' ) : __( 'No', 'rsvp-plugin' ) );
 								}
 								?>
 							</td>
-						</tr>
+							<?php
+						}
+						?>
+						<!--<td>
 						<?php
-						$i++;
+						echo nl2br( stripslashes( trim( $attendee->personalGreeting ) ) );
+						?>
+							</td>-->
+						<td><?php echo nl2br( esc_html( stripslashes( trim( $attendee->note ) ) ) ); ?></td>
+						<?php
+						if ( rsvp_require_passcode() ){
+							?>
+							<td><?php echo $attendee->passcode; ?></td>
+							<?php
+						}
+						$sql = 'SELECT question, answer FROM ' . QUESTIONS_TABLE . ' q
+								LEFT JOIN ' . ATTENDEE_ANSWERS . ' ans ON q.id = ans.questionID AND ans.attendeeID = %d
+								ORDER BY q.sortOrder, q.id';
+						$aRs = $wpdb->get_results( $wpdb->prepare( $sql, $attendee->id ) );
+						if ( count( $aRs ) > 0 ){
+							foreach ( $aRs as $a ){
+								?>
+								<td><?php echo htmlspecialchars( stripslashes( $a->answer ) ); ?></td>
+								<?php
+							}
+						}
+						?>
+						<td>
+							<?php
+							$sql = 'SELECT firstName, lastName FROM ' . ATTENDEES_TABLE . '
+							 	WHERE id IN (SELECT attendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE associatedAttendeeID = %d)
+									OR id in (SELECT associatedAttendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d)';
+
+							$associations = $wpdb->get_results( $wpdb->prepare( $sql, $attendee->id, $attendee->id ) );
+							foreach ( $associations as $a ){
+								echo htmlspecialchars( stripslashes( $a->firstName . ' ' . $a->lastName ) ) . '<br />';
+							}
+							?>
+						</td>
+					</tr>
+					<?php
+					$i++;
+				}
+				?>
+				</tbody>
+				<tfoot>
+				<tr>
+					<td scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
+																								 id="cb"/></td>
+					<th scope="col" id="attendeeName" class="manage-column column-title"
+						style=""><?php echo __( 'Attendee', 'rsvp-plugin' ); ?><br/>
+						<a href="admin.php?page=rsvp-top-level&amp;sort=attendee&amp;sortDirection=asc">
+							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
+							echo( ( ( $sort == 'attendee' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
+							?>.gif" width="11" height="9"
+								 alt="Sort Ascending Attendee Status" title="Sort Ascending Attendee Status" border="0"></a>
+						&nbsp;
+						<a href="admin.php?page=rsvp-top-level&amp;sort=attendee&amp;sortDirection=desc">
+							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
+							echo( ( ( $sort == 'attendee' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
+							?>.gif" width="11" height="9"
+								 alt="Sort Descending Attendee Status" title="Sort Descending Attendee Status"
+								 border="0"></a>
+					</th>
+					<!--<th scope="col" id="rsvpEmail" class="manage-column column-title"><?php echo __( 'Email', 'rsvp-plugin' ); ?></th>-->
+					<th scope="col" id="rsvpStatus" class="manage-column column-title"
+						style=""><?php echo __( 'RSVP Status', 'rsvp-plugin' ); ?><br/>
+						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpStatus&amp;sortDirection=asc">
+							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
+							echo( ( ( $sort == 'rsvpStatus' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
+							?>.gif" width="11" height="9"
+								 alt="Sort Ascending RSVP Status" title="Sort Ascending RSVP Status" border="0"></a>
+						&nbsp;
+						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpStatus&amp;sortDirection=desc">
+							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
+							echo( ( ( $sort == 'rsvpStatus' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
+							?>.gif" width="11" height="9"
+								 alt="Sort Descending RSVP Status" title="Sort Descending RSVP Status" border="0"></a>
+					</th>
+					<th scope="col" id="rsvpDate"
+						class="manage-column column-title"><?php echo __( 'RSVP Date', 'rsvp-pro-plugin' ); ?><br/>
+						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpDate&amp;sortDirection=asc">
+							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
+							echo( ( ( $sort == 'rsvpDate' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
+							?>.gif" width="11" height="9"
+								 alt="Sort Ascending RSVP Date" title="Sort Ascending RSVP Date" border="0"></a> &nbsp;
+						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpDate&amp;sortDirection=desc">
+							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
+							echo( ( ( $sort == 'rsvpDate' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
+							?>.gif" width="11" height="9"
+								 alt="Sort Descending RSVP Date" title="Sort Descending RSVP Date" border="0"></a>
+					</th>
+					<?php
+					if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ){
+						?>
+						<th scope="col" id="kidsMeal" class="manage-column column-title"
+							style=""><?php echo __( 'Kids Meal', 'rsvp-plugin' ); ?><br/>
+							<a href="admin.php?page=rsvp-top-level&amp;sort=kidsMeal&amp;sortDirection=asc">
+								<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
+								echo( ( ( $sort == 'kidsMeal' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
+								?>.gif" width="11" height="9"
+									 alt="Sort Ascending Kids Meal Status" title="Sort Ascending Kids Meal Status"
+									 border="0"></a> &nbsp;
+							<a href="admin.php?page=rsvp-top-level&amp;sort=kidsMeal&amp;sortDirection=desc">
+								<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
+								echo( ( ( $sort == 'kidsMeal' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
+								?>.gif" width="11" height="9"
+									 alt="Sort Descending Kids Meal Status" title="Sort Descending Kids Meal Status"
+									 border="0"></a>
+						</th>
+						<?php
 					}
 					?>
-				</table>
-			</div>
+					<th scope="col" id="additionalAttendee" class="manage-column column-title"
+						style=""><?php echo __( 'Additional Attendee', 'rsvp-plugin' ); ?> <br/>
+						<a href="admin.php?page=rsvp-top-level&amp;sort=additional&amp;sortDirection=asc">
+							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
+							echo( ( ( $sort == 'additional' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
+							?>.gif" width="11" height="9"
+								 alt="Sort Ascending Additional Attendees Status"
+								 title="Sort Ascending Additional Attendees Status" border="0"></a> &nbsp;
+						<a href="admin.php?page=rsvp-top-level&amp;sort=additional&amp;sortDirection=desc">
+							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
+							echo( ( ( $sort == 'additional' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
+							?>.gif" width="11" height="9"
+								 alt="Sort Descending Additional Attendees Status"
+								 title="Sort Descending Additional Atttendees Status" border="0"></a>
+					</th>
+					<?php
+					if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ){
+						?>
+						<th scope="col" id="veggieMeal" class="manage-column column-title"
+							style=""><?php echo __( 'Vegetarian', 'rsvp-plugin' ); ?> <br/>
+							<a href="admin.php?page=rsvp-top-level&amp;sort=vegetarian&amp;sortDirection=asc">
+								<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
+								echo( ( ( $sort == 'vegetarian' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
+								?>.gif" width="11" height="9"
+									 alt="Sort Ascending Vegetarian Status" title="Sort Ascending Vegetarian Status"
+									 border="0"></a> &nbsp;
+							<a href="admin.php?page=rsvp-top-level&amp;sort=vegetarian&amp;sortDirection=desc">
+								<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
+								echo( ( ( $sort == 'vegetarian' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
+								?>.gif" width="11" height="9"
+									 alt="Sort Descending Vegetarian Status" title="Sort Descending Vegetarian Status"
+									 border="0"></a>
+						</th>
+						<?php
+					}
+					?>
+					<!--<th scope="col" id="customMessage" class="manage-column column-title" style=""><?php echo __( 'Custom Message', 'rsvp-plugin' ); ?></th>-->
+					<th scope="col" id="note" class="manage-column column-title"
+						style=""><?php echo __( 'Note', 'rsvp-plugin' ); ?></th>
+					<?php
+					if ( rsvp_require_passcode() ){
+						?>
+						<th scope="col" id="passcode" class="manage-column column-title"
+							style=""><?php echo __( 'Passcode', 'rsvp-plugin' ); ?></th>
+						<?php
+					}
+					?>
+					<?php
+					$qRs = $wpdb->get_results( 'SELECT id, question FROM ' . QUESTIONS_TABLE . ' ORDER BY sortOrder, id' );
+					if ( count( $qRs ) > 0 ){
+						foreach ( $qRs as $q ){
+							?>
+							<th scope="col"
+								class="manage-column -column-title"><?php echo htmlspecialchars( stripslashes( $q->question ) ); ?></th>
+							<?php
+						}
+					}
+					?>
+					<th scope="col" id="associatedAttendees" class="manage-column column-title"
+						style=""><?php echo __( 'Associated Attendees', 'rsvp-plugin' ); ?></th>
+				</tr>
+				</tfoot>
+			</table>
 		</form>
 	</div>
 	<?php
@@ -1620,7 +1748,7 @@ function rsvp_admin_questions(){
 				</div>
 				<div class="clear"></div>
 			</div>
-			<table class="widefat post fixed" cellspacing="0">
+			<table id="customQuestions" class="wp-list-table  widefat post fixed" cellspacing="0">
 				<thead>
 				<tr>
 					<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
@@ -1631,42 +1759,51 @@ function rsvp_admin_questions(){
 						class="manage-column column-title"><?php echo __( 'Private Import Key', 'rsvp-plugin' ); ?></th>
 				</tr>
 				</thead>
-			</table>
-			<div style="overflow: auto;height: 450px;">
-				<table class="widefat post fixed" cellspacing="0" id="customQuestions">
-					<?php
-					$i = 0;
-					foreach ( $customQs as $q ){
-						?>
-						<tr class="<?php echo( ( $i % 2 == 0 ) ? 'alternate' : '' ); ?> author-self"
-							id="<?php echo $q->id; ?>">
-							<th scope="row" class="check-column"><input type="checkbox" name="q[]"
-																		value="<?php echo $q->id; ?>"/></th>
-							<td>
-								<a href="<?php echo add_query_arg( array(
-												'action' => 'add',
-												'id'     => $q->id,
-										)
-								) ?>"><?php echo htmlspecialchars( stripslashes( $q->question ) ); ?></a>
-								<input type="hidden" name="sortOrder<?php echo $q->id; ?>"
-									   id="sortOrder<?php echo $q->id; ?>" value="<?php echo $q->sortOrder; ?>"/>
-							</td>
-							<td>
-								<?php
-								if ( $q->permissionLevel == 'private' ){
-									?>
-									pq_<?php echo $q->id; ?>
-									<?php
-								}
-								?>
-							</td>
-						</tr>
-						<?php
-						$i++;
-					}
+				<tbody>
+				<?php
+				$i = 0;
+				foreach ( $customQs as $q ){
 					?>
-				</table>
-			</div>
+					<tr class="<?php echo( ( $i % 2 == 0 ) ? 'alternate' : '' ); ?> author-self"
+						id="<?php echo $q->id; ?>">
+						<td scope="row" class="check-column"><input type="checkbox" name="q[]"
+																	value="<?php echo $q->id; ?>"/></td>
+						<td>
+							<a href="<?php echo add_query_arg( array(
+											'action' => 'add',
+											'id'     => $q->id,
+									)
+							) ?>"><?php echo htmlspecialchars( stripslashes( $q->question ) ); ?></a>
+							<input type="hidden" name="sortOrder<?php echo $q->id; ?>"
+								   id="sortOrder<?php echo $q->id; ?>" value="<?php echo $q->sortOrder; ?>"/>
+						</td>
+						<td>
+							<?php
+							if ( $q->permissionLevel == 'private' ){
+								?>
+								pq_<?php echo $q->id; ?>
+								<?php
+							}
+							?>
+						</td>
+					</tr>
+					<?php
+					$i++;
+				}
+				?>
+				</tbody>
+				<tfoot>
+				<tr>
+					<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
+																								 id="cb"/></th>
+					<th scope="col" id="questionCol" class="manage-column column-title"
+						style=""><?php echo __( 'Question', 'rsvp-plugin' ); ?></th>
+					<th scope="col"
+						class="manage-column column-title"><?php echo __( 'Private Import Key', 'rsvp-plugin' ); ?></th>
+				</tr>
+				</tfoot>
+			</table>
+
 		</form>
 	</div>
 	<?php
