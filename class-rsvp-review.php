@@ -53,7 +53,7 @@ class RSVP_Review {
 
 		$this->value = $this->value();
 
-		if ( !$this->check() ) {
+		if ( $this->check() ) {
 			add_action( 'admin_notices', array( $this, 'five_star_wp_rate_notice' ) );
 			add_action( 'wp_ajax_epsilon_rsvp_review', array( $this, 'ajax' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
