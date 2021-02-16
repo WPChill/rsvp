@@ -624,101 +624,117 @@ function rsvp_admin_guestlist(){
 					<td scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
 																								 id="cb"/></td>
 					<th scope="col" id="attendeeName" class="manage-column column-title"
-						style=""><?php echo __( 'Attendee', 'rsvp-plugin' ); ?><br/>
+						style="">
+						<?php echo __( 'Attendee', 'rsvp-plugin' ); ?>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=attendee&amp;sortDirection=asc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 							echo( ( ( $sort == 'attendee' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
-								 alt="Sort Ascending Attendee Status" title="Sort Ascending Attendee Status" border="0"></a>
-						&nbsp;
+								 alt="Sort Ascending Attendee Status" title="Sort Ascending Attendee Status" border="0">
+						</a>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=attendee&amp;sortDirection=desc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 							echo( ( ( $sort == 'attendee' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
 								 alt="Sort Descending Attendee Status" title="Sort Descending Attendee Status"
-								 border="0"></a>
+								 border="0">
+						</a>
 					</th>
 					<!--<th scope="col" id="rsvpEmail" class="manage-column column-title"><?php echo __( 'Email', 'rsvp-plugin' ); ?></th>-->
 					<th scope="col" id="rsvpStatus" class="manage-column column-title"
-						style=""><?php echo __( 'RSVP Status', 'rsvp-plugin' ); ?><br/>
+						style="">
+						<?php echo __( 'RSVP Status', 'rsvp-plugin' ); ?>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpStatus&amp;sortDirection=asc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 							echo( ( ( $sort == 'rsvpStatus' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
-								 alt="Sort Ascending RSVP Status" title="Sort Ascending RSVP Status" border="0"></a>
-						&nbsp;
+								 alt="Sort Ascending RSVP Status" title="Sort Ascending RSVP Status" border="0">
+						</a>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpStatus&amp;sortDirection=desc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 							echo( ( ( $sort == 'rsvpStatus' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
-								 alt="Sort Descending RSVP Status" title="Sort Descending RSVP Status" border="0"></a>
+								 alt="Sort Descending RSVP Status" title="Sort Descending RSVP Status" border="0">
+						</a>
 					</th>
 					<th scope="col" id="rsvpDate"
-						class="manage-column column-title"><?php echo __( 'RSVP Date', 'rsvp-pro-plugin' ); ?><br/>
+						class="manage-column column-title">
+						<?php echo __( 'RSVP Date', 'rsvp-pro-plugin' ); ?>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpDate&amp;sortDirection=asc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 							echo( ( ( $sort == 'rsvpDate' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
-								 alt="Sort Ascending RSVP Date" title="Sort Ascending RSVP Date" border="0"></a> &nbsp;
+								 alt="Sort Ascending RSVP Date" title="Sort Ascending RSVP Date" border="0">
+						</a>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpDate&amp;sortDirection=desc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 							echo( ( ( $sort == 'rsvpDate' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
-								 alt="Sort Descending RSVP Date" title="Sort Descending RSVP Date" border="0"></a>
+								 alt="Sort Descending RSVP Date" title="Sort Descending RSVP Date" border="0">
+						</a>
 					</th>
 					<?php
 					if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ){
 						?>
 						<th scope="col" id="kidsMeal" class="manage-column column-title"
-							style=""><?php echo __( 'Kids Meal', 'rsvp-plugin' ); ?><br/>
+							style="">
+							<?php echo __( 'Kids Meal', 'rsvp-plugin' ); ?>
 							<a href="admin.php?page=rsvp-top-level&amp;sort=kidsMeal&amp;sortDirection=asc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 								echo( ( ( $sort == 'kidsMeal' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 								?>.gif" width="11" height="9"
 									 alt="Sort Ascending Kids Meal Status" title="Sort Ascending Kids Meal Status"
-									 border="0"></a> &nbsp;
+									 border="0">
+							</a>
 							<a href="admin.php?page=rsvp-top-level&amp;sort=kidsMeal&amp;sortDirection=desc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 								echo( ( ( $sort == 'kidsMeal' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 								?>.gif" width="11" height="9"
 									 alt="Sort Descending Kids Meal Status" title="Sort Descending Kids Meal Status"
-									 border="0"></a>
+									 border="0">
+							</a>
 						</th>
 						<?php
 					}
 					?>
 					<th scope="col" id="additionalAttendee" class="manage-column column-title"
-						style=""><?php echo __( 'Additional Attendee', 'rsvp-plugin' ); ?> <br/>
+						style="">
+						<?php echo __( 'Additional Attendee', 'rsvp-plugin' ); ?>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=additional&amp;sortDirection=asc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 							echo( ( ( $sort == 'additional' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
 								 alt="Sort Ascending Additional Attendees Status"
-								 title="Sort Ascending Additional Attendees Status" border="0"></a> &nbsp;
+								 title="Sort Ascending Additional Attendees Status" border="0">
+						</a>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=additional&amp;sortDirection=desc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 							echo( ( ( $sort == 'additional' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
 								 alt="Sort Descending Additional Attendees Status"
-								 title="Sort Descending Additional Atttendees Status" border="0"></a>
+								 title="Sort Descending Additional Atttendees Status" border="0">
+						</a>
 					</th>
 					<?php
 					if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ){
 						?>
 						<th scope="col" id="veggieMeal" class="manage-column column-title"
-							style=""><?php echo __( 'Vegetarian', 'rsvp-plugin' ); ?> <br/>
+							style="">
+							<?php echo __( 'Vegetarian', 'rsvp-plugin' ); ?>
 							<a href="admin.php?page=rsvp-top-level&amp;sort=vegetarian&amp;sortDirection=asc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 								echo( ( ( $sort == 'vegetarian' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 								?>.gif" width="11" height="9"
 									 alt="Sort Ascending Vegetarian Status" title="Sort Ascending Vegetarian Status"
-									 border="0"></a> &nbsp;
+									 border="0">
+							</a>
 							<a href="admin.php?page=rsvp-top-level&amp;sort=vegetarian&amp;sortDirection=desc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 								echo( ( ( $sort == 'vegetarian' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 								?>.gif" width="11" height="9"
 									 alt="Sort Descending Vegetarian Status" title="Sort Descending Vegetarian Status"
-									 border="0"></a>
+									 border="0">
+							</a>
 						</th>
 						<?php
 					}
@@ -850,101 +866,117 @@ function rsvp_admin_guestlist(){
 					<td scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
 																								 id="cb"/></td>
 					<th scope="col" id="attendeeName" class="manage-column column-title"
-						style=""><?php echo __( 'Attendee', 'rsvp-plugin' ); ?><br/>
+						style="">
+						<?php echo __( 'Attendee', 'rsvp-plugin' ); ?>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=attendee&amp;sortDirection=asc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 							echo( ( ( $sort == 'attendee' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
-								 alt="Sort Ascending Attendee Status" title="Sort Ascending Attendee Status" border="0"></a>
-						&nbsp;
+								 alt="Sort Ascending Attendee Status" title="Sort Ascending Attendee Status" border="0">
+						</a>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=attendee&amp;sortDirection=desc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 							echo( ( ( $sort == 'attendee' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
 								 alt="Sort Descending Attendee Status" title="Sort Descending Attendee Status"
-								 border="0"></a>
+								 border="0">
+						</a>
 					</th>
 					<!--<th scope="col" id="rsvpEmail" class="manage-column column-title"><?php echo __( 'Email', 'rsvp-plugin' ); ?></th>-->
 					<th scope="col" id="rsvpStatus" class="manage-column column-title"
-						style=""><?php echo __( 'RSVP Status', 'rsvp-plugin' ); ?><br/>
+						style="">
+						<?php echo __( 'RSVP Status', 'rsvp-plugin' ); ?>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpStatus&amp;sortDirection=asc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 							echo( ( ( $sort == 'rsvpStatus' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
-								 alt="Sort Ascending RSVP Status" title="Sort Ascending RSVP Status" border="0"></a>
-						&nbsp;
+								 alt="Sort Ascending RSVP Status" title="Sort Ascending RSVP Status" border="0">
+						</a>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpStatus&amp;sortDirection=desc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 							echo( ( ( $sort == 'rsvpStatus' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
-								 alt="Sort Descending RSVP Status" title="Sort Descending RSVP Status" border="0"></a>
+								 alt="Sort Descending RSVP Status" title="Sort Descending RSVP Status" border="0">
+						</a>
 					</th>
 					<th scope="col" id="rsvpDate"
-						class="manage-column column-title"><?php echo __( 'RSVP Date', 'rsvp-pro-plugin' ); ?><br/>
+						class="manage-column column-title">
+						<?php echo __( 'RSVP Date', 'rsvp-pro-plugin' ); ?>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpDate&amp;sortDirection=asc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 							echo( ( ( $sort == 'rsvpDate' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
-								 alt="Sort Ascending RSVP Date" title="Sort Ascending RSVP Date" border="0"></a> &nbsp;
+								 alt="Sort Ascending RSVP Date" title="Sort Ascending RSVP Date" border="0">
+						</a>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=rsvpDate&amp;sortDirection=desc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 							echo( ( ( $sort == 'rsvpDate' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
-								 alt="Sort Descending RSVP Date" title="Sort Descending RSVP Date" border="0"></a>
+								 alt="Sort Descending RSVP Date" title="Sort Descending RSVP Date" border="0">
+						</a>
 					</th>
 					<?php
 					if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ){
 						?>
 						<th scope="col" id="kidsMeal" class="manage-column column-title"
-							style=""><?php echo __( 'Kids Meal', 'rsvp-plugin' ); ?><br/>
+							style="">
+							<?php echo __( 'Kids Meal', 'rsvp-plugin' ); ?>
 							<a href="admin.php?page=rsvp-top-level&amp;sort=kidsMeal&amp;sortDirection=asc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 								echo( ( ( $sort == 'kidsMeal' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 								?>.gif" width="11" height="9"
 									 alt="Sort Ascending Kids Meal Status" title="Sort Ascending Kids Meal Status"
-									 border="0"></a> &nbsp;
+									 border="0">
+							</a>
 							<a href="admin.php?page=rsvp-top-level&amp;sort=kidsMeal&amp;sortDirection=desc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 								echo( ( ( $sort == 'kidsMeal' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 								?>.gif" width="11" height="9"
 									 alt="Sort Descending Kids Meal Status" title="Sort Descending Kids Meal Status"
-									 border="0"></a>
+									 border="0">
+							</a>
 						</th>
 						<?php
 					}
 					?>
 					<th scope="col" id="additionalAttendee" class="manage-column column-title"
-						style=""><?php echo __( 'Additional Attendee', 'rsvp-plugin' ); ?> <br/>
+						style="">
+						<?php echo __( 'Additional Attendee', 'rsvp-plugin' ); ?>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=additional&amp;sortDirection=asc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 							echo( ( ( $sort == 'additional' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
 								 alt="Sort Ascending Additional Attendees Status"
-								 title="Sort Ascending Additional Attendees Status" border="0"></a> &nbsp;
+								 title="Sort Ascending Additional Attendees Status" border="0">
+						</a>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=additional&amp;sortDirection=desc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 							echo( ( ( $sort == 'additional' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 							?>.gif" width="11" height="9"
 								 alt="Sort Descending Additional Attendees Status"
-								 title="Sort Descending Additional Atttendees Status" border="0"></a>
+								 title="Sort Descending Additional Atttendees Status" border="0">
+						</a>
 					</th>
 					<?php
 					if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ){
 						?>
 						<th scope="col" id="veggieMeal" class="manage-column column-title"
-							style=""><?php echo __( 'Vegetarian', 'rsvp-plugin' ); ?> <br/>
+							style="">
+							<?php echo __( 'Vegetarian', 'rsvp-plugin' ); ?>
 							<a href="admin.php?page=rsvp-top-level&amp;sort=vegetarian&amp;sortDirection=asc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 								echo( ( ( $sort == 'vegetarian' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
 								?>.gif" width="11" height="9"
 									 alt="Sort Ascending Vegetarian Status" title="Sort Ascending Vegetarian Status"
-									 border="0"></a> &nbsp;
+									 border="0">
+							</a>
 							<a href="admin.php?page=rsvp-top-level&amp;sort=vegetarian&amp;sortDirection=desc">
 								<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 								echo( ( ( $sort == 'vegetarian' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
 								?>.gif" width="11" height="9"
 									 alt="Sort Descending Vegetarian Status" title="Sort Descending Vegetarian Status"
-									 border="0"></a>
+									 border="0">
+							</a>
 						</th>
 						<?php
 					}
