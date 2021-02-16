@@ -93,6 +93,10 @@ if ( isset( $_GET['page'] ) && ( 'rsvp-upgrade-to-pro' === strtolower( $_GET['pa
 require_once 'external-libs/wp-simple-nonce/wp-simple-nonce.php';
 require_once 'rsvp_frontend.inc.php';
 
+if ( is_admin() ){
+	require_once 'class-rsvp-review.php';
+}
+
 /**
  * Database setup for the rsvp plug-in.
  */
