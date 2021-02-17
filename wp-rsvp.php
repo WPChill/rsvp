@@ -564,7 +564,8 @@ function rsvp_admin_guestlist(){
 		$sortDirection = $_GET['sortDirection'];
 	}
 	?>
-	<script type="text/javascript" language="javascript">
+	<!--@todo: Delete lines after testing. They are not necessary anymore-->
+	<!--<script type="text/javascript" language="javascript">
 		jQuery( document ).ready( function () {
 			jQuery( "#cb" ).click( function () {
 				if ( jQuery( "#cb" ).attr( "checked" ) ) {
@@ -574,7 +575,7 @@ function rsvp_admin_guestlist(){
 				}
 			} );
 		} );
-	</script>
+	</script>-->
 	<div class="wrap">
 		<div id="icon-edit" class="icon32"><br/></div>
 		<h1 class="wp-heading-inline"><?php echo __( 'List of current attendees', 'rsvp-plugin' ); ?></h1>
@@ -621,8 +622,10 @@ function rsvp_admin_guestlist(){
 			<table class="wp-list-table widefat post fixed" cellspacing="0">
 				<thead>
 				<tr>
-					<td scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
-																								 id="cb"/></td>
+					<td scope="col" class="manage-column column-cb check-column" style="">
+						<input type="checkbox"
+																								 id="cb"/>
+					</td>
 					<th scope="col" id="attendeeName" class="manage-column column-title"
 						style="">
 						<?php echo __( 'Attendee', 'rsvp-plugin' ); ?>
@@ -746,7 +749,9 @@ function rsvp_admin_guestlist(){
 					if ( rsvp_require_passcode() ){
 						?>
 						<th scope="col" id="passcode" class="manage-column column-title"
-							style=""><?php echo __( 'Passcode', 'rsvp-plugin' ); ?></th>
+							style="">
+							<?php echo __( 'Passcode', 'rsvp-plugin' ); ?>
+						</th>
 						<?php
 					}
 					?>
@@ -756,7 +761,9 @@ function rsvp_admin_guestlist(){
 						foreach ( $qRs as $q ){
 							?>
 							<th scope="col"
-								class="manage-column -column-title"><?php echo htmlspecialchars( stripslashes( $q->question ) ); ?></th>
+								class="manage-column -column-title">
+								<?php echo htmlspecialchars( stripslashes( $q->question ) ); ?>
+							</th>
 							<?php
 						}
 					}
@@ -863,22 +870,20 @@ function rsvp_admin_guestlist(){
 				</tbody>
 				<tfoot>
 				<tr>
-					<td scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
-																								 id="cb"/></td>
-					<th scope="col" id="attendeeName" class="manage-column column-title"
-						style="">
+					<td scope="col" class="manage-column column-cb check-column" style="">
+						<input type="checkbox" id="cb"/>
+					</td>
+					<th scope="col" id="attendeeName" class="manage-column column-title" style="">
 						<?php echo __( 'Attendee', 'rsvp-plugin' ); ?>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=attendee&amp;sortDirection=asc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/uparrow<?php
 							echo( ( ( $sort == 'attendee' ) && ( $sortDirection == 'asc' ) ) ? '_selected' : '' );
-							?>.gif" width="11" height="9"
-								 alt="Sort Ascending Attendee Status" title="Sort Ascending Attendee Status" border="0">
+							?>.gif" width="11" height="9" alt="Sort Ascending Attendee Status" title="Sort Ascending Attendee Status" border="0">
 						</a>
 						<a href="admin.php?page=rsvp-top-level&amp;sort=attendee&amp;sortDirection=desc">
 							<img src="<?php echo plugins_url(); ?>/rsvp/downarrow<?php
 							echo( ( ( $sort == 'attendee' ) && ( $sortDirection == 'desc' ) ) ? '_selected' : '' );
-							?>.gif" width="11" height="9"
-								 alt="Sort Descending Attendee Status" title="Sort Descending Attendee Status"
+							?>.gif" width="11" height="9" alt="Sort Descending Attendee Status" title="Sort Descending Attendee Status"
 								 border="0">
 						</a>
 					</th>
@@ -1783,8 +1788,8 @@ function rsvp_admin_questions(){
 			<table id="customQuestions" class="wp-list-table  widefat post fixed" cellspacing="0">
 				<thead>
 				<tr>
-					<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
-																								 id="cb"/></th>
+					<td scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
+																								 id="cb"/></td>
 					<th scope="col" id="questionCol" class="manage-column column-title"
 						style=""><?php echo __( 'Question', 'rsvp-plugin' ); ?></th>
 					<th scope="col"
@@ -1798,8 +1803,8 @@ function rsvp_admin_questions(){
 					?>
 					<tr class="<?php echo( ( $i % 2 == 0 ) ? 'alternate' : '' ); ?> author-self"
 						id="<?php echo $q->id; ?>">
-						<td scope="row" class="check-column"><input type="checkbox" name="q[]"
-																	value="<?php echo $q->id; ?>"/></td>
+						<th scope="row" class="check-column"><input type="checkbox" name="q[]"
+																	value="<?php echo $q->id; ?>"/></th>
 						<td>
 							<a href="<?php echo add_query_arg( array(
 											'action' => 'add',
@@ -1826,8 +1831,8 @@ function rsvp_admin_questions(){
 				</tbody>
 				<tfoot>
 				<tr>
-					<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
-																								 id="cb"/></th>
+					<td scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
+																								 id="cb"/></td>
 					<th scope="col" id="questionCol" class="manage-column column-title"
 						style=""><?php echo __( 'Question', 'rsvp-plugin' ); ?></th>
 					<th scope="col"
