@@ -877,6 +877,7 @@ function rsvp_admin_guest(){
 
 function rsvp_admin_questions(){
 	global $wpdb;
+	$rsvp_helper = RSVP_Helper::get_instance();
 
 	if ( isset( $_GET['action'] ) && ( 'add' === strtolower( $_GET['action'] ) ) ){
 		rsvp_admin_custom_question();
@@ -952,61 +953,12 @@ function rsvp_admin_questions(){
 				</div>
 				<div class="clear"></div>
 			</div>
-			<table id="customQuestions" class="wp-list-table  widefat post fixed" cellspacing="0">
-				<thead>
-				<tr>
-					<td scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
-																								 id="cb"/></td>
-					<th scope="col" id="questionCol" class="manage-column column-title"
-						style=""><?php echo __( 'Question', 'rsvp-plugin' ); ?></th>
-					<th scope="col"
-						class="manage-column column-title"><?php echo __( 'Private Import Key', 'rsvp-plugin' ); ?></th>
-				</tr>
-				</thead>
-				<tbody>
-				<?php
-				$i = 0;
-				foreach ( $customQs as $q ){
-					?>
-					<tr class="<?php echo( ( $i % 2 == 0 ) ? 'alternate' : '' ); ?> author-self"
-						id="<?php echo $q->id; ?>">
-						<th scope="row" class="check-column"><input type="checkbox" name="q[]"
-																	value="<?php echo $q->id; ?>"/></th>
-						<td>
-							<a href="<?php echo add_query_arg( array(
-											'action' => 'add',
-											'id'     => $q->id,
-									)
-							) ?>"><?php echo htmlspecialchars( stripslashes( $q->question ) ); ?></a>
-							<input type="hidden" name="sortOrder<?php echo $q->id; ?>"
-								   id="sortOrder<?php echo $q->id; ?>" value="<?php echo $q->sortOrder; ?>"/>
-						</td>
-						<td>
-							<?php
-							if ( $q->permissionLevel == 'private' ){
-								?>
-								pq_<?php echo $q->id; ?>
-								<?php
-							}
-							?>
-						</td>
-					</tr>
-					<?php
-					$i++;
-				}
-				?>
-				</tbody>
-				<tfoot>
-				<tr>
-					<td scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"
-																								 id="cb"/></td>
-					<th scope="col" id="questionCol" class="manage-column column-title"
-						style=""><?php echo __( 'Question', 'rsvp-plugin' ); ?></th>
-					<th scope="col"
-						class="manage-column column-title"><?php echo __( 'Private Import Key', 'rsvp-plugin' ); ?></th>
-				</tr>
-				</tfoot>
-			</table>
+			<?php
+			$questions_table    = new RSVP_Questions_List_Table();
+			$tableQuestions = $questions_table->prepare_questions( $customQs );
+			$questions_table->prepare_list( $tableQuestions );
+			$questions_table->display();
+			?>
 
 		</form>
 	</div>

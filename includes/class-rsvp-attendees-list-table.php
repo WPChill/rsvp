@@ -152,7 +152,7 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 		$actions['edit']   = '<a href="' . $edit_link . '">' . __( 'Edit', 'rsvp-plugin' ) . '</a>';
 		$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-rsvp-attendee_' . absint( $item['id'] ) ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?', 'rsvp-plugin' ), esc_html( $item['firstName'] . ' ' . $item['lastName'] ) ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete', 'rsvp-plugin' ) . '</a>';
 
-		$actions = apply_filters( 'rsvp_views_actions', $actions, $item );
+		$actions = apply_filters( 'rsvp_attendees_actions', $actions, $item );
 
 		echo $this->row_actions( $actions );
 	}
@@ -194,7 +194,7 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 				$text = esc_html( $item[ $column_name ] );
 		}
 
-		return apply_filters( "rsvp_view_list_column_$column_name", $text, $item );
+		return apply_filters( "rsvp_attendee_list_column_$column_name", $text, $item );
 	}
 
 

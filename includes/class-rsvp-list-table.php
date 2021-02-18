@@ -840,70 +840,83 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function print_column_headers( $with_id = true ){
-			list( $columns, $hidden, $sortable ) = $this->get_column_info();
+		public function print_column_headers( $with_id = true ) {
+			list( $columns, $hidden, $sortable, $primary ) = $this->get_column_info();
 
 			$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
 			$current_url = remove_query_arg( 'paged', $current_url );
 
-			if ( isset( $_GET['orderby'] ) ){
+			if ( isset( $_GET['orderby'] ) ) {
 				$current_orderby = $_GET['orderby'];
 			} else {
 				$current_orderby = '';
 			}
 
-			if ( isset( $_GET['order'] ) && 'desc' == $_GET['order'] ){
+			if ( isset( $_GET['order'] ) && 'desc' === $_GET['order'] ) {
 				$current_order = 'desc';
 			} else {
 				$current_order = 'asc';
 			}
 
-			if ( !empty( $columns['cb'] ) ){
+			if ( ! empty( $columns['cb'] ) ) {
 				static $cb_counter = 1;
-				$columns['cb'] = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All', 'rsvp-plugin' ) . '</label>'
-								 . '<input id="cb-select-all-' . $cb_counter . '" type="checkbox">';
+				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All' ) . '</label>'
+									 . '<input id="cb-select-all-' . $cb_counter . '" type="checkbox" />';
 				$cb_counter++;
 			}
 
-			foreach ( $columns as $column_key => $column_display_name ){
+			foreach ( $columns as $column_key => $column_display_name ) {
 				$class = array( 'manage-column', "column-$column_key" );
 
-				$style = '';
-				if ( in_array( $column_key, $hidden ) ){
-					$style = 'display:none;';
+				if ( in_array( $column_key, $hidden, true ) ) {
+					$class[] = 'hidden';
 				}
 
-				$style = ' style="' . $style . '"';
-
-				if ( 'cb' == $column_key ){
+				if ( 'cb' === $column_key ) {
 					$class[] = 'check-column';
-				} elseif ( in_array( $column_key, array( 'posts', 'comments', 'links' ) ) ) {
+				} elseif ( in_array( $column_key, array( 'posts', 'comments', 'links' ), true ) ) {
 					$class[] = 'num';
 				}
 
-				if ( isset( $sortable[ $column_key ] ) ){
+				if ( $column_key === $primary ) {
+					$class[] = 'column-primary';
+				}
+
+				if ( isset( $sortable[ $column_key ] ) ) {
 					list( $orderby, $desc_first ) = $sortable[ $column_key ];
 
-					if ( $current_orderby == $orderby ){
-						$order   = 'asc' == $current_order ? 'desc' : 'asc';
+					if ( $current_orderby === $orderby ) {
+						$order = 'asc' === $current_order ? 'desc' : 'asc';
+
 						$class[] = 'sorted';
 						$class[] = $current_order;
 					} else {
-						$order   = $desc_first ? 'desc' : 'asc';
+						$order = strtolower( $desc_first );
+
+						if ( ! in_array( $order, array( 'desc', 'asc' ), true ) ) {
+							$order = $desc_first ? 'desc' : 'asc';
+						}
+
 						$class[] = 'sortable';
-						$class[] = $desc_first ? 'asc' : 'desc';
+						$class[] = 'desc' === $order ? 'asc' : 'desc';
 					}
 
-					$column_display_name = '<a href="' . esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ) . '"><span>' . $column_display_name . '</span><span class="sorting-indicator"></span></a>';
+					$column_display_name = sprintf(
+							'<a href="%s"><span>%s</span><span class="sorting-indicator"></span></a>',
+							esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ),
+							$column_display_name
+					);
 				}
 
-				$id = $with_id ? "id='$column_key'" : '';
+				$tag   = ( 'cb' === $column_key ) ? 'td' : 'th';
+				$scope = ( 'th' === $tag ) ? 'scope="col"' : '';
+				$id    = $with_id ? "id='$column_key'" : '';
 
-				if ( !empty( $class ) ){
+				if ( ! empty( $class ) ) {
 					$class = "class='" . implode( ' ', $class ) . "'";
 				}
 
-				echo "<th scope='col' $id $class $style>$column_display_name</th>";
+				echo "<$tag $scope $id $class>$column_display_name</$tag>";
 			}
 		}
 
