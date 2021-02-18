@@ -7,18 +7,22 @@
 
 class RSVP_Questions_List_Table extends RSVP_List_Table {
 
-	public $stickies;
-
 	/**
 	 * Message to be displayed when there are no items
 	 *
-	 * @since  0.2.1
+	 * @since  2.7.2
 	 * @access public
 	 */
 	public function no_items(){
 		_e( 'No questions found.', 'rsvp-plugin' );
 	}
 
+	/**
+	 * Prepare our data
+	 *
+	 * @param array $data
+	 * @since 2.7.2
+	 */
 	public function prepare_list( $data = array() ){
 
 		$columns  = $this->get_columns();
@@ -47,6 +51,12 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	}*/
 
 
+	/**
+	 * Question columns
+	 *
+	 * @return array
+	 * @Since 2.7.2
+	 */
 	public function get_columns(){
 		$columns = array(
 				'cb'                 => __( 'ID', 'rsvp-plugin' ),
@@ -61,12 +71,27 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 		return array();
 	}
 
+	/**
+	 * Sortable columns
+	 *
+	 * @return array[]
+	 * @since 2.7.2
+	 */
 	public function get_sortable_columns(){
 		return array(
 				'question' => array( 'id', false ),
 		);
 	}
 
+	/**
+	 * Sor our questions
+	 *
+	 * @param $a
+	 * @param $b
+	 *
+	 * @return int|lt
+	 * @since 2.7.2
+	 */
 	public function usort_reorder( $a, $b ){
 
 		// If no order, default to asc
@@ -79,6 +104,12 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	}
 
 
+	/**
+	 * Question column
+	 *
+	 * @param $item
+	 * @since 2.7.2
+	 */
 	public function column_question( $item ){
 		// Edit link
 		$edit_link = add_query_arg( array(
@@ -105,6 +136,15 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 		echo $this->row_actions( $actions );
 	}
 
+	/**
+	 * Default column
+	 *
+	 * @param $item
+	 * @param $column_name
+	 *
+	 * @return mixed|void
+	 * @since 2.7.2
+	 */
 	public function column_default( $item, $column_name ){
 
 		switch ( $column_name ){
@@ -124,7 +164,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	/**
 	 * Display the table
 	 *
-	 * @since  3.1.0
+	 * @since  2.7.2
 	 * @access public
 	 */
 	public function display(){
@@ -172,9 +212,12 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	}
 
 	/**
+	 * Prepare our questions for display
+	 *
 	 * @param $questions
 	 *
 	 * @return mixed
+	 * @since 2.7.2
 	 */
 	function prepare_questions( $questions ){
 
