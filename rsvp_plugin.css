@@ -28,8 +28,8 @@ input.error, textarea.error { border: 2px solid red; }
   display: inline;
   visibility: visible;
 }
-#rsvpPlugin input[type="radio"], #rsvpPlugin input[type="checkbox"] {
-  display: inline !important;
+#rsvpPlugin #rsvpForm .rsvpFormField  input[type="radio"], #rsvpPlugin #rsvpForm .rsvpFormField  input[type="checkbox"] {
+  display: inline-block;
 }
 .rsvpFormField  label {
   display: inline;

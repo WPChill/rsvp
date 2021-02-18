@@ -31,9 +31,6 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 		}
 		$data = apply_filters( 'rsvp_list_views', $data );
 
-		/*if ( isset( $_GET['s'] ) && !empty( $_GET['s'] ) ){
-			$data = $this->search_data( $_GET['s'], $data );
-		}*/
 		$this->items = $data;
 	}
 
@@ -87,7 +84,7 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 	 * @param $a
 	 * @param $b
 	 *
-	 * @return int|lt
+	 * @return int
 	 * @since 2.7.2
 	 */
 	public function usort_reorder( $a, $b ){
@@ -98,8 +95,8 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 		$order = ( !empty( $_GET['order'] ) ) ? $_GET['order'] : 'asc';
 
 		// Determine sort order
-		if ( 'id' == $orderby ){
-			$result = $this->cmp( intval( $a[ $orderby ] ), intval( $b[ $orderby ] ) );
+		if ( 'attendee' == $orderby ){
+			$result = $this->attendee_orderby( $a, $b );
 		} else {
 			$result = strcasecmp( $a[ $orderby ], $b[ $orderby ] );
 		}
@@ -117,12 +114,13 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 	 * @return int
 	 * @since 2.7.2
 	 */
-	public function cmp( $a, $b ){
-		if ( $a == $b ){
-			return 0;
+	public function attendee_orderby( $a, $b ){
+		if ( $a["firstName"] == $b["firstName"] ){
+			return strcmp( $a["lastName"], $b["lastName"] );
+		} else {
+			return strcmp( $a["firstName"], $b["firstName"] );
 		}
 
-		return ( $a < $b ) ? -1 : 1;
 	}
 
 	/**
@@ -143,7 +141,7 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 		// Delete link
 		$delete_link = add_query_arg( array(
 				'action' => 'delete-rsvp-attendee',
-				'id'     => absint($item['id'])
+				'id'     => absint( $item['id'] )
 		), admin_url( 'admin.php' ) );
 
 		echo '<a class="row-title" href="' . $edit_link . '">' . esc_html( $item['firstName'] . ' ' . $item['lastName'] ) . '</a>';
@@ -172,8 +170,8 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 			case 'rsvpDate':
 				$text = ( isset( $item[ $column_name ] ) && $item[ $column_name ] ) ? esc_html( $item[ $column_name ] ) : esc_html__( 'No date set', 'rsvp-plugin' );
 				break;
-			case 'additionalAttendees':
-				$text = $item[ $column_name ] . '+';
+			case 'additionalAttendee':
+				$text = ( isset( $item[ $column_name ] ) && $item[ $column_name ] && 'Y' == $item[ $column_name ] ) ? esc_html__( 'Yes', 'rsvp-plugin' ) : esc_html__( 'No', 'rsvp-plugin' );
 				break;
 			case 'veggieMeal':
 				$text = ( isset( $item[ $column_name ] ) && $item[ $column_name ] && 'Y' == $item[ $column_name ] ) ? esc_html__( 'Yes', 'rsvp-plugin' ) : esc_html__( 'No', 'rsvp-plugin' );
@@ -286,8 +284,8 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 	 */
 	public function column_cb( $item ){
 		?>
-		<input id="cb-select-<?php echo absint($item['id']); ?>" type="checkbox" name="attendee[]"
-			   value="<?php echo absint($item['id']); ?>"/>
+		<input id="cb-select-<?php echo absint( $item['id'] ); ?>" type="checkbox" name="attendee[]"
+			   value="<?php echo absint( $item['id'] ); ?>"/>
 		<div class="locked-indicator">
 			<span class="locked-indicator-icon" aria-hidden="true"></span>
 		</div>
