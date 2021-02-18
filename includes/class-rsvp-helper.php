@@ -16,7 +16,7 @@ class RSVP_Helper {
 
 
 	/**
-	 * Modula_Compatibility constructor.
+	 * RSVP_Helper constructor.
 	 *
 	 * @since 2.4.2
 	 */
