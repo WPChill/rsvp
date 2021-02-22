@@ -179,9 +179,6 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 			case 'kidsMeal':
 				$text = ( isset( $item[ $column_name ] ) && $item[ $column_name ] && 'Y' == $item[ $column_name ] ) ? esc_html__( 'Yes', 'rsvp-plugin' ) : esc_html__( 'No', 'rsvp-plugin' );
 				break;
-			case 'additionalAttendee':
-				$text = ( isset( $item[ $column_name ] ) && 'N' == $item[ $column_name ] ) ? esc_html__( 'No', 'rsvp-plugin' ) : esc_html( $item[ $column_name ] );
-				break;
 			case 'associated_attendees':
 				$rsvp_helper  = RSVP_Helper::get_instance();
 				$associations = $rsvp_helper->get_associated_attendees( $item['id'] );
