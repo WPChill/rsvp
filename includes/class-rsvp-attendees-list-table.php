@@ -168,7 +168,12 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 				$text = ( isset( $item[ $column_name ] ) && $item[ $column_name ] && 'NoResponse' != $item[ $column_name ] ) ? $item[ $column_name ] : esc_html__( 'No response', 'rsvp-plugin' );
 				break;
 			case 'rsvpDate':
-				$text = ( isset( $item[ $column_name ] ) && $item[ $column_name ] ) ? esc_html( $item[ $column_name ] ) : esc_html__( 'No date set', 'rsvp-plugin' );
+				if ( isset( $item[ $column_name ] ) && $item[ $column_name ] ){
+					$text = date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $item[ $column_name ] ) );
+				} else {
+					$text = esc_html__( 'No date set', 'rsvp-plugin' );
+				}
+				break;
 				break;
 			case 'additionalAttendee':
 				$text = ( isset( $item[ $column_name ] ) && $item[ $column_name ] && 'Y' == $item[ $column_name ] ) ? esc_html__( 'Yes', 'rsvp-plugin' ) : esc_html__( 'No', 'rsvp-plugin' );
