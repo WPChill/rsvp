@@ -512,6 +512,8 @@ function rsvp_admin_guestlist(){
 	<div class="wrap">
 		<div id="icon-edit" class="icon32"><br/></div>
 		<h1 class="wp-heading-inline"><?php echo __( 'List of current attendees', 'rsvp-plugin' ); ?></h1>
+		<a class="page-title-action" href="<?php echo add_query_arg(array('page' => 'rsvp-admin-guest'),admin_url('admin.php')); ?>"><?php _e('Add Guest','rsvp-plugin'); ?></a>
+		<hr class="wp-header-end">
 		<form method="post" id="rsvp-form" enctype="multipart/form-data">
 			<input type="hidden" id="rsvp-bulk-action" name="rsvp-bulk-action"/>
 			<input type="hidden" id="orderby" name="orderby"
@@ -594,6 +596,7 @@ function rsvp_free_import_get_file_type( $file_path ){
  */
 function rsvp_admin_guest(){
 	global $wpdb;
+	$rsvp_helper = RSVP_Helper::get_instance();
 	if ( ( count( $_POST ) > 0 ) && !empty( $_POST['firstName'] ) && !empty( $_POST['lastName'] ) ){
 		check_admin_referer( 'rsvp_add_guest' );
 		$passcode = ( isset( $_POST['passcode'] ) ) ? $_POST['passcode'] : '';
@@ -674,9 +677,9 @@ function rsvp_admin_guest(){
 					htmlspecialchars( stripslashes( $_POST['lastName'] ) )
 			); ?></p>
 		<p>
-			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-top-level"><?php echo __( 'Continue to Attendee List', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo add_query_arg(array('page' => 'rsvp-top-level' ),admin_url('admin.php')); ?>"><?php echo __( 'Continue to Attendee List', 'rsvp-plugin' ); ?></a>
 			|
-			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-guest"><?php echo __( 'Add a Guest', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo add_query_arg(array('page' => 'rsvp-admin-guest' ),admin_url('admin.php')) ?>"><?php echo __( 'Add a Guest', 'rsvp-plugin' ); ?></a>
 		</p>
 		<?php
 	} else {
@@ -789,7 +792,8 @@ function rsvp_admin_guest(){
 						<select name="associatedAttendees[]" id="associatedAttendeesSelect" multiple="multiple" size="5"
 								style="height: 200px;">
 							<?php
-							$attendees = $wpdb->get_results( 'SELECT id, firstName, lastName FROM ' . $wpdb->prefix . 'attendees ORDER BY lastName, firstName' );
+							$attendees = $rsvp_helper->get_attendees();
+
 							foreach ( $attendees as $a ){
 								if ( $a->id != $attendeeId ){
 									?>
@@ -903,7 +907,10 @@ function rsvp_admin_questions(){
 	</script>
 	<div class="wrap">
 		<div id="icon-edit" class="icon32"><br/></div>
-		<h2><?php echo __( 'List of current custom questions', 'rsvp-plugin' ); ?></h2>
+		<h1 class="wp-heading-inline"><?php echo __( 'List of current custom questions', 'rsvp-plugin' ); ?></h1>
+		<a href="<?php echo add_query_arg( 'action', 'add' ); ?>"
+		   class="button-secondary action page-title-action"><?php _e( 'Add New', 'rsvp' ); ?></a>
+		<hr class="wp-header-end">
 		<form method="post" id="rsvp-form" enctype="multipart/form-data">
 			<input type="hidden" id="rsvp-bulk-action" name="rsvp-bulk-action"/>
 			<div class="tablenav">
@@ -918,8 +925,7 @@ function rsvp_admin_questions(){
 					<input type="submit" value="<?php _e( 'Save Sort Order', 'rsvp' ); ?>" name="saveSortButton"
 						   id="saveSortButton" class="button-secondary action"
 						   onclick="document.getElementById('rsvp-bulk-action').value = 'saveSortOrder';"/>
-					&nbsp; <a href="<?php echo add_query_arg( 'action', 'add' ); ?>"
-							  class="button-secondary action"><?php _e( 'Add New', 'rsvp' ); ?></a>
+					&nbsp;
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -997,6 +1003,7 @@ function rsvp_populate_custom_question_types(){
 
 function rsvp_admin_custom_question(){
 	global $wpdb;
+	$rsvp_helper = RSVP_Helper::get_instance();
 
 	$answerQuestionTypes = rsvp_get_question_with_answer_type_ids();
 
@@ -1082,9 +1089,9 @@ function rsvp_admin_custom_question(){
 		?>
 		<p><?php echo __( 'Custom Question saved', 'rsvp-plugin' ); ?></p>
 		<p>
-			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-questions"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo add_query_arg(array('page'=>'rsvp-admin-questions'),admin_url('admin.php')); ?>"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a>
 			|
-			<a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=rsvp-admin-questions&action=add"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo add_query_arg(array('page'=>'rsvp-admin-questions','action' => 'add'),admin_url('admin.php')); ?>"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
 		</p>
 		<?php
 	} else {
@@ -1263,7 +1270,7 @@ function rsvp_admin_custom_question(){
 						<select name="attendees[]" id="attendeesQuestionSelect" style="height:75px;"
 								multiple="multiple">
 							<?php
-							$attendees = $wpdb->get_results( 'SELECT id, firstName, lastName FROM ' . $wpdb->prefix . 'attendees ORDER BY lastName, firstName' );
+							$attendees = $rsvp_helper->get_attendees();
 							foreach ( $attendees as $a ){
 								?>
 								<option value="<?php echo $a->id; ?>"
