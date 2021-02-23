@@ -200,7 +200,6 @@ class RSVP_Helper {
 		if ( ( isset( $_GET['page'] ) && ( strToLower( $_GET['page'] ) == 'rsvp-admin-export' ) ) ||
 			 ( isset( $_POST['rsvp-bulk-action'] ) && ( 'export' === strToLower( $_POST['rsvp-bulk-action'] ) ) ) ){
 
-
 			global $wpdb;
 
 			$customLinkBase = '';
@@ -231,15 +230,16 @@ class RSVP_Helper {
 			$orderby = 'firstName, lastName';
 			$order   = 'ASC';
 
-			if ( isset( $_POST['orderby'] ) && 'attendee' != $_POST['orderby'] ){
+			if ( isset( $_POST['orderby'] ) && 'attendee' != $_POST['orderby'] && '' != $_POST['orderby'] ){
 				$orderby = $_POST['orderby'];
 			}
 
-			if ( isset( $_POST['order'] ) ){
+			if ( isset( $_POST['order'] ) && '' != $_POST['order'] ){
 				$order = $_POST['order'];
 			}
 
 			$attendees = $this->get_attendees( $orderby, $order );
+
 
 			$csv = '"' . __( 'First Name', 'rsvp-plugin' ) . '","' . __( 'Last Name', 'rsvp-plugin' ) . '","' . __( 'Email', 'rsvp-plugin' ) . '","' . __( 'RSVP Status', 'rsvp-plugin' ) . '",';
 
@@ -271,6 +271,7 @@ class RSVP_Helper {
 			$csv .= ',"' . __( 'pre-fill URL', 'rsvp-plugin' ) . '"';
 
 			$csv .= "\r\n";
+
 			foreach ( $attendees as $a ){
 				$fName = stripslashes( $a->firstName );
 				$fName = rsvp_handle_text_encoding( $fName );
