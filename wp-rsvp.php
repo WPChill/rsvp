@@ -922,9 +922,9 @@ function rsvp_admin_questions(){
 					<input type="submit" value="<?php _e( 'Apply', 'rsvp' ); ?>" name="doaction" id="doaction"
 						   class="button-secondary action"
 						   onclick="document.getElementById('rsvp-bulk-action').value = document.getElementById('rsvp-action-top').value;"/>
-					<input type="submit" value="<?php _e( 'Save Sort Order', 'rsvp' ); ?>" name="saveSortButton"
+					<!--<input type="submit" value="<?php /*_e( 'Save Sort Order', 'rsvp' ); */?>" name="saveSortButton"
 						   id="saveSortButton" class="button-secondary action"
-						   onclick="document.getElementById('rsvp-bulk-action').value = 'saveSortOrder';"/>
+						   onclick="document.getElementById('rsvp-bulk-action').value = 'saveSortOrder';"/>-->
 					&nbsp;
 				</div>
 				<div class="clear"></div>
@@ -1299,6 +1299,16 @@ function rsvp_modify_menu(){
 			'rsvp-top-level',
 			'rsvp_admin_guestlist',
 			plugins_url( 'images/rsvp_lite_icon.png', RSVP_PLUGIN_FILE )
+	);
+	add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
+
+	$page = add_submenu_page(
+			'rsvp-top-level',
+			'Attendees',
+			'Attendees',
+			'publish_posts',
+			'rsvp-top-level',
+			'rsvp_admin_guestlist'
 	);
 	add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
 
