@@ -17,7 +17,7 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 		_e( 'No attendees found.', 'rsvp-plugin' );
 	}
 
-	public function prepare_list( $data = array() ){
+	public function prepare_items( $data = array() ){
 
 		$columns  = $this->get_columns();
 		$hidden   = $this->get_hidden_columns();

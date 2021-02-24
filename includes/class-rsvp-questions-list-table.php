@@ -23,7 +23,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * @param array $data
 	 * @since 2.7.2
 	 */
-	public function prepare_list( $data = array() ){
+	public function prepare_items( $data = array() ){
 
 		$columns  = $this->get_columns();
 		$hidden   = $this->get_hidden_columns();

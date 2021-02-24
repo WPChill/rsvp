@@ -559,7 +559,7 @@ function rsvp_admin_guestlist(){
 
 			$views_table    = new RSVP_Attendees_List_Table();
 			$tableAttendees = $views_table->prepare_attendees( $attendees );
-			$views_table->prepare_list( $tableAttendees );
+			$views_table->prepare_items( $tableAttendees );
 			$views_table->display();
 			?>
 		</form>
@@ -932,7 +932,7 @@ function rsvp_admin_questions(){
 			<?php
 			$questions_table    = new RSVP_Questions_List_Table();
 			$tableQuestions = $questions_table->prepare_questions( $customQs );
-			$questions_table->prepare_list( $tableQuestions );
+			$questions_table->prepare_items( $tableQuestions );
 			$questions_table->display();
 			?>
 
