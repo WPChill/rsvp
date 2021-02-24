@@ -114,6 +114,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 		// Edit link
 		$edit_link = add_query_arg( array(
 				'page' => 'rsvp-admin-questions',
+				'action' => 'add',
 				'id'   => $item['id']
 		), admin_url( 'admin.php' ) );
 
