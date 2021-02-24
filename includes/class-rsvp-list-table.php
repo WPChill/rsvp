@@ -1050,7 +1050,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 *
 		 */
 		public function single_row( $item ){
-			echo '<tr>';
+			echo '<tr id="question-'.absint($item['id']).'">';
 			$this->single_row_columns( $item );
 			echo '</tr>';
 		}

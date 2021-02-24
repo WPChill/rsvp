@@ -865,46 +865,10 @@ function rsvp_admin_questions(){
 				$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE questionID = %d', $q ) );
 			}
 		}
-	} elseif ( ( count( $_POST ) > 0 ) && ( $_POST['rsvp-bulk-action'] == 'saveSortOrder' ) ) {
-		$sql    = 'SELECT id FROM ' . QUESTIONS_TABLE;
-		$sortQs = $wpdb->get_results( $sql );
-		foreach ( $sortQs as $q ){
-			if ( is_numeric( $_POST[ 'sortOrder' . $q->id ] ) && ( $_POST[ 'sortOrder' . $q->id ] >= 0 ) ){
-				$wpdb->update(
-						QUESTIONS_TABLE,
-						array( 'sortOrder' => $_POST[ 'sortOrder' . $q->id ] ),
-						array( 'id' => $q->id ),
-						array( '%d' ),
-						array( '%d' )
-				);
-			}
-		}
 	}
 
-	$sql      = 'SELECT id, question, sortOrder, permissionLevel FROM ' . QUESTIONS_TABLE . ' ORDER BY sortOrder ASC';
-	$customQs = $wpdb->get_results( $sql );
+	$customQs = $rsvp_helper->get_custom_questions();
 	?>
-	<script type="text/javascript" language="javascript">
-		jQuery( document ).ready( function () {
-			jQuery( "#cb" ).click( function () {
-				if ( jQuery( "#cb" ).attr( "checked" ) ) {
-					jQuery( "input[name='q[]']" ).attr( "checked", "checked" );
-				} else {
-					jQuery( "input[name='q[]']" ).removeAttr( "checked" );
-				}
-			} );
-
-			jQuery( "#customQuestions" ).tableDnD( {
-				onDrop: function ( table, row ) {
-					var rows = table.tBodies[0].rows;
-					for ( var i = 0; i < rows.length; i++ ) {
-						jQuery( "#sortOrder" + rows[i].id ).val( i );
-					}
-
-				}
-			} );
-		} );
-	</script>
 	<div class="wrap">
 		<div id="icon-edit" class="icon32"><br/></div>
 		<h1 class="wp-heading-inline"><?php echo __( 'List of current custom questions', 'rsvp-plugin' ); ?></h1>
@@ -922,9 +886,6 @@ function rsvp_admin_questions(){
 					<input type="submit" value="<?php _e( 'Apply', 'rsvp' ); ?>" name="doaction" id="doaction"
 						   class="button-secondary action"
 						   onclick="document.getElementById('rsvp-bulk-action').value = document.getElementById('rsvp-action-top').value;"/>
-					<!--<input type="submit" value="<?php /*_e( 'Save Sort Order', 'rsvp' ); */?>" name="saveSortButton"
-						   id="saveSortButton" class="button-secondary action"
-						   onclick="document.getElementById('rsvp-bulk-action').value = 'saveSortOrder';"/>-->
 					&nbsp;
 				</div>
 				<div class="clear"></div>
@@ -1403,23 +1364,19 @@ function rsvp_register_settings(){
 	register_setting( 'rsvp-option-group', OPTION_RSVP_DISABLE_USER_SEARCH );
 	register_setting( 'rsvp-option-group', RSVP_OPTION_DELETE_DATA_ON_UNINSTALL );
 	register_setting( 'rsvp-option-group', RSVP_OPTION_CSS_STYLING );
-
-	wp_register_script( 'jquery_table_sort', plugins_url( 'jquery.tablednd_0_5.js', RSVP_PLUGIN_FILE ) );
-	wp_register_script( 'jquery_ui', ( is_ssl() ? 'https' : 'http' ) . '://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.js' );
-	wp_register_style( 'jquery_ui_stylesheet', ( is_ssl() ? 'https' : 'http' ) . '://ajax.microsoft.com/ajax/jquery.ui/1.8.5/themes/redmond/jquery-ui.css' );
 }
 
 function rsvp_admin_scripts(){
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-datepicker' );
-	wp_enqueue_script( 'jquery_table_sort' );
-	wp_enqueue_style( 'jquery_ui_stylesheet' );
+	wp_enqueue_script( 'jquery-ui-sortable' );
+	wp_enqueue_style( 'jquery-ui' );
 	wp_register_script( 'jquery_multi_select', plugins_url( 'multi-select/js/jquery.multi-select.js', RSVP_PLUGIN_FILE ) );
 	wp_enqueue_script( 'jquery_multi_select' );
 	wp_register_style( 'jquery_multi_select_css', plugins_url( 'multi-select/css/multi-select.css', RSVP_PLUGIN_FILE ) );
 	wp_enqueue_style( 'jquery_multi_select_css' );
 
-	wp_register_script( 'rsvp_admin', plugins_url( 'rsvp_plugin_admin.js', RSVP_PLUGIN_FILE ) );
+	wp_register_script( 'rsvp_admin', plugins_url( 'rsvp_plugin_admin.js', RSVP_PLUGIN_FILE ), array('jquery-ui-sortable'),'',true );
 	wp_enqueue_script( 'rsvp_admin' );
 }
 

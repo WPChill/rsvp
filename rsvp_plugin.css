@@ -44,3 +44,7 @@ input.error, textarea.error { border: 2px solid red; }
   font-weight:bold;
   color: red;
 }
+
+table.rsvp-plugin_page_rsvp-admin-questions #the-list tr{
+  cursor:move;
+}

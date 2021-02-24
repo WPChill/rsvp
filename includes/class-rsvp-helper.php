@@ -24,6 +24,7 @@ class RSVP_Helper {
 
 		add_action( 'admin_action_delete-rsvp-attendee', array( $this, 'delete_attendee' ) );
 		add_action( 'admin_action_delete-rsvp-question', array( $this, 'delete_question' ) );
+		add_action( 'wp_ajax_update-questions-menu-order', array( $this, 'update_questions_order' ) );
 
 		add_action( 'init', array( $this, 'rsvp_admin_export' ) );
 
@@ -187,6 +188,18 @@ class RSVP_Helper {
 
 		$sql = 'SELECT id, firstName, lastName, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, personalGreeting, passcode, email, rsvpDate FROM ' . ATTENDEES_TABLE . ' ORDER BY ' . $orderby . ' ' . $order;
 
+		return $wpdb->get_results( $sql );
+	}
+
+	/**
+	 * Get all custom questions
+	 *
+	 * @return array|object|null
+	 * @since 2.7.2
+	 */
+	public function get_custom_questions(){
+		global $wpdb;
+		$sql = 'SELECT id, question, sortOrder, permissionLevel FROM ' . QUESTIONS_TABLE . ' ORDER BY sortOrder ASC';
 		return $wpdb->get_results( $sql );
 	}
 
@@ -607,6 +620,42 @@ class RSVP_Helper {
 			</form>
 			<?php
 		}
+	}
+
+	public function update_questions_order(){
+
+		global $wpdb;
+
+		parse_str($_POST['order'], $data);
+
+		if (!is_array($data))
+			return false;
+
+		$id_arr = array();
+		foreach ($data as $key => $values) {
+			foreach ($values as $position => $id) {
+				$id_arr[] = $id;
+			}
+		}
+
+		$menu_order_arr = array();
+		foreach ($id_arr as $key => $id) {
+			$results = $wpdb->get_results("SELECT sortOrder FROM ".QUESTIONS_TABLE." WHERE id = " . intval($id));
+			foreach ($results as $result) {
+				$menu_order_arr[] = $result->sortOrder;
+			}
+		}
+
+		sort($menu_order_arr);
+
+		foreach ($data as $key => $values) {
+			foreach ($values as $position => $id) {
+				$wpdb->update(QUESTIONS_TABLE, array('sortOrder' => $menu_order_arr[$position]), array('id' => intval($id)));
+			}
+		}
+
+		do_action('scp_update_menu_order');
+		die();
 	}
 }
 
