@@ -8,7 +8,7 @@
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: WPChill
- * Version: 2.7.1
+ * Version: 2.7.2
  * Author URI: https://wpchill.com
  * License: GPLv3
  * Copyright 2010-2020 		Mike de Libero 		mikede@mde-dev.com
@@ -1254,8 +1254,8 @@ function rsvp_upgrade_to_pro(){
 
 function rsvp_modify_menu(){
 	$page = add_menu_page(
-			'RSVP Plugin',
-			'RSVP Plugin',
+			'RSVP',
+			'RSVP',
 			'publish_posts',
 			'rsvp-top-level',
 			'rsvp_admin_guestlist',
