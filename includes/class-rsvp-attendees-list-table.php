@@ -258,6 +258,8 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 	 */
 	function prepare_attendees( $attendees ){
 
+		$return = array();
+
 		foreach ( $attendees as $view ){
 
 			$return[ $view->id ] = array(

@@ -140,7 +140,7 @@ class RSVP_Helper {
 		if ( !$question_id ){
 
 
-			check_admin_referer( 'delete-rsvp-attendee_' . $_REQUEST['id'] );
+			check_admin_referer( 'delete-rsvp-question_' . $_REQUEST['id'] );
 
 			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-question' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ){
 
@@ -622,6 +622,12 @@ class RSVP_Helper {
 		}
 	}
 
+	/**
+	 * Update questions order
+	 *
+	 * @return false
+	 * @Since 2.7.2
+	 */
 	public function update_questions_order(){
 
 		global $wpdb;
@@ -654,7 +660,6 @@ class RSVP_Helper {
 			}
 		}
 
-		do_action('scp_update_menu_order');
 		die();
 	}
 }
