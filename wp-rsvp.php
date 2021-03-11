@@ -873,7 +873,7 @@ function rsvp_admin_questions(){
 		<div id="icon-edit" class="icon32"><br/></div>
 		<h1 class="wp-heading-inline"><?php echo __( 'List of current custom questions', 'rsvp-plugin' ); ?></h1>
 		<a href="<?php echo add_query_arg( 'action', 'add' ); ?>"
-		   class="button-secondary action page-title-action"><?php _e( 'Add New', 'rsvp' ); ?></a>
+		   class="page-title-action"><?php _e( 'Add New', 'rsvp' ); ?></a>
 		<hr class="wp-header-end">
 		<form method="post" id="rsvp-form" enctype="multipart/form-data">
 			<input type="hidden" id="rsvp-bulk-action" name="rsvp-bulk-action"/>
