@@ -5,6 +5,12 @@
  * @version 2.7.2
  */
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) :
+	exit;
+endif;
+
+
 class RSVP_Attendees_List_Table extends RSVP_List_Table {
 
 	public function __construct( $args = array() ){
