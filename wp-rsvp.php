@@ -497,15 +497,6 @@ function rsvp_admin_guestlist(){
 		rsvp_database_setup();
 	}
 	rsvp_install_passcode_field();
-	if ( ( count( $_POST ) > 0 ) && ( $_POST['rsvp-bulk-action'] == 'delete' ) && ( is_array( $_POST['attendee'] ) && ( count( $_POST['attendee'] ) > 0 ) ) ){
-		foreach ( $_POST['attendee'] as $attendee ){
-			if ( is_numeric( $attendee ) && ( $attendee > 0 ) ){
-				$rsvp_helper->delete_attendee( $attendee );
-			}
-		}
-	}
-
-	$attendees = $rsvp_helper->get_attendees();
 
 	?>
 
@@ -514,55 +505,12 @@ function rsvp_admin_guestlist(){
 		<h1 class="wp-heading-inline"><?php echo __( 'List of current attendees', 'rsvp-plugin' ); ?></h1>
 		<a class="page-title-action" href="<?php echo add_query_arg(array('page' => 'rsvp-admin-guest'),admin_url('admin.php')); ?>"><?php _e('Add Guest','rsvp-plugin'); ?></a>
 		<hr class="wp-header-end">
-		<form method="post" id="rsvp-form" enctype="multipart/form-data">
-			<input type="hidden" id="rsvp-bulk-action" name="rsvp-bulk-action"/>
-			<input type="hidden" id="orderby" name="orderby"
-				   value="<?php echo htmlentities( $_GET['orderby'], ENT_QUOTES ); ?>"/>
-			<input type="hidden" name="order"
-				   value="<?php echo htmlentities( $_GET['order'], ENT_QUOTES ); ?>"/>
-			<div class="tablenav">
-				<div class="alignleft actions">
-					<select id="rsvp-action-top" name="action">
-						<option value="" selected="selected"><?php _e( 'Bulk Actions', 'rsvp-plugin' ); ?></option>
-						<option value="delete"><?php _e( 'Delete', 'rsvp-plugin' ); ?></option>
-					</select>
-					<input type="submit" value="<?php _e( 'Apply', 'rsvp-plugin' ); ?>" name="doaction" id="doaction"
-						   class="button-secondary action"
-						   onclick="document.getElementById('rsvp-bulk-action').value = document.getElementById('rsvp-action-top').value;"/>
-					<input type="submit" value="<?php _e( 'Export Attendees', 'rsvp-plugin' ); ?>" name="exportButton"
-						   id="exportButton" class="button-secondary action"
-						   onclick="document.getElementById('rsvp-bulk-action').value = 'export';"/>
-				</div>
-				<?php
-				$yesResults        = $wpdb->get_results( 'SELECT COUNT(*) AS yesCount FROM ' . ATTENDEES_TABLE . " WHERE rsvpStatus = 'Yes'" );
-				$noResults         = $wpdb->get_results( 'SELECT COUNT(*) AS noCount FROM ' . ATTENDEES_TABLE . " WHERE rsvpStatus = 'No'" );
-				$noResponseResults = $wpdb->get_results( 'SELECT COUNT(*) AS noResponseCount FROM ' . ATTENDEES_TABLE . " WHERE rsvpStatus = 'NoResponse'" );
-				$kidsMeals         = $wpdb->get_results( 'SELECT COUNT(*) AS kidsMealCount FROM ' . ATTENDEES_TABLE . " WHERE kidsMeal = 'Y'" );
-				$veggieMeals       = $wpdb->get_results( 'SELECT COUNT(*) AS veggieMealCount FROM ' . ATTENDEES_TABLE . " WHERE veggieMeal = 'Y'" );
-				?>
-				<div class="alignright"><?php __( 'RSVP Count -', 'rsvp-plugin' ); ?>
-					<?php echo __( 'Yes:', 'rsvp-plugin' ); ?> <strong><?php echo $yesResults[0]->yesCount; ?></strong>
-					&nbsp; &nbsp; &nbsp; &nbsp;
-					<?php echo __( 'No:', 'rsvp-plugin' ); ?> <strong><?php echo $noResults[0]->noCount; ?></strong>
-					&nbsp; &nbsp; &nbsp; &nbsp;
-					<?php echo __( 'No Response:', 'rsvp-plugin' ); ?>
-					<strong><?php echo $noResponseResults[0]->noResponseCount; ?></strong> &nbsp; &nbsp; &nbsp; &nbsp;
-					<?php echo __( 'Kids Meals:', 'rsvp-plugin' ); ?>
-					<strong><?php echo $kidsMeals[0]->kidsMealCount; ?></strong> &nbsp; &nbsp; &nbsp; &nbsp;
-					<?php echo __( 'Veggie Meals:', 'rsvp-plugin' ); ?>
-					<strong><?php echo $veggieMeals[0]->veggieMealCount; ?></strong>
-				</div>
-				<div class="clear"></div>
-			</div>
 
 			<?php
 
 			$views_table    = new RSVP_Attendees_List_Table();
-			$tableAttendees = $views_table->prepare_attendees( $attendees );
-			$views_table->prepare_items( $tableAttendees );
 			$views_table->display();
 			?>
-		</form>
 	</div>
 	<?php
 }

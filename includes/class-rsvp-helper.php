@@ -18,13 +18,14 @@ class RSVP_Helper {
 	/**
 	 * RSVP_Helper constructor.
 	 *
-	 * @since 2.4.2
+	 * @since 2.7.2
 	 */
 	function __construct(){
 
 		add_action( 'admin_action_delete-rsvp-attendee', array( $this, 'delete_attendee' ) );
 		add_action( 'admin_action_delete-rsvp-question', array( $this, 'delete_question' ) );
 		add_action( 'wp_ajax_update-questions-menu-order', array( $this, 'update_questions_order' ) );
+		add_action( 'admin_init', array( $this, 'bulk_delete_attendees' ) );
 
 		add_action( 'init', array( $this, 'rsvp_admin_export' ) );
 
@@ -632,35 +633,61 @@ class RSVP_Helper {
 
 		global $wpdb;
 
-		parse_str($_POST['order'], $data);
+		parse_str( $_POST['order'], $data );
 
-		if (!is_array($data))
+		if ( !is_array( $data ) )
 			return false;
 
 		$id_arr = array();
-		foreach ($data as $key => $values) {
-			foreach ($values as $position => $id) {
+		foreach ( $data as $key => $values ){
+			foreach ( $values as $position => $id ){
 				$id_arr[] = $id;
 			}
 		}
 
 		$menu_order_arr = array();
-		foreach ($id_arr as $key => $id) {
-			$results = $wpdb->get_results("SELECT sortOrder FROM ".QUESTIONS_TABLE." WHERE id = " . intval($id));
-			foreach ($results as $result) {
+		foreach ( $id_arr as $key => $id ){
+			$results = $wpdb->get_results( "SELECT sortOrder FROM " . QUESTIONS_TABLE . " WHERE id = " . intval( $id ) );
+			foreach ( $results as $result ){
 				$menu_order_arr[] = $result->sortOrder;
 			}
 		}
 
-		sort($menu_order_arr);
+		sort( $menu_order_arr );
 
-		foreach ($data as $key => $values) {
-			foreach ($values as $position => $id) {
-				$wpdb->update(QUESTIONS_TABLE, array('sortOrder' => $menu_order_arr[$position]), array('id' => intval($id)));
+		foreach ( $data as $key => $values ){
+			foreach ( $values as $position => $id ){
+				$wpdb->update( QUESTIONS_TABLE, array( 'sortOrder' => $menu_order_arr[ $position ] ), array( 'id' => intval( $id ) ) );
 			}
 		}
 
 		die();
+	}
+
+	/**
+	 * Handle the bulk delete of attendees
+	 *
+	 * @since 2.7.2
+	 */
+	public function bulk_delete_attendees(){
+		if (  count( $_GET ) > 0 && isset($_GET['rsvp-bulk-action']) &&  $_GET['rsvp-bulk-action'] == 'delete'  && ( is_array( $_GET['attendee'] ) && ( count( $_GET['attendee'] ) > 0 ) ) ){
+
+			if ( isset( $_GET['_wpnonce'] ) && !empty( $_GET['_wpnonce'] ) ){
+
+				$nonce  = $_GET['_wpnonce'];
+				$action = 'rsvp-bulk-attendees';
+				if ( !wp_verify_nonce( $nonce, $action ) )
+					wp_die( 'Nope! Security check failed!' );
+
+			}
+
+			foreach ( $_GET['attendee'] as $attendee ){
+
+				if ( is_numeric( $attendee ) && ( $attendee > 0 ) ){
+					$this->delete_attendee( $attendee );
+				}
+			}
+		}
 	}
 }
 

@@ -483,7 +483,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 			}
 
 			echo "<label for='bulk-action-selector-" . esc_attr( $which ) . "' class='screen-reader-text'>" . esc_html__( 'Select bulk action', 'rsvp-plugin' ) . '</label>';
-			echo "<select name='action" . esc_attr( $two ) . "' id='bulk-action-selector-" . esc_attr( $which ) . "'>\n";
+			echo "<select name='rsvp-bulk-action" . esc_attr( $two ) . "' id='rsvp-bulk-action-selector-" . esc_attr( $which ) . "'>\n";
 			echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions', 'rsvp-plugin' ) . "</option>\n";
 
 			foreach ( $this->_actions as $name => $title ){
@@ -978,7 +978,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 */
 		protected function display_tablenav( $which ){
 			if ( 'top' == $which ){
-				wp_nonce_field( 'bulk-' . $this->_args['plural'] );
+				wp_nonce_field( 'rsvp-bulk-' . $this->_args['plural'] );
 			}
 			?>
 			<div class="tablenav <?php echo esc_attr( $which ); ?>">
