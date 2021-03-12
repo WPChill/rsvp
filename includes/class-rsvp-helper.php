@@ -26,6 +26,7 @@ class RSVP_Helper {
 		add_action( 'admin_action_delete-rsvp-question', array( $this, 'delete_question' ) );
 		add_action( 'wp_ajax_update-questions-menu-order', array( $this, 'update_questions_order' ) );
 		add_action( 'admin_init', array( $this, 'bulk_delete_attendees' ) );
+		add_action( 'admin_init', array( $this, 'bulk_delete_questions' ) );
 
 		add_action( 'init', array( $this, 'rsvp_admin_export' ) );
 
@@ -670,7 +671,7 @@ class RSVP_Helper {
 	 * @since 2.7.2
 	 */
 	public function bulk_delete_attendees(){
-		if (  count( $_GET ) > 0 && isset($_GET['rsvp-bulk-action']) &&  $_GET['rsvp-bulk-action'] == 'delete'  && ( is_array( $_GET['attendee'] ) && ( count( $_GET['attendee'] ) > 0 ) ) ){
+		if ( count( $_GET ) > 0 && isset( $_GET['rsvp-bulk-action'] ) && isset($_GET['attendee']) && $_GET['rsvp-bulk-action'] == 'delete' && ( is_array( $_GET['attendee'] ) && ( count( $_GET['attendee'] ) > 0 ) ) ){
 
 			if ( isset( $_GET['_wpnonce'] ) && !empty( $_GET['_wpnonce'] ) ){
 
@@ -688,6 +689,37 @@ class RSVP_Helper {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Bulk delete our questions
+	 *
+	 * @since 2.7.2
+	 */
+	public function bulk_delete_questions(){
+
+		if ( count( $_GET ) > 0 && isset( $_GET['rsvp-bulk-action'] )  && isset($_GET['q']) && $_GET['rsvp-bulk-action'] == 'delete' && ( is_array( $_GET['q'] ) && ( count( $_GET['q'] ) > 0 ) ) ){
+
+			if ( isset( $_GET['_wpnonce'] ) && !empty( $_GET['_wpnonce'] ) ){
+
+				$nonce  = $_GET['_wpnonce'];
+				$action = 'rsvp-bulk-questions';
+				if ( !wp_verify_nonce( $nonce, $action ) )
+					wp_die( 'Nope! Security check failed!' );
+
+			}
+
+			global $wpdb;
+
+			foreach ( $_GET['q'] as $q ){
+
+				if ( is_numeric( $q ) && ( $q > 0 ) ){
+					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d', $q ) );
+					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE questionID = %d', $q ) );
+				}
+			}
+		}
+
 	}
 }
 

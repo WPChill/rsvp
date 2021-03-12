@@ -7,6 +7,16 @@
 
 class RSVP_Questions_List_Table extends RSVP_List_Table {
 
+	public function __construct( $args = array() ){
+		parent::__construct( array(
+				'plural'   => 'questions',
+				'singular' => 'question',
+				'ajax'     => false,
+				'screen'   => null,
+		) );
+	}
+
+
 	/**
 	 * Message to be displayed when there are no items
 	 *
@@ -21,9 +31,21 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * Prepare our data
 	 *
 	 * @param array $data
+	 *
 	 * @since 2.7.2
 	 */
 	public function prepare_items( $data = array() ){
+
+		global $wpdb;
+
+		if ( isset( $_GET['s'] ) ){
+			$sql  = 'SELECT id, question, sortOrder, permissionLevel FROM ' . QUESTIONS_TABLE . " WHERE question LIKE '%%%s%%' ORDER BY sortOrder ASC";
+			$data = $wpdb->get_results( $wpdb->prepare( $sql, $_GET['s'] ) );
+		} else {
+			$sql  = 'SELECT id, question, sortOrder, permissionLevel FROM ' . QUESTIONS_TABLE . ' ORDER BY sortOrder ASC';
+			$data = $wpdb->get_results( $sql );
+		}
+
 
 		$columns  = $this->get_columns();
 		$hidden   = $this->get_hidden_columns();
@@ -36,19 +58,8 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 			usort( $data, array( &$this, 'usort_reorder' ) );
 		}
 
-		$this->items = $data;
+		$this->items = $this->prepare_questions( $data );
 	}
-
-	/*@todo: For the moment the search function is disabled*/
-	/*public function search_data( $search, $data = array() ){
-		$items = array();
-		foreach ( $data as $item ){
-			if ( strtolower( $search ) == strtolower( $item['name'] ) ){
-				$items[] = $item;
-			}
-		}
-		return $items;
-	}*/
 
 
 	/**
@@ -108,14 +119,15 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * Question column
 	 *
 	 * @param $item
+	 *
 	 * @since 2.7.2
 	 */
 	public function column_question( $item ){
 		// Edit link
 		$edit_link = add_query_arg( array(
-				'page' => 'rsvp-admin-questions',
+				'page'   => 'rsvp-admin-questions',
 				'action' => 'add',
-				'id'   => $item['id']
+				'id'     => $item['id']
 		), admin_url( 'admin.php' ) );
 
 		// Delete link
@@ -153,7 +165,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 				$text = $item[ $column_name ];
 				break;
 			case 'private_import_key':
-				$text = $item[ $column_name ];
+				$text = isset( $item[ $column_name ] ) ? $item[ $column_name ] : '';
 				break;
 			default:
 				$text = $item[ $column_name ];
@@ -170,20 +182,33 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 */
 	public function display(){
 		$singular = $this->_args['singular'];
-		// Disabling the table nav options to regain some real estate.
-		//$this->display_tablenav( 'top' );
+		$this->prepare_items();
+		$screen_options = get_user_meta( get_current_user_id(), 'rsvp_screen_options' );
+
+		if ( $screen_options && isset( $screen_options[0]['pagesize'] ) ){
+			$pagesize = $screen_options[0]['pagesize'];
+		} else {
+			$pagesize = 25;
+		}
+
 		?>
+
+		<div class="clear"></div>
 		<form id="posts-filter" method="get">
-			<!--<p class="search-box">
+			<p class="search-box">
 				<label class="screen-reader-text"
-					   for="post-search-input"><?php /*esc_html_e( 'Search', 'rsvp-plugin' ); */ ?></label>
+					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp-plugin' ); ?></label>
 				<input type="search" id="post-search-input" name="s"
-					   value="<?php /*echo( isset( $_GET['s'] ) && !empty( $_GET['s'] ) ? $_GET['s'] : '' ) */ ?>">
+					   value="<?php echo( isset( $_GET['s'] ) && !empty( $_GET['s'] ) ? $_GET['s'] : '' ) ?>">
+				<input type="hidden" name="page" value="rsvp-admin-questions">
+				<input type="hidden" id="post-pagesize" name="pagesize"
+					   value="<?php echo( isset( $_GET['pagesize'] ) && !empty( $_GET['pagesize'] ) ? $_GET['pagesize'] : $pagesize ) ?>">
 				<input type="submit" id="search-submit" class="button"
-					   value="<?php /*esc_html_e( 'Search', 'rsvp-plugin' ); */ ?>">
-				<input type="hidden" name="post_type" class="post_type_page" value="wpm-testimonial">
-				<input type="hidden" name="page" value="testimonial-views">
-			</p>-->
+					   value="<?php esc_html_e( 'Search question', 'rsvp-plugin' ); ?>">
+			</p>
+			<?php
+			$this->display_tablenav( 'top' );
+			?>
 			<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
 				<thead>
 				<tr>
@@ -222,6 +247,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 */
 	function prepare_questions( $questions ){
 
+		$return = array();
 		foreach ( $questions as $view ){
 
 			$return[ $view->id ] = array(
@@ -249,5 +275,20 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 		</div>
 		<?php
 
+	}
+
+	/**
+	 * Set bulk actions
+	 *
+	 * @return array
+	 * @Since 2.7.2
+	 */
+	public function get_bulk_actions(){
+
+		$actions = array(
+				'delete' => __( 'Delete', 'rsvp-plugin' ),
+		);
+
+		return $actions;
 	}
 }

@@ -626,9 +626,8 @@ function rsvp_admin_guest(){
 					htmlspecialchars( stripslashes( $_POST['lastName'] ) )
 			); ?></p>
 		<p>
-			<a href="<?php echo add_query_arg(array('page' => 'rsvp-top-level' ),admin_url('admin.php')); ?>"><?php echo __( 'Continue to Attendee List', 'rsvp-plugin' ); ?></a>
-			|
-			<a href="<?php echo add_query_arg(array('page' => 'rsvp-admin-guest' ),admin_url('admin.php')) ?>"><?php echo __( 'Add a Guest', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo add_query_arg(array('page' => 'rsvp-top-level' ),admin_url('admin.php')); ?>" class="button button-secondary"><?php echo __( 'Continue to Attendee List', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo add_query_arg(array('page' => 'rsvp-admin-guest' ),admin_url('admin.php')) ?>" class="button button-primary"><?php echo __( 'Add a Guest', 'rsvp-plugin' ); ?></a>
 		</p>
 		<?php
 	} else {
@@ -807,16 +806,7 @@ function rsvp_admin_questions(){
 		return;
 	}
 
-	if ( ( count( $_POST ) > 0 ) && ( $_POST['rsvp-bulk-action'] == 'delete' ) && ( is_array( $_POST['q'] ) && ( count( $_POST['q'] ) > 0 ) ) ){
-		foreach ( $_POST['q'] as $q ){
-			if ( is_numeric( $q ) && ( $q > 0 ) ){
-				$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d', $q ) );
-				$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE questionID = %d', $q ) );
-			}
-		}
-	}
 
-	$customQs = $rsvp_helper->get_custom_questions();
 	?>
 	<div class="wrap">
 		<div id="icon-edit" class="icon32"><br/></div>
@@ -824,29 +814,10 @@ function rsvp_admin_questions(){
 		<a href="<?php echo add_query_arg( 'action', 'add' ); ?>"
 		   class="page-title-action"><?php _e( 'Add New', 'rsvp' ); ?></a>
 		<hr class="wp-header-end">
-		<form method="post" id="rsvp-form" enctype="multipart/form-data">
-			<input type="hidden" id="rsvp-bulk-action" name="rsvp-bulk-action"/>
-			<div class="tablenav">
-				<div class="alignleft actions">
-					<select id="rsvp-action-top" name="action">
-						<option value="" selected="selected"><?php _e( 'Bulk Actions', 'rsvp-plugin' ); ?></option>
-						<option value="delete"><?php _e( 'Delete', 'rsvp-plugin' ); ?></option>
-					</select>
-					<input type="submit" value="<?php _e( 'Apply', 'rsvp' ); ?>" name="doaction" id="doaction"
-						   class="button-secondary action"
-						   onclick="document.getElementById('rsvp-bulk-action').value = document.getElementById('rsvp-action-top').value;"/>
-					&nbsp;
-				</div>
-				<div class="clear"></div>
-			</div>
-			<?php
-			$questions_table    = new RSVP_Questions_List_Table();
-			$tableQuestions = $questions_table->prepare_questions( $customQs );
-			$questions_table->prepare_items( $tableQuestions );
-			$questions_table->display();
-			?>
-
-		</form>
+		<?php
+		$questions_table = new RSVP_Questions_List_Table();
+		$questions_table->display();
+		?>
 	</div>
 	<?php
 }
@@ -999,9 +970,8 @@ function rsvp_admin_custom_question(){
 		?>
 		<p><?php echo __( 'Custom Question saved', 'rsvp-plugin' ); ?></p>
 		<p>
-			<a href="<?php echo add_query_arg(array('page'=>'rsvp-admin-questions'),admin_url('admin.php')); ?>"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a>
-			|
-			<a href="<?php echo add_query_arg(array('page'=>'rsvp-admin-questions','action' => 'add'),admin_url('admin.php')); ?>"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo add_query_arg(array('page'=>'rsvp-admin-questions'),admin_url('admin.php')); ?>" class="button button-secondary"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo add_query_arg(array('page'=>'rsvp-admin-questions','action' => 'add'),admin_url('admin.php')); ?>" class="button button-primary"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
 		</p>
 		<?php
 	} else {
@@ -1095,8 +1065,8 @@ function rsvp_admin_custom_question(){
 			<input type="hidden" name="questionId" value="<?php echo $questionId; ?>"/>
 			<?php wp_nonce_field( 'rsvp_add_custom_question' ); ?>
 			<p class="submit">
+				<a href="<?php echo admin_url( 'admin.php?page=rsvp-admin-questions' ); ?>" class="button button-secondary"><?php _e( 'Back to custom question list', 'rsvp-plugin' ); ?></a>
 				<input type="submit" class="button-primary" value="<?php _e( 'Save', 'rsvp-plugin' ); ?>"/>
-				<a href="<?php echo admin_url( 'admin.php?page=rsvp-admin-questions' ); ?>"><?php _e( 'Back to custom question list', 'rsvp-plugin' ); ?></a>
 			</p>
 			<table id="customQuestions" class="form-table">
 				<tr valign="top">

@@ -246,7 +246,7 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 	 * @access public
 	 */
 	public function display(){
-		global $wpdb;
+
 		$singular = $this->_args['singular'];
 		$this->prepare_items();
 		$screen_options = get_user_meta( get_current_user_id(), 'rsvp_screen_options' );
