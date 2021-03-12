@@ -30,13 +30,45 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 
 		global $wpdb;
 
-		$sql = 'SELECT id, firstName, lastName, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, personalGreeting, passcode, email, rsvpDate FROM ' . ATTENDEES_TABLE;
+		$sql      = 'SELECT id, firstName, lastName, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, personalGreeting, passcode, email, rsvpDate FROM ' . ATTENDEES_TABLE;
+		$values   = array();
+		$order    = ' ORDER BY lastName, firstName ASC';
+		$operator = 'WHERE';
 
 		if ( isset( $_GET['s'] ) ){
-			$sql  .= " WHERE firstName LIKE '%%%s%%'  OR  lastName LIKE '%%%s%%' ORDER BY lastName, firstName ASC";
-			$data = $wpdb->get_results( $wpdb->prepare( $sql, $_GET['s'], $_GET['s'] ) );
+			$sql      .= " WHERE (firstName LIKE '%%%s%%'  OR  lastName LIKE '%%%s%%')";
+			$values[] = $_GET['s'];
+			$values[] = $_GET['s'];
+			$operator = 'AND';
+		}
+
+		if(isset($_GET['event_list'])){
+
+			switch($_GET['event_list']){
+				case 'yes_count' :
+					$sql .= " $operator rsvpStatus = 'YES'";
+					break;
+				case 'no_count':
+					$sql .= " $operator rsvpStatus = 'NO'";
+					break;
+				case 'no_response_count':
+					$sql .= " $operator rsvpStatus = 'NoResponse'";
+					break;
+				case 'kids_meal_count':
+					$sql .= " $operator kidsMeal = 'Y'";
+					break;
+				case 'veggie_meal_count':
+					$sql .= " $operator veggieMeal = 'Y'";
+					break;
+			}
+
+		}
+
+		if ( !empty( $values ) ){
+			$data = $wpdb->get_results( $wpdb->prepare( $sql, $values ) );
 		} else {
 			$data = $wpdb->get_results( $sql );
+
 		}
 
 		$columns  = $this->get_columns();
@@ -349,7 +381,7 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 		$noResponseResults = $wpdb->get_results( 'SELECT COUNT(*) AS noResponseCount FROM ' . ATTENDEES_TABLE . " WHERE rsvpStatus = 'NoResponse'" );
 		$kidsMeals         = $wpdb->get_results( 'SELECT COUNT(*) AS kidsMealCount FROM ' . ATTENDEES_TABLE . " WHERE kidsMeal = 'Y'" );
 		$veggieMeals       = $wpdb->get_results( 'SELECT COUNT(*) AS veggieMealCount FROM ' . ATTENDEES_TABLE . " WHERE veggieMeal = 'Y'" );
-		$all               = $wpdb->get_results( 'SELECT COUNT(*) FROM ' . ATTENDEES_TABLE );
+		$all               = $wpdb->get_results( 'SELECT COUNT(*) AS allCount FROM ' . ATTENDEES_TABLE );
 
 		if ( isset( $_GET['event_list'] ) && '' != $_GET['event_list'] ){
 			$class = $_GET['event_list'];
@@ -360,22 +392,22 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 		return array(
 				'all'               => '<a
 		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '"
-		class="' . ( ( 'all' == $class ) ? 'current' : '' ) . '">All <span class="count">(' . $all . ')</span></a>',
+		class="' . ( ( 'all' == $class ) ? 'current' : '' ) . '">'.esc_html__('All','rsvp-plugin').' <span class="count">(' . $all[0]->allCount . ')</span></a>',
 				'yes_count'         => '<a
-		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&search_field=rsvpStatus&s=Yes&event_list=yes_count"
-		class="' . ( ( 'yes_count' == $class ) ? 'current' : '' ) . '">Yes <span class="count">(' . $yesResults[0]->yesCount . ')</a>',
+		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&event_list=yes_count"
+		class="' . ( ( 'yes_count' == $class ) ? 'current' : '' ) . '">'.esc_html__('Yes','rsvp-plugin').' <span class="count">(' . $yesResults[0]->yesCount . ')</a>',
 				'no_count'          => '<a
-		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&search_field=rsvpStatus&s=No&event_list=no_count"
-		class="' . ( ( 'no_count' == $class ) ? 'current' : '' ) . '">No <span class="count">(' . $noResults[0]->noCount . ')</span></a>',
+		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&event_list=no_count"
+		class="' . ( ( 'no_count' == $class ) ? 'current' : '' ) . '">'.esc_html__('No','rsvp-plugin').' <span class="count">(' . $noResults[0]->noCount . ')</span></a>',
 				'no_response_count' => '<a
-		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&search_field=rsvpStatus&s=NoResponse&event_list=no_response_count"
-		class="' . ( ( 'no_response_count' == $class ) ? 'current' : '' ) . '">No response <span class="count">(' . $noResponseResults[0]->noResponseCount . ')</span></a>',
+		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&event_list=no_response_count"
+		class="' . ( ( 'no_response_count' == $class ) ? 'current' : '' ) . '">'.esc_html__('No response','rsvp-plugin').' <span class="count">(' . $noResponseResults[0]->noResponseCount . ')</span></a>',
 				'kids_meal'         => '<a
-		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&search_field=rsvpStatus&s=NoResponse&event_list=no_response_count"
-		class="' . ( ( 'no_response_count' == $class ) ? 'current' : '' ) . '">No response <span class="count">(' . $kidsMeals[0]->kidsMealCount . ')</span></a>',
+		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&event_list=kids_meal_count"
+		class="' . ( ( 'kids_meal_count' == $class ) ? 'current' : '' ) . '">'.esc_html__('Kids Meal','rsvp-plugin').' <span class="count">(' . $kidsMeals[0]->kidsMealCount . ')</span></a>',
 				'veggie'            => '<a
-		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&search_field=rsvpStatus&s=NoResponse&event_list=no_response_count"
-		class="' . ( ( 'no_response_count' == $class ) ? 'current' : '' ) . '">No response <span class="count">(' . $veggieMeals[0]->veggieMealCount . ')</span></a>',
+		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&event_list=veggie_meal_count"
+		class="' . ( ( 'veggie_meal_count' == $class ) ? 'current' : '' ) . '">'.esc_html__('Veggie Meal','rsvp-plugin').' <span class="count">(' . $veggieMeals[0]->veggieMealCount . ')</span></a>',
 		);
 	}
 

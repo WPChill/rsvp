@@ -425,10 +425,14 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 			}
 
 			echo "<ul class='subsubsub'>\n";
+			$i = count( $views );
 			foreach ( $views as $class => $view ){
-				$views[ $class ] = "\t<li class='$class'>$view";
+				echo "<li class='$class'>$view</li>";
+				if ( $i - 1 > 0 ){
+					echo ' | ';
+				}
+				$i--;
 			}
-			echo implode( " |</li>\n", wp_kses_post( $views ) ) . "</li>\n";
 			echo '</ul>';
 		}
 

@@ -509,6 +509,7 @@ function rsvp_admin_guestlist(){
 			<?php
 
 			$views_table    = new RSVP_Attendees_List_Table();
+			$views_table ->views();
 			$views_table->display();
 			?>
 	</div>
