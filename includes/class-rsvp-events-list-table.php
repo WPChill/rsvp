@@ -42,8 +42,8 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 	public function get_columns(){
 
 		$columns = array(
-				'event_name' => __( 'Event Name', 'rsvp-pro-plugin' ),
-				'attendees'  => __( 'Attendees', 'rsvp-pro-plugin' ),
+				'event_name' => __( 'Event Name', 'rsvp-plugin' ),
+				'attendees'  => __( 'Attendees', 'rsvp-plugin' ),
 		);
 
 		return $columns;
@@ -107,12 +107,12 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 		<form id="posts-filter" method="get">
 			<p class="search-box">
 				<label class="screen-reader-text"
-					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp-pro-plugin' ); ?></label>
+					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp-plugin' ); ?></label>
 				<input type="hidden" name="page" value="rsvp-pro-top-level">
 				<input type="search" id="post-search-input" name="s"
 					   value="<?php echo( isset( $_GET['s'] ) && !empty( $_GET['s'] ) ? $_GET['s'] : '' ) ?>">
 				<input type="submit" id="search-submit" class="button"
-					   value="<?php esc_html_e( 'Search event', 'rsvp-pro-plugin' ); ?>">
+					   value="<?php esc_html_e( 'Search event', 'rsvp-plugin' ); ?>">
 
 			</p>
 			<?php
@@ -178,7 +178,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 
 		$links = array(
 				'custom_questions' => array(
-						'placeholder' => esc_html__( 'Custom Questions', 'rsvp-pro-plugin' ),
+						'placeholder' => esc_html__( 'Custom Questions', 'rsvp-plugin' ),
 						'url_vals'    => array(
 								'page' => 'rsvp-admin-questions',
 						),

@@ -68,6 +68,11 @@ if ( is_admin() ){
 	require_once 'includes/class-rsvp-attendees-list-table.php';
 	require_once 'includes/class-rsvp-questions-list-table.php';
 	require_once 'includes/class-rsvp-helper.php';
+	require_once 'includes/class-rsvp-upsells.php';
+
+	if ( apply_filters( 'rsvp_show_upsells', true ) ){
+		RSVP_Upsells::get_instance();
+	}
 }
 
 /**
@@ -327,8 +332,10 @@ function rsvp_admin_custom_question(){
 		?>
 		<p><?php echo __( 'Custom Question saved', 'rsvp-plugin' ); ?></p>
 		<p>
-			<a href="<?php echo add_query_arg(array('page'=>'rsvp-admin-questions'),admin_url('admin.php')); ?>" class="button button-secondary"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a>
-			<a href="<?php echo add_query_arg(array('page'=>'rsvp-admin-questions','action' => 'add'),admin_url('admin.php')); ?>" class="button button-primary"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo add_query_arg( array( 'page' => 'rsvp-admin-questions' ), admin_url( 'admin.php' ) ); ?>"
+			   class="button button-secondary"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo add_query_arg( array( 'page' => 'rsvp-admin-questions', 'action' => 'add' ), admin_url( 'admin.php' ) ); ?>"
+			   class="button button-primary"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
 		</p>
 		<?php
 	} else {
@@ -422,7 +429,8 @@ function rsvp_admin_custom_question(){
 			<input type="hidden" name="questionId" value="<?php echo $questionId; ?>"/>
 			<?php wp_nonce_field( 'rsvp_add_custom_question' ); ?>
 			<p class="submit">
-				<a href="<?php echo admin_url( 'admin.php?page=rsvp-admin-questions' ); ?>" class="button button-secondary"><?php _e( 'Back to custom question list', 'rsvp-plugin' ); ?></a>
+				<a href="<?php echo admin_url( 'admin.php?page=rsvp-admin-questions' ); ?>"
+				   class="button button-secondary"><?php _e( 'Back to custom question list', 'rsvp-plugin' ); ?></a>
 				<input type="submit" class="button-primary" value="<?php _e( 'Save', 'rsvp-plugin' ); ?>"/>
 			</p>
 			<table id="customQuestions" class="form-table">
@@ -538,7 +546,7 @@ function rsvp_admin_scripts(){
 	wp_register_style( 'jquery_multi_select_css', plugins_url( 'multi-select/css/multi-select.css', RSVP_PLUGIN_FILE ) );
 	wp_enqueue_style( 'jquery_multi_select_css' );
 
-	wp_register_script( 'rsvp_admin', plugins_url( 'rsvp_plugin_admin.js', RSVP_PLUGIN_FILE ), array('jquery-ui-sortable'),'',true );
+	wp_register_script( 'rsvp_admin', plugins_url( 'rsvp_plugin_admin.js', RSVP_PLUGIN_FILE ), array( 'jquery-ui-sortable' ), '', true );
 	wp_enqueue_script( 'rsvp_admin' );
 }
 

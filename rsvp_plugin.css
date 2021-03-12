@@ -34,7 +34,7 @@ input.error, textarea.error { border: 2px solid red; }
 .rsvpFormField  label {
   display: inline;
 }
-.rsvpParagraph { 
+.rsvpParagraph {
   position: relative;
 }
 .rsvpParagraph .required {
@@ -47,4 +47,44 @@ input.error, textarea.error { border: 2px solid red; }
 
 table.rsvp-plugin_page_rsvp-admin-questions #the-list tr{
   cursor:move;
+}
+
+/**
+Upsells
+ */
+.wrap .rsvp-upsell {
+  border: 1px solid #DDD;
+  text-align: center;
+}
+.wrap .rsvp-upsell {
+  margin: 30px 0;
+}
+.rsvp-upsell {
+  background: #f1f1f1;
+  border: 0;
+  padding: 0 15px;
+}
+.wrap .rsvp-upsell h2 {
+  font-weight: 700;
+  background: #fff;
+  left: -15px;
+  top: -15px;
+  padding: 8px 12px;
+  position: relative;
+  width: calc(100% + 6px);
+  border-bottom: 1px solid #DDD;
+}
+
+.rsvp-upsell p.rsvp-upsell-description {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #333333;
+  opacity: .8;
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding: 0px 10px;
+}
+
+.rsvp-upsell .button {
+	margin: 10px;
 }

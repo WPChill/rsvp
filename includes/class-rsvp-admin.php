@@ -162,9 +162,10 @@ if ( !class_exists( 'RSVP' ) ){
 				<hr class="wp-header-end">
 
 				<?php
-
+				do_action('rsvp_events_before_table');
 				$views_table = new RSVP_Events_List_Table();
 				$views_table->display();
+				do_action('rsvp_events_after_table');
 				?>
 			</div>
 			<?php
