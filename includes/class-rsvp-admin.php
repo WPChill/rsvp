@@ -209,6 +209,7 @@ if ( !class_exists( 'RSVP' ) ){
 		public function rsvp_admin_guest(){
 			global $wpdb;
 			$rsvp_helper = RSVP_Helper::get_instance();
+			echo '<div class="wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Add guest', 'rsvp-plugin' ) . '</h1><hr class="wp-header-end">';
 			if ( ( count( $_POST ) > 0 ) && !empty( $_POST['firstName'] ) && !empty( $_POST['lastName'] ) ){
 				check_admin_referer( 'rsvp_add_guest' );
 				$passcode = ( isset( $_POST['passcode'] ) ) ? $_POST['passcode'] : '';
@@ -329,143 +330,151 @@ if ( !class_exists( 'RSVP' ) ){
 					}
 				}
 				?>
-				<form name="contact" action="admin.php?page=rsvp-admin-guest" method="post">
-					<?php wp_nonce_field( 'rsvp_add_guest' ); ?>
-					<input type="hidden" name="attendeeId" value="<?php echo $attendeeId; ?>"/>
-					<p class="submit">
-						<input type="submit" class="button-primary" value="<?php _e( 'Save', 'rsvp-plugin' ); ?>"/>
-					</p>
-					<table class="form-table">
-						<tr valign="top">
-							<th scope="row"><label for="firstName"><?php echo __( 'First Name', 'rsvp-plugin' ); ?>
-									:</label>
-							</th>
-							<td align="left"><input type="text" name="firstName" id="firstName" size="30"
-													value="<?php echo htmlspecialchars( $firstName ); ?>"/></td>
-						</tr>
-						<tr valign="top">
-							<th scope="row"><label for="lastName"><?php echo __( 'Last Name', 'rsvp-plugin' ); ?>
-									:</label></th>
-							<td align="left"><input type="text" name="lastName" id="lastName" size="30"
-													value="<?php echo htmlspecialchars( $lastName ); ?>"/></td>
-						</tr>
-						<tr valign="top">
-							<th scope="row"><label for="email"><?php echo __( 'Email', 'rsvp-plugin' ); ?>:</label></th>
-							<td align="left"><input type="text" name="email" id="email" size="30"
-													value="<?php echo htmlspecialchars( $email ); ?>"/></td>
-						</tr>
-						<?php
-						if ( rsvp_require_passcode() ){
-							?>
+				<div class="rsvp-left-panel">
+					<form name="contact" action="admin.php?page=rsvp-admin-guest" method="post">
+						<?php wp_nonce_field( 'rsvp_add_guest' ); ?>
+						<input type="hidden" name="attendeeId" value="<?php echo $attendeeId; ?>"/>
+						<p class="submit">
+							<input type="submit" class="button-primary" value="<?php _e( 'Save', 'rsvp-plugin' ); ?>"/>
+						</p>
+						<table class="form-table">
 							<tr valign="top">
-								<th scope="row"><label for="passcode"><?php echo __( 'Passcode', 'rsvp-plugin' ); ?>
+								<th scope="row"><label for="firstName"><?php echo __( 'First Name', 'rsvp-plugin' ); ?>
 										:</label>
 								</th>
-								<td align="left"><input type="text" name="passcode" id="passcode" size="30"
-														value="<?php echo htmlspecialchars( $passcode ); ?>"/></td>
+								<td align="left"><input type="text" name="firstName" id="firstName" size="30"
+														value="<?php echo htmlspecialchars( $firstName ); ?>"/></td>
+							</tr>
+							<tr valign="top">
+								<th scope="row"><label for="lastName"><?php echo __( 'Last Name', 'rsvp-plugin' ); ?>
+										:</label></th>
+								<td align="left"><input type="text" name="lastName" id="lastName" size="30"
+														value="<?php echo htmlspecialchars( $lastName ); ?>"/></td>
+							</tr>
+							<tr valign="top">
+								<th scope="row"><label for="email"><?php echo __( 'Email', 'rsvp-plugin' ); ?>:</label>
+								</th>
+								<td align="left"><input type="text" name="email" id="email" size="30"
+														value="<?php echo htmlspecialchars( $email ); ?>"/></td>
 							</tr>
 							<?php
-						}
-						?>
-						<tr>
-							<th scope="row"><label
-										for="rsvpStatus"><?php echo __( 'RSVP Status', 'rsvp-plugin' ); ?></label>
-							</th>
-							<td align="left">
-								<select name="rsvpStatus" id="rsvpStatus" size="1">
-									<option value="NoResponse"
-											<?php
-											echo( ( $rsvpStatus == 'NoResponse' ) ? ' selected="selected"' : '' );
-											?>
-									><?php echo __( 'No Response', 'rsvp-plugin' ); ?></option>
-									<option value="Yes"
-											<?php
-											echo( ( $rsvpStatus == 'Yes' ) ? ' selected="selected"' : '' );
-											?>
-									><?php echo __( 'Yes', 'rsvp-plugin' ); ?></option>
-									<option value="No"
-											<?php
-											echo( ( $rsvpStatus == 'No' ) ? ' selected="selected"' : '' );
-											?>
-									><?php echo __( 'No', 'rsvp-plugin' ); ?></option>
-								</select>
-							</td>
-						</tr>
-						<tr valign="top">
-							<th scope="row" valign="top"><label
-										for="personalGreeting"><?php echo __( 'Custom Message', 'rsvp-plugin' ); ?>
-									:</label>
-							</th>
-							<td align="left"><textarea name="personalGreeting" id="personalGreeting" rows="5"
-													   cols="40"><?php echo htmlspecialchars( $personalGreeting ); ?></textarea>
-							</td>
-						</tr>
-						<tr valign="top">
-							<th scope="row"><?php echo __( 'Associated Attendees', 'rsvp-plugin' ); ?>:</th>
-							<td align="left">
-								<p>
-									<span style="margin-left: -5px;"><?php _e( 'Non-Associated Attendees', 'rsvp-plugin' ); ?></span>
-									<span style="margin-left:26px;"><?php _e( 'Associated Attendees', 'rsvp-plugin' ); ?></span>
-								</p>
-								<select name="associatedAttendees[]" id="associatedAttendeesSelect" multiple="multiple"
-										size="5"
-										style="height: 200px;">
-									<?php
-									$attendees = $rsvp_helper->get_attendees();
-
-									foreach ( $attendees as $a ){
-										if ( $a->id != $attendeeId ){
-											?>
-											<option value="<?php echo $a->id; ?>"
-													<?php echo( ( in_array( $a->id, $associatedAttendees ) ) ? 'selected="selected"' : '' ); ?>><?php echo htmlspecialchars( stripslashes( $a->firstName ) . ' ' . stripslashes( $a->lastName ) ); ?></option>
-											<?php
-										}
-									}
-									?>
-								</select>
-							</td>
-						</tr>
-						<?php
-						if ( ( $attendee != null ) && ( $attendee->id > 0 ) ){
-							$sql = 'SELECT question, answer FROM ' . ATTENDEE_ANSWERS . ' ans
-					INNER JOIN ' . QUESTIONS_TABLE . ' q ON q.id = ans.questionID
-					WHERE attendeeID = %d
-					ORDER BY q.sortOrder';
-							$aRs = $wpdb->get_results( $wpdb->prepare( $sql, $attendee->id ) );
-							if ( count( $aRs ) > 0 ){
+							if ( rsvp_require_passcode() ){
 								?>
-								<tr>
-									<td colspan="2">
-										<h4><?php echo __( 'Custom Questions Answered', 'rsvp-plugin' ); ?></h4>
-										<table cellpadding="2" cellspacing="0" border="0">
-											<tr>
-												<th><?php echo __( 'Question', 'rsvp-plugin' ); ?></th>
-												<th><?php echo __( 'Answer', 'rsvp-plugin' ); ?></th>
-											</tr>
-											<?php
-											foreach ( $aRs as $a ){
-												?>
-												<tr>
-													<td><?php echo stripslashes( $a->question ); ?></td>
-													<td><?php echo str_replace( '||', ', ', stripslashes( $a->answer ) ); ?></td>
-												</tr>
-												<?php
-											}
-											?>
-										</table>
-									</td>
+								<tr valign="top">
+									<th scope="row"><label for="passcode"><?php echo __( 'Passcode', 'rsvp-plugin' ); ?>
+											:</label>
+									</th>
+									<td align="left"><input type="text" name="passcode" id="passcode" size="30"
+															value="<?php echo htmlspecialchars( $passcode ); ?>"/></td>
 								</tr>
 								<?php
 							}
-						}
-						?>
-					</table>
-					<p class="submit">
-						<input type="submit" class="button-primary" value="<?php _e( 'Save', 'rsvp-plugin' ); ?>"/>
-					</p>
-				</form>
+							?>
+							<tr>
+								<th scope="row"><label
+											for="rsvpStatus"><?php echo __( 'RSVP Status', 'rsvp-plugin' ); ?></label>
+								</th>
+								<td align="left">
+									<select name="rsvpStatus" id="rsvpStatus" size="1">
+										<option value="NoResponse"
+												<?php
+												echo( ( $rsvpStatus == 'NoResponse' ) ? ' selected="selected"' : '' );
+												?>
+										><?php echo __( 'No Response', 'rsvp-plugin' ); ?></option>
+										<option value="Yes"
+												<?php
+												echo( ( $rsvpStatus == 'Yes' ) ? ' selected="selected"' : '' );
+												?>
+										><?php echo __( 'Yes', 'rsvp-plugin' ); ?></option>
+										<option value="No"
+												<?php
+												echo( ( $rsvpStatus == 'No' ) ? ' selected="selected"' : '' );
+												?>
+										><?php echo __( 'No', 'rsvp-plugin' ); ?></option>
+									</select>
+								</td>
+							</tr>
+							<tr valign="top">
+								<th scope="row" valign="top"><label
+											for="personalGreeting"><?php echo __( 'Custom Message', 'rsvp-plugin' ); ?>
+										:</label>
+								</th>
+								<td align="left"><textarea name="personalGreeting" id="personalGreeting" rows="5"
+														   cols="40"><?php echo htmlspecialchars( $personalGreeting ); ?></textarea>
+								</td>
+							</tr>
+							<tr valign="top">
+								<th scope="row"><?php echo __( 'Associated Attendees', 'rsvp-plugin' ); ?>:</th>
+								<td align="left">
+									<p>
+										<span style="margin-left: -5px;"><?php _e( 'Non-Associated Attendees', 'rsvp-plugin' ); ?></span>
+										<span style="margin-left:26px;"><?php _e( 'Associated Attendees', 'rsvp-plugin' ); ?></span>
+									</p>
+									<select name="associatedAttendees[]" id="associatedAttendeesSelect"
+											multiple="multiple"
+											size="5"
+											style="height: 200px;">
+										<?php
+										$attendees = $rsvp_helper->get_attendees();
+
+										foreach ( $attendees as $a ){
+											if ( $a->id != $attendeeId ){
+												?>
+												<option value="<?php echo $a->id; ?>"
+														<?php echo( ( in_array( $a->id, $associatedAttendees ) ) ? 'selected="selected"' : '' ); ?>><?php echo htmlspecialchars( stripslashes( $a->firstName ) . ' ' . stripslashes( $a->lastName ) ); ?></option>
+												<?php
+											}
+										}
+										?>
+									</select>
+								</td>
+							</tr>
+							<?php
+							if ( ( $attendee != null ) && ( $attendee->id > 0 ) ){
+								$sql = 'SELECT question, answer FROM ' . ATTENDEE_ANSWERS . ' ans
+					INNER JOIN ' . QUESTIONS_TABLE . ' q ON q.id = ans.questionID
+					WHERE attendeeID = %d
+					ORDER BY q.sortOrder';
+								$aRs = $wpdb->get_results( $wpdb->prepare( $sql, $attendee->id ) );
+								if ( count( $aRs ) > 0 ){
+									?>
+									<tr>
+										<td colspan="2">
+											<h4><?php echo __( 'Custom Questions Answered', 'rsvp-plugin' ); ?></h4>
+											<table cellpadding="2" cellspacing="0" border="0">
+												<tr>
+													<th><?php echo __( 'Question', 'rsvp-plugin' ); ?></th>
+													<th><?php echo __( 'Answer', 'rsvp-plugin' ); ?></th>
+												</tr>
+												<?php
+												foreach ( $aRs as $a ){
+													?>
+													<tr>
+														<td><?php echo stripslashes( $a->question ); ?></td>
+														<td><?php echo str_replace( '||', ', ', stripslashes( $a->answer ) ); ?></td>
+													</tr>
+													<?php
+												}
+												?>
+											</table>
+										</td>
+									</tr>
+									<?php
+								}
+							}
+							?>
+						</table>
+						<p class="submit">
+							<input type="submit" class="button-primary" value="<?php _e( 'Save', 'rsvp-plugin' ); ?>"/>
+						</p>
+					</form>
+				</div>
+				<div class="rsvp-right-panel">
+					<?php do_action( 'rsvp_after_add_guest' ); ?>
+				</div>
 				<?php
 			}
+			echo '</div>'; // .wrap class div end
 		}
 
 		/**
@@ -493,6 +502,8 @@ if ( !class_exists( 'RSVP' ) ){
 				<?php
 				$questions_table = new RSVP_Questions_List_Table();
 				$questions_table->display();
+
+				do_action('rsvp_after_question_table');
 				?>
 			</div>
 			<?php
@@ -544,7 +555,8 @@ if ( !class_exists( 'RSVP' ) ){
 			</script>
 			<div class="wrap">
 				<h2><?php echo __( 'RSVP Plugin Settings', 'rsvp-plugin' ); ?></h2>
-				<form method="post" action="options.php">
+				<div class="rsvp-left-panel">
+					<form method="post" action="options.php">
 					<?php settings_fields( 'rsvp-option-group' ); ?>
 					<table class="form-table">
 						<tr valign="top">
@@ -849,6 +861,10 @@ if ( !class_exists( 'RSVP' ) ){
 							   value="<?php echo __( 'Save Changes', 'rsvp-plugin' ); ?>"/>
 					</p>
 				</form>
+				</div>
+				<div class="rsvp-right-panel">
+					<?php do_action('rsvp_settings_page'); ?>
+				</div>
 			</div>
 			<?php
 		}

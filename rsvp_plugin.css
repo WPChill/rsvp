@@ -54,16 +54,14 @@ Upsells
  */
 .wrap .rsvp-upsell {
   border: 1px solid #DDD;
-  text-align: center;
+  text-align: left;
+  background-color: #fff;
+  padding: 0 15px;
 }
 .wrap .rsvp-upsell {
   margin: 30px 0;
 }
-.rsvp-upsell {
-  background: #f1f1f1;
-  border: 0;
-  padding: 0 15px;
-}
+
 .wrap .rsvp-upsell h2 {
   font-weight: 700;
   background: #fff;
@@ -72,7 +70,10 @@ Upsells
   padding: 8px 12px;
   position: relative;
   width: calc(100% + 6px);
-  border-bottom: 1px solid #DDD;
+}
+
+.wrap .rsvp-upsell a {
+  font-weight: bold;
 }
 
 .rsvp-upsell p.rsvp-upsell-description {
@@ -82,9 +83,18 @@ Upsells
   opacity: .8;
   margin-top: 0;
   margin-bottom: 10px;
-  padding: 0px 10px;
 }
 
 .rsvp-upsell .button {
-	margin: 10px;
+	margin: 10px 10px 10px 0;
+}
+
+.rsvp-left-panel {
+  float:left;
+  width:68%;
+}
+
+.rsvp-right-panel {
+  float:right;
+  width:32%;
 }
