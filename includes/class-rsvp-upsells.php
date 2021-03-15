@@ -27,6 +27,7 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 			add_action( 'rsvp_events_before_table', array( $this, 'events_table_upsells' ) );
 			add_action( 'rsvp_settings_page', array( $this, 'settings_upsells' ) );
 			add_action( 'rsvp_settings_page', array( $this, 'text_customization_upsells' ) );
+			add_action( 'rsvp_settings_page', array( $this, 'sub_events_upsell' ) );
 			add_action( 'rsvp_after_question_table', array( $this, 'questions_upsells' ) );
 			add_action( 'rsvp_after_add_guest', array( $this, 'add_guest_upsells' ) );
 			add_action( 'rsvp_after_add_guest', array( $this, 'mass_mail' ) );
@@ -106,7 +107,31 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 			?>
 			<div class="rsvp-upsell">
 				<h3><?php echo esc_html__( 'Get more text customization', 'rsvp-plugin' ); ?></h3>
-				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Upgrade to RSVP Pro today to get more text customization options, alongside with .', 'rsvp-plugin' ); ?></p>
+				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Upgrade to RSVP Pro today to get more text customization options.', 'rsvp-plugin' ); ?></p>
+				<p>
+					<a target="_blank"
+					   href="https://rsvpproplugin.com/features/"
+					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp-plugin' ); ?></a><a
+							target="_blank"
+							href="https://rsvpproplugin.com/"
+							class="button-primary button"><?php echo esc_html__( 'Get RSVP PRO!', 'rsvp-plugin' ); ?></a>
+				</p>
+			</div>
+			<?php
+
+		}
+
+		/**
+		 * Events table upsells
+		 *
+		 * @since 2.7.2
+		 */
+		public function sub_events_upsell(){
+
+			?>
+			<div class="rsvp-upsell">
+				<h3><?php echo esc_html__( 'Sub-events and recurring events', 'rsvp-plugin' ); ?></h3>
+				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Upgrade to RSVP Pro today to get access to subevents and manage event recurrence.', 'rsvp-plugin' ); ?></p>
 				<p>
 					<a target="_blank"
 					   href="https://rsvpproplugin.com/features/"
