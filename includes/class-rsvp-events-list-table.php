@@ -86,7 +86,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 	 */
 	public function single_row( $item, $level = 0 ){
 		?>
-		<tr id="event-<?php echo $item['id']; ?>">
+		<tr>
 			<?php $this->single_row_columns( $item ); ?>
 		</tr>
 		<?php
