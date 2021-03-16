@@ -54,7 +54,7 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 		public function events_table_upsells(){
 
 			?>
-			<div class="rsvp-upsell">
+			<div class="rsvp-upsell rsvp-center-text">
 				<h3><?php echo esc_html__( 'Looking for more events and customizations?', 'rsvp-plugin' ); ?></h3>
 				<p class="rsvp-upsell-description"><?php echo esc_html__( 'RSVP Pro comes with a robust list of features, such as:', 'rsvp-plugin' ); ?></p>
 				<ul class="rsvp-upsell-description">

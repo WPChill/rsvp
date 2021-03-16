@@ -118,3 +118,7 @@ html body .rsvp-upsell ul li:before {
   border: 1px solid #DDD;
   top: -1px;
 }
+
+html body .rsvp-upsell.rsvp-center-text {
+  text-align:center;
+}
