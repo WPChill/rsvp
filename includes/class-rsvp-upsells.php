@@ -26,11 +26,8 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 		function __construct(){
 			add_action( 'rsvp_events_before_table', array( $this, 'events_table_upsells' ) );
 			add_action( 'rsvp_settings_page', array( $this, 'settings_upsells' ) );
-			add_action( 'rsvp_settings_page', array( $this, 'text_customization_upsells' ) );
-			add_action( 'rsvp_settings_page', array( $this, 'sub_events_upsell' ) );
 			add_action( 'rsvp_after_question_table', array( $this, 'questions_upsells' ) );
 			add_action( 'rsvp_after_add_guest', array( $this, 'add_guest_upsells' ) );
-			add_action( 'rsvp_after_add_guest', array( $this, 'mass_mail' ) );
 		}
 
 		/**
@@ -59,7 +56,26 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 			?>
 			<div class="rsvp-upsell">
 				<h3><?php echo esc_html__( 'Looking for more events and customizations?', 'rsvp-plugin' ); ?></h3>
-				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Upgrade to RSVP Pro today to get access to multiple events, recurring events,custom questions / event and more... ', 'rsvp-plugin' ); ?></p>
+				<p class="rsvp-upsell-description"><?php echo esc_html__( 'RSVP Pro comes with a robust list of features, such as:', 'rsvp-plugin' ); ?></p>
+				<ul>
+					<li>
+						<?php esc_html_e( 'Multiple Events', 'rsvp-plugin' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'Multiple Sub-events', 'rsvp-plugin' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'Recurring events', 'rsvp-plugin' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'Multiple custom questions / event', 'rsvp-plugin' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'Attendees / event', 'rsvp-plugin' ); ?>
+					</li>
+				</ul>
+				<p>
+					<?php esc_html_e( ' Upgrade to the premium version to edit your events with an opening and closing date, limit the number of participants and much much more...', 'rsvp-plugin' ); ?>
 				<p>
 					<a target="_blank"
 					   href="https://rsvpproplugin.com/features/"
@@ -82,8 +98,8 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 
 			?>
 			<div class="rsvp-upsell">
-				<h3><?php echo esc_html__( 'Send notifications and reminders to your attendees', 'rsvp-plugin' ); ?></h3>
-				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Upgrade to RSVP Pro today and fulfill your needs.', 'rsvp-plugin' ); ?></p>
+				<h3><?php echo esc_html__( 'Customize all', 'rsvp-plugin' ); ?></h3>
+				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Everything here is customizable - from events, number of attendees, lists to texts, buttons, titles, and much more. With RSVP Pro, you can customize each slice of your form.', 'rsvp-plugin' ); ?></p>
 				<p>
 					<a target="_blank"
 					   href="https://rsvpproplugin.com/features/"
@@ -155,7 +171,7 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 			?>
 			<div class="rsvp-upsell">
 				<h3><?php echo esc_html__( 'Want to add questions for each event?', 'rsvp-plugin' ); ?></h3>
-				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Upgrade to RSVP Pro today to get access to multiple questions / event and much much more... ', 'rsvp-plugin' ); ?></p>
+				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Do you want to add custom questions for a specific event? Upgrade to RSVP Pro and find out more necessary info about your guests. ', 'rsvp-plugin' ); ?></p>
 				<p>
 					<a target="_blank"
 					   href="https://rsvpproplugin.com/features/"
@@ -179,7 +195,9 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 			?>
 			<div class="rsvp-upsell">
 				<h3><?php echo esc_html__( 'Separate attendees for each event', 'rsvp-plugin' ); ?></h3>
-				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Upgrade to RSVP Pro today to get access to multiple events, recurring events, multiple attendess per event.  ', 'rsvp-plugin' ); ?></p>
+				<p class="rsvp-upsell-description"><?php echo esc_html__( 'If you want to keep in touch with your guests, upgrade to RSVP Pro to send messages, reset attendees’ responses, and add as many participants as you please. You can also increase your workflow by creating reminders and automated emails.
+', 'rsvp-plugin' ); ?></p>
+				<p class="rsvp-upsell-description"><?php echo esc_html__( 'We know how important it is to keep everything stored in a safe place, so we made everything easy for you to import and export attendees and events data.', 'rsvp-plugin' ); ?></p>
 				<p>
 					<a target="_blank"
 					   href="https://rsvpproplugin.com/features/"

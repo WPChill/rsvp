@@ -98,3 +98,25 @@ Upsells
   float:right;
   width:32%;
 }
+
+html body .rsvp-upsell ul li {
+  display: inline-block;
+  margin: 0 15px 15px 35px;
+  position: relative;
+  list-style-type: none;
+  text-align: left;
+}
+
+html body .rsvp-upsell ul li:before {
+  font-family: Dashicons;
+  content: "\f147";
+  position: absolute;
+  left: -30px;
+  font-size: 14px;
+  color: green;
+  background-color: #FFF;
+  padding: 0 3px;
+  border-radius: 50%;
+  border: 1px solid #DDD;
+  top: -1px;
+}
