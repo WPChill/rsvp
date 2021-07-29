@@ -1,8 +1,8 @@
 === RSVP and Event Management Plugin ===
 Contributors: wpchill, silkalns, giucu91
 Tags: rsvp, event, event management, attendee management, event planning, wedding planning, event registration, events, events management, events registration, reserve, wedding, guestlist
-Requires at least: 5.2
-Tested up to: 5.6
+Requires at least: 5.6
+Tested up to: 5.7
 Requires PHP: 5.6
 Stable tag: 2.7.2
 License: GPLv3 or later
@@ -102,7 +102,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 
-= 2.7.1 - 25.02.2021 =
+= 2.7.2 - 27.07.2021 =
 * Changed: UI list tables for attendees and questions
 * Changed: Sorting functionality for questions
 * Fixed: Front input styling - https://github.com/WPChill/rsvp/issues/42

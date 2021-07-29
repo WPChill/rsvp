@@ -209,7 +209,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 			<?php
 			$this->display_tablenav( 'top' );
 			?>
-			<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+			<table class="wp-list-table rsvp-plugin_page_rsvp-admin-questions <?php echo implode( ' ', $this->get_table_classes() ); ?>">
 				<thead>
 				<tr>
 					<?php $this->print_column_headers(); ?>
