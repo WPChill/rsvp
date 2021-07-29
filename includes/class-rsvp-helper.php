@@ -648,7 +648,8 @@ class RSVP_Helper {
 
 		$menu_order_arr = array();
 		foreach ( $id_arr as $key => $id ){
-			$results = $wpdb->get_results( "SELECT sortOrder FROM " . QUESTIONS_TABLE . " WHERE id = " . intval( $id ) );
+			$results = $wpdb->get_results( "SELECT sortOrder FROM " . QUESTIONS_TABLE . " WHERE id = " . (int) $id );
+
 			foreach ( $results as $result ){
 				$menu_order_arr[] = $result->sortOrder;
 			}
@@ -657,8 +658,10 @@ class RSVP_Helper {
 		sort( $menu_order_arr );
 
 		foreach ( $data as $key => $values ){
+
 			foreach ( $values as $position => $id ){
-				$wpdb->update( QUESTIONS_TABLE, array( 'sortOrder' => $menu_order_arr[ $position ] ), array( 'id' => intval( $id ) ) );
+
+				$wpdb->update( QUESTIONS_TABLE, array( 'sortOrder' => $position ), array( 'id' => (int) $id ) );
 			}
 		}
 
