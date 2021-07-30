@@ -111,6 +111,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 * Fixed: Export from menu link sometimes doesn't work - https://github.com/WPChill/rsvp/issues/44
 * Fixed: Multiple inserts of question types in DB if the plugin is deactivated and activated multiple times - https://github.com/WPChill/rsvp/issues/43
 * Added: Review request
+* Changed: Folders & Files structure
 
 
 = 2.7.1 =
