@@ -53,6 +53,8 @@ if ( !class_exists( 'RSVP' ) ){
 		 */
 		public function submenu_pages(){
 
+			$rsvp_helper = RSVP_Helper::get_instance();
+
 			$page = add_menu_page(
 					'RSVP',
 					'RSVP',
@@ -99,7 +101,7 @@ if ( !class_exists( 'RSVP' ) ){
 					'RSVP Export',
 					'publish_posts',
 					'rsvp-admin-export',
-					array( 'RSVP_Helper', 'rsvp_admin_export' )
+					array( $rsvp_helper, 'rsvp_admin_export' )
 			);
 			add_submenu_page(
 					'rsvp-events',
@@ -107,7 +109,7 @@ if ( !class_exists( 'RSVP' ) ){
 					'RSVP Import',
 					'publish_posts',
 					'rsvp-admin-import',
-					array( 'RSVP_Helper', 'rsvp_admin_import' )
+					array( $rsvp_helper, 'rsvp_admin_import' )
 			);
 			$page = add_submenu_page(
 					'rsvp-events',

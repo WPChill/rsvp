@@ -58,10 +58,10 @@ if ( isset( $_GET['page'] ) && ( 'rsvp-upgrade-to-pro' === strtolower( $_GET['pa
 }
 
 require_once 'external-libs/wp-simple-nonce/wp-simple-nonce.php';
-require_once 'rsvp_frontend.inc.php';
+require_once __DIR__ . '/includes/rsvp_frontend.inc.php';
 
 if ( is_admin() ){
-	require_once 'class-rsvp-review.php';
+	require_once __DIR__ . '/includes/class-rsvp-review.php';
 	require_once 'includes/class-rsvp-admin.php';
 	require_once 'includes/class-rsvp-list-table.php';
 	require_once 'includes/class-rsvp-events-list-table.php';
@@ -81,7 +81,7 @@ if ( is_admin() ){
 function rsvp_database_setup(){
 	global $wpdb;
 	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-	require_once 'rsvp_db_setup.inc.php';
+	require_once __DIR__ . '/includes/rsvp_db_setup.inc.php';
 }
 
 /**
@@ -546,7 +546,10 @@ function rsvp_admin_scripts(){
 	wp_register_style( 'jquery_multi_select_css', plugins_url( 'multi-select/css/multi-select.css', RSVP_PLUGIN_FILE ) );
 	wp_enqueue_style( 'jquery_multi_select_css' );
 
-	wp_register_script( 'rsvp_admin', plugins_url( 'rsvp_plugin_admin.js', RSVP_PLUGIN_FILE ), array( 'jquery-ui-sortable' ), '', true );
+	wp_register_style( 'rsvp_jquery-ui', plugins_url( '/assets/admin/css/jquery-ui.css', RSVP_PLUGIN_FILE ) );
+	wp_enqueue_style( 'rsvp_jquery-ui' );
+
+	wp_register_script( 'rsvp_admin', plugins_url( 'assets/admin/js/rsvp_plugin_admin.js', RSVP_PLUGIN_FILE ), array( 'jquery-ui-sortable' ), '', true );
 	wp_enqueue_script( 'rsvp_admin' );
 }
 
@@ -556,7 +559,7 @@ function rsvp_admin_scripts(){
 function rsvp_init(){
 	$result = load_plugin_textdomain( 'rsvp-plugin', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 	wp_register_script( 'jquery_validate', plugins_url( 'jquery.validate.min.js', RSVP_PLUGIN_FILE ), array( 'jquery' ) );
-	wp_register_script( 'rsvp_plugin', plugins_url( 'rsvp_plugin.js', RSVP_PLUGIN_FILE ), array( 'jquery' ) );
+	wp_register_script( 'rsvp_plugin', plugins_url( 'assets/js/rsvp_plugin.js', RSVP_PLUGIN_FILE ), array( 'jquery' ) );
 	wp_localize_script(
 			'rsvp_plugin',
 			'rsvp_plugin_vars',
@@ -577,7 +580,7 @@ function rsvp_init(){
 			)
 	);
 
-	wp_register_style( 'rsvp_css', plugins_url( 'rsvp_plugin.css', RSVP_PLUGIN_FILE ) );
+	wp_register_style( 'rsvp_css', plugins_url( 'assets/css/rsvp_plugin.css', RSVP_PLUGIN_FILE ) );
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery_validate' );
 	wp_enqueue_script( 'rsvp_plugin' );
