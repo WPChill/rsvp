@@ -11,7 +11,7 @@
  * @access private
  */
 
-if ( !class_exists( 'RSVP_List_Table' ) ) :
+if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 	class RSVP_List_Table {
 
@@ -129,7 +129,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function __construct( $args = array() ){
+		public function __construct( $args = array() ) {
 			$args = wp_parse_args(
 					$args,
 					array(
@@ -144,7 +144,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 
 			add_filter( "manage_{$this->screen->id}_columns", array( $this, 'get_columns' ), 0 );
 
-			if ( !$args['plural'] ){
+			if ( ! $args['plural'] ) {
 				$args['plural'] = $this->screen->base;
 			}
 
@@ -153,12 +153,12 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 
 			$this->_args = $args;
 
-			if ( $args['ajax'] ){
+			if ( $args['ajax'] ) {
 				// wp_enqueue_script( 'list-table' );
 				add_action( 'admin_footer', array( $this, '_js_vars' ) );
 			}
 
-			if ( empty( $this->modes ) ){
+			if ( empty( $this->modes ) ) {
 				$this->modes = array(
 						'list'    => __( 'List View', 'rsvp-plugin' ),
 						'excerpt' => __( 'Excerpt View', 'rsvp-plugin' ),
@@ -176,8 +176,8 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function __get( $name ){
-			if ( in_array( $name, $this->compat_fields ) ){
+		public function __get( $name ) {
+			if ( in_array( $name, $this->compat_fields ) ) {
 				return $this->$name;
 			}
 		}
@@ -193,8 +193,8 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function __set( $name, $value ){
-			if ( in_array( $name, $this->compat_fields ) ){
+		public function __set( $name, $value ) {
+			if ( in_array( $name, $this->compat_fields ) ) {
 				return $this->$name = $value;
 			}
 		}
@@ -209,8 +209,8 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function __isset( $name ){
-			if ( in_array( $name, $this->compat_fields ) ){
+		public function __isset( $name ) {
+			if ( in_array( $name, $this->compat_fields ) ) {
 				return isset( $this->$name );
 			}
 		}
@@ -224,8 +224,8 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function __unset( $name ){
-			if ( in_array( $name, $this->compat_fields ) ){
+		public function __unset( $name ) {
+			if ( in_array( $name, $this->compat_fields ) ) {
 				unset( $this->$name );
 			}
 		}
@@ -241,10 +241,11 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function __call( $name, $arguments ){
-			if ( in_array( $name, $this->compat_methods ) ){
+		public function __call( $name, $arguments ) {
+			if ( in_array( $name, $this->compat_methods ) ) {
 				return call_user_func_array( array( $this, $name ), $arguments );
 			}
+
 			return false;
 		}
 
@@ -255,7 +256,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 * @abstract
 		 */
-		public function ajax_user_can(){
+		public function ajax_user_can() {
 			die( 'function RSVP_List_Table::ajax_user_can() must be over-ridden in a sub-class.' );
 		}
 
@@ -268,7 +269,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 * @abstract
 		 */
-		public function prepare_items(){
+		public function prepare_items() {
 			die( 'function RSVP_List_Table::prepare_items() must be over-ridden in a sub-class.' );
 		}
 
@@ -280,7 +281,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 * @since  2.7.2
 		 */
-		protected function set_pagination_args( $args ){
+		protected function set_pagination_args( $args ) {
 			$args = wp_parse_args(
 					$args,
 					array(
@@ -290,12 +291,12 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 					)
 			);
 
-			if ( !$args['total_pages'] && $args['per_page'] > 0 ){
+			if ( ! $args['total_pages'] && $args['per_page'] > 0 ) {
 				$args['total_pages'] = ceil( $args['total_items'] / $args['per_page'] );
 			}
 
 			// Redirect if page number is invalid and headers are not already sent.
-			if ( !headers_sent() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) && $args['total_pages'] > 0 && $this->get_pagenum() > $args['total_pages'] ){
+			if ( ! headers_sent() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && $args['total_pages'] > 0 && $this->get_pagenum() > $args['total_pages'] ) {
 				wp_redirect( add_query_arg( 'paged', $args['total_pages'] ) );
 				exit;
 			}
@@ -314,12 +315,12 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function get_pagination_arg( $key ){
-			if ( 'page' == $key ){
+		public function get_pagination_arg( $key ) {
+			if ( 'page' == $key ) {
 				return $this->get_pagenum();
 			}
 
-			if ( isset( $this->_pagination_args[ $key ] ) ){
+			if ( isset( $this->_pagination_args[ $key ] ) ) {
 				return $this->_pagination_args[ $key ];
 			}
 		}
@@ -332,8 +333,8 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function has_items(){
-			return !empty( $this->items );
+		public function has_items() {
+			return ! empty( $this->items );
 		}
 
 		/**
@@ -342,7 +343,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @since  2.7.2
 		 * @access public
 		 */
-		public function no_items(){
+		public function no_items() {
 			esc_html_e( 'No items found.', 'rsvp-plugin' );
 		}
 
@@ -356,23 +357,23 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function search_box( $text, $input_id ){
-			if ( empty( $_REQUEST['s'] ) && !$this->has_items() ){
+		public function search_box( $text, $input_id ) {
+			if ( empty( $_REQUEST['s'] ) && ! $this->has_items() ) {
 				return;
 			}
 
 			$input_id = $input_id . '-search-input';
 
-			if ( !empty( $_REQUEST['orderby'] ) ){
+			if ( ! empty( $_REQUEST['orderby'] ) ) {
 				echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '">';
 			}
-			if ( !empty( $_REQUEST['order'] ) ){
+			if ( ! empty( $_REQUEST['order'] ) ) {
 				echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '">';
 			}
-			if ( !empty( $_REQUEST['post_mime_type'] ) ){
+			if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
 				echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '">';
 			}
-			if ( !empty( $_REQUEST['detached'] ) ){
+			if ( ! empty( $_REQUEST['detached'] ) ) {
 				echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '">';
 			}
 			?>
@@ -395,7 +396,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function get_views(){
+		protected function get_views() {
 			return array();
 		}
 
@@ -405,7 +406,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @since  2.7.2
 		 * @access public
 		 */
-		public function views(){
+		public function views() {
 			$views = $this->get_views();
 			/**
 			 * Filter the list of available list table views.
@@ -420,18 +421,18 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 			 */
 			$views = apply_filters( "views_{$this->screen->id}", $views );
 
-			if ( empty( $views ) ){
+			if ( empty( $views ) ) {
 				return;
 			}
 
 			echo "<ul class='subsubsub'>\n";
 			$i = count( $views );
-			foreach ( $views as $class => $view ){
+			foreach ( $views as $class => $view ) {
 				echo "<li class='$class'>$view</li>";
-				if ( $i - 1 > 0 ){
+				if ( $i - 1 > 0 ) {
 					echo ' | ';
 				}
-				$i--;
+				$i --;
 			}
 			echo '</ul>';
 		}
@@ -445,7 +446,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function get_bulk_actions(){
+		protected function get_bulk_actions() {
 			return array();
 		}
 
@@ -459,8 +460,8 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function bulk_actions( $which = '' ){
-			if ( is_null( $this->_actions ) ){
+		protected function bulk_actions( $which = '' ) {
+			if ( is_null( $this->_actions ) ) {
 				$no_new_actions = $this->_actions = $this->get_bulk_actions();
 				/**
 				 * Filter the list table Bulk Actions drop-down.
@@ -482,7 +483,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 				$two = '2';
 			}
 
-			if ( empty( $this->_actions ) ){
+			if ( empty( $this->_actions ) ) {
 				return;
 			}
 
@@ -490,7 +491,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 			echo "<select name='rsvp-bulk-action" . esc_attr( $two ) . "' id='rsvp-bulk-action-selector-" . esc_attr( $which ) . "'>\n";
 			echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions', 'rsvp-plugin' ) . "</option>\n";
 
-			foreach ( $this->_actions as $name => $title ){
+			foreach ( $this->_actions as $name => $title ) {
 				$class = 'edit' == $name ? ' class="hide-if-no-js"' : '';
 
 				echo "\t<option value='$name'$class>$title</option>\n";
@@ -510,16 +511,16 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function current_action(){
-			if ( isset( $_REQUEST['filter_action'] ) && !empty( $_REQUEST['filter_action'] ) ){
+		public function current_action() {
+			if ( isset( $_REQUEST['filter_action'] ) && ! empty( $_REQUEST['filter_action'] ) ) {
 				return false;
 			}
 
-			if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ){
+			if ( isset( $_REQUEST['action'] ) && - 1 != $_REQUEST['action'] ) {
 				return $_REQUEST['action'];
 			}
 
-			if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ){
+			if ( isset( $_REQUEST['action2'] ) && - 1 != $_REQUEST['action2'] ) {
 				return $_REQUEST['action2'];
 			}
 
@@ -537,17 +538,17 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function row_actions( $actions, $always_visible = false ){
+		protected function row_actions( $actions, $always_visible = false ) {
 			$action_count = count( $actions );
 			$i            = 0;
 
-			if ( !$action_count ){
+			if ( ! $action_count ) {
 				return '';
 			}
 
 			$out = '<div class="' . ( $always_visible ? 'row-actions visible' : 'row-actions' ) . '">';
-			foreach ( $actions as $action => $link ){
-				++$i;
+			foreach ( $actions as $action => $link ) {
+				++ $i;
 				( $i == $action_count ) ? $sep = '' : $sep = ' | ';
 				$out .= "<span class='$action'>$link$sep</span>";
 			}
@@ -566,14 +567,14 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function view_switcher( $current_mode ){
+		protected function view_switcher( $current_mode ) {
 			?>
 			<input type="hidden" name="mode" value="<?php echo esc_attr( $current_mode ); ?>">
 			<div class="view-switch">
 				<?php
-				foreach ( $this->modes as $mode => $title ){
+				foreach ( $this->modes as $mode => $title ) {
 					$classes = array( 'view-' . $mode );
-					if ( $current_mode == $mode ){
+					if ( $current_mode == $mode ) {
 						$classes[] = 'current';
 					}
 					printf(
@@ -597,10 +598,10 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function get_pagenum(){
+		public function get_pagenum() {
 			$pagenum = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
 
-			if ( isset( $this->_pagination_args['total_pages'] ) && $pagenum > $this->_pagination_args['total_pages'] ){
+			if ( isset( $this->_pagination_args['total_pages'] ) && $pagenum > $this->_pagination_args['total_pages'] ) {
 				$pagenum = $this->_pagination_args['total_pages'];
 			}
 
@@ -618,9 +619,9 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function get_items_per_page( $option, $default = 20 ){
-			$per_page = (int)get_user_option( $option );
-			if ( empty( $per_page ) || $per_page < 1 ){
+		protected function get_items_per_page( $option, $default = 20 ) {
+			$per_page = (int) get_user_option( $option );
+			if ( empty( $per_page ) || $per_page < 1 ) {
 				$per_page = $default;
 			}
 
@@ -638,7 +639,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 			 * @since 2.7.2
 			 *
 			 */
-			return (int)apply_filters( $option, $per_page );
+			return (int) apply_filters( $option, $per_page );
 		}
 
 		/**
@@ -650,15 +651,15 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function pagination( $which ){
-			if ( empty( $this->_pagination_args ) ){
+		protected function pagination( $which ) {
+			if ( empty( $this->_pagination_args ) ) {
 				return;
 			}
 
 			$total_items     = $this->_pagination_args['total_items'];
 			$total_pages     = $this->_pagination_args['total_pages'];
 			$infinite_scroll = false;
-			if ( isset( $this->_pagination_args['infinite_scroll'] ) ){
+			if ( isset( $this->_pagination_args['infinite_scroll'] ) ) {
 				$infinite_scroll = $this->_pagination_args['infinite_scroll'];
 			}
 
@@ -668,15 +669,18 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 
 			$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
 
-			$current_url = remove_query_arg( array( 'hotkeys_highlight_last', 'hotkeys_highlight_first' ), $current_url );
+			$current_url = remove_query_arg( array(
+					'hotkeys_highlight_last',
+					'hotkeys_highlight_first'
+			), $current_url );
 
 			$page_links = array();
 
 			$disable_first = $disable_last = '';
-			if ( $current == 1 ){
+			if ( $current == 1 ) {
 				$disable_first = ' disabled';
 			}
-			if ( $current == $total_pages ){
+			if ( $current == $total_pages ) {
 				$disable_last = ' disabled';
 			}
 			$page_links[] = sprintf(
@@ -695,7 +699,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 					'&lsaquo;'
 			);
 
-			if ( 'bottom' == $which ){
+			if ( 'bottom' == $which ) {
 				$html_current_page = $current;
 			} else {
 				$html_current_page = sprintf(
@@ -726,12 +730,12 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 			);
 
 			$pagination_links_class = 'pagination-links';
-			if ( !empty( $infinite_scroll ) ){
+			if ( ! empty( $infinite_scroll ) ) {
 				$pagination_links_class = ' hide-if-js';
 			}
 			$output .= "\n<span class='$pagination_links_class'>" . implode( "\n", $page_links ) . '</span>';
 
-			if ( $total_pages ){
+			if ( $total_pages ) {
 				$page_class = $total_pages < 2 ? ' one-page' : '';
 			} else {
 				$page_class = ' no-pages';
@@ -751,7 +755,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @abstract
 		 *
 		 */
-		public function get_columns(){
+		public function get_columns() {
 			die( 'function RSVP_List_Table::get_columns() must be over-ridden in a sub-class.' );
 		}
 
@@ -768,7 +772,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function get_sortable_columns(){
+		protected function get_sortable_columns() {
 			return array();
 		}
 
@@ -780,8 +784,8 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function get_column_info(){
-			if ( isset( $this->_column_headers ) ){
+		protected function get_column_info() {
+			if ( isset( $this->_column_headers ) ) {
 				return $this->_column_headers;
 			}
 
@@ -803,13 +807,13 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 			$_sortable = apply_filters( "manage_{$this->screen->id}_sortable_columns", $sortable_columns );
 
 			$sortable = array();
-			foreach ( $_sortable as $id => $data ){
-				if ( empty( $data ) ){
+			foreach ( $_sortable as $id => $data ) {
+				if ( empty( $data ) ) {
 					continue;
 				}
 
-				$data = (array)$data;
-				if ( !isset( $data[1] ) ){
+				$data = (array) $data;
+				if ( ! isset( $data[1] ) ) {
 					$data[1] = false;
 				}
 
@@ -829,9 +833,10 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function get_column_count(){
+		public function get_column_count() {
 			list ( $columns, $hidden ) = $this->get_column_info();
 			$hidden = array_intersect( array_keys( $columns ), array_filter( $hidden ) );
+
 			return count( $columns ) - count( $hidden );
 		}
 
@@ -864,9 +869,9 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 
 			if ( ! empty( $columns['cb'] ) ) {
 				static $cb_counter = 1;
-				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All' ) . '</label>'
-									 . '<input id="cb-select-all-' . $cb_counter . '" type="checkbox" />';
-				$cb_counter++;
+				$columns['cb'] = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All' ) . '</label>'
+								 . '<input id="cb-select-all-' . $cb_counter . '" type="checkbox" />';
+				$cb_counter ++;
 			}
 
 			foreach ( $columns as $column_key => $column_display_name ) {
@@ -926,7 +931,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @since  2.7.2
 		 * @access public
 		 */
-		public function display(){
+		public function display() {
 			$singular = $this->_args['singular'];
 
 			$this->display_tablenav( 'top' );
@@ -941,7 +946,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 
 				<tbody id="the-list"
 						<?php
-						if ( $singular ){
+						if ( $singular ) {
 							echo " data-wp-lists='list:$singular'";
 						}
 						?>
@@ -968,7 +973,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function get_table_classes(){
+		protected function get_table_classes() {
 			return array( 'widefat', 'fixed', 'striped', $this->_args['plural'] );
 		}
 
@@ -980,8 +985,8 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @since  2.7.2
 		 * @access protected
 		 */
-		protected function display_tablenav( $which ){
-			if ( 'top' == $which ){
+		protected function display_tablenav( $which ) {
+			if ( 'top' == $which ) {
 				wp_nonce_field( 'rsvp-bulk-' . $this->_args['plural'] );
 			}
 			?>
@@ -1009,7 +1014,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function extra_tablenav( $which ){
+		protected function extra_tablenav( $which ) {
 		}
 
 		/**
@@ -1018,8 +1023,8 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @since  2.7.2
 		 * @access public
 		 */
-		public function display_rows_or_placeholder(){
-			if ( $this->has_items() ){
+		public function display_rows_or_placeholder() {
+			if ( $this->has_items() ) {
 				$this->display_rows();
 			} else {
 				echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
@@ -1034,8 +1039,8 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @since  2.7.2
 		 * @access public
 		 */
-		public function display_rows(){
-			foreach ( $this->items as $item ){
+		public function display_rows() {
+			foreach ( $this->items as $item ) {
 				$this->single_row( $item );
 			}
 		}
@@ -1049,16 +1054,16 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 *
 		 */
-		public function single_row( $item ){
-			echo '<tr id="question-'.absint($item['id']).'">';
+		public function single_row( $item ) {
+			echo '<tr id="question-' . absint( $item['id'] ) . '">';
 			$this->single_row_columns( $item );
 			echo '</tr>';
 		}
 
-		protected function column_default( $item, $column_name ){
+		protected function column_default( $item, $column_name ) {
 		}
 
-		protected function column_cb( $item ){
+		protected function column_cb( $item ) {
 		}
 
 		/**
@@ -1070,21 +1075,21 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @access protected
 		 *
 		 */
-		protected function single_row_columns( $item ){
+		protected function single_row_columns( $item ) {
 
 			list( $columns, $hidden ) = $this->get_column_info();
 
-			foreach ( $columns as $column_name => $column_display_name ){
+			foreach ( $columns as $column_name => $column_display_name ) {
 				$class = "class='$column_name column-$column_name'";
 
 				$style = '';
-				if ( in_array( $column_name, $hidden ) ){
+				if ( in_array( $column_name, $hidden ) ) {
 					$style = ' style="display:none;"';
 				}
 
 				$attributes = "$class$style";
 
-				if ( 'cb' == $column_name ){
+				if ( 'cb' == $column_name ) {
 					echo '<th scope="row" class="check-column">';
 					echo $this->column_cb( $item );
 					echo '</th>';
@@ -1106,11 +1111,11 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 * @since  2.7.2
 		 * @access public
 		 */
-		public function ajax_response(){
+		public function ajax_response() {
 			$this->prepare_items();
 
 			ob_start();
-			if ( !empty( $_REQUEST['no_placeholder'] ) ){
+			if ( ! empty( $_REQUEST['no_placeholder'] ) ) {
 				$this->display_rows();
 			} else {
 				$this->display_rows_or_placeholder();
@@ -1120,13 +1125,13 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 
 			$response = array( 'rows' => $rows );
 
-			if ( isset( $this->_pagination_args['total_items'] ) ){
+			if ( isset( $this->_pagination_args['total_items'] ) ) {
 				$response['total_items_i18n'] = sprintf(
 						_n( '1 item', '%s items', $this->_pagination_args['total_items'], 'rsvp-plugin' ),
 						number_format_i18n( $this->_pagination_args['total_items'] )
 				);
 			}
-			if ( isset( $this->_pagination_args['total_pages'] ) ){
+			if ( isset( $this->_pagination_args['total_pages'] ) ) {
 				$response['total_pages']      = $this->_pagination_args['total_pages'];
 				$response['total_pages_i18n'] = number_format_i18n( $this->_pagination_args['total_pages'] );
 			}
@@ -1139,7 +1144,7 @@ if ( !class_exists( 'RSVP_List_Table' ) ) :
 		 *
 		 * @access public
 		 */
-		public function _js_vars(){
+		public function _js_vars() {
 			$args = array(
 					'class'  => get_class( $this ),
 					'screen' => array(

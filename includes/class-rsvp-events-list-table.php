@@ -1,13 +1,13 @@
 <?php
 
 // Exit if accessed directly.
-if ( !defined( 'ABSPATH' ) ) :
+if ( ! defined( 'ABSPATH' ) ) :
 	exit;
 endif;
 
 class RSVP_Events_List_Table extends RSVP_List_Table {
 
-	public function __construct( $args = array() ){
+	public function __construct( $args = array() ) {
 		parent::__construct( array(
 				'plural'   => 'events',
 				'singular' => 'event',
@@ -22,11 +22,11 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 	 * @since  2.7.2
 	 * @access public
 	 */
-	public function no_items(){
+	public function no_items() {
 		_e( 'No events found.', 'rsvp-plugin' );
 	}
 
-	public function prepare_items( $data = array() ){
+	public function prepare_items( $data = array() ) {
 
 		$columns  = $this->get_columns();
 		$hidden   = $this->get_hidden_columns();
@@ -39,7 +39,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 		);
 	}
 
-	public function get_columns(){
+	public function get_columns() {
 
 		$columns = array(
 				'event_name' => __( 'Event Name', 'rsvp-plugin' ),
@@ -49,11 +49,11 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 		return $columns;
 	}
 
-	public function get_hidden_columns(){
+	public function get_hidden_columns() {
 		return array();
 	}
 
-	public function get_sortable_columns(){
+	public function get_sortable_columns() {
 		return array();
 	}
 
@@ -65,8 +65,8 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 	 * @return mixed|void
 	 * @since 4.4.8
 	 */
-	public function column_default( $item, $column_name ){
-		switch ( $column_name ){
+	public function column_default( $item, $column_name ) {
+		switch ( $column_name ) {
 			case 'event_name':
 				$text = esc_html( $item[ $column_name ] );
 				break;
@@ -84,7 +84,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 	 *
 	 * @since 4.4.8
 	 */
-	public function single_row( $item, $level = 0 ){
+	public function single_row( $item, $level = 0 ) {
 		?>
 		<tr>
 			<?php $this->single_row_columns( $item ); ?>
@@ -99,7 +99,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 	 * @since  4.4.8
 	 * @access public
 	 */
-	public function display(){
+	public function display() {
 
 		$this->prepare_items();
 		$singular = $this->_args['singular'];
@@ -110,7 +110,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp-plugin' ); ?></label>
 				<input type="hidden" name="page" value="rsvp-pro-top-level">
 				<input type="search" id="post-search-input" name="s"
-					   value="<?php echo( isset( $_GET['s'] ) && !empty( $_GET['s'] ) ? $_GET['s'] : '' ) ?>">
+					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? $_GET['s'] : '' ) ?>">
 				<input type="submit" id="search-submit" class="button"
 					   value="<?php esc_html_e( 'Search event', 'rsvp-plugin' ); ?>">
 
@@ -126,7 +126,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 				</thead>
 
 				<tbody id="the-list"<?php
-				if ( $singular ){
+				if ( $singular ) {
 					echo " data-wp-lists='list:$singular'";
 				} ?>>
 				<?php $this->display_rows_or_placeholder(); ?>
@@ -154,13 +154,13 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 	 *
 	 * @since 4.4.8
 	 */
-	public function column_attendees( $item ){
+	public function column_attendees( $item ) {
 		$url = add_query_arg( array(
-				'page'   => 'rsvp-top-level',
+				'page' => 'rsvp-top-level',
 		), admin_url( 'admin.php' ) );
 		?>
 		<a href="<?php echo esc_url( $url ); ?>"
-		   title="Manage Attendees"><?php esc_html_e('Manage Attendees','rsvp-plugin') ?></a>
+		   title="Manage Attendees"><?php esc_html_e( 'Manage Attendees', 'rsvp-plugin' ) ?></a>
 		<?php
 		$actions = array();
 		$actions = apply_filters( 'rsvp_pro_attendees_actions', $actions, $item );
@@ -174,7 +174,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 	 *
 	 * @since 4.4.8
 	 */
-	public function column_event_name( $item ){
+	public function column_event_name( $item ) {
 
 		$links = array(
 				'custom_questions' => array(
@@ -187,7 +187,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 
 		$actions = array();
 
-		foreach ( $links as $key => $link ){
+		foreach ( $links as $key => $link ) {
 			$url             = add_query_arg( $link['url_vals'], admin_url( 'admin.php' ) );
 			$actions[ $key ] = "<a href='" . esc_url( $url ) . "' >" . esc_html( $link['placeholder'] ) . '</a>';
 		}

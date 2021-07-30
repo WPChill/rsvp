@@ -20,7 +20,7 @@ class RSVP_Helper {
 	 *
 	 * @since 2.7.2
 	 */
-	function __construct(){
+	function __construct() {
 
 		add_action( 'admin_action_delete-rsvp-attendee', array( $this, 'delete_attendee' ) );
 		add_action( 'admin_action_delete-rsvp-question', array( $this, 'delete_question' ) );
@@ -38,9 +38,9 @@ class RSVP_Helper {
 	 * @return object The RSVP_Helper object.
 	 * @since 2.7.2
 	 */
-	public static function get_instance(){
+	public static function get_instance() {
 
-		if ( !isset( self::$instance ) && !( self::$instance instanceof RSVP_Helper ) ){
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof RSVP_Helper ) ) {
 			self::$instance = new RSVP_Helper();
 		}
 
@@ -55,7 +55,7 @@ class RSVP_Helper {
 	 *
 	 * @return array|object|null
 	 */
-	public function get_associated_attendees( $id ){
+	public function get_associated_attendees( $id ) {
 
 		global $wpdb;
 		$sql = 'SELECT firstName, lastName FROM ' . ATTENDEES_TABLE . '
@@ -74,14 +74,14 @@ class RSVP_Helper {
 	 *
 	 * @since 2.7.2
 	 */
-	public function delete_attendee( $attendee_id = false ){
+	public function delete_attendee( $attendee_id = false ) {
 
-		if ( !$attendee_id ){
+		if ( ! $attendee_id ) {
 
 
 			check_admin_referer( 'delete-rsvp-attendee_' . $_REQUEST['id'] );
 
-			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-attendee' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ){
+			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-attendee' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
 
 				global $wpdb;
 				$attendee_id = absint( $_REQUEST['id'] );
@@ -110,7 +110,7 @@ class RSVP_Helper {
 
 			global $wpdb;
 
-			if ( is_numeric( $attendee_id ) && ( $attendee_id > 0 ) ){
+			if ( is_numeric( $attendee_id ) && ( $attendee_id > 0 ) ) {
 				$wpdb->query(
 						$wpdb->prepare(
 								'DELETE FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d OR associatedAttendeeID = %d',
@@ -137,14 +137,14 @@ class RSVP_Helper {
 	 *
 	 * @since 2.7.2
 	 */
-	public function delete_question( $question_id = false ){
+	public function delete_question( $question_id = false ) {
 
-		if ( !$question_id ){
+		if ( ! $question_id ) {
 
 
 			check_admin_referer( 'delete-rsvp-question_' . $_REQUEST['id'] );
 
-			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-question' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ){
+			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-question' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
 
 				global $wpdb;
 				$question_id = absint( $_REQUEST['id'] );
@@ -163,7 +163,7 @@ class RSVP_Helper {
 
 			global $wpdb;
 
-			if ( is_numeric( $question_id ) && ( $question_id > 0 ) ){
+			if ( is_numeric( $question_id ) && ( $question_id > 0 ) ) {
 				$wpdb->query(
 						$wpdb->prepare(
 								'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d',
@@ -184,7 +184,7 @@ class RSVP_Helper {
 	 * @return array|object|null
 	 * @since 2.7.2
 	 */
-	public function get_attendees( $orderby = 'lastName, firstName', $order = 'ASC' ){
+	public function get_attendees( $orderby = 'lastName, firstName', $order = 'ASC' ) {
 
 		global $wpdb;
 
@@ -199,9 +199,10 @@ class RSVP_Helper {
 	 * @return array|object|null
 	 * @since 2.7.2
 	 */
-	public function get_custom_questions(){
+	public function get_custom_questions() {
 		global $wpdb;
 		$sql = 'SELECT id, question, sortOrder, permissionLevel FROM ' . QUESTIONS_TABLE . ' ORDER BY sortOrder ASC';
+
 		return $wpdb->get_results( $sql );
 	}
 
@@ -210,10 +211,10 @@ class RSVP_Helper {
 	 *
 	 * @Since 2.7.2
 	 */
-	public function rsvp_admin_export(){
+	public function rsvp_admin_export() {
 
 		if ( ( isset( $_GET['page'] ) && ( strToLower( $_GET['page'] ) == 'rsvp-admin-export' ) ) ||
-			 ( isset( $_POST['rsvp-bulk-action'] ) && ( 'export' === strToLower( $_POST['rsvp-bulk-action'] ) ) ) ){
+			 ( isset( $_POST['rsvp-bulk-action'] ) && ( 'export' === strToLower( $_POST['rsvp-bulk-action'] ) ) ) ) {
 
 			global $wpdb;
 
@@ -221,20 +222,20 @@ class RSVP_Helper {
 
 			// Get page associated with the page to build out prefill link.
 			$query = new WP_Query( 's=rsvp-pluginhere' );
-			if ( $query->have_posts() ){
+			if ( $query->have_posts() ) {
 				$query->the_post();
 				$customLinkBase = get_permalink();
-				if ( strpos( $customLinkBase, '?' ) !== false ){
+				if ( strpos( $customLinkBase, '?' ) !== false ) {
 					$customLinkBase .= '&';
 				} else {
 					$customLinkBase .= '?';
 				}
 
-				if ( rsvp_require_only_passcode_to_register() ){
+				if ( rsvp_require_only_passcode_to_register() ) {
 					$customLinkBase .= 'passcode=%s';
 				} else {
 					$customLinkBase .= 'firstName=%s&lastName=%s';
-					if ( rsvp_require_passcode() ){
+					if ( rsvp_require_passcode() ) {
 						$customLinkBase .= '&passcode=%s';
 					}
 				}
@@ -245,11 +246,11 @@ class RSVP_Helper {
 			$orderby = 'firstName, lastName';
 			$order   = 'ASC';
 
-			if ( isset( $_POST['orderby'] ) && 'attendee' != $_POST['orderby'] && '' != $_POST['orderby'] ){
+			if ( isset( $_POST['orderby'] ) && 'attendee' != $_POST['orderby'] && '' != $_POST['orderby'] ) {
 				$orderby = $_POST['orderby'];
 			}
 
-			if ( isset( $_POST['order'] ) && '' != $_POST['order'] ){
+			if ( isset( $_POST['order'] ) && '' != $_POST['order'] ) {
 				$order = $_POST['order'];
 			}
 
@@ -258,25 +259,25 @@ class RSVP_Helper {
 
 			$csv = '"' . __( 'First Name', 'rsvp-plugin' ) . '","' . __( 'Last Name', 'rsvp-plugin' ) . '","' . __( 'Email', 'rsvp-plugin' ) . '","' . __( 'RSVP Status', 'rsvp-plugin' ) . '",';
 
-			if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ){
+			if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ) {
 				$csv .= '"' . __( 'Kids Meal', 'rsvp-plugin' ) . '",';
 			}
 
 			$csv .= '"' . __( 'Associated Attendees', 'rsvp-plugin' ) . '",';
 
-			if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ){
+			if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ) {
 				$csv .= '"' . __( 'Vegetarian', 'rsvp-plugin' ) . '",';
 			}
-			if ( rsvp_require_passcode() ){
+			if ( rsvp_require_passcode() ) {
 				$csv .= '"' . __( 'Passcode', 'rsvp-plugin' ) . '",';
 			}
 			$csv .= '"' . __( 'Note', 'rsvp-plugin' ) . '"';
 
 			$qRs = $wpdb->get_results( 'SELECT id, question, permissionLevel FROM ' . QUESTIONS_TABLE . ' ORDER BY sortOrder, id' );
-			if ( count( $qRs ) > 0 ){
-				foreach ( $qRs as $q ){
+			if ( count( $qRs ) > 0 ) {
+				foreach ( $qRs as $q ) {
 					$csv .= ',"' . stripslashes( $q->question ) . '"';
-					if ( $q->permissionLevel == 'private' ){
+					if ( $q->permissionLevel == 'private' ) {
 						$csv .= ',"pq_' . $q->id . '"';
 					}
 				}
@@ -287,30 +288,30 @@ class RSVP_Helper {
 
 			$csv .= "\r\n";
 
-			foreach ( $attendees as $a ){
+			foreach ( $attendees as $a ) {
 				$fName = stripslashes( $a->firstName );
 				$fName = rsvp_handle_text_encoding( $fName );
 				$lName = stripslashes( $a->lastName );
 				$lName = rsvp_handle_text_encoding( $lName );
 				$csv   .= '"' . $fName . '","' . $lName . '","' . stripslashes( $a->email ) . '","' . ( $a->rsvpStatus ) . '",';
 
-				if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ){
+				if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ) {
 					$csv .= '"' . ( ( $a->kidsMeal == 'Y' ) ? 'Y' : 'N' ) . '",';
 				}
 
 				$csv .= '"';
 
 				$associations = $this->get_associated_attendees( $a->id );
-				foreach ( $associations as $assc ){
+				foreach ( $associations as $assc ) {
 					$csv .= rsvp_handle_text_encoding( trim( stripslashes( $assc->firstName . ' ' . $assc->lastName ) ) ) . ', ';
 				}
 				$csv .= '",';
 
-				if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ){
+				if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ) {
 					$csv .= '"' . ( ( $a->veggieMeal == 'Y' ) ? 'Y' : 'N' ) . '",';
 				}
 
-				if ( rsvp_require_passcode() ){
+				if ( rsvp_require_passcode() ) {
 					$csv .= '"' . ( ( $a->passcode ) ) . '",';
 				}
 
@@ -327,25 +328,25 @@ class RSVP_Helper {
 								$a->id
 						)
 				);
-				if ( count( $qRs ) > 0 ){
-					foreach ( $qRs as $q ){
-						if ( $q->answer != '' ){
+				if ( count( $qRs ) > 0 ) {
+					foreach ( $qRs as $q ) {
+						if ( $q->answer != '' ) {
 							$csv .= ',"' . stripslashes( $q->answer ) . '"';
 						} else {
 							$csv .= ',""';
 						}
 
-						if ( $q->permissionLevel == 'private' ){
+						if ( $q->permissionLevel == 'private' ) {
 							$csv .= ',"' . ( ( $q->hasAccess != '' ) ? 'Y' : 'N' ) . '"';
 						}
 					}
 				}
 
 				$csv .= ',"' . ( ( $a->additionalAttendee == 'Y' ) ? 'Y' : 'N' ) . '"';
-				if ( empty( $customLinkBase ) ){
+				if ( empty( $customLinkBase ) ) {
 					$csv .= ',""';
 				} else {
-					if ( rsvp_require_only_passcode_to_register() ){
+					if ( rsvp_require_only_passcode_to_register() ) {
 						$csv .= ',"' . sprintf( $customLinkBase, urlencode( stripslashes( $a->passcode ) ) ) . '"';
 					} elseif ( rsvp_require_passcode() ) {
 						$csv .= ',"' . sprintf( $customLinkBase, urlencode( stripslashes( $a->firstName ) ), urlencode( stripslashes( $a->lastName ) ), urlencode( stripslashes( $a->passcode ) ) ) . '"';
@@ -355,7 +356,7 @@ class RSVP_Helper {
 				}
 				$csv .= "\r\n";
 			}
-			if ( isset( $_SERVER['HTTP_USER_AGENT'] ) && preg_match( '/MSIE/', $_SERVER['HTTP_USER_AGENT'] ) ){
+			if ( isset( $_SERVER['HTTP_USER_AGENT'] ) && preg_match( '/MSIE/', $_SERVER['HTTP_USER_AGENT'] ) ) {
 				// IE Bug in download name workaround
 				ini_set( 'zlib.output_compression', 'Off' );
 			}
@@ -372,15 +373,15 @@ class RSVP_Helper {
 	 *
 	 * @since 2.7.2
 	 */
-	public function rsvp_admin_import(){
+	public function rsvp_admin_import() {
 		global $wpdb;
-		if ( count( $_FILES ) > 0 ){
+		if ( count( $_FILES ) > 0 ) {
 			check_admin_referer( 'rsvp-import' );
 			require RSVP_PLUGIN_PATH . '/external-libs/spout/src/Spout/Autoloader/autoload.php';
 
 			$file_type = rsvp_free_import_get_file_type( $_FILES['importFile']['name'] );
 
-			if ( null === $file_type ){
+			if ( null === $file_type ) {
 				?>
 				<p><?php _e( 'Unsupported file type, only XLSX, CSV, and ODS are supported.', 'rsvp-plugin' ); ?></p>
 				<?php
@@ -392,13 +393,13 @@ class RSVP_Helper {
 			$count     = 0;
 			$headerRow = array();
 			$reader->open( $_FILES['importFile']['tmp_name'] );
-			foreach ( $reader->getSheetIterator() as $sheet ){
-				foreach ( $sheet->getRowIterator() as $row ){
-					if ( count( $row ) <= 2 ){
+			foreach ( $reader->getSheetIterator() as $sheet ) {
+				foreach ( $sheet->getRowIterator() as $row ) {
+					if ( count( $row ) <= 2 ) {
 						break;
 					}
 
-					if ( $i > 0 ){ // We want to skip the first row.
+					if ( $i > 0 ) { // We want to skip the first row.
 						$numCols = count( $row );
 						$fName   = trim( $row[0] );
 						$fName   = rsvp_smart_quote_replace( rsvp_handle_text_encoding( $fName ) );
@@ -407,33 +408,33 @@ class RSVP_Helper {
 						$lName      = rsvp_smart_quote_replace( rsvp_handle_text_encoding( $lName ) );
 						$email      = trim( $row[2] );
 						$rsvpStatus = 'noresponse';
-						if ( isset( $row[3] ) ){
+						if ( isset( $row[3] ) ) {
 							$tmpStatus = strtolower( $row[3] );
-							if ( ( $tmpStatus == 'yes' ) || ( $tmpStatus == 'no' ) ){
+							if ( ( $tmpStatus == 'yes' ) || ( $tmpStatus == 'no' ) ) {
 								$rsvpStatus = $tmpStatus;
 							}
 						}
 						$kidsMeal   = 'N';
 						$vegetarian = 'N';
-						if ( isset( $row[4] ) && ( strtolower( $row[4] ) == 'y' ) ){
+						if ( isset( $row[4] ) && ( strtolower( $row[4] ) == 'y' ) ) {
 							$kidsMeal = 'Y';
 						}
 
-						if ( isset( $row[6] ) && ( strtolower( $row[6] ) == 'y' ) ){
+						if ( isset( $row[6] ) && ( strtolower( $row[6] ) == 'y' ) ) {
 							$vegetarian = 'Y';
 						}
 
 						$personalGreeting = ( isset( $row[8] ) ) ? $personalGreeting = $row[8] : '';
 						$passcode         = ( isset( $row[7] ) ) ? $row[7] : '';
-						if ( rsvp_require_unique_passcode() && !rsvp_is_passcode_unique( $passcode, 0 ) ){
+						if ( rsvp_require_unique_passcode() && ! rsvp_is_passcode_unique( $passcode, 0 ) ) {
 							$passcode = rsvp_generate_passcode();
 						}
 
-						if ( !empty( $fName ) && !empty( $lName ) ){
+						if ( ! empty( $fName ) && ! empty( $lName ) ) {
 							$sql = 'SELECT id, email, passcode FROM ' . ATTENDEES_TABLE . '
 					 		WHERE firstName = %s AND lastName = %s ';
 							$res = $wpdb->get_results( $wpdb->prepare( $sql, $fName, $lName ) );
-							if ( count( $res ) == 0 ){
+							if ( count( $res ) == 0 ) {
 								$wpdb->insert(
 										ATTENDEES_TABLE,
 										array(
@@ -448,7 +449,7 @@ class RSVP_Helper {
 										),
 										array( '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
 								);
-								$count++;
+								$count ++;
 							} elseif ( empty( $res->email ) && empty( $res->passcode ) ) {
 								// More than likely the attendee was inserted via an
 								// associated attendee and we will want to update this record...
@@ -466,23 +467,23 @@ class RSVP_Helper {
 								);
 							}
 
-							if ( $numCols >= 4 ){
+							if ( $numCols >= 4 ) {
 								// Get the user's id
 								$sql = 'SELECT id FROM ' . ATTENDEES_TABLE . '
 							 	WHERE firstName = %s AND lastName = %s ';
 								$res = $wpdb->get_results( $wpdb->prepare( $sql, $fName, $lName ) );
-								if ( ( count( $res ) > 0 ) && isset( $row[5] ) ){
+								if ( ( count( $res ) > 0 ) && isset( $row[5] ) ) {
 									$userId = $res[0]->id;
 
 									// Deal with the assocaited users...
 									$associatedUsers = explode( ',', trim( $row[5] ) );
-									if ( is_array( $associatedUsers ) ){
-										foreach ( $associatedUsers as $au ){
+									if ( is_array( $associatedUsers ) ) {
+										foreach ( $associatedUsers as $au ) {
 											$user = explode( ' ', trim( $au ), 2 );
 											// Three cases, they didn't enter in all of the information, user exists or doesn't.
 											// If user exists associate the two users
 											// If user does not exist add the user and then associate the two
-											if ( is_array( $user ) && ( count( $user ) == 2 ) ){
+											if ( is_array( $user ) && ( count( $user ) == 2 ) ) {
 												$sql     = 'SELECT id FROM ' . ATTENDEES_TABLE . '
 											 	WHERE firstName = %s AND lastName = %s ';
 												$userRes = $wpdb->get_results(
@@ -492,7 +493,7 @@ class RSVP_Helper {
 																rsvp_handle_text_encoding( trim( $user[1] ) )
 														)
 												);
-												if ( count( $userRes ) > 0 ){
+												if ( count( $userRes ) > 0 ) {
 													$newUserId = $userRes[0]->id;
 												} else {
 													// Insert them and then we can associate them...
@@ -505,7 +506,7 @@ class RSVP_Helper {
 															array( '%s', '%s' )
 													);
 													$newUserId = $wpdb->insert_id;
-													$count++;
+													$count ++;
 												}
 
 												$wpdb->insert(
@@ -531,23 +532,23 @@ class RSVP_Helper {
 								} // if((count($res) > 0...
 							} // if check for associated attendees
 
-							if ( $numCols >= 9 ){
+							if ( $numCols >= 9 ) {
 								$private_questions = array();
-								for ( $qid = 9; $qid <= $numCols; $qid++ ){
+								for ( $qid = 9; $qid <= $numCols; $qid ++ ) {
 									$pqid = str_replace( 'pq_', '', $headerRow[ $qid ] );
-									if ( is_numeric( $pqid ) ){
+									if ( is_numeric( $pqid ) ) {
 										$private_questions[ $qid ] = $pqid;
 									}
 								} // for($qid = 6...
 
-								if ( count( $private_questions ) > 0 ){
+								if ( count( $private_questions ) > 0 ) {
 									// Get the user's id
 									$sql = 'SELECT id FROM ' . ATTENDEES_TABLE . ' WHERE firstName = %s AND lastName = %s ';
 									$res = $wpdb->get_results( $wpdb->prepare( $sql, $fName, $lName ) );
-									if ( count( $res ) > 0 ){
+									if ( count( $res ) > 0 ) {
 										$userId = $res[0]->id;
-										foreach ( $private_questions as $key => $val ){
-											if ( strToUpper( $row[ $key ] ) == 'Y' ){
+										foreach ( $private_questions as $key => $val ) {
+											if ( strToUpper( $row[ $key ] ) == 'Y' ) {
 												$wpdb->insert(
 														QUESTION_ATTENDEES_TABLE,
 														array(
@@ -565,7 +566,7 @@ class RSVP_Helper {
 					} else {
 						$headerRow = $row;
 					}
-					$i++;
+					$i ++;
 				}
 				break;
 			}
@@ -607,7 +608,7 @@ class RSVP_Helper {
 				<ul>
 					<?php
 					$questions = $wpdb->get_results( 'SELECT id, question FROM ' . QUESTIONS_TABLE . " WHERE permissionLevel = 'private'" );
-					foreach ( $questions as $q ){
+					foreach ( $questions as $q ) {
 						?>
 						<li><?php echo htmlspecialchars( stripslashes( $q->question ) ); ?> -
 							pq_<?php echo $q->id; ?></li>
@@ -630,36 +631,37 @@ class RSVP_Helper {
 	 * @return false
 	 * @Since 2.7.2
 	 */
-	public function update_questions_order(){
+	public function update_questions_order() {
 
 		global $wpdb;
 
 		parse_str( $_POST['order'], $data );
 
-		if ( !is_array( $data ) )
+		if ( ! is_array( $data ) ) {
 			return false;
+		}
 
 		$id_arr = array();
-		foreach ( $data as $key => $values ){
-			foreach ( $values as $position => $id ){
+		foreach ( $data as $key => $values ) {
+			foreach ( $values as $position => $id ) {
 				$id_arr[] = $id;
 			}
 		}
 
 		$menu_order_arr = array();
-		foreach ( $id_arr as $key => $id ){
+		foreach ( $id_arr as $key => $id ) {
 			$results = $wpdb->get_results( "SELECT sortOrder FROM " . QUESTIONS_TABLE . " WHERE id = " . (int) $id );
 
-			foreach ( $results as $result ){
+			foreach ( $results as $result ) {
 				$menu_order_arr[] = $result->sortOrder;
 			}
 		}
 
 		sort( $menu_order_arr );
 
-		foreach ( $data as $key => $values ){
+		foreach ( $data as $key => $values ) {
 
-			foreach ( $values as $position => $id ){
+			foreach ( $values as $position => $id ) {
 
 				$wpdb->update( QUESTIONS_TABLE, array( 'sortOrder' => $position ), array( 'id' => (int) $id ) );
 			}
@@ -673,21 +675,22 @@ class RSVP_Helper {
 	 *
 	 * @since 2.7.2
 	 */
-	public function bulk_delete_attendees(){
-		if ( count( $_GET ) > 0 && isset( $_GET['rsvp-bulk-action'] ) && isset($_GET['attendee']) && $_GET['rsvp-bulk-action'] == 'delete' && ( is_array( $_GET['attendee'] ) && ( count( $_GET['attendee'] ) > 0 ) ) ){
+	public function bulk_delete_attendees() {
+		if ( count( $_GET ) > 0 && isset( $_GET['rsvp-bulk-action'] ) && isset( $_GET['attendee'] ) && $_GET['rsvp-bulk-action'] == 'delete' && ( is_array( $_GET['attendee'] ) && ( count( $_GET['attendee'] ) > 0 ) ) ) {
 
-			if ( isset( $_GET['_wpnonce'] ) && !empty( $_GET['_wpnonce'] ) ){
+			if ( isset( $_GET['_wpnonce'] ) && ! empty( $_GET['_wpnonce'] ) ) {
 
 				$nonce  = $_GET['_wpnonce'];
 				$action = 'rsvp-bulk-attendees';
-				if ( !wp_verify_nonce( $nonce, $action ) )
+				if ( ! wp_verify_nonce( $nonce, $action ) ) {
 					wp_die( 'Nope! Security check failed!' );
+				}
 
 			}
 
-			foreach ( $_GET['attendee'] as $attendee ){
+			foreach ( $_GET['attendee'] as $attendee ) {
 
-				if ( is_numeric( $attendee ) && ( $attendee > 0 ) ){
+				if ( is_numeric( $attendee ) && ( $attendee > 0 ) ) {
 					$this->delete_attendee( $attendee );
 				}
 			}
@@ -699,24 +702,25 @@ class RSVP_Helper {
 	 *
 	 * @since 2.7.2
 	 */
-	public function bulk_delete_questions(){
+	public function bulk_delete_questions() {
 
-		if ( count( $_GET ) > 0 && isset( $_GET['rsvp-bulk-action'] )  && isset($_GET['q']) && $_GET['rsvp-bulk-action'] == 'delete' && ( is_array( $_GET['q'] ) && ( count( $_GET['q'] ) > 0 ) ) ){
+		if ( count( $_GET ) > 0 && isset( $_GET['rsvp-bulk-action'] ) && isset( $_GET['q'] ) && $_GET['rsvp-bulk-action'] == 'delete' && ( is_array( $_GET['q'] ) && ( count( $_GET['q'] ) > 0 ) ) ) {
 
-			if ( isset( $_GET['_wpnonce'] ) && !empty( $_GET['_wpnonce'] ) ){
+			if ( isset( $_GET['_wpnonce'] ) && ! empty( $_GET['_wpnonce'] ) ) {
 
 				$nonce  = $_GET['_wpnonce'];
 				$action = 'rsvp-bulk-questions';
-				if ( !wp_verify_nonce( $nonce, $action ) )
+				if ( ! wp_verify_nonce( $nonce, $action ) ) {
 					wp_die( 'Nope! Security check failed!' );
+				}
 
 			}
 
 			global $wpdb;
 
-			foreach ( $_GET['q'] as $q ){
+			foreach ( $_GET['q'] as $q ) {
 
-				if ( is_numeric( $q ) && ( $q > 0 ) ){
+				if ( is_numeric( $q ) && ( $q > 0 ) ) {
 					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d', $q ) );
 					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE questionID = %d', $q ) );
 				}

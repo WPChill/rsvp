@@ -1,11 +1,11 @@
 <?php
 
 // Exit if accessed directly.
-if ( !defined( 'ABSPATH' ) ) :
+if ( ! defined( 'ABSPATH' ) ) :
 	exit;
 endif;
 
-if ( !class_exists( 'RSVP_Upsells' ) ){
+if ( ! class_exists( 'RSVP_Upsells' ) ) {
 
 	class RSVP_Upsells {
 
@@ -23,7 +23,7 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 		 *
 		 * @since 2.7.2
 		 */
-		function __construct(){
+		function __construct() {
 			add_action( 'rsvp_events_before_table', array( $this, 'events_table_upsells' ) );
 			add_action( 'rsvp_settings_page', array( $this, 'settings_upsells' ) );
 			add_action( 'rsvp_after_question_table', array( $this, 'questions_upsells' ) );
@@ -36,9 +36,9 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 		 * @return object The RSVP_Upsells object.
 		 * @since 2.7.2
 		 */
-		public static function get_instance(){
+		public static function get_instance() {
 
-			if ( !isset( self::$instance ) && !( self::$instance instanceof RSVP_Upsells ) ){
+			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof RSVP_Upsells ) ) {
 				self::$instance = new RSVP_Upsells();
 			}
 
@@ -51,7 +51,7 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 		 *
 		 * @since 2.7.2
 		 */
-		public function events_table_upsells(){
+		public function events_table_upsells() {
 
 			?>
 			<div class="rsvp-upsell rsvp-center-text">
@@ -94,7 +94,7 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 		 *
 		 * @since 2.7.2
 		 */
-		public function settings_upsells(){
+		public function settings_upsells() {
 
 			?>
 			<div class="rsvp-upsell">
@@ -118,7 +118,7 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 		 *
 		 * @since 2.7.2
 		 */
-		public function questions_upsells(){
+		public function questions_upsells() {
 
 			?>
 			<div class="rsvp-upsell">
@@ -142,7 +142,7 @@ if ( !class_exists( 'RSVP_Upsells' ) ){
 		 *
 		 * @since 2.7.2
 		 */
-		public function add_guest_upsells(){
+		public function add_guest_upsells() {
 
 			?>
 			<div class="rsvp-upsell">

@@ -7,7 +7,7 @@
 
 class RSVP_Questions_List_Table extends RSVP_List_Table {
 
-	public function __construct( $args = array() ){
+	public function __construct( $args = array() ) {
 		parent::__construct( array(
 				'plural'   => 'questions',
 				'singular' => 'question',
@@ -23,7 +23,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * @since  2.7.2
 	 * @access public
 	 */
-	public function no_items(){
+	public function no_items() {
 		_e( 'No questions found.', 'rsvp-plugin' );
 	}
 
@@ -34,11 +34,11 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 *
 	 * @since 2.7.2
 	 */
-	public function prepare_items( $data = array() ){
+	public function prepare_items( $data = array() ) {
 
 		global $wpdb;
 
-		if ( isset( $_GET['s'] ) ){
+		if ( isset( $_GET['s'] ) ) {
 			$sql  = 'SELECT id, question, sortOrder, permissionLevel FROM ' . QUESTIONS_TABLE . " WHERE question LIKE '%%%s%%' ORDER BY sortOrder ASC";
 			$data = $wpdb->get_results( $wpdb->prepare( $sql, $_GET['s'] ) );
 		} else {
@@ -54,7 +54,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
 		// Sort the list
-		if ( isset( $_GET['orderby'] ) ){
+		if ( isset( $_GET['orderby'] ) ) {
 			usort( $data, array( &$this, 'usort_reorder' ) );
 		}
 
@@ -68,7 +68,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * @return array
 	 * @Since 2.7.2
 	 */
-	public function get_columns(){
+	public function get_columns() {
 		$columns = array(
 				'cb'                 => __( 'ID', 'rsvp-plugin' ),
 				'question'           => __( 'Question', 'rsvp-plugin' ),
@@ -78,7 +78,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 		return $columns;
 	}
 
-	public function get_hidden_columns(){
+	public function get_hidden_columns() {
 		return array();
 	}
 
@@ -88,7 +88,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * @return array[]
 	 * @since 2.7.2
 	 */
-	public function get_sortable_columns(){
+	public function get_sortable_columns() {
 		return array(
 				'question' => array( 'id', false ),
 		);
@@ -103,15 +103,15 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * @return int|lt
 	 * @since 2.7.2
 	 */
-	public function usort_reorder( $a, $b ){
+	public function usort_reorder( $a, $b ) {
 
 		// If no order, default to asc
-		$order = ( !empty( $_GET['order'] ) ) ? $_GET['order'] : 'asc';
+		$order = ( ! empty( $_GET['order'] ) ) ? $_GET['order'] : 'asc';
 
 		$result = strcasecmp( $a['question'], $b['question'] );
 
 		// Send final sort direction to usort
-		return ( $order === 'asc' ) ? $result : -$result;
+		return ( $order === 'asc' ) ? $result : - $result;
 	}
 
 
@@ -122,7 +122,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 *
 	 * @since 2.7.2
 	 */
-	public function column_question( $item ){
+	public function column_question( $item ) {
 		// Edit link
 		$edit_link = add_query_arg( array(
 				'page'   => 'rsvp-admin-questions',
@@ -158,9 +158,9 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * @return mixed|void
 	 * @since 2.7.2
 	 */
-	public function column_default( $item, $column_name ){
+	public function column_default( $item, $column_name ) {
 
-		switch ( $column_name ){
+		switch ( $column_name ) {
 			case 'question':
 				$text = $item[ $column_name ];
 				break;
@@ -180,12 +180,12 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * @since  2.7.2
 	 * @access public
 	 */
-	public function display(){
+	public function display() {
 		$singular = $this->_args['singular'];
 		$this->prepare_items();
 		$screen_options = get_user_meta( get_current_user_id(), 'rsvp_screen_options' );
 
-		if ( $screen_options && isset( $screen_options[0]['pagesize'] ) ){
+		if ( $screen_options && isset( $screen_options[0]['pagesize'] ) ) {
 			$pagesize = $screen_options[0]['pagesize'];
 		} else {
 			$pagesize = 25;
@@ -199,10 +199,10 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 				<label class="screen-reader-text"
 					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp-plugin' ); ?></label>
 				<input type="search" id="post-search-input" name="s"
-					   value="<?php echo( isset( $_GET['s'] ) && !empty( $_GET['s'] ) ? $_GET['s'] : '' ) ?>">
+					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? $_GET['s'] : '' ) ?>">
 				<input type="hidden" name="page" value="rsvp-admin-questions">
 				<input type="hidden" id="post-pagesize" name="pagesize"
-					   value="<?php echo( isset( $_GET['pagesize'] ) && !empty( $_GET['pagesize'] ) ? $_GET['pagesize'] : $pagesize ) ?>">
+					   value="<?php echo( isset( $_GET['pagesize'] ) && ! empty( $_GET['pagesize'] ) ? $_GET['pagesize'] : $pagesize ) ?>">
 				<input type="submit" id="search-submit" class="button"
 					   value="<?php esc_html_e( 'Search question', 'rsvp-plugin' ); ?>">
 			</p>
@@ -217,7 +217,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 				</thead>
 
 				<tbody id="the-list"<?php
-				if ( $singular ){
+				if ( $singular ) {
 					echo " data-wp-lists='list:$singular'";
 				} ?>>
 				<?php $this->display_rows_or_placeholder(); ?>
@@ -245,10 +245,10 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * @return mixed
 	 * @since 2.7.2
 	 */
-	function prepare_questions( $questions ){
+	function prepare_questions( $questions ) {
 
 		$return = array();
-		foreach ( $questions as $view ){
+		foreach ( $questions as $view ) {
 
 			$return[ $view->id ] = array(
 					'id'       => $view->id,
@@ -266,7 +266,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 *
 	 * @since 2.7.2
 	 */
-	public function column_cb( $item ){
+	public function column_cb( $item ) {
 		?>
 		<input id="cb-select-<?php echo absint( $item['id'] ); ?>" type="checkbox" name="q[]"
 			   value="<?php echo absint( $item['id'] ); ?>"/>
@@ -283,7 +283,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * @return array
 	 * @Since 2.7.2
 	 */
-	public function get_bulk_actions(){
+	public function get_bulk_actions() {
 
 		$actions = array(
 				'delete' => __( 'Delete', 'rsvp-plugin' ),

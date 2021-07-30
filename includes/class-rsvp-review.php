@@ -19,10 +19,10 @@ class RSVP_Review {
 	function __construct() {
 
 		$this->messages = array(
-			'notice'  => esc_html__( "Hi there! Stoked to see you're using RSVP for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'rsvp-plugin' ),
-			'rate'    => esc_html__( 'Rate the plugin', 'rsvp-plugin' ),
-			'rated'   => esc_html__( 'Remind me later', 'rsvp-plugin' ),
-			'no_rate' => esc_html__( 'Don\'t show again', 'rsvp-plugin' ),
+				'notice'  => esc_html__( "Hi there! Stoked to see you're using RSVP for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'rsvp-plugin' ),
+				'rate'    => esc_html__( 'Rate the plugin', 'rsvp-plugin' ),
+				'rated'   => esc_html__( 'Remind me later', 'rsvp-plugin' ),
+				'no_rate' => esc_html__( 'Don\'t show again', 'rsvp-plugin' ),
 		);
 
 		if ( isset( $args['messages'] ) ) {
@@ -42,7 +42,7 @@ class RSVP_Review {
 	 */
 	public static function get_instance() {
 
-		if ( !isset( self::$instance ) && !(self::$instance instanceof RSVP_Review) ) {
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof RSVP_Review ) ) {
 			self::$instance = new RSVP_Review();
 		}
 
@@ -64,11 +64,11 @@ class RSVP_Review {
 
 	private function check() {
 
-		if ( ! current_user_can('manage_options') ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
 
-		return( time() > $this->value );
+		return ( time() > $this->value );
 
 	}
 
@@ -89,18 +89,22 @@ class RSVP_Review {
 
 	public function five_star_wp_rate_notice() {
 
-		$url = sprintf( $this->link, $this->slug );
-		$url = apply_filters( 'rsvp_review_link', $url );
+		$url            = sprintf( $this->link, $this->slug );
+		$url            = apply_filters( 'rsvp_review_link', $url );
 		$this->messages = apply_filters( 'rsvp_review_messages', $this->messages );
 		?>
-		<div id="<?php echo esc_attr($this->slug) ?>-epsilon-review-notice" class="notice notice-success is-dismissible" style="margin-top:30px;">
-			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), $this->value ) ; ?></p>
+		<div id="<?php echo esc_attr( $this->slug ) ?>-epsilon-review-notice"
+			 class="notice notice-success is-dismissible" style="margin-top:30px;">
+			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), $this->value ); ?></p>
 			<p class="actions">
-				<a id="epsilon-rate" href="<?php echo esc_url( $url ) ?>" target="_blank" class="button button-primary epsilon-review-button">
+				<a id="epsilon-rate" href="<?php echo esc_url( $url ) ?>" target="_blank"
+				   class="button button-primary epsilon-review-button">
 					<?php echo esc_html( $this->messages['rate'] ); ?>
 				</a>
-				<a id="epsilon-later" href="#" style="margin-left:10px" class="epsilon-review-button"><?php echo esc_html( $this->messages['rated'] ); ?></a>
-				<a id="epsilon-no-rate" href="#" style="margin-left:10px" class="epsilon-review-button"><?php echo esc_html( $this->messages['no_rate'] ); ?></a>
+				<a id="epsilon-later" href="#" style="margin-left:10px"
+				   class="epsilon-review-button"><?php echo esc_html( $this->messages['rated'] ); ?></a>
+				<a id="epsilon-no-rate" href="#" style="margin-left:10px"
+				   class="epsilon-review-button"><?php echo esc_html( $this->messages['no_rate'] ); ?></a>
 			</p>
 		</div>
 		<?php
@@ -118,9 +122,9 @@ class RSVP_Review {
 
 		if ( 'epsilon-rate' == $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 5;
-		}elseif ( 'epsilon-later' == $_POST['check'] ) {
+		} elseif ( 'epsilon-later' == $_POST['check'] ) {
 			$time = time() + WEEK_IN_SECONDS;
-		}elseif ( 'epsilon-no-rate' == $_POST['check'] ) {
+		} elseif ( 'epsilon-no-rate' == $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 5;
 		}
 
@@ -140,35 +144,35 @@ class RSVP_Review {
 		?>
 
 		<script type="text/javascript">
-			jQuery( document ).ready( function( $ ){
+			jQuery( document ).ready( function ( $ ) {
 
-				$( '.epsilon-review-button' ).click( function( evt ){
-					var href = $(this).attr('href'),
-						id = $(this).attr('id');
+				$( '.epsilon-review-button' ).click( function ( evt ) {
+					var href = $( this ).attr( 'href' ),
+						id   = $( this ).attr( 'id' );
 
 					if ( 'epsilon-rate' != id ) {
 						evt.preventDefault();
 					}
 
 					var data = {
-						action: 'epsilon_rsvp_review',
+						action  : 'epsilon_rsvp_review',
 						security: '<?php echo $ajax_nonce; ?>',
-						check: id
+						check   : id
 					};
 
 					if ( 'epsilon-rated' === id ) {
 						data['epsilon-review'] = 1;
 					}
 
-					$.post( '<?php echo admin_url( 'admin-ajax.php' ) ?>', data, function( response ) {
-						$( '#<?php echo $this->slug ?>-epsilon-review-notice' ).slideUp( 'fast', function() {
+					$.post( '<?php echo admin_url( 'admin-ajax.php' ) ?>', data, function ( response ) {
+						$( '#<?php echo $this->slug ?>-epsilon-review-notice' ).slideUp( 'fast', function () {
 							$( this ).remove();
 						} );
-					});
+					} );
 
 				} );
 
-			});
+			} );
 		</script>
 
 		<?php
