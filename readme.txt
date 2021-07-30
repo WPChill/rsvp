@@ -110,6 +110,8 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 * Changed: RSVP Plugin menu link as so: RSVP Plugin -> RSVP and submenu RSVP Plugin -> Attendees - https://github.com/WPChill/rsvp/issues/45
 * Fixed: Export from menu link sometimes doesn't work - https://github.com/WPChill/rsvp/issues/44
 * Fixed: Multiple inserts of question types in DB if the plugin is deactivated and activated multiple times - https://github.com/WPChill/rsvp/issues/43
+* Added: Review request
+
 
 = 2.7.1 =
 * Fixed a problem where the "add new" custom questions change in 2.7.0 broke more of the functionality in the custom questions area.

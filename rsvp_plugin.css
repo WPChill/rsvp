@@ -120,5 +120,23 @@ html body .rsvp-upsell ul li:before {
 }
 
 html body .rsvp-upsell.rsvp-center-text {
-  text-align:center;
+  text-align : center;
+}
+
+.rsvp-answered-questions {
+  border : 1px solid #ccc;
+}
+
+.rsvp-answered-questions th {
+  padding          : 10px;
+  background-color : #f0f0f1;
+}
+
+.rsvp-answered-questions tr{
+  background : #fff;
+  padding    : 10px;
+}
+
+.rsvp-answered-questions tr:nth-child(odd) {
+  background : #f0f0f1;
 }

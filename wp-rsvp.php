@@ -2,7 +2,7 @@
 /**
  * @package rsvp
  * @author WPChill
- * @version 2.7.1
+ * @version 2.7.2
  * Plugin Name: RSVP
  * Text Domain: rsvp-plugin
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/

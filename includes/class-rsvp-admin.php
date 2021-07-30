@@ -441,7 +441,7 @@ if ( !class_exists( 'RSVP' ) ){
 									<tr>
 										<td colspan="2">
 											<h4><?php echo __( 'Custom Questions Answered', 'rsvp-plugin' ); ?></h4>
-											<table cellpadding="2" cellspacing="0" border="0">
+											<table cellpadding="2" cellspacing="0" border="0" class="rsvp-answered-questions">
 												<tr>
 													<th><?php echo __( 'Question', 'rsvp-plugin' ); ?></th>
 													<th><?php echo __( 'Answer', 'rsvp-plugin' ); ?></th>
