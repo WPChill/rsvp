@@ -102,7 +102,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 
-= 2.7.2 - 27.07.2021 =
+= 2.7.2 - 02.08.2021 =
 * Changed: UI list tables for attendees and questions
 * Changed: Sorting functionality for questions
 * Fixed: Front input styling - https://github.com/WPChill/rsvp/issues/42
