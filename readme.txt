@@ -1,10 +1,12 @@
 === RSVP and Event Management Plugin ===
-Contributors: mdedev, machothemes, silkalns
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mikede%40mde%2ddev%2ecom&lc=US&item_name=Wordpress%20RSVP%20Plugin&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
+Contributors: wpchill, silkalns, giucu91
 Tags: rsvp, event, event management, attendee management, event planning, wedding planning, event registration, events, events management, events registration, reserve, wedding, guestlist
-Requires at least: 3.0
-Tested up to: 5.3.0
-Stable tag: 2.7.1
+Requires at least: 5.6
+Tested up to: 5.7
+Requires PHP: 5.6
+Stable tag: 2.7.2
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 The RSVP Plugin was created to be a straightforward event management plugin to handle registrations for a single event.
 
@@ -99,6 +101,18 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.7.2 - 02.08.2021 =
+* Changed: UI list tables for attendees and questions
+* Changed: Sorting functionality for questions
+* Fixed: Front input styling - https://github.com/WPChill/rsvp/issues/42
+* Fixed: Importing error - https://github.com/WPChill/rsvp/issues/46
+* Changed: RSVP Plugin menu link as so: RSVP Plugin -> RSVP and submenu RSVP Plugin -> Attendees - https://github.com/WPChill/rsvp/issues/45
+* Fixed: Export from menu link sometimes doesn't work - https://github.com/WPChill/rsvp/issues/44
+* Fixed: Multiple inserts of question types in DB if the plugin is deactivated and activated multiple times - https://github.com/WPChill/rsvp/issues/43
+* Added: Review request
+* Changed: Folders & Files structure
+
 
 = 2.7.1 =
 * Fixed a problem where the "add new" custom questions change in 2.7.0 broke more of the functionality in the custom questions area.

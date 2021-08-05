@@ -1,0 +1,160 @@
+label.error {
+	font-weight : bold;
+	clear       : both;
+}
+
+input.error, textarea.error {
+	border : 2px solid red;
+}
+
+.rsvpFormField {
+	margin : 10px 0px;
+}
+
+#rsvpCustomGreeting {
+	margin-top    : 20px;
+	margin-bottom : 20px;
+}
+
+.rsvpBorderTop {
+	border-top : 1px solid #ccc;
+}
+
+.rsvpAdditionalAttendee {
+	text-align : left;
+	border-top : 1px solid #ccc;
+}
+
+.rsvpCheckboxCustomQ {
+	float         : left;
+	padding-right : 10px;
+}
+
+.rsvpClear {
+	clear       : both;
+	height      : 1px;
+	line-height : 1px;
+}
+
+#rsvpPlugin input {
+	display    : inline;
+	visibility : visible;
+}
+
+#rsvpPlugin #rsvpForm .rsvpFormField input[type="radio"], #rsvpPlugin #rsvpForm .rsvpFormField input[type="checkbox"] {
+	display : inline-block;
+}
+
+.rsvpFormField label {
+	display : inline;
+}
+
+.rsvpParagraph {
+	position : relative;
+}
+
+.rsvpParagraph .required {
+	position : relative;
+}
+
+#rsvp_upgrade_to_pro_link {
+	font-weight : bold;
+	color       : red;
+}
+
+table.rsvp-plugin_page_rsvp-admin-questions #the-list tr {
+	cursor : move;
+}
+
+/**
+Upsells
+ */
+.wrap .rsvp-upsell {
+	border           : 1px solid #DDD;
+	text-align       : left;
+	background-color : #fff;
+	padding          : 0 15px;
+}
+
+.wrap .rsvp-upsell {
+	margin : 30px 0;
+}
+
+.wrap .rsvp-upsell h2 {
+	font-weight : 700;
+	background  : #fff;
+	left        : -15px;
+	top         : -15px;
+	padding     : 8px 12px;
+	position    : relative;
+	width       : calc(100% + 6px);
+}
+
+.wrap .rsvp-upsell a {
+	font-weight : bold;
+}
+
+.rsvp-upsell p.rsvp-upsell-description {
+	font-size     : 13px;
+	line-height   : 1.5;
+	margin-top    : 0;
+	margin-bottom : 10px;
+}
+
+.rsvp-upsell .button {
+	margin : 10px 10px 10px 0;
+}
+
+.rsvp-left-panel {
+	float : left;
+	width : 68%;
+}
+
+.rsvp-right-panel {
+	float : right;
+	width : 32%;
+}
+
+html body .rsvp-upsell ul li {
+	display         : inline-block;
+	margin          : 0 15px 15px 35px;
+	position        : relative;
+	list-style-type : none;
+	text-align      : left;
+}
+
+html body .rsvp-upsell ul li:before {
+	font-family      : Dashicons;
+	content          : "\f147";
+	position         : absolute;
+	left             : -30px;
+	font-size        : 14px;
+	color            : green;
+	background-color : #FFF;
+	padding          : 0 3px;
+	border-radius    : 50%;
+	border           : 1px solid #DDD;
+	top              : -1px;
+}
+
+html body .rsvp-upsell.rsvp-center-text {
+	text-align : center;
+}
+
+.rsvp-answered-questions {
+	border : 1px solid #ccc;
+}
+
+.rsvp-answered-questions th {
+	padding          : 10px;
+	background-color : #f0f0f1;
+}
+
+.rsvp-answered-questions tr {
+	background : #fff;
+	padding    : 10px;
+}
+
+.rsvp-answered-questions tr:nth-child(odd) {
+	background : #f0f0f1;
+}

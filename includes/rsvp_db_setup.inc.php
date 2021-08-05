@@ -16,8 +16,9 @@ if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
 	);";
 	$wpdb->query( $sql );
 }
-$table = $wpdb->prefix . 'associatedAttendees';
-if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
+$table     = $wpdb->prefix . 'associatedAttendees';
+$alt_table = $wpdb->prefix . 'associatedattendees';
+if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table && $wpdb->get_var( "SHOW TABLES LIKE '$alt_table'" ) != $alt_table ) {
 	$sql = 'CREATE TABLE ' . $table . ' (
 	`attendeeID` INT NOT NULL ,
 	`associatedAttendeeID` INT NOT NULL
@@ -44,8 +45,9 @@ if ( (int) $installed_ver < 4 ) {
 	update_option( 'rsvp_db_version', RSVP_DB_VERSION );
 }
 
-$table = $wpdb->prefix . 'rsvpCustomQuestions';
-if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
+$table     = $wpdb->prefix . 'rsvpCustomQuestions';
+$alt_table = $wpdb->prefix . 'rsvpcustomquestions';
+if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table && $wpdb->get_var( "SHOW TABLES LIKE '$alt_table'" ) != $alt_table ) {
 	$sql = " CREATE TABLE $table (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	`question` MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
@@ -56,8 +58,9 @@ if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
 	$wpdb->query( $sql );
 }
 
-$table = $wpdb->prefix . 'rsvpQuestionTypes';
-if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
+$table     = $wpdb->prefix . 'rsvpQuestionTypes';
+$alt_table = $wpdb->prefix . 'rsvpquestiontypes';
+if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table && $wpdb->get_var( "SHOW TABLES LIKE '$alt_table'" ) != $alt_table ) {
 	$sql = " CREATE TABLE $table (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	`questionType` VARCHAR( 100 ) NOT NULL , 
@@ -116,8 +119,9 @@ if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
 	);
 }
 
-$table = $wpdb->prefix . 'rsvpCustomQuestionAnswers';
-if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
+$table     = $wpdb->prefix . 'rsvpCustomQuestionAnswers';
+$alt_table = $wpdb->prefix . 'rsvpcustomquestionanswers';
+if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table && $wpdb->get_var( "SHOW TABLES LIKE '$alt_table'" ) != $alt_table ) {
 	$sql = "CREATE TABLE $table (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	`questionID` INT NOT NULL, 
@@ -126,8 +130,9 @@ if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
 	$wpdb->query( $sql );
 }
 
-$table = $wpdb->prefix . 'attendeeAnswers';
-if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
+$table     = $wpdb->prefix . 'attendeeAnswers';
+$alt_table = $wpdb->prefix . 'attendeeanswers';
+if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table && $wpdb->get_var( "SHOW TABLES LIKE '$alt_table'" ) != $alt_table ) {
 	$sql = "CREATE TABLE $table (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	`questionID` INT NOT NULL, 
@@ -137,8 +142,9 @@ if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
 	$wpdb->query( $sql );
 }
 
-$table = $wpdb->prefix . 'rsvpCustomQuestionAttendees';
-if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table ) {
+$table     = $wpdb->prefix . 'rsvpCustomQuestionAttendees';
+$alt_table = $wpdb->prefix . 'rsvpcustomquestionattendees';
+if ( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) != $table && $wpdb->get_var( "SHOW TABLES LIKE '$alt_table'" ) != $alt_table ) {
 	$sql = "CREATE TABLE $table (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	`questionID` INT NOT NULL ,
