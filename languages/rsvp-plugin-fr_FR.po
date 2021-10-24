@@ -122,6 +122,10 @@ msgstr ""
 msgid "Will %s be attending?"
 msgstr "%s sera-t-il/elle présent(e) ?"
 
+#: rsvp_frontend.inc.php:413
+msgid "Add Additional Guest"
+msgstr "Ajouter un invité supplémentaire"
+
 #: rsvp_frontend.inc.php:280
 msgid "Does %s need a kids meal?"
 msgstr "%s a-t-il/elle besoin d'un repas enfant ?"
