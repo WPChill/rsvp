@@ -1,0 +1,10 @@
+/.wordpress-org
+/.git
+/.github
+/node_modules
+/deploy.sh
+/.idea
+
+.DS_Store
+.distignore
+.gitignore
