@@ -1,4 +1,4 @@
-- name: WordPress Plugin Deploy
+- name: RSVP Deploy
   on:
     push:
       tags:
@@ -10,7 +10,7 @@
       steps:
       - uses: actions/checkout@master
 
-      - name: WordPress Plugin Deploy
+      - name: RSVP Deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
