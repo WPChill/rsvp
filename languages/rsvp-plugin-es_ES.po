@@ -128,7 +128,7 @@ msgstr ""
 
 #: rsvp_frontend.inc.php:289
 #, c-format, php-format
-msgid " Will %s be attending?"
+msgid "Will %s be attending?"
 msgstr "&iquest;Asistir&aacute; %s?"
 
 #: rsvp_frontend.inc.php:302
