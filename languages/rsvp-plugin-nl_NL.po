@@ -45,8 +45,8 @@ msgstr ""
 "\t        op de WordPress instantie."
 
 #. Author of the plugin
-msgid "Swim or Die Software"
-msgstr "Swim or Die Software"
+msgid "WPChill"
+msgstr "WPChill"
 
 #: wp-rsvp.php:360
 msgid "Add custom CSS for the RSVP plugin. More details <a href=\"https://www.rsvpproplugin.com/knowledge-base/customizing-the-rsvp-pro-front-end/\">here</a>"

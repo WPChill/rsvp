@@ -779,7 +779,7 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Swim or Die Software"
+msgid "WPChill"
 msgstr ""
 
 #. Author URI of the plugin/theme
