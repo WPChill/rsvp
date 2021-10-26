@@ -105,6 +105,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 = 2.7.3 - 25.10.2021 =
 * Fixed: Added missing textdomain for translatsion and updated French translation ( Thanks to @mathroule  )
 * Fixed: Spanish translation - extra space was added to translation string
+* Added: Lite vs Premium page
 
 = 2.7.2 - 02.08.2021 =
 * Changed: UI list tables for attendees and questions

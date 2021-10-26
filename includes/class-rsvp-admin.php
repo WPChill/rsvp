@@ -133,11 +133,11 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 			$page = add_submenu_page(
 					'rsvp-events',
-					'Upgrade to Pro',
-					'<span id="rsvp_upgrade_to_pro_link">Upgrade to Pro</span>',
+					'LITE vs Premium',
+					'<span id="rsvp_upgrade_to_pro_link">LITE vs Premium</span>',
 					'publish_posts',
 					'rsvp-upgrade-to-pro',
-					'rsvp_upgrade_to_pro'
+					array( $this, 'rsvp_lite_vs_premium' )
 			);
 			add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
 
@@ -876,6 +876,16 @@ if ( ! class_exists( 'RSVP' ) ) {
 				</div>
 			</div>
 			<?php
+		}
+		
+		/**
+		 * LITE vs Premium page
+		 *
+		 * @return void
+		 */
+		public function rsvp_lite_vs_premium() {
+
+			include 'upgrade-to-pro-page.php';		
 		}
 
 		/**

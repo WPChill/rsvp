@@ -52,11 +52,6 @@ define( 'RSVP_PLUGIN_PATH', WP_PLUGIN_DIR . '/' . basename( dirname( $my_plugin_
 
 require_once 'includes/rsvp-constants.php';
 
-
-if ( isset( $_GET['page'] ) && ( 'rsvp-upgrade-to-pro' === strtolower( $_GET['page'] ) ) ) {
-	add_action( 'init', 'rsvp_upgrade_to_pro' );
-}
-
 require_once 'external-libs/wp-simple-nonce/wp-simple-nonce.php';
 require_once __DIR__ . '/includes/rsvp_frontend.inc.php';
 
@@ -533,10 +528,6 @@ function rsvp_admin_custom_question() {
 		</form>
 		<?php
 	}
-}
-
-function rsvp_upgrade_to_pro() {
-	wp_redirect( 'https://www.rsvpproplugin.com' );
 }
 
 function rsvp_admin_scripts() {
