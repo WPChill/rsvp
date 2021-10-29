@@ -552,33 +552,6 @@ function rsvp_admin_scripts() {
  */
 function rsvp_init() {
 	$result = load_plugin_textdomain( 'rsvp-plugin', false, basename( dirname( __FILE__ ) ) . '/languages/' );
-	wp_register_script( 'jquery_validate', plugins_url( 'assets/js/jquery.validate.min.js', RSVP_PLUGIN_FILE ), array( 'jquery' ) );
-	wp_register_script( 'rsvp_plugin', plugins_url( 'assets/js/rsvp_plugin.js', RSVP_PLUGIN_FILE ), array( 'jquery' ) );
-	wp_localize_script(
-			'rsvp_plugin',
-			'rsvp_plugin_vars',
-			array(
-					'askEmail'               => __( 'Please enter an email address that we can use to contact you about the extra guest.  We have to keep a pretty close eye on the number of attendees.  Thanks!', 'rsvp-plugin' ),
-					'customNote'             => __( 'If you are adding additional RSVPs please enter your email address in case we have questions', 'rsvp-plugin' ),
-					'newAttending1LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
-					'newAttending1FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
-					'newAttending2LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
-					'newAttending2FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
-					'newAttending3LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
-					'newAttending3FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
-					'attendeeFirstName'      => __( 'Please enter a first name', 'rsvp-plugin' ),
-					'attendeeLastName'       => __( 'Please enter a last name', 'rsvp-plugin' ),
-					'firstName'              => __( 'Please enter your first name', 'rsvp-plugin' ),
-					'lastName'               => __( 'Please enter your last name', 'rsvp-plugin' ),
-					'passcode'               => __( 'Please enter your password', 'rsvp-plugin' ),
-			)
-	);
-
-	wp_register_style( 'rsvp_css', plugins_url( 'assets/css/rsvp_plugin.css', RSVP_PLUGIN_FILE ) );
-	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'jquery_validate' );
-	wp_enqueue_script( 'rsvp_plugin' );
-	wp_enqueue_style( 'rsvp_css' );
 }
 
 /**
@@ -631,18 +604,50 @@ function rsvp_getCurrentPageURL() {
 
 	return $pageURL;
 }
+function rsvp_hide_untill_loaded() {
+
+		echo '<style type="text/css">.rsvpArea, .rsvpParagraph, #rsvpPlugin {display:none;} </style>';
+}
 
 function rsvp_add_css() {
 	$css = get_option( RSVP_OPTION_CSS_STYLING );
+
 	if ( ! empty( $css ) ) {
 		$output = '<!-- RSVP Free Styling -->';
-		$output .= '<style type="text/css"> .rsvpArea, .rsvpParagraph, #rsvpPlugin {display:block;} ' . $css . '</style>';
+		$output .= '<style type="text/css">' . $css . '</style>';
 
 		echo $output;
-
-	}else{
-		echo '<style type="text/css">.rsvpArea, .rsvpParagraph, #rsvpPlugin {display:block;}</style>';
 	}
+}
+
+function rsvp_front_scripts(){
+	wp_register_script( 'jquery_validate', plugins_url( 'assets/js/jquery.validate.min.js', RSVP_PLUGIN_FILE ), array( 'jquery' ) );
+	wp_register_script( 'rsvp_plugin', plugins_url( 'assets/js/rsvp_plugin.js', RSVP_PLUGIN_FILE ), array( 'jquery' ) );
+	wp_localize_script(
+			'rsvp_plugin',
+			'rsvp_plugin_vars',
+			array(
+					'askEmail'               => __( 'Please enter an email address that we can use to contact you about the extra guest.  We have to keep a pretty close eye on the number of attendees.  Thanks!', 'rsvp-plugin' ),
+					'customNote'             => __( 'If you are adding additional RSVPs please enter your email address in case we have questions', 'rsvp-plugin' ),
+					'newAttending1LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
+					'newAttending1FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
+					'newAttending2LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
+					'newAttending2FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
+					'newAttending3LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
+					'newAttending3FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
+					'attendeeFirstName'      => __( 'Please enter a first name', 'rsvp-plugin' ),
+					'attendeeLastName'       => __( 'Please enter a last name', 'rsvp-plugin' ),
+					'firstName'              => __( 'Please enter your first name', 'rsvp-plugin' ),
+					'lastName'               => __( 'Please enter your last name', 'rsvp-plugin' ),
+					'passcode'               => __( 'Please enter your password', 'rsvp-plugin' ),
+			)
+	);
+
+	wp_register_style( 'rsvp_css', plugins_url( 'assets/css/rsvp_plugin.css', RSVP_PLUGIN_FILE ) );
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'jquery_validate' );
+	wp_enqueue_script( 'rsvp_plugin' );
+	wp_enqueue_style( 'rsvp_css' );
 }
 
 function rsvp_add_privacy_policy_content() {
@@ -815,5 +820,6 @@ add_action( 'admin_init', 'rsvp_add_privacy_policy_content' );
 add_filter( 'wp_privacy_personal_data_erasers', 'rsvp_register_data_eraser', 10 );
 add_filter( 'wp_privacy_personal_data_exporters', 'rsvp_register_data_exporter', 10 );
 add_action( 'init', 'rsvp_init' );
+add_action( 'wp_head', 'rsvp_hide_untill_loaded' );
 add_filter( 'the_content', 'rsvp_frontend_handler' );
 register_activation_hook( __FILE__, 'rsvp_database_setup' );
