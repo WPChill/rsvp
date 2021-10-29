@@ -343,3 +343,7 @@ body.rsvp_page_rsvp-upgrade-to-pro #wpcontent .wrap {
 .wpchill-plans-table.table-header .wpchill-pricing-package:not(.wpchill-modula-lite):last-child:before{
 	content:"Current package";
 }
+
+.rsvpArea, .rsvpParagraph, #rsvpPlugin {
+    display:none;
+} 

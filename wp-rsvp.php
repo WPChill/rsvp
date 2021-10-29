@@ -634,12 +634,14 @@ function rsvp_getCurrentPageURL() {
 
 function rsvp_add_css() {
 	$css = get_option( RSVP_OPTION_CSS_STYLING );
-
 	if ( ! empty( $css ) ) {
 		$output = '<!-- RSVP Free Styling -->';
-		$output .= '<style type="text/css">' . $css . '</style>';
+		$output .= '<style type="text/css"> .rsvpArea, .rsvpParagraph, #rsvpPlugin {display:block;} ' . $css . '</style>';
 
 		echo $output;
+
+	}else{
+		echo '<style type="text/css">.rsvpArea, .rsvpParagraph, #rsvpPlugin {display:block;}</style>';
 	}
 }
 
