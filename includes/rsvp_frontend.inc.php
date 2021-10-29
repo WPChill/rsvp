@@ -38,6 +38,9 @@ function rsvp_frontend_handler( $text ) {
 		return $text;
 	}
 
+	// Add custom style if plugin is loaded on page.
+	add_action( 'wp_footer', 'rsvp_add_css' );
+
 	$rsvp_form_action = rsvp_getCurrentPageURL();
 
 	// See if we should allow people to RSVP, etc...

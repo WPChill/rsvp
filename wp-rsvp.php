@@ -813,6 +813,5 @@ add_action( 'admin_init', 'rsvp_add_privacy_policy_content' );
 add_filter( 'wp_privacy_personal_data_erasers', 'rsvp_register_data_eraser', 10 );
 add_filter( 'wp_privacy_personal_data_exporters', 'rsvp_register_data_exporter', 10 );
 add_action( 'init', 'rsvp_init' );
-add_action( 'wp_head', 'rsvp_add_css' );
 add_filter( 'the_content', 'rsvp_frontend_handler' );
 register_activation_hook( __FILE__, 'rsvp_database_setup' );

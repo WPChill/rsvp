@@ -102,6 +102,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 
+= 2.7.4 - TBA =
+* Fixed: Custom style loading on all pages. ( https://github.com/WPChill/rsvp/issues/66 )
+
 = 2.7.3 - 25.10.2021 =
 * Fixed: Added missing textdomain for translatsion and updated French translation ( Thanks to @mathroule  )
 * Fixed: Spanish translation - extra space was added to translation string
