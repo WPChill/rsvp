@@ -38,10 +38,10 @@ function rsvp_frontend_handler( $text ) {
 		return $text;
 	}
 
-	add_action('wp_footer', 'rsvp_front_scripts');
+	add_action( 'wp_footer', 'rsvp_front_scripts', 15 );
 
 	// Add custom style if plugin is loaded on page.
-	add_action( 'wp_footer', 'rsvp_add_css' );
+	add_action( 'wp_footer', 'rsvp_add_css', 30 );
 
 	$rsvp_form_action = rsvp_getCurrentPageURL();
 

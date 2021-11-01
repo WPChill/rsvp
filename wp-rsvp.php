@@ -614,7 +614,7 @@ function rsvp_add_css() {
 
 	if ( ! empty( $css ) ) {
 		$output = '<!-- RSVP Free Styling -->';
-		$output .= '<style type="text/css">' . $css . '</style>';
+		$output .= '<style id="rsvp_plugin-custm-style" type="text/css">' . $css . '</style>';
 
 		echo $output;
 	}
