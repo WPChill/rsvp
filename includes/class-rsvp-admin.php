@@ -27,6 +27,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 		function __construct() {
 			add_action( 'admin_menu', array( $this, 'submenu_pages' ) );
 			add_action( 'admin_init', array( $this, 'rsvp_register_settings' ) );
+			add_action( 'admin_enqueue_scripts' , array( $this, 'admin_scripts' ) );
 
 		}
 
@@ -927,6 +928,15 @@ if ( ! class_exists( 'RSVP' ) ) {
 			register_setting( 'rsvp-option-group', OPTION_RSVP_DISABLE_USER_SEARCH );
 			register_setting( 'rsvp-option-group', RSVP_OPTION_DELETE_DATA_ON_UNINSTALL );
 			register_setting( 'rsvp-option-group', RSVP_OPTION_CSS_STYLING );
+		}
+
+		public function admin_scripts() {
+			$screen = get_current_screen();
+			$rsvp_pages = array( 'toplevel_page_rsvp-events', 'rsvp_page_rsvp-options', 'rsvp_page_rsvp-top-level', 'rsvp_page_rsvp-admin-guest', 'rsvp_page_rsvp-admin-import', 'rsvp_page_rsvp-admin-questions', 'rsvp_page_rsvp-options', 'rsvp_page_rsvp-upgrade-to-pro',  );
+
+			 if( in_array( $screen->base, $rsvp_pages, true ) ) {
+				wp_enqueue_style( 'rsvp-admin-style', plugins_url( 'assets/admin/css/rsvp_admin.css', RSVP_PLUGIN_FILE ) );
+			} 
 		}
 
 	}
