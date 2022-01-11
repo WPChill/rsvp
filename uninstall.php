@@ -19,7 +19,7 @@ require_once 'wp-rsvp.php';
 
 global $wpdb;
 
-if ( get_option( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ) == 'Y' ) {
+if ( get_option( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ) === 'Y' ) {
 	// Delete the tables
 	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'attendees' );
 	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'associatedAttendees' );

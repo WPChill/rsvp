@@ -77,7 +77,7 @@ class RSVP_Helper {
 
 		if ( ! $attendee_id ) {
 
-			check_admin_referer( 'delete-rsvp-attendee_' . $_REQUEST['id'] );
+			check_admin_referer( 'delete-rsvp-attendee_' . absint( $_REQUEST['id'] ) );
 
 			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-attendee' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
 
@@ -87,12 +87,12 @@ class RSVP_Helper {
 				$wpdb->query(
 					$wpdb->prepare(
 						'DELETE FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d OR associatedAttendeeID = %d',
-						$attendee_id,
-						$attendee_id
+						 $attendee_id,
+						 $attendee_id
 					)
 				);
 
-				$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE attendeeID = %d', $_REQUEST['id'] ) );
+				$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE attendeeID = %d', absint( $_REQUEST['id'] ) ) );
 
 				$wpdb->query(
 					$wpdb->prepare(
@@ -112,8 +112,8 @@ class RSVP_Helper {
 				$wpdb->query(
 					$wpdb->prepare(
 						'DELETE FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d OR associatedAttendeeID = %d',
-						$attendee_id,
-						$attendee_id
+						 $attendee_id,
+						 $attendee_id
 					)
 				);
 
@@ -139,7 +139,7 @@ class RSVP_Helper {
 
 		if ( ! $question_id ) {
 
-			check_admin_referer( 'delete-rsvp-question_' . $_REQUEST['id'] );
+			check_admin_referer( 'delete-rsvp-question_' . absint( $_REQUEST['id'] ) );
 
 			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-question' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
 
@@ -243,30 +243,30 @@ class RSVP_Helper {
 			$order   = 'ASC';
 
 			if ( isset( $_POST['orderby'] ) && 'attendee' != $_POST['orderby'] && '' != $_POST['orderby'] ) {
-				$orderby = $_POST['orderby'];
+				$orderby = wp_unslash( $_POST['orderby'] );
 			}
 
 			if ( isset( $_POST['order'] ) && '' != $_POST['order'] ) {
-				$order = $_POST['order'];
+				$order = wp_unslash( $_POST['order'] );
 			}
 
 			$attendees = $this->get_attendees( $orderby, $order );
 
-			$csv = '"' . __( 'First Name', 'rsvp-plugin' ) . '","' . __( 'Last Name', 'rsvp-plugin' ) . '","' . __( 'Email', 'rsvp-plugin' ) . '","' . __( 'RSVP Status', 'rsvp-plugin' ) . '",';
+			$csv = '"' . esc_html__( 'First Name', 'rsvp-plugin' ) . '","' . esc_html__( 'Last Name', 'rsvp-plugin' ) . '","' . esc_html__( 'Email', 'rsvp-plugin' ) . '","' . esc_html__( 'RSVP Status', 'rsvp-plugin' ) . '",';
 
 			if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ) {
-				$csv .= '"' . __( 'Kids Meal', 'rsvp-plugin' ) . '",';
+				$csv .= '"' . esc_html__( 'Kids Meal', 'rsvp-plugin' ) . '",';
 			}
 
-			$csv .= '"' . __( 'Associated Attendees', 'rsvp-plugin' ) . '",';
+			$csv .= '"' . esc_html__( 'Associated Attendees', 'rsvp-plugin' ) . '",';
 
 			if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ) {
-				$csv .= '"' . __( 'Vegetarian', 'rsvp-plugin' ) . '",';
+				$csv .= '"' . esc_html__( 'Vegetarian', 'rsvp-plugin' ) . '",';
 			}
 			if ( rsvp_require_passcode() ) {
-				$csv .= '"' . __( 'Passcode', 'rsvp-plugin' ) . '",';
+				$csv .= '"' . esc_html__( 'Passcode', 'rsvp-plugin' ) . '",';
 			}
-			$csv .= '"' . __( 'Note', 'rsvp-plugin' ) . '"';
+			$csv .= '"' . esc_html__( 'Note', 'rsvp-plugin' ) . '"';
 
 			$qRs = $wpdb->get_results( 'SELECT id, question, permissionLevel FROM ' . QUESTIONS_TABLE . ' ORDER BY sortOrder, id' );
 			if ( count( $qRs ) > 0 ) {
@@ -278,8 +278,8 @@ class RSVP_Helper {
 				}
 			}
 
-			$csv .= ',"' . __( 'Additional Attendee', 'rsvp-plugin' ) . '"';
-			$csv .= ',"' . __( 'pre-fill URL', 'rsvp-plugin' ) . '"';
+			$csv .= ',"' . esc_html__( 'Additional Attendee', 'rsvp-plugin' ) . '"';
+			$csv .= ',"' . esc_html__( 'pre-fill URL', 'rsvp-plugin' ) . '"';
 
 			$csv .= "\r\n";
 
@@ -374,11 +374,11 @@ class RSVP_Helper {
 			check_admin_referer( 'rsvp-import' );
 			require RSVP_PLUGIN_PATH . '/external-libs/spout/src/Spout/Autoloader/autoload.php';
 
-			$file_type = rsvp_free_import_get_file_type( $_FILES['importFile']['name'] );
+			$file_type = rsvp_free_import_get_file_type( wp_unslash( $_FILES['importFile']['name'] ) );
 
 			if ( null === $file_type ) {
 				?>
-				<p><?php _e( 'Unsupported file type, only XLSX, CSV, and ODS are supported.', 'rsvp-plugin' ); ?></p>
+				<p><?php esc_html_e( 'Unsupported file type, only XLSX, CSV, and ODS are supported.', 'rsvp-plugin' ); ?></p>
 				<?php
 				return;
 			}
@@ -387,7 +387,7 @@ class RSVP_Helper {
 			$i         = 0;
 			$count     = 0;
 			$headerRow = array();
-			$reader->open( $_FILES['importFile']['tmp_name'] );
+			$reader->open( wp_unslash( $_FILES['importFile']['tmp_name'] ) );
 			foreach ( $reader->getSheetIterator() as $sheet ) {
 				foreach ( $sheet->getRowIterator() as $row ) {
 					if ( count( $row ) <= 2 ) {
@@ -566,35 +566,35 @@ class RSVP_Helper {
 				break;
 			}
 			?>
-			<p><strong><?php echo $count; ?></strong> <?php echo __( 'total records were imported', 'rsvp-plugin' ); ?>.
+			<p><strong><?php echo esc_html( $count ); ?></strong> <?php echo esc_html__( 'total records were imported', 'rsvp-plugin' ); ?>.
 			</p>
-			<p><?php echo __( 'Continue to the RSVP', 'rsvp-plugin' ); ?> <a
-						href="admin.php?page=rsvp-top-level"><?php echo __( 'list', 'rsvp-plugin' ); ?></a></p>
+			<p><?php echo esc_html__( 'Continue to the RSVP', 'rsvp-plugin' ); ?> <a
+						href="admin.php?page=rsvp-top-level"><?php echo esc_html__( 'list', 'rsvp-plugin' ); ?></a></p>
 			<?php
 		} else {
 			?>
 			<form name="rsvp_import" method="post" enctype="multipart/form-data">
 				<?php wp_nonce_field( 'rsvp-import' ); ?>
-				<p><?php echo __( 'Select a file in the following file format: XLSX, CSV and ODS. It has to have the following layout:', 'rsvp-plugin' ); ?>
+				<p><?php echo esc_html__( 'Select a file in the following file format: XLSX, CSV and ODS. It has to have the following layout:', 'rsvp-plugin' ); ?>
 					<br/>
-					<strong><?php echo __( 'First Name', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo __( 'Last Name', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo __( 'Email', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo __( 'RSVP Status', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo __( 'Kids Meal', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo __( 'Associated Attendees', 'rsvp-plugin' ); ?>*</strong> |
-					<strong><?php echo __( 'Vegetarian', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo __( 'Passcode', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo __( 'Note', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo __( 'Private Question Association', 'rsvp-plugin' ); ?>**</strong>
+					<strong><?php echo esc_html__( 'First Name', 'rsvp-plugin' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Last Name', 'rsvp-plugin' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Email', 'rsvp-plugin' ); ?></strong> |
+					<strong><?php echo esc_html__( 'RSVP Status', 'rsvp-plugin' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Kids Meal', 'rsvp-plugin' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Associated Attendees', 'rsvp-plugin' ); ?>*</strong> |
+					<strong><?php echo esc_html__( 'Vegetarian', 'rsvp-plugin' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Passcode', 'rsvp-plugin' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Note', 'rsvp-plugin' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Private Question Association', 'rsvp-plugin' ); ?>**</strong>
 				</p>
 				<p>
-					* <?php echo __( 'associated attendees should be separated by a comma it is assumed that the first space encountered will separate the first and last name.', 'rsvp-plugin' ); ?>
+					* <?php echo esc_html__( 'associated attendees should be separated by a comma it is assumed that the first space encountered will separate the first and last name.', 'rsvp-plugin' ); ?>
 				</p>
 				<p>
 					**
 					<?php
-					echo __(
+					echo esc_html__(
 						'This can be multiple columns each column is associated with one of the following private questions. If you wish
       to have the guest associated with the question put a &quot;Y&quot; in the column otherwise put whatever else you want. The header name will be the &quot;private import key&quot; which is also listed below. It has the format of pq_* where * is a number.',
 						'rsvp-plugin'
@@ -605,14 +605,14 @@ class RSVP_Helper {
 					$questions = $wpdb->get_results( 'SELECT id, question FROM ' . QUESTIONS_TABLE . " WHERE permissionLevel = 'private'" );
 					foreach ( $questions as $q ) {
 						?>
-						<li><?php echo htmlspecialchars( stripslashes( $q->question ) ); ?> -
-							pq_<?php echo $q->id; ?></li>
+						<li><?php echo esc_html( stripslashes( $q->question ) ); ?> -
+							pq_<?php echo esc_html( $q->id ); ?></li>
 						<?php
 					}
 					?>
 				</ul>
 				</p>
-				<p><?php echo __( 'A header row is always expected.', 'rsvp-plugin' ); ?></p>
+				<p><?php echo esc_html__( 'A header row is always expected.', 'rsvp-plugin' ); ?></p>
 				<p><input type="file" name="importFile" id="importFile"/></p>
 				<p><input type="submit" value="Import File" name="goRsvp"/></p>
 			</form>
@@ -675,7 +675,7 @@ class RSVP_Helper {
 
 			if ( isset( $_GET['_wpnonce'] ) && ! empty( $_GET['_wpnonce'] ) ) {
 
-				$nonce  = $_GET['_wpnonce'];
+				$nonce  = wp_unslash ( $_GET['_wpnonce'] );
 				$action = 'rsvp-bulk-attendees';
 				if ( ! wp_verify_nonce( $nonce, $action ) ) {
 					wp_die( 'Nope! Security check failed!' );
@@ -702,7 +702,7 @@ class RSVP_Helper {
 
 			if ( isset( $_GET['_wpnonce'] ) && ! empty( $_GET['_wpnonce'] ) ) {
 
-				$nonce  = $_GET['_wpnonce'];
+				$nonce  = wp_unslash( $_GET['_wpnonce'] );
 				$action = 'rsvp-bulk-questions';
 				if ( ! wp_verify_nonce( $nonce, $action ) ) {
 					wp_die( 'Nope! Security check failed!' );
@@ -714,8 +714,8 @@ class RSVP_Helper {
 			foreach ( $_GET['q'] as $q ) {
 
 				if ( is_numeric( $q ) && ( $q > 0 ) ) {
-					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d', $q ) );
-					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE questionID = %d', $q ) );
+					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d', absint( $q ) ) );
+					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE questionID = %d', absint( $q ) ) );
 				}
 			}
 		}

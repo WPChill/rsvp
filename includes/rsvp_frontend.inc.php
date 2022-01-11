@@ -155,9 +155,9 @@ function rsvp_handleAdditionalQuestions( $attendee_id, $form_name ) {
 						$wpdb->insert(
 							ATTENDEE_ANSWERS,
 							array(
-								'attendeeID' => $attendee_id,
+								'attendeeID' => absint( $attendee_id ),
 								'answer'     => stripslashes_deep( $selected_answers ),
-								'questionID' => $q->id,
+								'questionID' => absint( $q->id ),
 							),
 							array(
 								'%d',
@@ -174,9 +174,9 @@ function rsvp_handleAdditionalQuestions( $attendee_id, $form_name ) {
 								$wpdb->insert(
 									ATTENDEE_ANSWERS,
 									array(
-										'attendeeID' => $attendee_id,
+										'attendeeID' => absint( $attendee_id ),
 										'answer'     => stripslashes_deep( $a->answer ),
-										'questionID' => $q->id,
+										'questionID' => absint( $q->id ),
 									),
 									array(
 										'%d',
@@ -193,8 +193,8 @@ function rsvp_handleAdditionalQuestions( $attendee_id, $form_name ) {
 						ATTENDEE_ANSWERS,
 						array(
 							'attendeeID' => $attendee_id,
-							'answer'     => $_POST[ $form_name . $q->id ],
-							'questionID' => $q->id,
+							'answer'     => sanitize_text_field( wp_unslash( $_POST[ $form_name . $q->id ] ) ),
+							'questionID' => absint( $q->id ),
 						),
 						array(
 							'%d',
@@ -549,7 +549,7 @@ function rsvp_find( &$output, &$text ) {
 
 	$passcode = '';
 	if ( isset( $_REQUEST['passcode'] ) ) {
-		$passcode = $_REQUEST['passcode'];
+		$passcode = sanitize_text_field( wp_unslash( $_REQUEST['passcode'] ) );
 	}
 
 	$first_name = '';
@@ -563,7 +563,7 @@ function rsvp_find( &$output, &$text ) {
 	}
 
 	if ( ! $passcode_only_option && ( ( strlen( $first_name ) <= 1 ) || ( strlen( $last_name ) <= 1 ) ) ) {
-		$output  = '<p class="rsvpParagraph" style="color:red">' . __( 'A first and last name must be specified', 'rsvp-plugin' ) . "</p>\r\n";
+		$output  = '<p class="rsvpParagraph" style="color:red">' . esc_html__( 'A first and last name must be specified', 'rsvp-plugin' ) . "</p>\r\n";
 		$output .= rsvp_frontend_greeting();
 
 		return rsvp_handle_output( $text, $output );
@@ -699,7 +699,7 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 			'lastName'   => trim( $_POST['attendeeLastName'] ),
 			'email'      => trim( $email ),
 			'rsvpStatus' => $rsvp_status,
-			'note'       => $_POST['rsvp_note'],
+			'note'       => sanitize_text_field( $_POST['rsvp_note'] ),
 			'kidsMeal'   => $kids_meal,
 			'veggieMeal' => $veggie_meal,
 		),
@@ -746,12 +746,12 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 					ATTENDEES_TABLE,
 					array(
 						'rsvpDate'   => date( 'Y-m-d' ),
-						'rsvpStatus' => $rsvp_status,
-						'email'      => $_POST[ 'attending' . $a->id . 'Email' ],
+						'rsvpStatus' => sanitize_text_field( $rsvp_status ),
+						'email'      => sanitize_email( $_POST[ 'attending' . $a->id . 'Email' ] ),
 						'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? $_POST[ 'attending' . $a->id . 'KidsMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 						'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? $_POST[ 'attending' . $a->id . 'VeggieMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 					),
-					array( 'id' => $a->id ),
+					array( 'id' => absint( $a->id ) ),
 					array(
 						'%s',
 						'%s',
@@ -770,7 +770,7 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 						'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? $_POST[ 'attending' . $a->id . 'KidsMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 						'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? $_POST[ 'attending' . $a->id . 'VeggieMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 					),
-					array( 'id' => $a->id ),
+					array( 'id' => absint( $a->id ) ),
 					array(
 						'%s',
 						'%s',
@@ -809,11 +809,11 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 						array(
 							'firstName'          => trim( $_POST[ 'newAttending' . $i . 'FirstName' ] ),
 							'lastName'           => trim( $_POST[ 'newAttending' . $i . 'LastName' ] ),
-							'email'              => $email,
+							'email'              => sanitize_email( $email ),
 							'rsvpDate'           => date( 'Y-m-d' ),
 							'rsvpStatus'         => ( ( $_POST[ 'newAttending' . $i ] == 'Y' ) ? 'Yes' : 'No' ),
-							'kidsMeal'           => ( isset( $_POST[ 'newAttending' . $i . 'KidsMeal' ] ) ? $_POST[ 'newAttending' . $i . 'KidsMeal' ] : 'N' ),
-							'veggieMeal'         => ( isset( $_POST[ 'newAttending' . $i . 'VeggieMeal' ] ) ? $_POST[ 'newAttending' . $i . 'VeggieMeal' ] : 'N' ),
+							'kidsMeal'           => ( isset( $_POST[ 'newAttending' . $i . 'KidsMeal' ] ) ? sanitize_text_field( $_POST[ 'newAttending' . $i . 'KidsMeal' ] ) : 'N' ),
+							'veggieMeal'         => ( isset( $_POST[ 'newAttending' . $i . 'VeggieMeal' ] ) ? sanitize_text_field( $_POST[ 'newAttending' . $i . 'VeggieMeal' ] ) : 'N' ),
 							'additionalAttendee' => 'Y',
 						),
 						array(
@@ -844,7 +844,7 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 					$wpdb->query(
 						'INSERT INTO ' . ASSOCIATED_ATTENDEES_TABLE . '(attendeeID, associatedAttendeeID)
 						SELECT ' . $new_aid . ', associatedAttendeeID
-						FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = ' . $attendee_id
+						FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = ' . absint( $attendee_id )
 					);
 				}
 			}
@@ -1056,7 +1056,7 @@ function rsvp_handlersvp( &$output, &$text ) {
 		} else {
 			$rsvp_status = 'No';
 		}
-		$attendee_id = $_POST['attendeeID'];
+		$attendee_id = absint( $_POST['attendeeID'] );
 		// Get Attendee first name.
 		$thank_you_primary = $wpdb->get_var( $wpdb->prepare( 'SELECT firstName FROM ' . ATTENDEES_TABLE . ' WHERE id = %d', $attendee_id ) );
 		if ( get_option( OPTION_RSVP_HIDE_EMAIL_FIELD ) != 'Y' ) {
@@ -1065,8 +1065,8 @@ function rsvp_handlersvp( &$output, &$text ) {
 				array(
 					'rsvpDate'   => date( 'Y-m-d' ),
 					'rsvpStatus' => $rsvp_status,
-					'note'       => isset( $_POST['rsvp_note'] ) ? $_POST['rsvp_note'] : '',
-					'email'      => isset( $_POST['mainEmail'] ) ? $_POST['mainEmail'] : '',
+					'note'       => isset( $_POST['rsvp_note'] ) ? sanitize_text_field( $_POST['rsvp_note'] ) : '',
+					'email'      => isset( $_POST['mainEmail'] ) ? sanitize_email( $_POST['mainEmail'] ) : '',
 					'kidsMeal'   => ( ( isset( $_POST['mainKidsMeal'] ) && ( strToUpper( $_POST['mainKidsMeal'] ) == 'Y' ) ) ? 'Y' : 'N' ),
 					'veggieMeal' => ( ( isset( $_POST['mainVeggieMeal'] ) && ( strToUpper( $_POST['mainVeggieMeal'] ) == 'Y' ) ) ? 'Y' : 'N' ),
 				),
@@ -1086,8 +1086,8 @@ function rsvp_handlersvp( &$output, &$text ) {
 				ATTENDEES_TABLE,
 				array(
 					'rsvpDate'   => date( 'Y-m-d' ),
-					'rsvpStatus' => $rsvp_status,
-					'note'       => isset( $_POST['rsvp_note'] ) ? $_POST['rsvp_note'] : '',
+					'rsvpStatus' => sanitize_text_field( $rsvp_status ),
+					'note'       => isset( $_POST['rsvp_note'] ) ? sanitize_text_field( $_POST['rsvp_note'] ) : '',
 					'kidsMeal'   => ( ( isset( $_POST['mainKidsMeal'] ) && ( strToUpper( $_POST['mainKidsMeal'] ) == 'Y' ) ) ? 'Y' : 'N' ),
 					'veggieMeal' => ( ( isset( $_POST['mainVeggieMeal'] ) && ( strToUpper( $_POST['mainVeggieMeal'] ) == 'Y' ) ) ? 'Y' : 'N' ),
 				),
@@ -1127,12 +1127,12 @@ function rsvp_handlersvp( &$output, &$text ) {
 						ATTENDEES_TABLE,
 						array(
 							'rsvpDate'   => date( 'Y-m-d' ),
-							'rsvpStatus' => $rsvp_status,
-							'email'      => $_POST[ 'attending' . $a->id . 'Email' ],
+							'rsvpStatus' => sanitizie_text_field( $rsvp_status ),
+							'email'      => sanitize_email( $_POST[ 'attending' . $a->id . 'Email' ] ),
 							'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? $_POST[ 'attending' . $a->id . 'KidsMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 							'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? $_POST[ 'attending' . $a->id . 'VeggieMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 						),
-						array( 'id' => $a->id ),
+						array( 'id' => absint( $a->id ) ),
 						array(
 							'%s',
 							'%s',
@@ -1147,11 +1147,11 @@ function rsvp_handlersvp( &$output, &$text ) {
 						ATTENDEES_TABLE,
 						array(
 							'rsvpDate'   => date( 'Y-m-d' ),
-							'rsvpStatus' => $rsvp_status,
+							'rsvpStatus' => sanitize_text_field( $rsvp_status ),
 							'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? $_POST[ 'attending' . $a->id . 'KidsMeal' ] : 'N' ) == 'Y' ) ? 'Y' : 'N' ) ),
 							'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? $_POST[ 'attending' . $a->id . 'VeggieMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 						),
-						array( 'id' => $a->id ),
+						array( 'id' => absint( $a->id ) ),
 						array(
 							'%s',
 							'%s',
@@ -1209,7 +1209,7 @@ function rsvp_handlersvp( &$output, &$text ) {
 						$wpdb->insert(
 							ASSOCIATED_ATTENDEES_TABLE,
 							array(
-								'attendeeID'           => $new_aid,
+								'attendeeID'           => absint( $new_aid ),
 								'associatedAttendeeID' => $attendee_id,
 							),
 							array(
@@ -1254,7 +1254,7 @@ function rsvp_editAttendee( &$output, &$text ) {
 				'SELECT id, firstName, lastName, rsvpStatus
 		FROM ' . ATTENDEES_TABLE .
 				' WHERE id = %d',
-				$_POST['attendeeID']
+				asint( $_POST['attendeeID'] )
 			)
 		);
 		if ( $attendee != null ) {
@@ -1280,7 +1280,7 @@ function rsvp_foundAttendee( &$output, &$text ) {
 
 	if ( is_numeric( $_POST['attendeeID'] ) && ( $_POST['attendeeID'] > 0 ) ) {
 		$sql      = 'SELECT id, firstName, lastName, rsvpStatus FROM ' . ATTENDEES_TABLE . ' WHERE id = %d';
-		$attendee = $wpdb->get_row( $wpdb->prepare( $sql, $_POST['attendeeID'] ) );
+		$attendee = $wpdb->get_row( $wpdb->prepare( $sql, absint( $_POST['attendeeID'] ) ) );
 		if ( $attendee != null ) {
 			$output = RSVP_START_CONTAINER;
 			if ( strtolower( $attendee->rsvpStatus ) == 'noresponse' ) {

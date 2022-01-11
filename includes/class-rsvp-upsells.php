@@ -78,7 +78,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 					<?php esc_html_e( ' Upgrade to the premium version to edit your events with an opening and closing date, limit the number of participants and much much more...', 'rsvp-plugin' ); ?>
 				<p>
 					<a target="_blank"
-					   href="https://rsvpproplugin.com/features/"
+					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp-plugin' ); ?></a><a
 							target="_blank"
 							href="https://rsvpproplugin.com/"
@@ -102,7 +102,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Everything here is customizable - from events, number of attendees, lists to texts, buttons, titles, and much more. With RSVP Pro, you can customize each slice of your form.', 'rsvp-plugin' ); ?></p>
 				<p>
 					<a target="_blank"
-					   href="https://rsvpproplugin.com/features/"
+					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp-plugin' ); ?></a><a
 							target="_blank"
 							href="https://rsvpproplugin.com/"
@@ -126,7 +126,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Do you want to add custom questions for a specific event? Upgrade to RSVP Pro and find out more necessary info about your guests. ', 'rsvp-plugin' ); ?></p>
 				<p>
 					<a target="_blank"
-					   href="https://rsvpproplugin.com/features/"
+					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp-plugin' ); ?></a><a
 							target="_blank"
 							href="https://rsvpproplugin.com/"
@@ -159,7 +159,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 				<p class="rsvp-upsell-description"><?php echo esc_html__( 'We know how important it is to keep everything stored in a safe place, so we made everything easy for you to import and export attendees and events data.', 'rsvp-plugin' ); ?></p>
 				<p>
 					<a target="_blank"
-					   href="https://rsvpproplugin.com/features/"
+					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp-plugin' ); ?></a><a
 							target="_blank"
 							href="https://rsvpproplugin.com/"

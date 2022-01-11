@@ -31,7 +31,7 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 	 * @access public
 	 */
 	public function no_items() {
-		_e( 'No attendees found.', 'rsvp-plugin' );
+		esc_html_e( 'No attendees found.', 'rsvp-plugin' );
 	}
 
 	public function prepare_items( $data = array() ) {
@@ -45,8 +45,8 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 
 		if ( isset( $_GET['s'] ) ) {
 			$sql     .= " WHERE (firstName LIKE '%%%s%%'  OR  lastName LIKE '%%%s%%')";
-			$values[] = $_GET['s'];
-			$values[] = $_GET['s'];
+			$values[] = wp_unslash( $_GET['s'] );
+			$values[] = wp_unslash( $_GET['s'] );
 			$operator = 'AND';
 		}
 
@@ -135,10 +135,10 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 	 */
 	public function usort_reorder( $a, $b ) {
 		// If no sort, default to name
-		$orderby = ( ! empty( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'attendee';
+		$orderby = ( ! empty( $_GET['orderby'] ) ) ? wp_unslash( $_GET['orderby'] ) : 'attendee';
 
 		// If no order, default to asc
-		$order = ( ! empty( $_GET['order'] ) ) ? $_GET['order'] : 'asc';
+		$order = ( ! empty( $_GET['order'] ) ) ? wp_unslash( $_GET['order'] ) : 'asc';
 
 		// Determine sort order
 		if ( 'attendee' == $orderby ) {
@@ -196,12 +196,12 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 			admin_url( 'admin.php' )
 		);
 
-		echo '<a class="row-title" href="' . $edit_link . '">' . esc_html( $item['firstName'] . ' ' . $item['lastName'] ) . '</a>';
+		echo '<a class="row-title" href="' . esc_url( $edit_link ) . '">' . esc_html( $item['firstName'] . ' ' . $item['lastName'] ) . '</a>';
 
 		// Assemble links
 
 		$actions           = array();
-		$actions['edit']   = '<a href="' . $edit_link . '">' . __( 'Edit', 'rsvp-plugin' ) . '</a>';
+		$actions['edit']   = '<a href="' . esc_url( $edit_link ) . '">' . esc_html__( 'Edit', 'rsvp-plugin' ) . '</a>';
 		$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-rsvp-attendee_' . absint( $item['id'] ) ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?', 'rsvp-plugin' ), esc_html( $item['firstName'] . ' ' . $item['lastName'] ) ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete', 'rsvp-plugin' ) . '</a>';
 
 		$actions = apply_filters( 'rsvp_attendees_actions', $actions, $item );
@@ -279,17 +279,17 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 				<label class="screen-reader-text"
 					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp-plugin' ); ?></label>
 				<input type="search" id="post-search-input" name="s"
-					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? $_GET['s'] : '' ); ?>">
+					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? esc_attr( wp_unslash( $_GET['s'] ) ) : '' ); ?>">
 				<input type="hidden" name="page" value="rsvp-top-level">
 				<input type="hidden" id="post-pagesize" name="pagesize"
-					   value="<?php echo( isset( $_GET['pagesize'] ) && ! empty( $_GET['pagesize'] ) ? $_GET['pagesize'] : $pagesize ); ?>">
+					   value="<?php echo( isset( $_GET['pagesize'] ) && ! empty( $_GET['pagesize'] ) ? esc_attr( wp_unslash( $_GET['pagesize'] ) ) : esc_attr( $pagesize ) ); ?>">
 				<input type="submit" id="search-submit" class="button"
 					   value="<?php esc_html_e( 'Search attendee', 'rsvp-plugin' ); ?>">
 			</p>
 			<?php
 			$this->display_tablenav( 'top' );
 			?>
-			<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+			<table class="wp-list-table <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>">
 				<thead>
 				<tr>
 					<?php $this->print_column_headers(); ?>
@@ -299,7 +299,7 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 				<tbody id="the-list"
 				<?php
 				if ( $singular ) {
-					echo " data-wp-lists='list:$singular'";
+					echo " data-wp-lists='list:".esc_attr($singular)."'";
 				}
 				?>
 				>
@@ -400,7 +400,7 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 		$all               = $wpdb->get_results( 'SELECT COUNT(*) AS allCount FROM ' . ATTENDEES_TABLE );
 
 		if ( isset( $_GET['event_list'] ) && '' != $_GET['event_list'] ) {
-			$class = $_GET['event_list'];
+			$class = wp_unslash( $_GET['event_list'] );
 		} else {
 			$class = 'all';
 		}
@@ -408,22 +408,22 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 		return array(
 			'all'               => '<a
 		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '"
-		class="' . ( ( 'all' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'All', 'rsvp-plugin' ) . ' <span class="count">(' . $all[0]->allCount . ')</span></a>',
+		class="' . ( ( 'all' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'All', 'rsvp-plugin' ) . ' <span class="count">(' . intval( $all[0]->allCount ) . ')</span></a>',
 			'yes_count'         => '<a
 		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&event_list=yes_count"
-		class="' . ( ( 'yes_count' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'Yes', 'rsvp-plugin' ) . ' <span class="count">(' . $yesResults[0]->yesCount . ')</a>',
+		class="' . ( ( 'yes_count' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'Yes', 'rsvp-plugin' ) . ' <span class="count">(' . intval( $yesResults[0]->yesCount ) . ')</a>',
 			'no_count'          => '<a
 		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&event_list=no_count"
-		class="' . ( ( 'no_count' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'No', 'rsvp-plugin' ) . ' <span class="count">(' . $noResults[0]->noCount . ')</span></a>',
+		class="' . ( ( 'no_count' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'No', 'rsvp-plugin' ) . ' <span class="count">(' . intval( $noResults[0]->noCount ) . ')</span></a>',
 			'no_response_count' => '<a
 		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&event_list=no_response_count"
-		class="' . ( ( 'no_response_count' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'No response', 'rsvp-plugin' ) . ' <span class="count">(' . $noResponseResults[0]->noResponseCount . ')</span></a>',
+		class="' . ( ( 'no_response_count' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'No response', 'rsvp-plugin' ) . ' <span class="count">(' . intval( $noResponseResults[0]->noResponseCount ) . ')</span></a>',
 			'kids_meal'         => '<a
 		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&event_list=kids_meal_count"
-		class="' . ( ( 'kids_meal_count' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'Kids Meal', 'rsvp-plugin' ) . ' <span class="count">(' . $kidsMeals[0]->kidsMealCount . ')</span></a>',
+		class="' . ( ( 'kids_meal_count' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'Kids Meal', 'rsvp-plugin' ) . ' <span class="count">(' . intval( $kidsMeals[0]->kidsMealCount ) . ')</span></a>',
 			'veggie'            => '<a
 		href="' . admin_url( 'admin.php?page=rsvp-top-level' ) . '&event_list=veggie_meal_count"
-		class="' . ( ( 'veggie_meal_count' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'Veggie Meal', 'rsvp-plugin' ) . ' <span class="count">(' . $veggieMeals[0]->veggieMealCount . ')</span></a>',
+		class="' . ( ( 'veggie_meal_count' == $class ) ? 'current' : '' ) . '">' . esc_html__( 'Veggie Meal', 'rsvp-plugin' ) . ' <span class="count">(' . intval( $veggieMeals[0]->veggieMealCount ) . ')</span></a>',
 		);
 	}
 

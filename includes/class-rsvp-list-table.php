@@ -365,23 +365,23 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			$input_id = $input_id . '-search-input';
 
 			if ( ! empty( $_REQUEST['orderby'] ) ) {
-				echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '">';
+				echo '<input type="hidden" name="orderby" value="' . esc_attr( wp_unslash( $_REQUEST['orderby'] ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['order'] ) ) {
-				echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '">';
+				echo '<input type="hidden" name="order" value="' . esc_attr( wp_unslash( $_REQUEST['order'] ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-				echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '">';
+				echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( wp_unslash( $_REQUEST['post_mime_type'] ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['detached'] ) ) {
-				echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '">';
+				echo '<input type="hidden" name="detached" value="' . esc_attr( wp_unslash( $_REQUEST['detached'] ) ) . '">';
 			}
 			?>
 			<p class="search-box">
 				<label class="screen-reader-text"
 					   for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
 				<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s"
-					   value="<?php _admin_search_query(); ?>">
+					   value="<?php esc_Attr( _admin_search_query() ); ?>">
 				<?php submit_button( $text, 'button', '', false, array( 'id' => 'search-submit' ) ); ?>
 			</p>
 			<?php
@@ -428,7 +428,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			echo "<ul class='subsubsub'>\n";
 			$i = count( $views );
 			foreach ( $views as $class => $view ) {
-				echo "<li class='$class'>$view</li>";
+				echo "<li class='" . esc_attr( $class) . "'>" . wp_kses_post( $view ) . "</li>";
 				if ( $i - 1 > 0 ) {
 					echo ' | ';
 				}
@@ -492,9 +492,9 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions', 'rsvp-plugin' ) . "</option>\n";
 
 			foreach ( $this->_actions as $name => $title ) {
-				$class = 'edit' == $name ? ' class="hide-if-no-js"' : '';
+				$class = 'edit' == $name ? 'hide-if-no-js' : '';
 
-				echo "\t<option value='$name'$class>$title</option>\n";
+				echo "\t<option value='" . esc_attr( $name ) . " class='" . esc_attr( $class ) . "'>'" . esc_html( $title ) . "</option>\n";
 			}
 
 			echo "</select>\n";
@@ -517,11 +517,11 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			}
 
 			if ( isset( $_REQUEST['action'] ) && - 1 != $_REQUEST['action'] ) {
-				return $_REQUEST['action'];
+				return wp_unslashb( $_REQUEST['action'] );
 			}
 
 			if ( isset( $_REQUEST['action2'] ) && - 1 != $_REQUEST['action2'] ) {
-				return $_REQUEST['action2'];
+				return wp_unslash( $_REQUEST['action2'] );
 			}
 
 			return false;
@@ -578,10 +578,10 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 						$classes[] = 'current';
 					}
 					printf(
-						"<a href='%s' class='%s' id='view-switch-$mode'><span class='screen-reader-text'>%s</span></a>\n",
+						"<a href='%s' class='%s' id='view-switch-". esc_attr( $mode ) . "'><span class='screen-reader-text'>%s</span></a>\n",
 						esc_url( add_query_arg( 'mode', $mode ) ),
-						implode( ' ', $classes ),
-						$title
+						esc_attr( implode( ' ', $classes ) ),
+						esc_html( $title )
 					);
 				}
 				?>
@@ -743,7 +743,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			} else {
 				$page_class = ' no-pages';
 			}
-			$this->_pagination = "<div class='tablenav-pages{$page_class}'>$output</div>";
+			$this->_pagination = "<div class='tablenav-pages" . esc_attr( $page_class ) . "'>" . wp_kses_post( $output ) . "</div>";
 
 			echo $this->_pagination;
 		}
@@ -859,7 +859,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			$current_url = remove_query_arg( 'paged', $current_url );
 
 			if ( isset( $_GET['orderby'] ) ) {
-				$current_orderby = $_GET['orderby'];
+				$current_orderby = wp_unslash( $_GET['orderby'] );
 			} else {
 				$current_orderby = '';
 			}
@@ -872,8 +872,8 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 			if ( ! empty( $columns['cb'] ) ) {
 				static $cb_counter = 1;
-				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All' ) . '</label>'
-								 . '<input id="cb-select-all-' . $cb_counter . '" type="checkbox" />';
+				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . esc_attr( $cb_counter ) . '">' . esc_html__( 'Select All' ) . '</label>'
+								 . '<input id="cb-select-all-' . esc_attr( $cb_counter ) . '" type="checkbox" />';
 				$cb_counter ++;
 			}
 
@@ -912,16 +912,16 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 					$column_display_name = sprintf(
 						'<a href="%s"><span>%s</span><span class="sorting-indicator"></span></a>',
 						esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ),
-						$column_display_name
+						esc_html( $column_display_name )
 					);
 				}
 
 				$tag   = ( 'cb' === $column_key ) ? 'td' : 'th';
 				$scope = ( 'th' === $tag ) ? 'scope="col"' : '';
-				$id    = $with_id ? "id='$column_key'" : '';
+				$id    = $with_id ? "id='".esc_attr( $column_key ) ."'" : '';
 
 				if ( ! empty( $class ) ) {
-					$class = "class='" . implode( ' ', $class ) . "'";
+					$class = "class='" . esc_attr( implode( ' ', $class ) ) . "'";
 				}
 
 				echo "<$tag $scope $id $class>$column_display_name</$tag>";
@@ -940,7 +940,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			$this->display_tablenav( 'top' );
 
 			?>
-			<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+			<table class="wp-list-table <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>">
 				<thead>
 				<tr>
 					<?php $this->print_column_headers(); ?>
@@ -950,7 +950,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 				<tbody id="the-list"
 						<?php
 						if ( $singular ) {
-							echo " data-wp-lists='list:$singular'";
+							echo " data-wp-lists='list:" . esc_attr( $singular ) . "'";
 						}
 						?>
 				>
@@ -1030,7 +1030,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			if ( $this->has_items() ) {
 				$this->display_rows();
 			} else {
-				echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
+				echo '<tr class="no-items"><td class="colspanchange" colspan="' . esc_attr( $this->get_column_count() ) . '">';
 				$this->no_items();
 				echo '</td></tr>';
 			}
@@ -1083,7 +1083,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			list( $columns, $hidden ) = $this->get_column_info();
 
 			foreach ( $columns as $column_name => $column_display_name ) {
-				$class = "class='$column_name column-$column_name'";
+				$class = "class='" . esc_attr( $column_name) . " column-" . esc_attr( $column_name ) . "'";
 
 				$style = '';
 				if ( in_array( $column_name, $hidden ) ) {
@@ -1094,7 +1094,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 				if ( 'cb' == $column_name ) {
 					echo '<th scope="row" class="check-column">';
-					echo $this->column_cb( $item );
+					echo esc_html( $this->column_cb( $item ) );
 					echo '</th>';
 				} elseif ( method_exists( $this, 'column_' . $column_name ) ) {
 					echo "<td $attributes>";
@@ -1102,7 +1102,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 					echo '</td>';
 				} else {
 					echo "<td $attributes>";
-					echo $this->column_default( $item, $column_name );
+					echo esc_html( $this->column_default( $item, $column_name ) );
 					echo '</td>';
 				}
 			}

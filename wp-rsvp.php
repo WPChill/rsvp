@@ -257,11 +257,11 @@ function rsvp_admin_custom_question() {
 					'questionTypeID'  => trim( $_POST['questionTypeID'] ),
 					'permissionLevel' => ( ( trim( $_POST['permissionLevel'] ) == 'private' ) ? 'private' : 'public' ),
 				),
-				array( 'id' => $_POST['questionId'] ),
+				array( 'id' => absint( $_POST['questionId'] ) ),
 				array( '%s', '%d', '%s' ),
 				array( '%d' )
 			);
-			$questionId = $_POST['questionId'];
+			$questionId = absint( $_POST['questionId'] );
 
 			$answers = $wpdb->get_results( $wpdb->prepare( 'SELECT id FROM ' . QUESTION_ANSWERS_TABLE . ' WHERE questionID = %d', $questionId ) );
 			if ( count( $answers ) > 0 ) {
@@ -272,7 +272,7 @@ function rsvp_admin_custom_question() {
 						$wpdb->update(
 							QUESTION_ANSWERS_TABLE,
 							array( 'answer' => trim( $_POST[ 'answer' . $a->id ] ) ),
-							array( 'id' => $a->id ),
+							array( 'id' => absint( $a->id ) ),
 							array( '%s' ),
 							array( '%d' )
 						);
@@ -300,7 +300,7 @@ function rsvp_admin_custom_question() {
 						QUESTION_ANSWERS_TABLE,
 						array(
 							'questionID' => $questionId,
-							'answer'     => $_POST[ 'newAnswer' . $i ],
+							'answer'     => sanitize_text_field( $_POST[ 'newAnswer' . $i ] ),
 						)
 					);
 				}
@@ -315,8 +315,8 @@ function rsvp_admin_custom_question() {
 						$wpdb->insert(
 							QUESTION_ATTENDEES_TABLE,
 							array(
-								'attendeeID' => $aid,
-								'questionID' => $questionId,
+								'attendeeID' => absint( $aid ),
+								'questionID' => absint( $questionId ),
 							),
 							array( '%d', '%d' )
 						);
@@ -325,22 +325,22 @@ function rsvp_admin_custom_question() {
 			}
 		}
 		?>
-		<p><?php echo __( 'Custom Question saved', 'rsvp-plugin' ); ?></p>
+		<p><?php echo esc_html__( 'Custom Question saved', 'rsvp-plugin' ); ?></p>
 		<p>
-			<a href="<?php echo add_query_arg( array( 'page' => 'rsvp-admin-questions' ), admin_url( 'admin.php' ) ); ?>"
-			   class="button button-secondary"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a>
+			<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'rsvp-admin-questions' ), admin_url( 'admin.php' ) ) ); ?>"
+			   class="button button-secondary"><?php echo esc_html__( 'Continue to Question List', 'rsvp-plugin' ); ?></a>
 			<a href="
 			<?php
-			echo add_query_arg(
+			echo esc_url( add_query_arg(
 				array(
 					'page'   => 'rsvp-admin-questions',
 					'action' => 'add',
 				),
 				admin_url( 'admin.php' )
-			);
+			) );
 			?>
 			"
-			   class="button button-primary"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
+			   class="button button-primary"><?php echo esc_html__( 'Add another Question', 'rsvp-plugin' ); ?></a>
 		</p>
 		<?php
 	} else {
@@ -351,13 +351,13 @@ function rsvp_admin_custom_question() {
 		$permissionLevel = 'public';
 		$savedAttendees  = array();
 		if ( isset( $_GET['id'] ) && is_numeric( $_GET['id'] ) ) {
-			$qRs = $wpdb->get_results( $wpdb->prepare( 'SELECT id, question, questionTypeID, permissionLevel FROM ' . QUESTIONS_TABLE . ' WHERE id = %d', $_GET['id'] ) );
+			$qRs = $wpdb->get_results( $wpdb->prepare( 'SELECT id, question, questionTypeID, permissionLevel FROM ' . QUESTIONS_TABLE . ' WHERE id = %d', absint( $_GET['id'] ) ) );
 			if ( count( $qRs ) > 0 ) {
 				$isNew           = false;
-				$questionId      = $qRs[0]->id;
+				$questionId      = absint( $qRs[0]->id );
 				$question        = stripslashes( $qRs[0]->question );
 				$permissionLevel = stripslashes( $qRs[0]->permissionLevel );
-				$questionTypeId  = $qRs[0]->questionTypeID;
+				$questionTypeId  = absint( $qRs[0]->questionTypeID );
 
 				if ( $permissionLevel == 'private' ) {
 					$aRs = $wpdb->get_results( $wpdb->prepare( 'SELECT attendeeID FROM ' . QUESTION_ATTENDEES_TABLE . ' WHERE questionID = %d', $questionId ) );
@@ -377,7 +377,7 @@ function rsvp_admin_custom_question() {
 			var questionTypeId = [
 				<?php
 				foreach ( $answerQuestionTypes as $aqt ) {
-					echo '"' . $aqt . '",';
+					echo '"' . esc_attr( $aqt ) . '",';
 				}
 				?>
 			];
@@ -389,7 +389,7 @@ function rsvp_admin_custom_question() {
 				}
 
 				var s = "<tr>\r\n" +
-						"<td align=\"right\" width=\"75\"><label for=\"newAnswer" + currAnswer + "\"><?php echo __( 'Answer', 'rsvp-plugin' ); ?>:</label></td>\r\n" +
+						"<td align=\"right\" width=\"75\"><label for=\"newAnswer" + currAnswer + "\"><?php echo esc_html__( 'Answer', 'rsvp-plugin' ); ?>:</label></td>\r\n" +
 						"<td><input type=\"text\" name=\"newAnswer" + currAnswer + "\" id=\"newAnswer" + currAnswer + "\" size=\"40\" /></td>\r\n" +
 						"</tr>\r\n";
 				jQuery( "#answerContainer" ).append( s );
@@ -429,75 +429,75 @@ function rsvp_admin_custom_question() {
 				} )
 			} );
 		</script>
-		<form name="contact" action="<?php echo add_query_arg( 'action', 'add' ); ?>" method="post">
+		<form name="contact" action="<?php echo esc_url( add_query_arg( 'action', 'add' ) ); ?>" method="post">
 			<input type="hidden" name="numNewAnswers" id="numNewAnswers" value="0"/>
-			<input type="hidden" name="questionId" value="<?php echo $questionId; ?>"/>
+			<input type="hidden" name="questionId" value="<?php echo absint( $questionId ); ?>"/>
 			<?php wp_nonce_field( 'rsvp_add_custom_question' ); ?>
 			<p class="submit">
-				<a href="<?php echo admin_url( 'admin.php?page=rsvp-admin-questions' ); ?>"
-				   class="button button-secondary"><?php _e( 'Back to custom question list', 'rsvp-plugin' ); ?></a>
-				<input type="submit" class="button-primary" value="<?php _e( 'Save', 'rsvp-plugin' ); ?>"/>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-admin-questions' ) ); ?>"
+				   class="button button-secondary"><?php esc_html_e( 'Back to custom question list', 'rsvp-plugin' ); ?></a>
+				<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save', 'rsvp-plugin' ); ?>"/>
 			</p>
 			<table id="customQuestions" class="form-table">
 				<tr valign="top">
-					<th scope="row"><label for="questionType"><?php echo __( 'Question Type', 'rsvp-plugin' ); ?>
+					<th scope="row"><label for="questionType"><?php echo esc_html__( 'Question Type', 'rsvp-plugin' ); ?>
 							:</label></th>
 					<td align="left"><select name="questionTypeID" id="questionType" size="1">
 							<?php
 							foreach ( $questionTypes as $qt ) {
-								echo '<option value="' . $qt->id . '" ' . ( ( $questionTypeId == $qt->id ) ? ' selected="selected"' : '' ) . '>' . $qt->friendlyName . "</option>\r\n";
+								echo '<option value="' . esc_attr( $qt->id ) . '" ' . ( ( $questionTypeId == $qt->id ) ? ' selected="selected"' : '' ) . '>' . esc_html( $qt->friendlyName ) . "</option>\r\n";
 							}
 							?>
 						</select>
 					</td>
 				</tr>
 				<tr valign="top">
-					<th scope="row"><label for="question"><?php echo __( 'Question', 'rsvp-plugin' ); ?>:</label></th>
+					<th scope="row"><label for="question"><?php echo esc_html__( 'Question', 'rsvp-plugin' ); ?>:</label></th>
 					<td align="left"><input type="text" name="question" id="question" size="40"
-											value="<?php echo htmlspecialchars( $question ); ?>"/></td>
+											value="<?php echo esc_attr( $question ); ?>"/></td>
 				</tr>
 				<tr>
 					<th scope="row"><label
-								for="permissionLevel"><?php echo __( 'Question Permission Level', 'rsvp-plugin' ); ?>
+								for="permissionLevel"><?php echo esc_html__( 'Question Permission Level', 'rsvp-plugin' ); ?>
 							:</label></th>
 					<td align="left"><select name="permissionLevel" id="permissionLevel" size="1">
-							<option value="public" <?php echo ( $permissionLevel == 'public' ) ? ' selected="selected"' : ''; ?>><?php echo __( 'Everyone', 'rsvp-plugin' ); ?></option>
-							<option value="private" <?php echo ( $permissionLevel == 'private' ) ? ' selected="selected"' : ''; ?>><?php echo __( 'Select People', 'rsvp-plugin' ); ?></option>
+							<option value="public" <?php echo ( $permissionLevel == 'public' ) ? ' selected="selected"' : ''; ?>><?php echo esc_html__( 'Everyone', 'rsvp-plugin' ); ?></option>
+							<option value="private" <?php echo ( $permissionLevel == 'private' ) ? ' selected="selected"' : ''; ?>><?php echo esc_html__( 'Select People', 'rsvp-plugin' ); ?></option>
 						</select></td>
 				</tr>
 				<?php if ( ! $isNew && ( $permissionLevel == 'private' ) ) : ?>
 					<tr>
-						<th scope="row"><?php echo __( 'Private Import Key', 'rsvp-plugin' ); ?>:</th>
-						<td align="left">pq_<?php echo $questionId; ?></td>
+						<th scope="row"><?php echo esc_html__( 'Private Import Key', 'rsvp-plugin' ); ?>:</th>
+						<td align="left">pq_<?php echo esc_html( $questionId ); ?></td>
 					</tr>
 				<?php endif; ?>
 				<tr>
 					<td colspan="2">
 						<table cellpadding="0" cellspacing="0" border="0" id="answerContainer">
 							<tr>
-								<th><?php echo __( 'Answers', 'rsvp-plugin' ); ?></th>
+								<th><?php echo esc_html__( 'Answers', 'rsvp-plugin' ); ?></th>
 								<th align="right"><a href="#"
-													 onclick="return addAnswer();"><?php echo __( 'Add new Answer', 'rsvp-plugin' ); ?></a>
+													 onclick="return addAnswer();"><?php echo esc_html__( 'Add new Answer', 'rsvp-plugin' ); ?></a>
 								</th>
 							</tr>
 							<?php
 							if ( ! $isNew ) {
-								$aRs = $wpdb->get_results( $wpdb->prepare( 'SELECT id, answer FROM ' . QUESTION_ANSWERS_TABLE . ' WHERE questionID = %d', $questionId ) );
+								$aRs = $wpdb->get_results( $wpdb->prepare( 'SELECT id, answer FROM ' . QUESTION_ANSWERS_TABLE . ' WHERE questionID = %d', absint( $questionId ) ) );
 								if ( count( $aRs ) > 0 ) {
 									foreach ( $aRs as $answer ) {
 										?>
 										<tr>
 											<td width="75" align="right"><label
-														for="answer<?php echo $answer->id; ?>"><?php echo __( 'Answer', 'rsvp-plugin' ); ?>
+														for="answer<?php echo esc_attr( $answer->id ); ?>"><?php echo esc_html__( 'Answer', 'rsvp-plugin' ); ?>
 													:</label></td>
-											<td><input type="text" name="answer<?php echo $answer->id; ?>"
-													   id="answer<?php echo $answer->id; ?>" size="40"
-													   value="<?php echo htmlspecialchars( stripslashes( $answer->answer ) ); ?>"/>
+											<td><input type="text" name="answer<?php echo esc_attr( $answer->id ); ?>"
+													   id="answer<?php echo esc_attr( $answer->id ); ?>" size="40"
+													   value="<?php echo esc_attr( stripslashes( $answer->answer ) ); ?>"/>
 												&nbsp; <input type="checkbox"
-															  name="deleteAnswer<?php echo $answer->id; ?>"
-															  id="deleteAnswer<?php echo $answer->id; ?>"
+															  name="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"
+															  id="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"
 															  value="Y"/><label
-														for="deleteAnswer<?php echo $answer->id; ?>"><?php echo __( 'Delete', 'rsvp-plugin' ); ?></label>
+														for="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"><?php echo esc_html__( 'Delete', 'rsvp-plugin' ); ?></label>
 											</td>
 										</tr>
 										<?php
@@ -510,12 +510,12 @@ function rsvp_admin_custom_question() {
 				</tr>
 				<tr id="attendeesArea">
 					<th scope="row"><label
-								for="attendees"><?php echo __( 'Attendees allowed to answer this question', 'rsvp-plugin' ); ?>
+								for="attendees"><?php echo esc_html__( 'Attendees allowed to answer this question', 'rsvp-plugin' ); ?>
 							:</label></th>
 					<td>
 						<p>
-							<span style="margin-left: 30px;"><?php _e( 'Available people', 'rsvp-plugin' ); ?></span>
-							<span style="margin-left: 65px;"><?php _e( 'People that have access', 'rsvp-plugin' ); ?></span>
+							<span style="margin-left: 30px;"><?php esc_html_e( 'Available people', 'rsvp-plugin' ); ?></span>
+							<span style="margin-left: 65px;"><?php esc_html_e( 'People that have access', 'rsvp-plugin' ); ?></span>
 						</p>
 						<select name="attendees[]" id="attendeesQuestionSelect" style="height:75px;"
 								multiple="multiple">
@@ -523,8 +523,8 @@ function rsvp_admin_custom_question() {
 							$attendees = $rsvp_helper->get_attendees();
 							foreach ( $attendees as $a ) {
 								?>
-								<option value="<?php echo $a->id; ?>"
-										<?php echo( ( in_array( $a->id, $savedAttendees ) ) ? ' selected="selected"' : '' ); ?>><?php echo htmlspecialchars( stripslashes( $a->firstName ) . ' ' . stripslashes( $a->lastName ) ); ?></option>
+								<option value="<?php echo esc_attr( $a->id ); ?>"
+										<?php echo( ( in_array( $a->id, $savedAttendees ) ) ? ' selected="selected"' : '' ); ?>><?php echo esc_html( stripslashes( $a->firstName ) . ' ' . stripslashes( $a->lastName ) ); ?></option>
 								<?php
 							}
 							?>

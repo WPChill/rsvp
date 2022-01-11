@@ -26,7 +26,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	 * @access public
 	 */
 	public function no_items() {
-		_e( 'No questions found.', 'rsvp-plugin' );
+		esc_html_e( 'No questions found.', 'rsvp-plugin' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 
 		if ( isset( $_GET['s'] ) ) {
 			$sql  = 'SELECT id, question, sortOrder, permissionLevel FROM ' . QUESTIONS_TABLE . " WHERE question LIKE '%%%s%%' ORDER BY sortOrder ASC";
-			$data = $wpdb->get_results( $wpdb->prepare( $sql, $_GET['s'] ) );
+			$data = $wpdb->get_results( $wpdb->prepare( $sql, sanitize_text_field( wp_unslash( $_GET['s'] ) ) ) );
 		} else {
 			$sql  = 'SELECT id, question, sortOrder, permissionLevel FROM ' . QUESTIONS_TABLE . ' ORDER BY sortOrder ASC';
 			$data = $wpdb->get_results( $sql );
@@ -107,7 +107,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 	public function usort_reorder( $a, $b ) {
 
 		// If no order, default to asc
-		$order = ( ! empty( $_GET['order'] ) ) ? $_GET['order'] : 'asc';
+		$order = ( ! empty( $_GET['order'] ) ) ? sanitize_text_field( wp_unslash( $_GET['order'] ) ) : 'asc';
 
 		$result = strcasecmp( $a['question'], $b['question'] );
 
@@ -143,12 +143,12 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 			admin_url( 'admin.php' )
 		);
 
-		echo '<a class="row-title" href="' . $edit_link . '">' . esc_html( $item['question'] ) . '</a>';
+		echo '<a class="row-title" href="' . esc_url( $edit_link ) . '">' . esc_html( $item['question'] ) . '</a>';
 
 		// Assemble links
 
 		$actions           = array();
-		$actions['edit']   = '<a href="' . $edit_link . '">' . __( 'Edit', 'rsvp-plugin' ) . '</a>';
+		$actions['edit']   = '<a href="' . esc_url( $edit_link ) . '">' . __( 'Edit', 'rsvp-plugin' ) . '</a>';
 		$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-rsvp-question_' . absint( $item['id'] ) ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?', 'rsvp-plugin' ), esc_html( $item['question'] ) ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete', 'rsvp-plugin' ) . '</a>';
 
 		$actions = apply_filters( 'rsvp_questions_actions', $actions, $item );
@@ -206,17 +206,17 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 				<label class="screen-reader-text"
 					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp-plugin' ); ?></label>
 				<input type="search" id="post-search-input" name="s"
-					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? $_GET['s'] : '' ); ?>">
+					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? esc_attr( wp_unslash( $_GET['s'] ) ) : '' ); ?>">
 				<input type="hidden" name="page" value="rsvp-admin-questions">
 				<input type="hidden" id="post-pagesize" name="pagesize"
-					   value="<?php echo( isset( $_GET['pagesize'] ) && ! empty( $_GET['pagesize'] ) ? $_GET['pagesize'] : $pagesize ); ?>">
+					   value="<?php echo( isset( $_GET['pagesize'] ) && ! empty( $_GET['pagesize'] ) ? esc_attr( wp_unslash( $_GET['pagesize'] ) ) : esc_attr( wp_unslash( $pagesize ) ) ); ?>">
 				<input type="submit" id="search-submit" class="button"
 					   value="<?php esc_html_e( 'Search question', 'rsvp-plugin' ); ?>">
 			</p>
 			<?php
 			$this->display_tablenav( 'top' );
 			?>
-			<table class="wp-list-table rsvp-plugin_page_rsvp-admin-questions <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+			<table class="wp-list-table rsvp-plugin_page_rsvp-admin-questions <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>">
 				<thead>
 				<tr>
 					<?php $this->print_column_headers(); ?>
@@ -226,7 +226,7 @@ class RSVP_Questions_List_Table extends RSVP_List_Table {
 				<tbody id="the-list"
 				<?php
 				if ( $singular ) {
-					echo " data-wp-lists='list:$singular'";
+					echo " data-wp-lists='list:" . esc_attr( $singular ) . "'";
 				}
 				?>
 				>

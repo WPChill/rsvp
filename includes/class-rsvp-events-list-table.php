@@ -25,7 +25,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 	 * @access public
 	 */
 	public function no_items() {
-		_e( 'No events found.', 'rsvp-plugin' );
+		esc_html_e( 'No events found.', 'rsvp-plugin' );
 	}
 
 	public function prepare_items( $data = array() ) {
@@ -37,15 +37,15 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
 		$this->items = array(
-			'event_name' => esc_html( 'General event', 'rsvp-plugin' ),
+			'event_name' => esc_html__( 'General event', 'rsvp-plugin' ),
 		);
 	}
 
 	public function get_columns() {
 
 		$columns = array(
-			'event_name' => __( 'Event Name', 'rsvp-plugin' ),
-			'attendees'  => __( 'Attendees', 'rsvp-plugin' ),
+			'event_name' => esc_html__( 'Event Name', 'rsvp-plugin' ),
+			'attendees'  => esc_html__( 'Attendees', 'rsvp-plugin' ),
 		);
 
 		return $columns;
@@ -112,15 +112,15 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp-plugin' ); ?></label>
 				<input type="hidden" name="page" value="rsvp-pro-top-level">
 				<input type="search" id="post-search-input" name="s"
-					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? $_GET['s'] : '' ); ?>">
+					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? esc_attr( wp_unslash( $_GET['s'] ) ) : '' ); ?>">
 				<input type="submit" id="search-submit" class="button"
-					   value="<?php esc_html_e( 'Search event', 'rsvp-plugin' ); ?>">
+					   value="<?php esc_attr_e( 'Search event', 'rsvp-plugin' ); ?>">
 
 			</p>
 			<?php
 			$this->display_tablenav( 'top' );
 			?>
-			<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+			<table class="wp-list-table <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>">
 				<thead>
 				<tr>
 					<?php $this->print_column_headers(); ?>
@@ -130,7 +130,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 				<tbody id="the-list"
 				<?php
 				if ( $singular ) {
-					echo " data-wp-lists='list:$singular'";
+					echo " data-wp-lists='list:". esc_attr( $singular ) . "'";
 				}
 				?>
 				>
