@@ -4,7 +4,7 @@ Tags: rsvp, event, event management, attendee management, event planning, weddin
 Requires at least: 5.6
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 2.7.4
+Stable tag: 2.7.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -101,6 +101,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.7.4 - 11.01.2022 =
+Fixed: Sanitizations
 
 = 2.7.4 - 10.01.2022 =
 * Fixed: Custom style loading on all pages. ( https://github.com/WPChill/rsvp/issues/66 )
