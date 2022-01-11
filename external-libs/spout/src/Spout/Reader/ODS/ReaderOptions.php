@@ -8,7 +8,7 @@ namespace Box\Spout\Reader\ODS;
  *
  * @package Box\Spout\Reader\ODS
  */
-class ReaderOptions extends \Box\Spout\Reader\Common\ReaderOptions
-{
-    // No extra options
+class ReaderOptions extends \Box\Spout\Reader\Common\ReaderOptions {
+
+	// No extra options
 }

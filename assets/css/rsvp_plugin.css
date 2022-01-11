@@ -95,5 +95,5 @@ table.rsvp-plugin_page_rsvp-admin-questions #the-list tr {
 }
 
 .rsvpArea, .rsvpParagraph, #rsvpPlugin {
-    display:block;
-} 
+	display:block;
+}

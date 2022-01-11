@@ -87,20 +87,20 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		protected $compat_fields = array( '_args', '_pagination_args', 'screen', '_actions', '_pagination' );
 
 		protected $compat_methods = array(
-				'set_pagination_args',
-				'get_views',
-				'get_bulk_actions',
-				'bulk_actions',
-				'row_actions',
-				'view_switcher',
-				'get_items_per_page',
-				'pagination',
-				'get_sortable_columns',
-				'get_column_info',
-				'get_table_classes',
-				'display_tablenav',
-				'extra_tablenav',
-				'single_row_columns',
+			'set_pagination_args',
+			'get_views',
+			'get_bulk_actions',
+			'bulk_actions',
+			'row_actions',
+			'view_switcher',
+			'get_items_per_page',
+			'pagination',
+			'get_sortable_columns',
+			'get_column_info',
+			'get_table_classes',
+			'display_tablenav',
+			'extra_tablenav',
+			'single_row_columns',
 		);
 
 		/**
@@ -131,13 +131,13 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		 */
 		public function __construct( $args = array() ) {
 			$args = wp_parse_args(
-					$args,
-					array(
-							'plural'   => '',
-							'singular' => '',
-							'ajax'     => false,
-							'screen'   => null,
-					)
+				$args,
+				array(
+					'plural'   => '',
+					'singular' => '',
+					'ajax'     => false,
+					'screen'   => null,
+				)
 			);
 
 			$this->screen = convert_to_screen( $args['screen'] );
@@ -160,8 +160,8 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 			if ( empty( $this->modes ) ) {
 				$this->modes = array(
-						'list'    => __( 'List View', 'rsvp-plugin' ),
-						'excerpt' => __( 'Excerpt View', 'rsvp-plugin' ),
+					'list'    => __( 'List View', 'rsvp-plugin' ),
+					'excerpt' => __( 'Excerpt View', 'rsvp-plugin' ),
 				);
 			}
 		}
@@ -283,12 +283,12 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		 */
 		protected function set_pagination_args( $args ) {
 			$args = wp_parse_args(
-					$args,
-					array(
-							'total_items' => 0,
-							'total_pages' => 0,
-							'per_page'    => 0,
-					)
+				$args,
+				array(
+					'total_items' => 0,
+					'total_pages' => 0,
+					'per_page'    => 0,
+				)
 			);
 
 			if ( ! $args['total_pages'] && $args['per_page'] > 0 ) {
@@ -550,7 +550,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			foreach ( $actions as $action => $link ) {
 				++ $i;
 				( $i == $action_count ) ? $sep = '' : $sep = ' | ';
-				$out .= "<span class='$action'>$link$sep</span>";
+				$out                          .= "<span class='$action'>$link$sep</span>";
 			}
 			$out .= '</div>';
 
@@ -578,10 +578,10 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 						$classes[] = 'current';
 					}
 					printf(
-							"<a href='%s' class='%s' id='view-switch-$mode'><span class='screen-reader-text'>%s</span></a>\n",
-							esc_url( add_query_arg( 'mode', $mode ) ),
-							implode( ' ', $classes ),
-							$title
+						"<a href='%s' class='%s' id='view-switch-$mode'><span class='screen-reader-text'>%s</span></a>\n",
+						esc_url( add_query_arg( 'mode', $mode ) ),
+						implode( ' ', $classes ),
+						$title
 					);
 				}
 				?>
@@ -669,10 +669,13 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 			$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
 
-			$current_url = remove_query_arg( array(
+			$current_url = remove_query_arg(
+				array(
 					'hotkeys_highlight_last',
-					'hotkeys_highlight_first'
-			), $current_url );
+					'hotkeys_highlight_first',
+				),
+				$current_url
+			);
 
 			$page_links = array();
 
@@ -684,49 +687,49 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 				$disable_last = ' disabled';
 			}
 			$page_links[] = sprintf(
-					"<a class='%s' title='%s' href='%s'>%s</a>",
-					'first-page' . $disable_first,
-					esc_attr__( 'Go to the first page', 'rsvp-plugin' ),
-					esc_url( remove_query_arg( 'paged', $current_url ) ),
-					'&laquo;'
+				"<a class='%s' title='%s' href='%s'>%s</a>",
+				'first-page' . $disable_first,
+				esc_attr__( 'Go to the first page', 'rsvp-plugin' ),
+				esc_url( remove_query_arg( 'paged', $current_url ) ),
+				'&laquo;'
 			);
 
 			$page_links[] = sprintf(
-					"<a class='%s' title='%s' href='%s'>%s</a>",
-					'prev-page' . $disable_first,
-					esc_attr__( 'Go to the previous page', 'rsvp-plugin' ),
-					esc_url( add_query_arg( 'paged', max( 1, $current - 1 ), $current_url ) ),
-					'&lsaquo;'
+				"<a class='%s' title='%s' href='%s'>%s</a>",
+				'prev-page' . $disable_first,
+				esc_attr__( 'Go to the previous page', 'rsvp-plugin' ),
+				esc_url( add_query_arg( 'paged', max( 1, $current - 1 ), $current_url ) ),
+				'&lsaquo;'
 			);
 
 			if ( 'bottom' == $which ) {
 				$html_current_page = $current;
 			} else {
 				$html_current_page = sprintf(
-						"%s<input class='current-page' id='current-page-selector' title='%s' type='text' name='paged' value='%s' size='%d'>",
-						'<label for="current-page-selector" class="screen-reader-text">' . __( 'Select Page', 'rsvp-plugin' ) . '</label>',
-						esc_attr__( 'Current page', 'rsvp-plugin' ),
-						$current,
-						strlen( $total_pages )
+					"%s<input class='current-page' id='current-page-selector' title='%s' type='text' name='paged' value='%s' size='%d'>",
+					'<label for="current-page-selector" class="screen-reader-text">' . __( 'Select Page', 'rsvp-plugin' ) . '</label>',
+					esc_attr__( 'Current page', 'rsvp-plugin' ),
+					$current,
+					strlen( $total_pages )
 				);
 			}
 			$html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
 			$page_links[]     = '<span class="paging-input">' . sprintf( _x( '%1$s of %2$s', 'paging', 'rsvp-plugin' ), $html_current_page, $html_total_pages ) . '</span>';
 
 			$page_links[] = sprintf(
-					"<a class='%s' title='%s' href='%s'>%s</a>",
-					'next-page' . $disable_last,
-					esc_attr__( 'Go to the next page', 'rsvp-plugin' ),
-					esc_url( add_query_arg( 'paged', min( $total_pages, $current + 1 ), $current_url ) ),
-					'&rsaquo;'
+				"<a class='%s' title='%s' href='%s'>%s</a>",
+				'next-page' . $disable_last,
+				esc_attr__( 'Go to the next page', 'rsvp-plugin' ),
+				esc_url( add_query_arg( 'paged', min( $total_pages, $current + 1 ), $current_url ) ),
+				'&rsaquo;'
 			);
 
 			$page_links[] = sprintf(
-					"<a class='%s' title='%s' href='%s'>%s</a>",
-					'last-page' . $disable_last,
-					esc_attr__( 'Go to the last page', 'rsvp-plugin' ),
-					esc_url( add_query_arg( 'paged', $total_pages, $current_url ) ),
-					'&raquo;'
+				"<a class='%s' title='%s' href='%s'>%s</a>",
+				'last-page' . $disable_last,
+				esc_attr__( 'Go to the last page', 'rsvp-plugin' ),
+				esc_url( add_query_arg( 'paged', $total_pages, $current_url ) ),
+				'&raquo;'
 			);
 
 			$pagination_links_class = 'pagination-links';
@@ -835,7 +838,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		 */
 		public function get_column_count() {
 			list ( $columns, $hidden ) = $this->get_column_info();
-			$hidden = array_intersect( array_keys( $columns ), array_filter( $hidden ) );
+			$hidden                    = array_intersect( array_keys( $columns ), array_filter( $hidden ) );
 
 			return count( $columns ) - count( $hidden );
 		}
@@ -869,7 +872,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 			if ( ! empty( $columns['cb'] ) ) {
 				static $cb_counter = 1;
-				$columns['cb'] = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All' ) . '</label>'
+				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All' ) . '</label>'
 								 . '<input id="cb-select-all-' . $cb_counter . '" type="checkbox" />';
 				$cb_counter ++;
 			}
@@ -907,9 +910,9 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 					}
 
 					$column_display_name = sprintf(
-							'<a href="%s"><span>%s</span><span class="sorting-indicator"></span></a>',
-							esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ),
-							$column_display_name
+						'<a href="%s"><span>%s</span><span class="sorting-indicator"></span></a>',
+						esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ),
+						$column_display_name
 					);
 				}
 
@@ -1127,8 +1130,8 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 			if ( isset( $this->_pagination_args['total_items'] ) ) {
 				$response['total_items_i18n'] = sprintf(
-						_n( '1 item', '%s items', $this->_pagination_args['total_items'], 'rsvp-plugin' ),
-						number_format_i18n( $this->_pagination_args['total_items'] )
+					_n( '1 item', '%s items', $this->_pagination_args['total_items'], 'rsvp-plugin' ),
+					number_format_i18n( $this->_pagination_args['total_items'] )
 				);
 			}
 			if ( isset( $this->_pagination_args['total_pages'] ) ) {
@@ -1146,11 +1149,11 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		 */
 		public function _js_vars() {
 			$args = array(
-					'class'  => get_class( $this ),
-					'screen' => array(
-							'id'   => $this->screen->id,
-							'base' => $this->screen->base,
-					),
+				'class'  => get_class( $this ),
+				'screen' => array(
+					'id'   => $this->screen->id,
+					'base' => $this->screen->base,
+				),
 			);
 
 			printf( "<script type='text/javascript'>list_args = %s;</script>\n", wp_json_encode( $args ) );

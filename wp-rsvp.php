@@ -11,13 +11,13 @@
  * Version: 2.7.4
  * Author URI: https://wpchill.com
  * License: GPLv3
- * Copyright 2010-2020 		Mike de Libero 		mikede@mde-dev.com
- * Copyright 2020 			MachoThemes 		office@machothemes.com
- * Copyright 2020 			WPChill 			heyyy@wpchill.com
+ * Copyright 2010-2020      Mike de Libero      mikede@mde-dev.com
+ * Copyright 2020           MachoThemes         office@machothemes.com
+ * Copyright 2020           WPChill             heyyy@wpchill.com
  *
- * Original Plugin URI: 		http://www.swimordiesoftware.com
- * Original Author URI: 		http://www.swimordiesoftware.com
- * Original Author: 			https://profiles.wordpress.org/mdedev/
+ * Original Plugin URI:         http://www.swimordiesoftware.com
+ * Original Author URI:         http://www.swimordiesoftware.com
+ * Original Author:             https://profiles.wordpress.org/mdedev/
  *
  *
  * This program is free software; you can redistribute it and/or modify
@@ -202,38 +202,38 @@ function rsvp_populate_custom_question_types() {
 	global $wpdb;
 
 	$question_types = array(
-			array(
-					'questionType' => 'shortAnswer',
-					'friendlyName' => 'Short Answer',
-			),
-			array(
-					'questionType' => 'multipleChoice',
-					'friendlyName' => 'Multiple Choice',
-			),
-			array(
-					'questionType' => 'longAnswer',
-					'friendlyName' => 'Long Answer',
-			),
-			array(
-					'questionType' => 'dropdown',
-					'friendlyName' => 'Drop Down',
-			),
-			array(
-					'questionType' => 'radio',
-					'friendlyName' => 'Radio',
-			),
+		array(
+			'questionType' => 'shortAnswer',
+			'friendlyName' => 'Short Answer',
+		),
+		array(
+			'questionType' => 'multipleChoice',
+			'friendlyName' => 'Multiple Choice',
+		),
+		array(
+			'questionType' => 'longAnswer',
+			'friendlyName' => 'Long Answer',
+		),
+		array(
+			'questionType' => 'dropdown',
+			'friendlyName' => 'Drop Down',
+		),
+		array(
+			'questionType' => 'radio',
+			'friendlyName' => 'Radio',
+		),
 	);
 
 	foreach ( $question_types as $qt ) {
 		$qType = $wpdb->get_var( $wpdb->prepare( 'SELECT id FROM ' . QUESTION_TYPE_TABLE . ' WHERE questionType = %s ', $qt['questionType'] ) );
 		if ( $qType == null ) {
 			$wpdb->insert(
-					QUESTION_TYPE_TABLE,
-					array(
-							'questionType' => $qt['questionType'],
-							'friendlyName' => $qt['friendlyName'],
-					),
-					array( '%s', '%s' )
+				QUESTION_TYPE_TABLE,
+				array(
+					'questionType' => $qt['questionType'],
+					'friendlyName' => $qt['friendlyName'],
+				),
+				array( '%s', '%s' )
 			);
 		}
 	}
@@ -251,15 +251,15 @@ function rsvp_admin_custom_question() {
 		check_admin_referer( 'rsvp_add_custom_question' );
 		if ( isset( $_POST['questionId'] ) && is_numeric( $_POST['questionId'] ) && ( $_POST['questionId'] > 0 ) ) {
 			$wpdb->update(
-					QUESTIONS_TABLE,
-					array(
-							'question'        => trim( $_POST['question'] ),
-							'questionTypeID'  => trim( $_POST['questionTypeID'] ),
-							'permissionLevel' => ( ( trim( $_POST['permissionLevel'] ) == 'private' ) ? 'private' : 'public' ),
-					),
-					array( 'id' => $_POST['questionId'] ),
-					array( '%s', '%d', '%s' ),
-					array( '%d' )
+				QUESTIONS_TABLE,
+				array(
+					'question'        => trim( $_POST['question'] ),
+					'questionTypeID'  => trim( $_POST['questionTypeID'] ),
+					'permissionLevel' => ( ( trim( $_POST['permissionLevel'] ) == 'private' ) ? 'private' : 'public' ),
+				),
+				array( 'id' => $_POST['questionId'] ),
+				array( '%s', '%d', '%s' ),
+				array( '%d' )
 			);
 			$questionId = $_POST['questionId'];
 
@@ -270,24 +270,24 @@ function rsvp_admin_custom_question() {
 						$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . QUESTION_ANSWERS_TABLE . ' WHERE id = %d', $a->id ) );
 					} elseif ( isset( $_POST[ 'answer' . $a->id ] ) && ! empty( $_POST[ 'answer' . $a->id ] ) ) {
 						$wpdb->update(
-								QUESTION_ANSWERS_TABLE,
-								array( 'answer' => trim( $_POST[ 'answer' . $a->id ] ) ),
-								array( 'id' => $a->id ),
-								array( '%s' ),
-								array( '%d' )
+							QUESTION_ANSWERS_TABLE,
+							array( 'answer' => trim( $_POST[ 'answer' . $a->id ] ) ),
+							array( 'id' => $a->id ),
+							array( '%s' ),
+							array( '%d' )
 						);
 					}
 				}
 			}
 		} else {
 			$wpdb->insert(
-					QUESTIONS_TABLE,
-					array(
-							'question'        => trim( $_POST['question'] ),
-							'questionTypeID'  => trim( $_POST['questionTypeID'] ),
-							'permissionLevel' => ( ( trim( $_POST['permissionLevel'] ) == 'private' ) ? 'private' : 'public' ),
-					),
-					array( '%s', '%d', '%s' )
+				QUESTIONS_TABLE,
+				array(
+					'question'        => trim( $_POST['question'] ),
+					'questionTypeID'  => trim( $_POST['questionTypeID'] ),
+					'permissionLevel' => ( ( trim( $_POST['permissionLevel'] ) == 'private' ) ? 'private' : 'public' ),
+				),
+				array( '%s', '%d', '%s' )
 			);
 			$questionId = $wpdb->insert_id;
 		}
@@ -297,11 +297,11 @@ function rsvp_admin_custom_question() {
 			for ( $i = 0; $i < $_POST['numNewAnswers']; $i ++ ) {
 				if ( isset( $_POST[ 'newAnswer' . $i ] ) && ! empty( $_POST[ 'newAnswer' . $i ] ) ) {
 					$wpdb->insert(
-							QUESTION_ANSWERS_TABLE,
-							array(
-									'questionID' => $questionId,
-									'answer'     => $_POST[ 'newAnswer' . $i ],
-							)
+						QUESTION_ANSWERS_TABLE,
+						array(
+							'questionID' => $questionId,
+							'answer'     => $_POST[ 'newAnswer' . $i ],
+						)
 					);
 				}
 			}
@@ -313,12 +313,12 @@ function rsvp_admin_custom_question() {
 				foreach ( $_POST['attendees'] as $aid ) {
 					if ( is_numeric( $aid ) && ( $aid > 0 ) ) {
 						$wpdb->insert(
-								QUESTION_ATTENDEES_TABLE,
-								array(
-										'attendeeID' => $aid,
-										'questionID' => $questionId,
-								),
-								array( '%d', '%d' )
+							QUESTION_ATTENDEES_TABLE,
+							array(
+								'attendeeID' => $aid,
+								'questionID' => $questionId,
+							),
+							array( '%d', '%d' )
 						);
 					}
 				}
@@ -329,10 +329,17 @@ function rsvp_admin_custom_question() {
 		<p>
 			<a href="<?php echo add_query_arg( array( 'page' => 'rsvp-admin-questions' ), admin_url( 'admin.php' ) ); ?>"
 			   class="button button-secondary"><?php echo __( 'Continue to Question List', 'rsvp-plugin' ); ?></a>
-			<a href="<?php echo add_query_arg( array(
+			<a href="
+			<?php
+			echo add_query_arg(
+				array(
 					'page'   => 'rsvp-admin-questions',
-					'action' => 'add'
-			), admin_url( 'admin.php' ) ); ?>"
+					'action' => 'add',
+				),
+				admin_url( 'admin.php' )
+			);
+			?>
+			"
 			   class="button button-primary"><?php echo __( 'Add another Question', 'rsvp-plugin' ); ?></a>
 		</p>
 		<?php
@@ -399,9 +406,9 @@ function rsvp_admin_custom_question() {
 				}
 
 				if ( $isNew || ( $permissionLevel == 'public' ) ) {
-				?>
+					?>
 				jQuery( "#attendeesArea" ).hide();
-				<?php
+					<?php
 				}
 				?>
 				jQuery( "#questionType" ).change( function () {
@@ -613,34 +620,34 @@ function rsvp_add_css() {
 	$css = get_option( RSVP_OPTION_CSS_STYLING );
 
 	if ( ! empty( $css ) ) {
-		$output = '<!-- RSVP Free Styling -->';
+		$output  = '<!-- RSVP Free Styling -->';
 		$output .= '<style id="rsvp_plugin-custm-style" type="text/css">' . $css . '</style>';
 
 		echo $output;
 	}
 }
 
-function rsvp_front_scripts(){
+function rsvp_front_scripts() {
 	wp_register_script( 'jquery_validate', plugins_url( 'assets/js/jquery.validate.min.js', RSVP_PLUGIN_FILE ), array( 'jquery' ) );
 	wp_register_script( 'rsvp_plugin', plugins_url( 'assets/js/rsvp_plugin.js', RSVP_PLUGIN_FILE ), array( 'jquery' ) );
 	wp_localize_script(
-			'rsvp_plugin',
-			'rsvp_plugin_vars',
-			array(
-					'askEmail'               => __( 'Please enter an email address that we can use to contact you about the extra guest.  We have to keep a pretty close eye on the number of attendees.  Thanks!', 'rsvp-plugin' ),
-					'customNote'             => __( 'If you are adding additional RSVPs please enter your email address in case we have questions', 'rsvp-plugin' ),
-					'newAttending1LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
-					'newAttending1FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
-					'newAttending2LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
-					'newAttending2FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
-					'newAttending3LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
-					'newAttending3FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
-					'attendeeFirstName'      => __( 'Please enter a first name', 'rsvp-plugin' ),
-					'attendeeLastName'       => __( 'Please enter a last name', 'rsvp-plugin' ),
-					'firstName'              => __( 'Please enter your first name', 'rsvp-plugin' ),
-					'lastName'               => __( 'Please enter your last name', 'rsvp-plugin' ),
-					'passcode'               => __( 'Please enter your password', 'rsvp-plugin' ),
-			)
+		'rsvp_plugin',
+		'rsvp_plugin_vars',
+		array(
+			'askEmail'               => __( 'Please enter an email address that we can use to contact you about the extra guest.  We have to keep a pretty close eye on the number of attendees.  Thanks!', 'rsvp-plugin' ),
+			'customNote'             => __( 'If you are adding additional RSVPs please enter your email address in case we have questions', 'rsvp-plugin' ),
+			'newAttending1LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
+			'newAttending1FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
+			'newAttending2LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
+			'newAttending2FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
+			'newAttending3LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
+			'newAttending3FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
+			'attendeeFirstName'      => __( 'Please enter a first name', 'rsvp-plugin' ),
+			'attendeeLastName'       => __( 'Please enter a last name', 'rsvp-plugin' ),
+			'firstName'              => __( 'Please enter your first name', 'rsvp-plugin' ),
+			'lastName'               => __( 'Please enter your last name', 'rsvp-plugin' ),
+			'passcode'               => __( 'Please enter your password', 'rsvp-plugin' ),
+		)
 	);
 
 	wp_register_style( 'rsvp_css', plugins_url( 'assets/css/rsvp_plugin.css', RSVP_PLUGIN_FILE ) );
@@ -656,15 +663,15 @@ function rsvp_add_privacy_policy_content() {
 	}
 
 	$content = __(
-			'All information entered either from an attendee or a WordPress admin for the RSVP 
+		'All information entered either from an attendee or a WordPress admin for the RSVP 
 	         plugin is never sent to external sites. The data stays in database tables 
 	        on the WordPress instance.',
-			'rsvp_plugin'
+		'rsvp_plugin'
 	);
 
 	wp_add_privacy_policy_content(
-			'RSVP Plugin',
-			wp_kses_post( wpautop( $content, false ) )
+		'RSVP Plugin',
+		wp_kses_post( wpautop( $content, false ) )
 	);
 }
 
@@ -689,10 +696,10 @@ function rsvp_data_eraser_handler( $email_address, $page = 1 ) {
 	}
 
 	return array(
-			'items_removed'  => $num_deleted,
-			'items_retained' => false, // We never retain items.
-			'messages'       => array( __( 'RSVP Data Erased Successfully', 'rsvp-plugin' ) ),
-			'done'           => true,
+		'items_removed'  => $num_deleted,
+		'items_retained' => false, // We never retain items.
+		'messages'       => array( __( 'RSVP Data Erased Successfully', 'rsvp-plugin' ) ),
+		'done'           => true,
 	);
 }
 
@@ -707,8 +714,8 @@ function rsvp_data_eraser_handler( $email_address, $page = 1 ) {
  */
 function rsvp_register_data_eraser( $erasers ) {
 	$erasers['rsvp-plugin'] = array(
-			'eraser_friendly_name' => __( 'RSVP Plugin', 'rsvp-plugin' ),
-			'callback'             => 'rsvp_data_eraser_handler',
+		'eraser_friendly_name' => __( 'RSVP Plugin', 'rsvp-plugin' ),
+		'callback'             => 'rsvp_data_eraser_handler',
 	);
 
 	return $erasers;
@@ -748,8 +755,8 @@ function rsvp_data_exporter_handler( $email_address, $page = 1 ) {
 	}
 
 	return array(
-			'data' => $export_items,
-			'done' => true,
+		'data' => $export_items,
+		'done' => true,
 	);
 }
 
@@ -797,8 +804,8 @@ function rsvp_smart_quote_replace( $in ) {
  */
 function rsvp_register_data_exporter( $exporters ) {
 	$exporters['rsvp-plugin'] = array(
-			'exporter_friendly_name' => __( 'RSVP Plugin', 'rsvp_plugin' ),
-			'callback'               => 'rsvp_data_exporter_handler',
+		'exporter_friendly_name' => __( 'RSVP Plugin', 'rsvp_plugin' ),
+		'callback'               => 'rsvp_data_exporter_handler',
 	);
 
 	return $exporters;

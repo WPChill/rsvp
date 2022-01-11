@@ -11,182 +11,173 @@ use Box\Spout\Writer\Exception\SheetNotFoundException;
  *
  * @package Box\Spout\Writer\Common
  */
-abstract class AbstractWorkbook implements WorkbookInterface
-{
-    /** @var bool Whether new sheets should be automatically created when the max rows limit per sheet is reached */
-    protected $shouldCreateNewSheetsAutomatically;
+abstract class AbstractWorkbook implements WorkbookInterface {
 
-    /** @var string Timestamp based unique ID identifying the workbook */
-    protected $internalId;
+	/** @var bool Whether new sheets should be automatically created when the max rows limit per sheet is reached */
+	protected $shouldCreateNewSheetsAutomatically;
 
-    /** @var WorksheetInterface[] Array containing the workbook's sheets */
-    protected $worksheets = [];
+	/** @var string Timestamp based unique ID identifying the workbook */
+	protected $internalId;
 
-    /** @var WorksheetInterface The worksheet where data will be written to */
-    protected $currentWorksheet;
+	/** @var WorksheetInterface[] Array containing the workbook's sheets */
+	protected $worksheets = array();
 
-    /**
-     * @param bool $shouldCreateNewSheetsAutomatically
-     * @param \Box\Spout\Writer\Style\Style $defaultRowStyle
-     * @throws \Box\Spout\Common\Exception\IOException If unable to create at least one of the base folders
-     */
-    public function __construct($shouldCreateNewSheetsAutomatically, $defaultRowStyle)
-    {
-        $this->shouldCreateNewSheetsAutomatically = $shouldCreateNewSheetsAutomatically;
-        $this->internalId = uniqid();
-    }
+	/** @var WorksheetInterface The worksheet where data will be written to */
+	protected $currentWorksheet;
 
-    /**
-     * @return \Box\Spout\Writer\Common\Helper\AbstractStyleHelper The specific style helper
-     */
-    abstract protected function getStyleHelper();
+	/**
+	 * @param bool $shouldCreateNewSheetsAutomatically
+	 * @param \Box\Spout\Writer\Style\Style $defaultRowStyle
+	 * @throws \Box\Spout\Common\Exception\IOException If unable to create at least one of the base folders
+	 */
+	public function __construct( $shouldCreateNewSheetsAutomatically, $defaultRowStyle ) {
+		$this->shouldCreateNewSheetsAutomatically = $shouldCreateNewSheetsAutomatically;
+		$this->internalId                         = uniqid();
+	}
 
-    /**
-     * @return int Maximum number of rows/columns a sheet can contain
-     */
-    abstract protected function getMaxRowsPerWorksheet();
+	/**
+	 * @return \Box\Spout\Writer\Common\Helper\AbstractStyleHelper The specific style helper
+	 */
+	abstract protected function getStyleHelper();
 
-    /**
-     * Creates a new sheet in the workbook. The current sheet remains unchanged.
-     *
-     * @return WorksheetInterface The created sheet
-     * @throws \Box\Spout\Common\Exception\IOException If unable to open the sheet for writing
-     */
-    abstract public function addNewSheet();
+	/**
+	 * @return int Maximum number of rows/columns a sheet can contain
+	 */
+	abstract protected function getMaxRowsPerWorksheet();
 
-    /**
-     * Creates a new sheet in the workbook and make it the current sheet.
-     * The writing will resume where it stopped (i.e. data won't be truncated).
-     *
-     * @return WorksheetInterface The created sheet
-     * @throws \Box\Spout\Common\Exception\IOException If unable to open the sheet for writing
-     */
-    public function addNewSheetAndMakeItCurrent()
-    {
-        $worksheet = $this->addNewSheet();
-        $this->setCurrentWorksheet($worksheet);
+	/**
+	 * Creates a new sheet in the workbook. The current sheet remains unchanged.
+	 *
+	 * @return WorksheetInterface The created sheet
+	 * @throws \Box\Spout\Common\Exception\IOException If unable to open the sheet for writing
+	 */
+	abstract public function addNewSheet();
 
-        return $worksheet;
-    }
+	/**
+	 * Creates a new sheet in the workbook and make it the current sheet.
+	 * The writing will resume where it stopped (i.e. data won't be truncated).
+	 *
+	 * @return WorksheetInterface The created sheet
+	 * @throws \Box\Spout\Common\Exception\IOException If unable to open the sheet for writing
+	 */
+	public function addNewSheetAndMakeItCurrent() {
+		 $worksheet = $this->addNewSheet();
+		$this->setCurrentWorksheet( $worksheet );
 
-    /**
-     * @return WorksheetInterface[] All the workbook's sheets
-     */
-    public function getWorksheets()
-    {
-        return $this->worksheets;
-    }
+		return $worksheet;
+	}
 
-    /**
-     * Returns the current sheet
-     *
-     * @return WorksheetInterface The current sheet
-     */
-    public function getCurrentWorksheet()
-    {
-        return $this->currentWorksheet;
-    }
+	/**
+	 * @return WorksheetInterface[] All the workbook's sheets
+	 */
+	public function getWorksheets() {
+		return $this->worksheets;
+	}
 
-    /**
-     * Sets the given sheet as the current one. New data will be written to this sheet.
-     * The writing will resume where it stopped (i.e. data won't be truncated).
-     *
-     * @param \Box\Spout\Writer\Common\Sheet $sheet The "external" sheet to set as current
-     * @return void
-     * @throws \Box\Spout\Writer\Exception\SheetNotFoundException If the given sheet does not exist in the workbook
-     */
-    public function setCurrentSheet($sheet)
-    {
-        $worksheet = $this->getWorksheetFromExternalSheet($sheet);
-        if ($worksheet !== null) {
-            $this->currentWorksheet = $worksheet;
-        } else {
-            throw new SheetNotFoundException('The given sheet does not exist in the workbook.');
-        }
-    }
+	/**
+	 * Returns the current sheet
+	 *
+	 * @return WorksheetInterface The current sheet
+	 */
+	public function getCurrentWorksheet() {
+		 return $this->currentWorksheet;
+	}
 
-    /**
-     * @param WorksheetInterface $worksheet
-     * @return void
-     */
-    protected function setCurrentWorksheet($worksheet)
-    {
-        $this->currentWorksheet = $worksheet;
-    }
+	/**
+	 * Sets the given sheet as the current one. New data will be written to this sheet.
+	 * The writing will resume where it stopped (i.e. data won't be truncated).
+	 *
+	 * @param \Box\Spout\Writer\Common\Sheet $sheet The "external" sheet to set as current
+	 * @return void
+	 * @throws \Box\Spout\Writer\Exception\SheetNotFoundException If the given sheet does not exist in the workbook
+	 */
+	public function setCurrentSheet( $sheet ) {
+		 $worksheet = $this->getWorksheetFromExternalSheet( $sheet );
+		if ( $worksheet !== null ) {
+			$this->currentWorksheet = $worksheet;
+		} else {
+			throw new SheetNotFoundException( 'The given sheet does not exist in the workbook.' );
+		}
+	}
 
-    /**
-     * Returns the worksheet associated to the given external sheet.
-     *
-     * @param \Box\Spout\Writer\Common\Sheet $sheet
-     * @return WorksheetInterface|null The worksheet associated to the given external sheet or null if not found.
-     */
-    protected function getWorksheetFromExternalSheet($sheet)
-    {
-        $worksheetFound = null;
+	/**
+	 * @param WorksheetInterface $worksheet
+	 * @return void
+	 */
+	protected function setCurrentWorksheet( $worksheet ) {
+		$this->currentWorksheet = $worksheet;
+	}
 
-        foreach ($this->worksheets as $worksheet) {
-            if ($worksheet->getExternalSheet() === $sheet) {
-                $worksheetFound = $worksheet;
-                break;
-            }
-        }
+	/**
+	 * Returns the worksheet associated to the given external sheet.
+	 *
+	 * @param \Box\Spout\Writer\Common\Sheet $sheet
+	 * @return WorksheetInterface|null The worksheet associated to the given external sheet or null if not found.
+	 */
+	protected function getWorksheetFromExternalSheet( $sheet ) {
+		$worksheetFound = null;
 
-        return $worksheetFound;
-    }
+		foreach ( $this->worksheets as $worksheet ) {
+			if ( $worksheet->getExternalSheet() === $sheet ) {
+				$worksheetFound = $worksheet;
+				break;
+			}
+		}
 
-    /**
-     * Adds data to the current sheet.
-     * If shouldCreateNewSheetsAutomatically option is set to true, it will handle pagination
-     * with the creation of new worksheets if one worksheet has reached its maximum capicity.
-     *
-     * @param array $dataRow Array containing data to be written. Cannot be empty.
-     *          Example $dataRow = ['data1', 1234, null, '', 'data5'];
-     * @param \Box\Spout\Writer\Style\Style $style Style to be applied to the row.
-     * @return void
-     * @throws \Box\Spout\Common\Exception\IOException If trying to create a new sheet and unable to open the sheet for writing
-     * @throws \Box\Spout\Writer\Exception\WriterException If unable to write data
-     */
-    public function addRowToCurrentWorksheet($dataRow, $style)
-    {
-        $currentWorksheet = $this->getCurrentWorksheet();
-        $hasReachedMaxRows = $this->hasCurrentWorkseetReachedMaxRows();
-        $styleHelper = $this->getStyleHelper();
+		return $worksheetFound;
+	}
 
-        // if we reached the maximum number of rows for the current sheet...
-        if ($hasReachedMaxRows) {
-            // ... continue writing in a new sheet if option set
-            if ($this->shouldCreateNewSheetsAutomatically) {
-                $currentWorksheet = $this->addNewSheetAndMakeItCurrent();
+	/**
+	 * Adds data to the current sheet.
+	 * If shouldCreateNewSheetsAutomatically option is set to true, it will handle pagination
+	 * with the creation of new worksheets if one worksheet has reached its maximum capicity.
+	 *
+	 * @param array $dataRow Array containing data to be written. Cannot be empty.
+	 *          Example $dataRow = ['data1', 1234, null, '', 'data5'];
+	 * @param \Box\Spout\Writer\Style\Style $style Style to be applied to the row.
+	 * @return void
+	 * @throws \Box\Spout\Common\Exception\IOException If trying to create a new sheet and unable to open the sheet for writing
+	 * @throws \Box\Spout\Writer\Exception\WriterException If unable to write data
+	 */
+	public function addRowToCurrentWorksheet( $dataRow, $style ) {
+		$currentWorksheet  = $this->getCurrentWorksheet();
+		$hasReachedMaxRows = $this->hasCurrentWorkseetReachedMaxRows();
+		$styleHelper       = $this->getStyleHelper();
 
-                $updatedStyle = $styleHelper->applyExtraStylesIfNeeded($style, $dataRow);
-                $registeredStyle = $styleHelper->registerStyle($updatedStyle);
-                $currentWorksheet->addRow($dataRow, $registeredStyle);
-            } else {
-                // otherwise, do nothing as the data won't be read anyways
-            }
-        } else {
-            $updatedStyle = $styleHelper->applyExtraStylesIfNeeded($style, $dataRow);
-            $registeredStyle = $styleHelper->registerStyle($updatedStyle);
-            $currentWorksheet->addRow($dataRow, $registeredStyle);
-        }
-    }
+		// if we reached the maximum number of rows for the current sheet...
+		if ( $hasReachedMaxRows ) {
+			// ... continue writing in a new sheet if option set
+			if ( $this->shouldCreateNewSheetsAutomatically ) {
+				$currentWorksheet = $this->addNewSheetAndMakeItCurrent();
 
-    /**
-     * @return bool Whether the current worksheet has reached the maximum number of rows per sheet.
-     */
-    protected function hasCurrentWorkseetReachedMaxRows()
-    {
-        $currentWorksheet = $this->getCurrentWorksheet();
-        return ($currentWorksheet->getLastWrittenRowIndex() >= $this->getMaxRowsPerWorksheet());
-    }
+				$updatedStyle    = $styleHelper->applyExtraStylesIfNeeded( $style, $dataRow );
+				$registeredStyle = $styleHelper->registerStyle( $updatedStyle );
+				$currentWorksheet->addRow( $dataRow, $registeredStyle );
+			} else {
+				// otherwise, do nothing as the data won't be read anyways
+			}
+		} else {
+			$updatedStyle    = $styleHelper->applyExtraStylesIfNeeded( $style, $dataRow );
+			$registeredStyle = $styleHelper->registerStyle( $updatedStyle );
+			$currentWorksheet->addRow( $dataRow, $registeredStyle );
+		}
+	}
 
-    /**
-     * Closes the workbook and all its associated sheets.
-     * All the necessary files are written to disk and zipped together to create the ODS file.
-     * All the temporary files are then deleted.
-     *
-     * @param resource $finalFilePointer Pointer to the ODS that will be created
-     * @return void
-     */
-    abstract public function close($finalFilePointer);
+	/**
+	 * @return bool Whether the current worksheet has reached the maximum number of rows per sheet.
+	 */
+	protected function hasCurrentWorkseetReachedMaxRows() {
+		 $currentWorksheet = $this->getCurrentWorksheet();
+		return ( $currentWorksheet->getLastWrittenRowIndex() >= $this->getMaxRowsPerWorksheet() );
+	}
+
+	/**
+	 * Closes the workbook and all its associated sheets.
+	 * All the necessary files are written to disk and zipped together to create the ODS file.
+	 * All the temporary files are then deleted.
+	 *
+	 * @param resource $finalFilePointer Pointer to the ODS that will be created
+	 * @return void
+	 */
+	abstract public function close( $finalFilePointer);
 }

@@ -8,6 +8,6 @@ namespace Box\Spout\Writer\Exception;
  * @api
  * @package Box\Spout\Writer\Exception
  */
-class InvalidSheetNameException extends WriterException
-{
+class InvalidSheetNameException extends WriterException {
+
 }

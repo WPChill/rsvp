@@ -19,10 +19,10 @@ class RSVP_Review {
 	function __construct() {
 
 		$this->messages = array(
-				'notice'  => esc_html__( "Hi there! Stoked to see you're using RSVP for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'rsvp-plugin' ),
-				'rate'    => esc_html__( 'Rate the plugin', 'rsvp-plugin' ),
-				'rated'   => esc_html__( 'Remind me later', 'rsvp-plugin' ),
-				'no_rate' => esc_html__( 'Don\'t show again', 'rsvp-plugin' ),
+			'notice'  => esc_html__( "Hi there! Stoked to see you're using RSVP for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'rsvp-plugin' ),
+			'rate'    => esc_html__( 'Rate the plugin', 'rsvp-plugin' ),
+			'rated'   => esc_html__( 'Remind me later', 'rsvp-plugin' ),
+			'no_rate' => esc_html__( 'Don\'t show again', 'rsvp-plugin' ),
 		);
 
 		if ( isset( $args['messages'] ) ) {
@@ -93,11 +93,11 @@ class RSVP_Review {
 		$url            = apply_filters( 'rsvp_review_link', $url );
 		$this->messages = apply_filters( 'rsvp_review_messages', $this->messages );
 		?>
-		<div id="<?php echo esc_attr( $this->slug ) ?>-epsilon-review-notice"
+		<div id="<?php echo esc_attr( $this->slug ); ?>-epsilon-review-notice"
 			 class="notice notice-success is-dismissible" style="margin-top:30px;">
 			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), $this->value ); ?></p>
 			<p class="actions">
-				<a id="epsilon-rate" href="<?php echo esc_url( $url ) ?>" target="_blank"
+				<a id="epsilon-rate" href="<?php echo esc_url( $url ); ?>" target="_blank"
 				   class="button button-primary epsilon-review-button">
 					<?php echo esc_html( $this->messages['rate'] ); ?>
 				</a>
@@ -139,7 +139,7 @@ class RSVP_Review {
 
 	public function ajax_script() {
 
-		$ajax_nonce = wp_create_nonce( "epsilon-rsvp-review" );
+		$ajax_nonce = wp_create_nonce( 'epsilon-rsvp-review' );
 
 		?>
 
@@ -164,8 +164,8 @@ class RSVP_Review {
 						data['epsilon-review'] = 1;
 					}
 
-					$.post( '<?php echo admin_url( 'admin-ajax.php' ) ?>', data, function ( response ) {
-						$( '#<?php echo $this->slug ?>-epsilon-review-notice' ).slideUp( 'fast', function () {
+					$.post( '<?php echo admin_url( 'admin-ajax.php' ); ?>', data, function ( response ) {
+						$( '#<?php echo $this->slug; ?>-epsilon-review-notice' ).slideUp( 'fast', function () {
 							$( this ).remove();
 						} );
 					} );

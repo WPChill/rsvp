@@ -10,6 +10,6 @@ use Box\Spout\Common\Exception\SpoutException;
  * @package Box\Spout\Writer\Exception
  * @abstract
  */
-abstract class WriterException extends SpoutException
-{
+abstract class WriterException extends SpoutException {
+
 }

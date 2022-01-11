@@ -8,6 +8,6 @@ namespace Box\Spout\Writer\Exception;
  * @api
  * @package Box\Spout\Writer\Exception
  */
-class SheetNotFoundException extends WriterException
-{
+class SheetNotFoundException extends WriterException {
+
 }

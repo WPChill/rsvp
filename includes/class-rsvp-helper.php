@@ -62,7 +62,6 @@ class RSVP_Helper {
 							 	WHERE id IN (SELECT attendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE associatedAttendeeID = %d)
 									OR id in (SELECT associatedAttendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d)';
 
-
 		$associations = $wpdb->get_results( $wpdb->prepare( $sql, $id, $id ) );
 
 		return $associations;
@@ -78,7 +77,6 @@ class RSVP_Helper {
 
 		if ( ! $attendee_id ) {
 
-
 			check_admin_referer( 'delete-rsvp-attendee_' . $_REQUEST['id'] );
 
 			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-attendee' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
@@ -87,20 +85,20 @@ class RSVP_Helper {
 				$attendee_id = absint( $_REQUEST['id'] );
 
 				$wpdb->query(
-						$wpdb->prepare(
-								'DELETE FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d OR associatedAttendeeID = %d',
-								$attendee_id,
-								$attendee_id
-						)
+					$wpdb->prepare(
+						'DELETE FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d OR associatedAttendeeID = %d',
+						$attendee_id,
+						$attendee_id
+					)
 				);
 
 				$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE attendeeID = %d', $_REQUEST['id'] ) );
 
 				$wpdb->query(
-						$wpdb->prepare(
-								'DELETE FROM ' . ATTENDEES_TABLE . ' WHERE id = %d',
-								$attendee_id
-						)
+					$wpdb->prepare(
+						'DELETE FROM ' . ATTENDEES_TABLE . ' WHERE id = %d',
+						$attendee_id
+					)
 				);
 
 				wp_redirect( wp_get_referer() );
@@ -112,20 +110,20 @@ class RSVP_Helper {
 
 			if ( is_numeric( $attendee_id ) && ( $attendee_id > 0 ) ) {
 				$wpdb->query(
-						$wpdb->prepare(
-								'DELETE FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d OR associatedAttendeeID = %d',
-								$attendee_id,
-								$attendee_id
-						)
+					$wpdb->prepare(
+						'DELETE FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d OR associatedAttendeeID = %d',
+						$attendee_id,
+						$attendee_id
+					)
 				);
 
 				$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE attendeeID = %d', $attendee_id ) );
 
 				$wpdb->query(
-						$wpdb->prepare(
-								'DELETE FROM ' . ATTENDEES_TABLE . ' WHERE id = %d',
-								$attendee_id
-						)
+					$wpdb->prepare(
+						'DELETE FROM ' . ATTENDEES_TABLE . ' WHERE id = %d',
+						$attendee_id
+					)
 				);
 			}
 		}
@@ -141,7 +139,6 @@ class RSVP_Helper {
 
 		if ( ! $question_id ) {
 
-
 			check_admin_referer( 'delete-rsvp-question_' . $_REQUEST['id'] );
 
 			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-question' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
@@ -149,12 +146,11 @@ class RSVP_Helper {
 				global $wpdb;
 				$question_id = absint( $_REQUEST['id'] );
 				$wpdb->query(
-						$wpdb->prepare(
-								'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d',
-								$question_id
-						)
+					$wpdb->prepare(
+						'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d',
+						$question_id
+					)
 				);
-
 
 				wp_redirect( wp_get_referer() );
 				exit;
@@ -165,10 +161,10 @@ class RSVP_Helper {
 
 			if ( is_numeric( $question_id ) && ( $question_id > 0 ) ) {
 				$wpdb->query(
-						$wpdb->prepare(
-								'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d',
-								$question_id
-						)
+					$wpdb->prepare(
+						'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d',
+						$question_id
+					)
 				);
 			}
 		}
@@ -256,7 +252,6 @@ class RSVP_Helper {
 
 			$attendees = $this->get_attendees( $orderby, $order );
 
-
 			$csv = '"' . __( 'First Name', 'rsvp-plugin' ) . '","' . __( 'Last Name', 'rsvp-plugin' ) . '","' . __( 'Email', 'rsvp-plugin' ) . '","' . __( 'RSVP Status', 'rsvp-plugin' ) . '",';
 
 			if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ) {
@@ -293,7 +288,7 @@ class RSVP_Helper {
 				$fName = rsvp_handle_text_encoding( $fName );
 				$lName = stripslashes( $a->lastName );
 				$lName = rsvp_handle_text_encoding( $lName );
-				$csv   .= '"' . $fName . '","' . $lName . '","' . stripslashes( $a->email ) . '","' . ( $a->rsvpStatus ) . '",';
+				$csv  .= '"' . $fName . '","' . $lName . '","' . stripslashes( $a->email ) . '","' . ( $a->rsvpStatus ) . '",';
 
 				if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ) {
 					$csv .= '"' . ( ( $a->kidsMeal == 'Y' ) ? 'Y' : 'N' ) . '",';
@@ -318,15 +313,15 @@ class RSVP_Helper {
 				$csv .= '"' . ( str_replace( '"', '""', stripslashes( $a->note ) ) ) . '"';
 
 				$qRs = $wpdb->get_results(
-						$wpdb->prepare(
-								'SELECT q.id, question, permissionLevel, qat.questionID AS hasAccess,
+					$wpdb->prepare(
+						'SELECT q.id, question, permissionLevel, qat.questionID AS hasAccess,
 							(SELECT GROUP_CONCAT(answer) FROM ' . ATTENDEE_ANSWERS . ' WHERE questionID = q.id AND attendeeID = %d) AS answer
 							FROM ' . QUESTIONS_TABLE . ' q
 							LEFT JOIN ' . QUESTION_ATTENDEES_TABLE . ' qat ON qat.questionID = q.id AND qat.attendeeID = %d
 							ORDER BY sortOrder, q.id',
-								$a->id,
-								$a->id
-						)
+						$a->id,
+						$a->id
+					)
 				);
 				if ( count( $qRs ) > 0 ) {
 					foreach ( $qRs as $q ) {
@@ -436,34 +431,34 @@ class RSVP_Helper {
 							$res = $wpdb->get_results( $wpdb->prepare( $sql, $fName, $lName ) );
 							if ( count( $res ) == 0 ) {
 								$wpdb->insert(
-										ATTENDEES_TABLE,
-										array(
-												'firstName'        => $fName,
-												'lastName'         => $lName,
-												'email'            => $email,
-												'personalGreeting' => $personalGreeting,
-												'kidsMeal'         => $kidsMeal,
-												'veggieMeal'       => $vegetarian,
-												'rsvpStatus'       => $rsvpStatus,
-												'passcode'         => $passcode,
-										),
-										array( '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
+									ATTENDEES_TABLE,
+									array(
+										'firstName'        => $fName,
+										'lastName'         => $lName,
+										'email'            => $email,
+										'personalGreeting' => $personalGreeting,
+										'kidsMeal'         => $kidsMeal,
+										'veggieMeal'       => $vegetarian,
+										'rsvpStatus'       => $rsvpStatus,
+										'passcode'         => $passcode,
+									),
+									array( '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
 								);
 								$count ++;
 							} elseif ( empty( $res->email ) && empty( $res->passcode ) ) {
 								// More than likely the attendee was inserted via an
 								// associated attendee and we will want to update this record...
 								$wpdb->update(
-										ATTENDEES_TABLE,
-										array(
-												'email'            => $email,
-												'personalGreeting' => $personalGreeting,
-												'passcode'         => $passcode,
-												'rsvpStatus'       => $rsvpStatus,
-										),
-										array( 'id' => $res[0]->id ),
-										array( '%s', '%s', '%s', '%s' ),
-										array( '%d' )
+									ATTENDEES_TABLE,
+									array(
+										'email'            => $email,
+										'personalGreeting' => $personalGreeting,
+										'passcode'         => $passcode,
+										'rsvpStatus'       => $rsvpStatus,
+									),
+									array( 'id' => $res[0]->id ),
+									array( '%s', '%s', '%s', '%s' ),
+									array( '%d' )
 								);
 							}
 
@@ -487,44 +482,44 @@ class RSVP_Helper {
 												$sql     = 'SELECT id FROM ' . ATTENDEES_TABLE . '
 											 	WHERE firstName = %s AND lastName = %s ';
 												$userRes = $wpdb->get_results(
-														$wpdb->prepare(
-																$sql,
-																rsvp_handle_text_encoding( trim( $user[0] ) ),
-																rsvp_handle_text_encoding( trim( $user[1] ) )
-														)
+													$wpdb->prepare(
+														$sql,
+														rsvp_handle_text_encoding( trim( $user[0] ) ),
+														rsvp_handle_text_encoding( trim( $user[1] ) )
+													)
 												);
 												if ( count( $userRes ) > 0 ) {
 													$newUserId = $userRes[0]->id;
 												} else {
 													// Insert them and then we can associate them...
 													$wpdb->insert(
-															ATTENDEES_TABLE,
-															array(
-																	'firstName' => rsvp_handle_text_encoding( trim( $user[0] ) ),
-																	'lastName'  => rsvp_handle_text_encoding( trim( $user[1] ) ),
-															),
-															array( '%s', '%s' )
+														ATTENDEES_TABLE,
+														array(
+															'firstName' => rsvp_handle_text_encoding( trim( $user[0] ) ),
+															'lastName'  => rsvp_handle_text_encoding( trim( $user[1] ) ),
+														),
+														array( '%s', '%s' )
 													);
 													$newUserId = $wpdb->insert_id;
 													$count ++;
 												}
 
 												$wpdb->insert(
-														ASSOCIATED_ATTENDEES_TABLE,
-														array(
-																'attendeeID'           => $newUserId,
-																'associatedAttendeeID' => $userId,
-														),
-														array( '%d', '%d' )
+													ASSOCIATED_ATTENDEES_TABLE,
+													array(
+														'attendeeID'           => $newUserId,
+														'associatedAttendeeID' => $userId,
+													),
+													array( '%d', '%d' )
 												);
 
 												$wpdb->insert(
-														ASSOCIATED_ATTENDEES_TABLE,
-														array(
-																'attendeeID'           => $userId,
-																'associatedAttendeeID' => $newUserId,
-														),
-														array( '%d', '%d' )
+													ASSOCIATED_ATTENDEES_TABLE,
+													array(
+														'attendeeID'           => $userId,
+														'associatedAttendeeID' => $newUserId,
+													),
+													array( '%d', '%d' )
 												);
 											}
 										} // foreach($associatedUsers...
@@ -550,12 +545,12 @@ class RSVP_Helper {
 										foreach ( $private_questions as $key => $val ) {
 											if ( strToUpper( $row[ $key ] ) == 'Y' ) {
 												$wpdb->insert(
-														QUESTION_ATTENDEES_TABLE,
-														array(
-																'attendeeID' => $userId,
-																'questionID' => $val,
-														),
-														array( '%d', '%d' )
+													QUESTION_ATTENDEES_TABLE,
+													array(
+														'attendeeID' => $userId,
+														'questionID' => $val,
+													),
+													array( '%d', '%d' )
 												);
 											}
 										}
@@ -600,9 +595,9 @@ class RSVP_Helper {
 					**
 					<?php
 					echo __(
-							'This can be multiple columns each column is associated with one of the following private questions. If you wish
+						'This can be multiple columns each column is associated with one of the following private questions. If you wish
       to have the guest associated with the question put a &quot;Y&quot; in the column otherwise put whatever else you want. The header name will be the &quot;private import key&quot; which is also listed below. It has the format of pq_* where * is a number.',
-							'rsvp-plugin'
+						'rsvp-plugin'
 					);
 					?>
 				<ul>
@@ -650,7 +645,7 @@ class RSVP_Helper {
 
 		$menu_order_arr = array();
 		foreach ( $id_arr as $key => $id ) {
-			$results = $wpdb->get_results( "SELECT sortOrder FROM " . QUESTIONS_TABLE . " WHERE id = " . (int) $id );
+			$results = $wpdb->get_results( 'SELECT sortOrder FROM ' . QUESTIONS_TABLE . ' WHERE id = ' . (int) $id );
 
 			foreach ( $results as $result ) {
 				$menu_order_arr[] = $result->sortOrder;
@@ -685,7 +680,6 @@ class RSVP_Helper {
 				if ( ! wp_verify_nonce( $nonce, $action ) ) {
 					wp_die( 'Nope! Security check failed!' );
 				}
-
 			}
 
 			foreach ( $_GET['attendee'] as $attendee ) {
@@ -713,7 +707,6 @@ class RSVP_Helper {
 				if ( ! wp_verify_nonce( $nonce, $action ) ) {
 					wp_die( 'Nope! Security check failed!' );
 				}
-
 			}
 
 			global $wpdb;

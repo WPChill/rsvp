@@ -15,19 +15,19 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 // Load EDD file
-include_once( 'wp-rsvp.php' );
+require_once 'wp-rsvp.php';
 
 global $wpdb;
 
-if ( get_option( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ) == "Y" ) {
+if ( get_option( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ) == 'Y' ) {
 	// Delete the tables
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "attendees" );
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "associatedAttendees" );
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "rsvpCustomQuestions" );
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "rsvpQuestionTypes" );
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "attendeeAnswers" );
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "rsvpCustomQuestionAnswers" );
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "rsvpCustomQuestionAttendees" );
+	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'attendees' );
+	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'associatedAttendees' );
+	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'rsvpCustomQuestions' );
+	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'rsvpQuestionTypes' );
+	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'attendeeAnswers' );
+	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'rsvpCustomQuestionAnswers' );
+	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'rsvpCustomQuestionAttendees' );
 
 	// Delete the options...
 	delete_option( OPTION_OPENDATE );
@@ -59,5 +59,5 @@ if ( get_option( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ) == "Y" ) {
 	delete_option( OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM );
 	delete_option( OPTION_RSVP_DISABLE_USER_SEARCH );
 	delete_option( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL );
-	delete_option( "rsvp_db_version" );
+	delete_option( 'rsvp_db_version' );
 }

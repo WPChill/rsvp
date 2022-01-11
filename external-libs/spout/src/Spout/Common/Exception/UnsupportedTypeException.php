@@ -8,6 +8,6 @@ namespace Box\Spout\Common\Exception;
  * @api
  * @package Box\Spout\Common\Exception
  */
-class UnsupportedTypeException extends SpoutException
-{
+class UnsupportedTypeException extends SpoutException {
+
 }

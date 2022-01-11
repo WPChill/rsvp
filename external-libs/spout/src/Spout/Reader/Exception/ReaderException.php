@@ -10,6 +10,6 @@ use Box\Spout\Common\Exception\SpoutException;
  * @package Box\Spout\Reader\Exception
  * @abstract
  */
-abstract class ReaderException extends SpoutException
-{
+abstract class ReaderException extends SpoutException {
+
 }

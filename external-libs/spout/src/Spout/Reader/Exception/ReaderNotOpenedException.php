@@ -8,6 +8,6 @@ namespace Box\Spout\Reader\Exception;
  * @api
  * @package Box\Spout\Reader\Exception
  */
-class ReaderNotOpenedException extends ReaderException
-{
+class ReaderNotOpenedException extends ReaderException {
+
 }

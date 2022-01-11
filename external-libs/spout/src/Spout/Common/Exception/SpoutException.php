@@ -8,6 +8,6 @@ namespace Box\Spout\Common\Exception;
  * @package Box\Spout\Common\Exception
  * @abstract
  */
-abstract class SpoutException extends \Exception
-{
+abstract class SpoutException extends \Exception {
+
 }

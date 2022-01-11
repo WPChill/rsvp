@@ -8,6 +8,6 @@ namespace Box\Spout\Common\Exception;
  * @api
  * @package Box\Spout\Common\Exception
  */
-class InvalidArgumentException extends SpoutException
-{
+class InvalidArgumentException extends SpoutException {
+
 }

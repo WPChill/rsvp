@@ -11,75 +11,70 @@ use Box\Spout\Reader\AbstractReader;
  *
  * @package Box\Spout\Reader\ODS
  */
-class Reader extends AbstractReader
-{
-    /** @var \ZipArchive */
-    protected $zip;
+class Reader extends AbstractReader {
 
-    /** @var SheetIterator To iterator over the ODS sheets */
-    protected $sheetIterator;
+	/** @var \ZipArchive */
+	protected $zip;
 
-    /**
-     * Returns the reader's current options
-     *
-     * @return ReaderOptions
-     */
-    protected function getOptions()
-    {
-        if (!isset($this->options)) {
-            $this->options = new ReaderOptions();
-        }
-        return $this->options;
-    }
+	/** @var SheetIterator To iterator over the ODS sheets */
+	protected $sheetIterator;
 
-    /**
-     * Returns whether stream wrappers are supported
-     *
-     * @return bool
-     */
-    protected function doesSupportStreamWrapper()
-    {
-        return false;
-    }
+	/**
+	 * Returns the reader's current options
+	 *
+	 * @return ReaderOptions
+	 */
+	protected function getOptions() {
+		if ( ! isset( $this->options ) ) {
+			$this->options = new ReaderOptions();
+		}
+		return $this->options;
+	}
 
-    /**
-     * Opens the file at the given file path to make it ready to be read.
-     *
-     * @param  string $filePath Path of the file to be read
-     * @return void
-     * @throws \Box\Spout\Common\Exception\IOException If the file at the given path or its content cannot be read
-     * @throws \Box\Spout\Reader\Exception\NoSheetsFoundException If there are no sheets in the file
-     */
-    protected function openReader($filePath)
-    {
-        $this->zip = new \ZipArchive();
+	/**
+	 * Returns whether stream wrappers are supported
+	 *
+	 * @return bool
+	 */
+	protected function doesSupportStreamWrapper() {
+		 return false;
+	}
 
-        if ($this->zip->open($filePath) === true) {
-            $this->sheetIterator = new SheetIterator($filePath, $this->getOptions());
-        } else {
-            throw new IOException("Could not open $filePath for reading.");
-        }
-    }
+	/**
+	 * Opens the file at the given file path to make it ready to be read.
+	 *
+	 * @param  string $filePath Path of the file to be read
+	 * @return void
+	 * @throws \Box\Spout\Common\Exception\IOException If the file at the given path or its content cannot be read
+	 * @throws \Box\Spout\Reader\Exception\NoSheetsFoundException If there are no sheets in the file
+	 */
+	protected function openReader( $filePath ) {
+		$this->zip = new \ZipArchive();
 
-    /**
-     * Returns an iterator to iterate over sheets.
-     *
-     * @return SheetIterator To iterate over sheets
-     */
-    protected function getConcreteSheetIterator()
-    {
-        return $this->sheetIterator;
-    }
+		if ( $this->zip->open( $filePath ) === true ) {
+			$this->sheetIterator = new SheetIterator( $filePath, $this->getOptions() );
+		} else {
+			throw new IOException( "Could not open $filePath for reading." );
+		}
+	}
 
-    /**
-     * Closes the reader. To be used after reading the file.
-     *
-     * @return void
-     */
-    protected function closeReader()
-    {
-        if ($this->zip) {
-            $this->zip->close();
-        }
-    }
+	/**
+	 * Returns an iterator to iterate over sheets.
+	 *
+	 * @return SheetIterator To iterate over sheets
+	 */
+	protected function getConcreteSheetIterator() {
+		 return $this->sheetIterator;
+	}
+
+	/**
+	 * Closes the reader. To be used after reading the file.
+	 *
+	 * @return void
+	 */
+	protected function closeReader() {
+		if ( $this->zip ) {
+			$this->zip->close();
+		}
+	}
 }

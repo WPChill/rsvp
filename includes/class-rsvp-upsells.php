@@ -147,8 +147,15 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 			?>
 			<div class="rsvp-upsell">
 				<h3><?php echo esc_html__( 'Separate attendees for each event', 'rsvp-plugin' ); ?></h3>
-				<p class="rsvp-upsell-description"><?php echo esc_html__( 'If you want to keep in touch with your guests, upgrade to RSVP Pro to send messages, reset attendees’ responses, and add as many participants as you please. You can also increase your workflow by creating reminders and automated emails.
-', 'rsvp-plugin' ); ?></p>
+				<p class="rsvp-upsell-description">
+				<?php
+				echo esc_html__(
+					'If you want to keep in touch with your guests, upgrade to RSVP Pro to send messages, reset attendees’ responses, and add as many participants as you please. You can also increase your workflow by creating reminders and automated emails.
+',
+					'rsvp-plugin'
+				);
+				?>
+													</p>
 				<p class="rsvp-upsell-description"><?php echo esc_html__( 'We know how important it is to keep everything stored in a safe place, so we made everything easy for you to import and export attendees and events data.', 'rsvp-plugin' ); ?></p>
 				<p>
 					<a target="_blank"

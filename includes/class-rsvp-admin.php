@@ -27,7 +27,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 		function __construct() {
 			add_action( 'admin_menu', array( $this, 'submenu_pages' ) );
 			add_action( 'admin_init', array( $this, 'rsvp_register_settings' ) );
-			add_action( 'admin_enqueue_scripts' , array( $this, 'admin_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		}
 
@@ -57,91 +57,90 @@ if ( ! class_exists( 'RSVP' ) ) {
 			$rsvp_helper = RSVP_Helper::get_instance();
 
 			$page = add_menu_page(
-					'RSVP',
-					'RSVP',
-					'publish_posts',
-					'rsvp-events',
-					array( $this, 'rsvp_admin_events' ),
-					plugins_url( 'images/rsvp_lite_icon.png', RSVP_PLUGIN_FILE )
+				'RSVP',
+				'RSVP',
+				'publish_posts',
+				'rsvp-events',
+				array( $this, 'rsvp_admin_events' ),
+				plugins_url( 'images/rsvp_lite_icon.png', RSVP_PLUGIN_FILE )
 			);
 			add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
 
 			$page = add_submenu_page(
-					'rsvp-events',
-					'Events',
-					'Events',
-					'publish_posts',
-					'rsvp-events',
-					array( $this, 'rsvp_admin_events' )
+				'rsvp-events',
+				'Events',
+				'Events',
+				'publish_posts',
+				'rsvp-events',
+				array( $this, 'rsvp_admin_events' )
 			);
 			add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
 
 			$page = add_submenu_page(
-					'rsvp-events',
-					'Attendees',
-					'Attendees',
-					'publish_posts',
-					'rsvp-top-level',
-					array( $this, 'rsvp_admin_guestlist' )
+				'rsvp-events',
+				'Attendees',
+				'Attendees',
+				'publish_posts',
+				'rsvp-top-level',
+				array( $this, 'rsvp_admin_guestlist' )
 			);
 			add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
 
 			$page = add_submenu_page(
-					'rsvp-events',
-					'Add Guest',
-					'Add Guest',
-					'publish_posts',
-					'rsvp-admin-guest',
-					array( $this, 'rsvp_admin_guest' )
+				'rsvp-events',
+				'Add Guest',
+				'Add Guest',
+				'publish_posts',
+				'rsvp-admin-guest',
+				array( $this, 'rsvp_admin_guest' )
 			);
 			add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
 
 			add_submenu_page(
-					'rsvp-events',
-					'RSVP Export',
-					'RSVP Export',
-					'publish_posts',
-					'rsvp-admin-export',
-					array( $rsvp_helper, 'rsvp_admin_export' )
+				'rsvp-events',
+				'RSVP Export',
+				'RSVP Export',
+				'publish_posts',
+				'rsvp-admin-export',
+				array( $rsvp_helper, 'rsvp_admin_export' )
 			);
 			add_submenu_page(
-					'rsvp-events',
-					'RSVP Import',
-					'RSVP Import',
-					'publish_posts',
-					'rsvp-admin-import',
-					array( $rsvp_helper, 'rsvp_admin_import' )
+				'rsvp-events',
+				'RSVP Import',
+				'RSVP Import',
+				'publish_posts',
+				'rsvp-admin-import',
+				array( $rsvp_helper, 'rsvp_admin_import' )
 			);
 			$page = add_submenu_page(
-					'rsvp-events',
-					'Custom Questions',
-					'Custom Questions',
-					'publish_posts',
-					'rsvp-admin-questions',
-					array( $this, 'rsvp_admin_questions' )
+				'rsvp-events',
+				'Custom Questions',
+				'Custom Questions',
+				'publish_posts',
+				'rsvp-admin-questions',
+				array( $this, 'rsvp_admin_questions' )
 			);
 			add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
 
 			$page = add_submenu_page(
-					'rsvp-events',
-					'RSVP Settings',       // page title
-					'RSVP Settings',       // subpage title
-					'manage_options',      // access
-					'rsvp-options',        // current file
-					array( $this, 'rsvp_admin_guestlist_options' )    // options function above)
+				'rsvp-events',
+				'RSVP Settings',       // page title
+				'RSVP Settings',       // subpage title
+				'manage_options',      // access
+				'rsvp-options',        // current file
+				array( $this, 'rsvp_admin_guestlist_options' )    // options function above)
 			);
 			add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
 
 			$page = add_submenu_page(
-					'rsvp-events',
-					'LITE vs Premium',
-					'<span id="rsvp_upgrade_to_pro_link">LITE vs Premium</span>',
-					'publish_posts',
-					'rsvp-upgrade-to-pro',
-					array( $this, 'rsvp_lite_vs_premium' )
+				'rsvp-events',
+				'LITE vs Premium',
+				'<span id="rsvp_upgrade_to_pro_link">LITE vs Premium</span>',
+				'publish_posts',
+				'rsvp-upgrade-to-pro',
+				array( $this, 'rsvp_lite_vs_premium' )
 			);
 			add_action( 'admin_print_scripts-' . $page, 'rsvp_admin_scripts' );
-
 
 		}
 
@@ -219,32 +218,32 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 				if ( isset( $_POST['attendeeId'] ) && is_numeric( $_POST['attendeeId'] ) && ( $_POST['attendeeId'] > 0 ) ) {
 					$wpdb->update(
-							ATTENDEES_TABLE,
-							array(
-									'firstName'        => rsvp_smart_quote_replace( trim( wp_unslash( $_POST['firstName'] ) ) ),
-									'lastName'         => rsvp_smart_quote_replace( trim( wp_unslash( $_POST['lastName'] ) ) ),
-									'email'            => trim( wp_unslash( $_POST['email'] ) ),
-									'personalGreeting' => trim( wp_unslash( $_POST['personalGreeting'] ) ),
-									'rsvpStatus'       => trim( wp_unslash( $_POST['rsvpStatus'] ) ),
-							),
-							array( 'id' => $_POST['attendeeId'] ),
-							array( '%s', '%s', '%s', '%s', '%s' ),
-							array( '%d' )
+						ATTENDEES_TABLE,
+						array(
+							'firstName'        => rsvp_smart_quote_replace( trim( wp_unslash( $_POST['firstName'] ) ) ),
+							'lastName'         => rsvp_smart_quote_replace( trim( wp_unslash( $_POST['lastName'] ) ) ),
+							'email'            => trim( wp_unslash( $_POST['email'] ) ),
+							'personalGreeting' => trim( wp_unslash( $_POST['personalGreeting'] ) ),
+							'rsvpStatus'       => trim( wp_unslash( $_POST['rsvpStatus'] ) ),
+						),
+						array( 'id' => $_POST['attendeeId'] ),
+						array( '%s', '%s', '%s', '%s', '%s' ),
+						array( '%d' )
 					);
 					$attendeeId = $_POST['attendeeId'];
 					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeId = %d', $attendeeId ) );
 					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE associatedAttendeeID = %d', $attendeeId ) );
 				} else {
 					$wpdb->insert(
-							ATTENDEES_TABLE,
-							array(
-									'firstName'        => rsvp_smart_quote_replace( trim( $_POST['firstName'] ) ),
-									'lastName'         => rsvp_smart_quote_replace( trim( $_POST['lastName'] ) ),
-									'email'            => trim( $_POST['email'] ),
-									'personalGreeting' => trim( $_POST['personalGreeting'] ),
-									'rsvpStatus'       => trim( $_POST['rsvpStatus'] ),
-							),
-							array( '%s', '%s', '%s', '%s', '%s' )
+						ATTENDEES_TABLE,
+						array(
+							'firstName'        => rsvp_smart_quote_replace( trim( $_POST['firstName'] ) ),
+							'lastName'         => rsvp_smart_quote_replace( trim( $_POST['lastName'] ) ),
+							'email'            => trim( $_POST['email'] ),
+							'personalGreeting' => trim( $_POST['personalGreeting'] ),
+							'rsvpStatus'       => trim( $_POST['rsvpStatus'] ),
+						),
+						array( '%s', '%s', '%s', '%s', '%s' )
 					);
 
 					$attendeeId = $wpdb->insert_id;
@@ -253,20 +252,20 @@ if ( ! class_exists( 'RSVP' ) ) {
 					foreach ( $_POST['associatedAttendees'] as $aid ) {
 						if ( is_numeric( $aid ) && ( $aid > 0 ) ) {
 							$wpdb->insert(
-									ASSOCIATED_ATTENDEES_TABLE,
-									array(
-											'attendeeID'           => $attendeeId,
-											'associatedAttendeeID' => $aid,
-									),
-									array( '%d', '%d' )
+								ASSOCIATED_ATTENDEES_TABLE,
+								array(
+									'attendeeID'           => $attendeeId,
+									'associatedAttendeeID' => $aid,
+								),
+								array( '%d', '%d' )
 							);
 							$wpdb->insert(
-									ASSOCIATED_ATTENDEES_TABLE,
-									array(
-											'attendeeID'           => $aid,
-											'associatedAttendeeID' => $attendeeId,
-									),
-									array( '%d', '%d' )
+								ASSOCIATED_ATTENDEES_TABLE,
+								array(
+									'attendeeID'           => $aid,
+									'associatedAttendeeID' => $attendeeId,
+								),
+								array( '%d', '%d' )
 							);
 						}
 					}
@@ -280,22 +279,27 @@ if ( ! class_exists( 'RSVP' ) ) {
 						$passcode = rsvp_generate_passcode();
 					}
 					$wpdb->update(
-							ATTENDEES_TABLE,
-							array( 'passcode' => trim( $passcode ) ),
-							array( 'id' => $attendeeId ),
-							array( '%s' ),
-							array( '%d' )
+						ATTENDEES_TABLE,
+						array( 'passcode' => trim( $passcode ) ),
+						array( 'id' => $attendeeId ),
+						array( '%s' ),
+						array( '%d' )
 					);
 				}
 				?>
-				<p><?php echo sprintf( __( 'Attendee %1$s %2$s has been successfully saved.', 'rsvp-plugin' ),
-							htmlspecialchars( stripslashes( $_POST['firstName'] ) ),
-							htmlspecialchars( stripslashes( $_POST['lastName'] ) )
-					); ?></p>
+				<p>
+				<?php
+				echo sprintf(
+					__( 'Attendee %1$s %2$s has been successfully saved.', 'rsvp-plugin' ),
+					htmlspecialchars( stripslashes( $_POST['firstName'] ) ),
+					htmlspecialchars( stripslashes( $_POST['lastName'] ) )
+				);
+				?>
+					</p>
 				<p>
 					<a href="<?php echo add_query_arg( array( 'page' => 'rsvp-top-level' ), admin_url( 'admin.php' ) ); ?>"
 					   class="button button-secondary"><?php echo __( 'Continue to Attendee List', 'rsvp-plugin' ); ?></a>
-					<a href="<?php echo add_query_arg( array( 'page' => 'rsvp-admin-guest' ), admin_url( 'admin.php' ) ) ?>"
+					<a href="<?php echo add_query_arg( array( 'page' => 'rsvp-admin-guest' ), admin_url( 'admin.php' ) ); ?>"
 					   class="button button-primary"><?php echo __( 'Add a Guest', 'rsvp-plugin' ); ?></a>
 				</p>
 				<?php
@@ -323,7 +327,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 						// Get the associated attendees and add them to an array
 						$associations = $wpdb->get_results(
-								'SELECT associatedAttendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeId = ' . $attendee->id .
+							'SELECT associatedAttendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeId = ' . $attendee->id .
 								' UNION ' .
 								'SELECT attendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE associatedAttendeeID = ' . $attendee->id
 						);
@@ -496,7 +500,6 @@ if ( ! class_exists( 'RSVP' ) ) {
 				return;
 			}
 
-
 			?>
 			<div class="wrap">
 				<div id="icon-edit" class="icon32"><br/></div>
@@ -528,11 +531,11 @@ if ( ! class_exists( 'RSVP' ) ) {
 				$attendees = $wpdb->get_results( $sql );
 				foreach ( $attendees as $a ) {
 					$wpdb->update(
-							ATTENDEES_TABLE,
-							array( 'passcode' => rsvp_generate_passcode() ),
-							array( 'id' => $a->id ),
-							array( '%s' ),
-							array( '%d' )
+						ATTENDEES_TABLE,
+						array( 'passcode' => rsvp_generate_passcode() ),
+						array( 'id' => $a->id ),
+						array( '%s' ),
+						array( '%d' )
 					);
 				}
 			}
@@ -544,14 +547,15 @@ if ( ! class_exists( 'RSVP' ) ) {
 				$attendees = $wpdb->get_results( $sql );
 				foreach ( $attendees as $a ) {
 					$wpdb->update(
-							ATTENDEES_TABLE,
-							array( 'passcode' => rsvp_generate_passcode() ),
-							array( 'id' => $a->id ),
-							array( '%s' ),
-							array( '%d' )
+						ATTENDEES_TABLE,
+						array( 'passcode' => rsvp_generate_passcode() ),
+						array( 'id' => $a->id ),
+						array( '%s' ),
+						array( '%d' )
 					);
 				}
-			} ?>
+			}
+			?>
 			<script type="text/javascript" language="javascript">
 				jQuery( document ).ready( function () {
 					jQuery( "#rsvp_opendate" ).datepicker();
@@ -700,9 +704,11 @@ if ( ! class_exists( 'RSVP' ) ) {
 											for="rsvp_note_verbiage"><?php echo __( 'Note Verbiage:', 'rsvp-plugin' ); ?></label>
 								</th>
 								<td align="left"><textarea name="rsvp_note_verbiage" id="rsvp_note_verbiage" rows="3"
-														   cols="60"><?php
-										echo htmlspecialchars( get_option( OPTION_NOTE_VERBIAGE ) );
-										?></textarea>
+														   cols="60">
+														   <?php
+															echo htmlspecialchars( get_option( OPTION_NOTE_VERBIAGE ) );
+															?>
+										</textarea>
 									<br/>
 									<span class="description"><?php _e( 'Default is: &quot;If you have any food allergies, please indicate what they are in the &quot;notes&quot; section below. Or, if you just want to send us a note, please feel free. If you have any questions, please send us an email.&quot;', 'rsvp-plugin' ); ?></span>
 								</td>
@@ -878,7 +884,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 			</div>
 			<?php
 		}
-		
+
 		/**
 		 * LITE vs Premium page
 		 *
@@ -886,7 +892,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 		 */
 		public function rsvp_lite_vs_premium() {
 
-			include 'upgrade-to-pro-page.php';		
+			include 'upgrade-to-pro-page.php';
 		}
 
 		/**
@@ -931,12 +937,12 @@ if ( ! class_exists( 'RSVP' ) ) {
 		}
 
 		public function admin_scripts() {
-			$screen = get_current_screen();
-			$rsvp_pages = array( 'toplevel_page_rsvp-events', 'rsvp_page_rsvp-options', 'rsvp_page_rsvp-top-level', 'rsvp_page_rsvp-admin-guest', 'rsvp_page_rsvp-admin-import', 'rsvp_page_rsvp-admin-questions', 'rsvp_page_rsvp-options', 'rsvp_page_rsvp-upgrade-to-pro',  );
+			$screen     = get_current_screen();
+			$rsvp_pages = array( 'toplevel_page_rsvp-events', 'rsvp_page_rsvp-options', 'rsvp_page_rsvp-top-level', 'rsvp_page_rsvp-admin-guest', 'rsvp_page_rsvp-admin-import', 'rsvp_page_rsvp-admin-questions', 'rsvp_page_rsvp-options', 'rsvp_page_rsvp-upgrade-to-pro' );
 
-			 if( in_array( $screen->base, $rsvp_pages, true ) ) {
+			if ( in_array( $screen->base, $rsvp_pages, true ) ) {
 				wp_enqueue_style( 'rsvp-admin-style', plugins_url( 'assets/admin/css/rsvp_admin.css', RSVP_PLUGIN_FILE ) );
-			} 
+			}
 		}
 
 	}
