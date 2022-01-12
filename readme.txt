@@ -104,6 +104,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 = 2.7.5 - 11.01.2022 =
 * Fixed: Sanitizations
+* Changed: Text Domain - now same with plugin permalink
 
 = 2.7.4 - 10.01.2022 =
 * Fixed: Custom style loading on all pages. ( https://github.com/WPChill/rsvp/issues/66 )
