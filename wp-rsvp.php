@@ -283,9 +283,9 @@ function rsvp_admin_custom_question() {
 			$wpdb->insert(
 				QUESTIONS_TABLE,
 				array(
-					'question'        => sanitize_text_field( wp_unslash( ( $_POST['question'] ) ),
+					'question'        => sanitize_text_field( wp_unslash( ( $_POST['question'] ) ) ),
 					'questionTypeID'  => absint( $_POST['questionTypeID'] ),
-					'permissionLevel' => ( ( sanitize_text_field( wp_unslash( ( $_POST['permissionLevel'] ) ) == 'private' ) ? 'private' : 'public' ),
+					'permissionLevel' => ( ( sanitize_text_field( wp_unslash( ( $_POST['permissionLevel'] ) ) == 'private' ) ? 'private' : 'public' ) ),
 				),
 				array( '%s', '%d', '%s' )
 			);
@@ -307,7 +307,7 @@ function rsvp_admin_custom_question() {
 			}
 		}
 
-		if ( strToLower( sanitize_text_field( wp_unslash( $_POST['permissionLevel'] ) ) == 'private' ) {
+		if ( strToLower( sanitize_text_field( wp_unslash( $_POST['permissionLevel'] ) ) ) == 'private' ) {
 			$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . QUESTION_ATTENDEES_TABLE . ' WHERE questionID = %d', absint( $questionId ) ) );
 			if ( isset( $_POST['attendees'] ) && is_array( $_POST['attendees'] ) ) {
 				foreach ( array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST['attendees'] ) ) as $aid ) {

@@ -399,8 +399,8 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 		$veggieMeals       = $wpdb->get_results( 'SELECT COUNT(*) AS veggieMealCount FROM ' . ATTENDEES_TABLE . " WHERE veggieMeal = 'Y'" );
 		$all               = $wpdb->get_results( 'SELECT COUNT(*) AS allCount FROM ' . ATTENDEES_TABLE );
 
-		if ( isset( $_GET['event_list'] ) && '' != santize_text_field( wp_unslash( $_GET['event_list'] ) ) ) {
-			$class = santize_text_field( wp_unslash( $_GET['event_list'] ) );
+		if ( isset( $_GET['event_list'] ) && '' != sanitize_text_field( wp_unslash( $_GET['event_list'] ) ) ) {
+			$class = sanitize_text_field( wp_unslash( $_GET['event_list'] ) );
 		} else {
 			$class = 'all';
 		}

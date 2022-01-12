@@ -494,7 +494,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			foreach ( $this->_actions as $name => $title ) {
 				$class = 'edit' == $name ? 'hide-if-no-js' : '';
 
-				echo "\t<option value='" . esc_attr( $name ) . " class='" . esc_attr( $class ) . "'>'" . esc_html( $title ) . "</option>\n";
+				echo "\t<option value='" . esc_attr( $name ) . "' class='" . esc_attr( $class ) . "'>" . esc_html( $title ) . "</option>\n";
 			}
 
 			echo "</select>\n";

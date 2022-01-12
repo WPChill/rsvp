@@ -739,7 +739,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 								</th>
 								<td align="left"><textarea name="rsvp_custom_thankyou" id="rsvp_custom_thankyou"
 														   rows="5"
-														   cols="60"><?php echo esc_html( get_option( OPTION_THANKYOU ) ); ?></textarea>
+														   cols="60"><?php echo esc_textarea( get_option( OPTION_THANKYOU ) ); ?></textarea>
 								</td>
 							</tr>
 							<tr>
