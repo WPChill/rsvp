@@ -325,10 +325,10 @@ function rsvp_admin_custom_question() {
 			}
 		}
 		?>
-		<p><?php echo esc_html__( 'Custom Question saved', 'rsvp-plugin' ); ?></p>
+		<p><?php echo esc_html__( 'Custom Question saved', 'rsvp' ); ?></p>
 		<p>
 			<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'rsvp-admin-questions' ), admin_url( 'admin.php' ) ) ); ?>"
-			   class="button button-secondary"><?php echo esc_html__( 'Continue to Question List', 'rsvp-plugin' ); ?></a>
+			   class="button button-secondary"><?php echo esc_html__( 'Continue to Question List', 'rsvp' ); ?></a>
 			<a href="
 			<?php
 			echo esc_url( add_query_arg(
@@ -340,7 +340,7 @@ function rsvp_admin_custom_question() {
 			) );
 			?>
 			"
-			   class="button button-primary"><?php echo esc_html__( 'Add another Question', 'rsvp-plugin' ); ?></a>
+			   class="button button-primary"><?php echo esc_html__( 'Add another Question', 'rsvp' ); ?></a>
 		</p>
 		<?php
 	} else {
@@ -389,7 +389,7 @@ function rsvp_admin_custom_question() {
 				}
 
 				var s = "<tr>\r\n" +
-						"<td align=\"right\" width=\"75\"><label for=\"newAnswer" + currAnswer + "\"><?php echo esc_html__( 'Answer', 'rsvp-plugin' ); ?>:</label></td>\r\n" +
+						"<td align=\"right\" width=\"75\"><label for=\"newAnswer" + currAnswer + "\"><?php echo esc_html__( 'Answer', 'rsvp' ); ?>:</label></td>\r\n" +
 						"<td><input type=\"text\" name=\"newAnswer" + currAnswer + "\" id=\"newAnswer" + currAnswer + "\" size=\"40\" /></td>\r\n" +
 						"</tr>\r\n";
 				jQuery( "#answerContainer" ).append( s );
@@ -435,12 +435,12 @@ function rsvp_admin_custom_question() {
 			<?php wp_nonce_field( 'rsvp_add_custom_question' ); ?>
 			<p class="submit">
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-admin-questions' ) ); ?>"
-				   class="button button-secondary"><?php esc_html_e( 'Back to custom question list', 'rsvp-plugin' ); ?></a>
-				<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save', 'rsvp-plugin' ); ?>"/>
+				   class="button button-secondary"><?php esc_html_e( 'Back to custom question list', 'rsvp' ); ?></a>
+				<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save', 'rsvp' ); ?>"/>
 			</p>
 			<table id="customQuestions" class="form-table">
 				<tr valign="top">
-					<th scope="row"><label for="questionType"><?php echo esc_html__( 'Question Type', 'rsvp-plugin' ); ?>
+					<th scope="row"><label for="questionType"><?php echo esc_html__( 'Question Type', 'rsvp' ); ?>
 							:</label></th>
 					<td align="left"><select name="questionTypeID" id="questionType" size="1">
 							<?php
@@ -452,22 +452,22 @@ function rsvp_admin_custom_question() {
 					</td>
 				</tr>
 				<tr valign="top">
-					<th scope="row"><label for="question"><?php echo esc_html__( 'Question', 'rsvp-plugin' ); ?>:</label></th>
+					<th scope="row"><label for="question"><?php echo esc_html__( 'Question', 'rsvp' ); ?>:</label></th>
 					<td align="left"><input type="text" name="question" id="question" size="40"
 											value="<?php echo esc_attr( $question ); ?>"/></td>
 				</tr>
 				<tr>
 					<th scope="row"><label
-								for="permissionLevel"><?php echo esc_html__( 'Question Permission Level', 'rsvp-plugin' ); ?>
+								for="permissionLevel"><?php echo esc_html__( 'Question Permission Level', 'rsvp' ); ?>
 							:</label></th>
 					<td align="left"><select name="permissionLevel" id="permissionLevel" size="1">
-							<option value="public" <?php echo ( $permissionLevel == 'public' ) ? ' selected="selected"' : ''; ?>><?php echo esc_html__( 'Everyone', 'rsvp-plugin' ); ?></option>
-							<option value="private" <?php echo ( $permissionLevel == 'private' ) ? ' selected="selected"' : ''; ?>><?php echo esc_html__( 'Select People', 'rsvp-plugin' ); ?></option>
+							<option value="public" <?php echo ( $permissionLevel == 'public' ) ? ' selected="selected"' : ''; ?>><?php echo esc_html__( 'Everyone', 'rsvp' ); ?></option>
+							<option value="private" <?php echo ( $permissionLevel == 'private' ) ? ' selected="selected"' : ''; ?>><?php echo esc_html__( 'Select People', 'rsvp' ); ?></option>
 						</select></td>
 				</tr>
 				<?php if ( ! $isNew && ( $permissionLevel == 'private' ) ) : ?>
 					<tr>
-						<th scope="row"><?php echo esc_html__( 'Private Import Key', 'rsvp-plugin' ); ?>:</th>
+						<th scope="row"><?php echo esc_html__( 'Private Import Key', 'rsvp' ); ?>:</th>
 						<td align="left">pq_<?php echo esc_html( $questionId ); ?></td>
 					</tr>
 				<?php endif; ?>
@@ -475,9 +475,9 @@ function rsvp_admin_custom_question() {
 					<td colspan="2">
 						<table cellpadding="0" cellspacing="0" border="0" id="answerContainer">
 							<tr>
-								<th><?php echo esc_html__( 'Answers', 'rsvp-plugin' ); ?></th>
+								<th><?php echo esc_html__( 'Answers', 'rsvp' ); ?></th>
 								<th align="right"><a href="#"
-													 onclick="return addAnswer();"><?php echo esc_html__( 'Add new Answer', 'rsvp-plugin' ); ?></a>
+													 onclick="return addAnswer();"><?php echo esc_html__( 'Add new Answer', 'rsvp' ); ?></a>
 								</th>
 							</tr>
 							<?php
@@ -488,7 +488,7 @@ function rsvp_admin_custom_question() {
 										?>
 										<tr>
 											<td width="75" align="right"><label
-														for="answer<?php echo esc_attr( $answer->id ); ?>"><?php echo esc_html__( 'Answer', 'rsvp-plugin' ); ?>
+														for="answer<?php echo esc_attr( $answer->id ); ?>"><?php echo esc_html__( 'Answer', 'rsvp' ); ?>
 													:</label></td>
 											<td><input type="text" name="answer<?php echo esc_attr( $answer->id ); ?>"
 													   id="answer<?php echo esc_attr( $answer->id ); ?>" size="40"
@@ -497,7 +497,7 @@ function rsvp_admin_custom_question() {
 															  name="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"
 															  id="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"
 															  value="Y"/><label
-														for="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"><?php echo esc_html__( 'Delete', 'rsvp-plugin' ); ?></label>
+														for="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"><?php echo esc_html__( 'Delete', 'rsvp' ); ?></label>
 											</td>
 										</tr>
 										<?php
@@ -510,12 +510,12 @@ function rsvp_admin_custom_question() {
 				</tr>
 				<tr id="attendeesArea">
 					<th scope="row"><label
-								for="attendees"><?php echo esc_html__( 'Attendees allowed to answer this question', 'rsvp-plugin' ); ?>
+								for="attendees"><?php echo esc_html__( 'Attendees allowed to answer this question', 'rsvp' ); ?>
 							:</label></th>
 					<td>
 						<p>
-							<span style="margin-left: 30px;"><?php esc_html_e( 'Available people', 'rsvp-plugin' ); ?></span>
-							<span style="margin-left: 65px;"><?php esc_html_e( 'People that have access', 'rsvp-plugin' ); ?></span>
+							<span style="margin-left: 30px;"><?php esc_html_e( 'Available people', 'rsvp' ); ?></span>
+							<span style="margin-left: 65px;"><?php esc_html_e( 'People that have access', 'rsvp' ); ?></span>
 						</p>
 						<select name="attendees[]" id="attendeesQuestionSelect" style="height:75px;"
 								multiple="multiple">
@@ -634,19 +634,19 @@ function rsvp_front_scripts() {
 		'rsvp_plugin',
 		'rsvp_plugin_vars',
 		array(
-			'askEmail'               => __( 'Please enter an email address that we can use to contact you about the extra guest.  We have to keep a pretty close eye on the number of attendees.  Thanks!', 'rsvp-plugin' ),
-			'customNote'             => __( 'If you are adding additional RSVPs please enter your email address in case we have questions', 'rsvp-plugin' ),
-			'newAttending1LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
-			'newAttending1FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
-			'newAttending2LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
-			'newAttending2FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
-			'newAttending3LastName'  => __( 'Please enter a last name', 'rsvp-plugin' ),
-			'newAttending3FirstName' => __( 'Please enter a first name', 'rsvp-plugin' ),
-			'attendeeFirstName'      => __( 'Please enter a first name', 'rsvp-plugin' ),
-			'attendeeLastName'       => __( 'Please enter a last name', 'rsvp-plugin' ),
-			'firstName'              => __( 'Please enter your first name', 'rsvp-plugin' ),
-			'lastName'               => __( 'Please enter your last name', 'rsvp-plugin' ),
-			'passcode'               => __( 'Please enter your password', 'rsvp-plugin' ),
+			'askEmail'               => __( 'Please enter an email address that we can use to contact you about the extra guest.  We have to keep a pretty close eye on the number of attendees.  Thanks!', 'rsvp' ),
+			'customNote'             => __( 'If you are adding additional RSVPs please enter your email address in case we have questions', 'rsvp' ),
+			'newAttending1LastName'  => __( 'Please enter a last name', 'rsvp' ),
+			'newAttending1FirstName' => __( 'Please enter a first name', 'rsvp' ),
+			'newAttending2LastName'  => __( 'Please enter a last name', 'rsvp' ),
+			'newAttending2FirstName' => __( 'Please enter a first name', 'rsvp' ),
+			'newAttending3LastName'  => __( 'Please enter a last name', 'rsvp' ),
+			'newAttending3FirstName' => __( 'Please enter a first name', 'rsvp' ),
+			'attendeeFirstName'      => __( 'Please enter a first name', 'rsvp' ),
+			'attendeeLastName'       => __( 'Please enter a last name', 'rsvp' ),
+			'firstName'              => __( 'Please enter your first name', 'rsvp' ),
+			'lastName'               => __( 'Please enter your last name', 'rsvp' ),
+			'passcode'               => __( 'Please enter your password', 'rsvp' ),
 		)
 	);
 
@@ -666,7 +666,7 @@ function rsvp_add_privacy_policy_content() {
 		'All information entered either from an attendee or a WordPress admin for the RSVP 
 	         plugin is never sent to external sites. The data stays in database tables 
 	        on the WordPress instance.',
-		'rsvp_plugin'
+		'rsvp'
 	);
 
 	wp_add_privacy_policy_content(
@@ -698,7 +698,7 @@ function rsvp_data_eraser_handler( $email_address, $page = 1 ) {
 	return array(
 		'items_removed'  => $num_deleted,
 		'items_retained' => false, // We never retain items.
-		'messages'       => array( __( 'RSVP Data Erased Successfully', 'rsvp-plugin' ) ),
+		'messages'       => array( __( 'RSVP Data Erased Successfully', 'rsvp' ) ),
 		'done'           => true,
 	);
 }
@@ -714,7 +714,7 @@ function rsvp_data_eraser_handler( $email_address, $page = 1 ) {
  */
 function rsvp_register_data_eraser( $erasers ) {
 	$erasers['rsvp-plugin'] = array(
-		'eraser_friendly_name' => __( 'RSVP Plugin', 'rsvp-plugin' ),
+		'eraser_friendly_name' => __( 'RSVP Plugin', 'rsvp' ),
 		'callback'             => 'rsvp_data_eraser_handler',
 	);
 
@@ -804,7 +804,7 @@ function rsvp_smart_quote_replace( $in ) {
  */
 function rsvp_register_data_exporter( $exporters ) {
 	$exporters['rsvp-plugin'] = array(
-		'exporter_friendly_name' => __( 'RSVP Plugin', 'rsvp_plugin' ),
+		'exporter_friendly_name' => __( 'RSVP Plugin', 'rsvp' ),
 		'callback'               => 'rsvp_data_exporter_handler',
 	);
 

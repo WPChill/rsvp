@@ -252,21 +252,21 @@ class RSVP_Helper {
 
 			$attendees = $this->get_attendees( $orderby, $order );
 
-			$csv = '"' . esc_html__( 'First Name', 'rsvp-plugin' ) . '","' . esc_html__( 'Last Name', 'rsvp-plugin' ) . '","' . esc_html__( 'Email', 'rsvp-plugin' ) . '","' . esc_html__( 'RSVP Status', 'rsvp-plugin' ) . '",';
+			$csv = '"' . esc_html__( 'First Name', 'rsvp' ) . '","' . esc_html__( 'Last Name', 'rsvp' ) . '","' . esc_html__( 'Email', 'rsvp' ) . '","' . esc_html__( 'RSVP Status', 'rsvp' ) . '",';
 
 			if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ) {
-				$csv .= '"' . esc_html__( 'Kids Meal', 'rsvp-plugin' ) . '",';
+				$csv .= '"' . esc_html__( 'Kids Meal', 'rsvp' ) . '",';
 			}
 
-			$csv .= '"' . esc_html__( 'Associated Attendees', 'rsvp-plugin' ) . '",';
+			$csv .= '"' . esc_html__( 'Associated Attendees', 'rsvp' ) . '",';
 
 			if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ) {
-				$csv .= '"' . esc_html__( 'Vegetarian', 'rsvp-plugin' ) . '",';
+				$csv .= '"' . esc_html__( 'Vegetarian', 'rsvp' ) . '",';
 			}
 			if ( rsvp_require_passcode() ) {
-				$csv .= '"' . esc_html__( 'Passcode', 'rsvp-plugin' ) . '",';
+				$csv .= '"' . esc_html__( 'Passcode', 'rsvp' ) . '",';
 			}
-			$csv .= '"' . esc_html__( 'Note', 'rsvp-plugin' ) . '"';
+			$csv .= '"' . esc_html__( 'Note', 'rsvp' ) . '"';
 
 			$qRs = $wpdb->get_results( 'SELECT id, question, permissionLevel FROM ' . QUESTIONS_TABLE . ' ORDER BY sortOrder, id' );
 			if ( count( $qRs ) > 0 ) {
@@ -278,8 +278,8 @@ class RSVP_Helper {
 				}
 			}
 
-			$csv .= ',"' . esc_html__( 'Additional Attendee', 'rsvp-plugin' ) . '"';
-			$csv .= ',"' . esc_html__( 'pre-fill URL', 'rsvp-plugin' ) . '"';
+			$csv .= ',"' . esc_html__( 'Additional Attendee', 'rsvp' ) . '"';
+			$csv .= ',"' . esc_html__( 'pre-fill URL', 'rsvp' ) . '"';
 
 			$csv .= "\r\n";
 
@@ -378,7 +378,7 @@ class RSVP_Helper {
 
 			if ( null === $file_type ) {
 				?>
-				<p><?php esc_html_e( 'Unsupported file type, only XLSX, CSV, and ODS are supported.', 'rsvp-plugin' ); ?></p>
+				<p><?php esc_html_e( 'Unsupported file type, only XLSX, CSV, and ODS are supported.', 'rsvp' ); ?></p>
 				<?php
 				return;
 			}
@@ -566,30 +566,30 @@ class RSVP_Helper {
 				break;
 			}
 			?>
-			<p><strong><?php echo esc_html( $count ); ?></strong> <?php echo esc_html__( 'total records were imported', 'rsvp-plugin' ); ?>.
+			<p><strong><?php echo esc_html( $count ); ?></strong> <?php echo esc_html__( 'total records were imported', 'rsvp' ); ?>.
 			</p>
-			<p><?php echo esc_html__( 'Continue to the RSVP', 'rsvp-plugin' ); ?> <a
-						href="admin.php?page=rsvp-top-level"><?php echo esc_html__( 'list', 'rsvp-plugin' ); ?></a></p>
+			<p><?php echo esc_html__( 'Continue to the RSVP', 'rsvp' ); ?> <a
+						href="admin.php?page=rsvp-top-level"><?php echo esc_html__( 'list', 'rsvp' ); ?></a></p>
 			<?php
 		} else {
 			?>
 			<form name="rsvp_import" method="post" enctype="multipart/form-data">
 				<?php wp_nonce_field( 'rsvp-import' ); ?>
-				<p><?php echo esc_html__( 'Select a file in the following file format: XLSX, CSV and ODS. It has to have the following layout:', 'rsvp-plugin' ); ?>
+				<p><?php echo esc_html__( 'Select a file in the following file format: XLSX, CSV and ODS. It has to have the following layout:', 'rsvp' ); ?>
 					<br/>
-					<strong><?php echo esc_html__( 'First Name', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo esc_html__( 'Last Name', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo esc_html__( 'Email', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo esc_html__( 'RSVP Status', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo esc_html__( 'Kids Meal', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo esc_html__( 'Associated Attendees', 'rsvp-plugin' ); ?>*</strong> |
-					<strong><?php echo esc_html__( 'Vegetarian', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo esc_html__( 'Passcode', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo esc_html__( 'Note', 'rsvp-plugin' ); ?></strong> |
-					<strong><?php echo esc_html__( 'Private Question Association', 'rsvp-plugin' ); ?>**</strong>
+					<strong><?php echo esc_html__( 'First Name', 'rsvp' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Last Name', 'rsvp' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Email', 'rsvp' ); ?></strong> |
+					<strong><?php echo esc_html__( 'RSVP Status', 'rsvp' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Kids Meal', 'rsvp' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Associated Attendees', 'rsvp' ); ?>*</strong> |
+					<strong><?php echo esc_html__( 'Vegetarian', 'rsvp' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Passcode', 'rsvp' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Note', 'rsvp' ); ?></strong> |
+					<strong><?php echo esc_html__( 'Private Question Association', 'rsvp' ); ?>**</strong>
 				</p>
 				<p>
-					* <?php echo esc_html__( 'associated attendees should be separated by a comma it is assumed that the first space encountered will separate the first and last name.', 'rsvp-plugin' ); ?>
+					* <?php echo esc_html__( 'associated attendees should be separated by a comma it is assumed that the first space encountered will separate the first and last name.', 'rsvp' ); ?>
 				</p>
 				<p>
 					**
@@ -597,7 +597,7 @@ class RSVP_Helper {
 					echo esc_html__(
 						'This can be multiple columns each column is associated with one of the following private questions. If you wish
       to have the guest associated with the question put a &quot;Y&quot; in the column otherwise put whatever else you want. The header name will be the &quot;private import key&quot; which is also listed below. It has the format of pq_* where * is a number.',
-						'rsvp-plugin'
+						'rsvp'
 					);
 					?>
 				<ul>
@@ -612,7 +612,7 @@ class RSVP_Helper {
 					?>
 				</ul>
 				</p>
-				<p><?php echo esc_html__( 'A header row is always expected.', 'rsvp-plugin' ); ?></p>
+				<p><?php echo esc_html__( 'A header row is always expected.', 'rsvp' ); ?></p>
 				<p><input type="file" name="importFile" id="importFile"/></p>
 				<p><input type="submit" value="Import File" name="goRsvp"/></p>
 			</form>

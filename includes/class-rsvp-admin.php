@@ -160,7 +160,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 			<div class="wrap">
 				<div id="icon-edit" class="icon32"><br/></div>
-				<h1 class="wp-heading-inline"><?php echo esc_html__( 'RSVP Events', 'rsvp-plugin' ); ?></h1>
+				<h1 class="wp-heading-inline"><?php echo esc_html__( 'RSVP Events', 'rsvp' ); ?></h1>
 				<hr class="wp-header-end">
 
 				<?php
@@ -189,9 +189,9 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 			<div class="wrap">
 				<div id="icon-edit" class="icon32"><br/></div>
-				<h1 class="wp-heading-inline"><?php echo esc_html__( 'List of current attendees', 'rsvp-plugin' ); ?></h1>
+				<h1 class="wp-heading-inline"><?php echo esc_html__( 'List of current attendees', 'rsvp' ); ?></h1>
 				<a class="page-title-action"
-				   href="<?php echo esc_url( add_query_arg( array( 'page' => 'rsvp-admin-guest' ), admin_url( 'admin.php' ) ) ); ?>"><?php esc_html_e( 'Add Guest', 'rsvp-plugin' ); ?></a>
+				   href="<?php echo esc_url( add_query_arg( array( 'page' => 'rsvp-admin-guest' ), admin_url( 'admin.php' ) ) ); ?>"><?php esc_html_e( 'Add Guest', 'rsvp' ); ?></a>
 				<hr class="wp-header-end">
 				<?php
 
@@ -211,7 +211,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 		public function rsvp_admin_guest() {
 			global $wpdb;
 			$rsvp_helper = RSVP_Helper::get_instance();
-			echo '<div class="wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Add guest', 'rsvp-plugin' ) . '</h1><hr class="wp-header-end">';
+			echo '<div class="wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Add guest', 'rsvp' ) . '</h1><hr class="wp-header-end">';
 			if ( ( count( $_POST ) > 0 ) && ! empty( $_POST['firstName'] ) && ! empty( $_POST['lastName'] ) ) {
 				check_admin_referer( 'rsvp_add_guest' );
 				$passcode = ( isset( $_POST['passcode'] ) ) ? sanitize_text_field( wp_unslash( $_POST['passcode'] ) ) : '';
@@ -290,7 +290,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 				<p>
 				<?php
 				echo sprintf(
-					esc_html__( 'Attendee %1$s %2$s has been successfully saved.', 'rsvp-plugin' ),
+					esc_html__( 'Attendee %1$s %2$s has been successfully saved.', 'rsvp' ),
 					esc_html( sanitize_text_field( wp_unslash( $_POST['firstName'] ) ) ),
 					esc_html( sanitize_text_field( wp_unslash( $_POST['lastName'] ) ) )
 				);
@@ -298,9 +298,9 @@ if ( ! class_exists( 'RSVP' ) ) {
 					</p>
 				<p>
 					<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'rsvp-top-level' ), admin_url( 'admin.php' ) ) ); ?>"
-					   class="button button-secondary"><?php echo esc_html__( 'Continue to Attendee List', 'rsvp-plugin' ); ?></a>
+					   class="button button-secondary"><?php echo esc_html__( 'Continue to Attendee List', 'rsvp' ); ?></a>
 					<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'rsvp-admin-guest' ), admin_url( 'admin.php' ) ) ); ?>"
-					   class="button button-primary"><?php echo esc_html__( 'Add a Guest', 'rsvp-plugin' ); ?></a>
+					   class="button button-primary"><?php echo esc_html__( 'Add a Guest', 'rsvp' ); ?></a>
 				</p>
 				<?php
 			} else {
@@ -342,24 +342,24 @@ if ( ! class_exists( 'RSVP' ) ) {
 						<?php wp_nonce_field( 'rsvp_add_guest' ); ?>
 						<input type="hidden" name="attendeeId" value="<?php echo absint( $attendeeId ); ?>"/>
 						<p class="submit">
-							<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save', 'rsvp-plugin' ); ?>"/>
+							<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save', 'rsvp' ); ?>"/>
 						</p>
 						<table class="form-table">
 							<tr valign="top">
-								<th scope="row"><label for="firstName"><?php echo esc_html__( 'First Name', 'rsvp-plugin' ); ?>
+								<th scope="row"><label for="firstName"><?php echo esc_html__( 'First Name', 'rsvp' ); ?>
 										:</label>
 								</th>
 								<td align="left"><input type="text" name="firstName" id="firstName" size="30"
 														value="<?php echo esc_attr( $firstName ); ?>"/></td>
 							</tr>
 							<tr valign="top">
-								<th scope="row"><label for="lastName"><?php echo esc_html__( 'Last Name', 'rsvp-plugin' ); ?>
+								<th scope="row"><label for="lastName"><?php echo esc_html__( 'Last Name', 'rsvp' ); ?>
 										:</label></th>
 								<td align="left"><input type="text" name="lastName" id="lastName" size="30"
 														value="<?php echo esc_attr( $lastName ); ?>"/></td>
 							</tr>
 							<tr valign="top">
-								<th scope="row"><label for="email"><?php echo esc_html__( 'Email', 'rsvp-plugin' ); ?>:</label>
+								<th scope="row"><label for="email"><?php echo esc_html__( 'Email', 'rsvp' ); ?>:</label>
 								</th>
 								<td align="left"><input type="text" name="email" id="email" size="30"
 														value="<?php echo esc_attr( $email ); ?>"/></td>
@@ -368,7 +368,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							if ( rsvp_require_passcode() ) {
 								?>
 								<tr valign="top">
-									<th scope="row"><label for="passcode"><?php echo esc_html__( 'Passcode', 'rsvp-plugin' ); ?>
+									<th scope="row"><label for="passcode"><?php echo esc_html__( 'Passcode', 'rsvp' ); ?>
 											:</label>
 									</th>
 									<td align="left"><input type="text" name="passcode" id="passcode" size="30"
@@ -379,7 +379,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							?>
 							<tr>
 								<th scope="row"><label
-											for="rsvpStatus"><?php echo esc_html__( 'RSVP Status', 'rsvp-plugin' ); ?></label>
+											for="rsvpStatus"><?php echo esc_html__( 'RSVP Status', 'rsvp' ); ?></label>
 								</th>
 								<td align="left">
 									<select name="rsvpStatus" id="rsvpStatus" size="1">
@@ -387,23 +387,23 @@ if ( ! class_exists( 'RSVP' ) ) {
 												<?php
 												echo( ( $rsvpStatus == 'NoResponse' ) ? ' selected="selected"' : '' );
 												?>
-										><?php echo esc_html__( 'No Response', 'rsvp-plugin' ); ?></option>
+										><?php echo esc_html__( 'No Response', 'rsvp' ); ?></option>
 										<option value="Yes"
 												<?php
 												echo( ( $rsvpStatus == 'Yes' ) ? ' selected="selected"' : '' );
 												?>
-										><?php echo esc_html__( 'Yes', 'rsvp-plugin' ); ?></option>
+										><?php echo esc_html__( 'Yes', 'rsvp' ); ?></option>
 										<option value="No"
 												<?php
 												echo( ( $rsvpStatus == 'No' ) ? ' selected="selected"' : '' );
 												?>
-										><?php echo esc_html__( 'No', 'rsvp-plugin' ); ?></option>
+										><?php echo esc_html__( 'No', 'rsvp' ); ?></option>
 									</select>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row" valign="top"><label
-											for="personalGreeting"><?php echo esc_html__( 'Custom Message', 'rsvp-plugin' ); ?>
+											for="personalGreeting"><?php echo esc_html__( 'Custom Message', 'rsvp' ); ?>
 										:</label>
 								</th>
 								<td align="left"><textarea name="personalGreeting" id="personalGreeting" rows="5"
@@ -411,11 +411,11 @@ if ( ! class_exists( 'RSVP' ) ) {
 								</td>
 							</tr>
 							<tr valign="top">
-								<th scope="row"><?php echo esc_html__( 'Associated Attendees', 'rsvp-plugin' ); ?>:</th>
+								<th scope="row"><?php echo esc_html__( 'Associated Attendees', 'rsvp' ); ?>:</th>
 								<td align="left">
 									<p>
-										<span style="margin-left: -5px;"><?php esc_html_e( 'Non-Associated Attendees', 'rsvp-plugin' ); ?></span>
-										<span style="margin-left:26px;"><?php esc_html_e( 'Associated Attendees', 'rsvp-plugin' ); ?></span>
+										<span style="margin-left: -5px;"><?php esc_html_e( 'Non-Associated Attendees', 'rsvp' ); ?></span>
+										<span style="margin-left:26px;"><?php esc_html_e( 'Associated Attendees', 'rsvp' ); ?></span>
 									</p>
 									<select name="associatedAttendees[]" id="associatedAttendeesSelect"
 											multiple="multiple"
@@ -447,12 +447,12 @@ if ( ! class_exists( 'RSVP' ) ) {
 									?>
 									<tr>
 										<td colspan="2">
-											<h4><?php echo esc_html__( 'Custom Questions Answered', 'rsvp-plugin' ); ?></h4>
+											<h4><?php echo esc_html__( 'Custom Questions Answered', 'rsvp' ); ?></h4>
 											<table cellpadding="2" cellspacing="0" border="0"
 												   class="rsvp-answered-questions">
 												<tr>
-													<th><?php echo esc_html__( 'Question', 'rsvp-plugin' ); ?></th>
-													<th><?php echo esc_html__( 'Answer', 'rsvp-plugin' ); ?></th>
+													<th><?php echo esc_html__( 'Question', 'rsvp' ); ?></th>
+													<th><?php echo esc_html__( 'Answer', 'rsvp' ); ?></th>
 												</tr>
 												<?php
 												foreach ( $aRs as $a ) {
@@ -473,7 +473,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							?>
 						</table>
 						<p class="submit">
-							<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save', 'rsvp-plugin' ); ?>"/>
+							<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save', 'rsvp' ); ?>"/>
 						</p>
 					</form>
 				</div>
@@ -503,7 +503,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 			?>
 			<div class="wrap">
 				<div id="icon-edit" class="icon32"><br/></div>
-				<h1 class="wp-heading-inline"><?php echo esc_html__( 'List of current custom questions', 'rsvp-plugin' ); ?></h1>
+				<h1 class="wp-heading-inline"><?php echo esc_html__( 'List of current custom questions', 'rsvp' ); ?></h1>
 				<a href="<?php echo esc_url( add_query_arg( 'action', 'add' ) ); ?>"
 				   class="page-title-action"><?php esc_html_e( 'Add New', 'rsvp' ); ?></a>
 				<hr class="wp-header-end">
@@ -563,14 +563,14 @@ if ( ! class_exists( 'RSVP' ) ) {
 				} );
 			</script>
 			<div class="wrap">
-				<h2><?php echo esc_html__( 'RSVP Plugin Settings', 'rsvp-plugin' ); ?></h2>
+				<h2><?php echo esc_html__( 'RSVP Plugin Settings', 'rsvp' ); ?></h2>
 				<div class="rsvp-left-panel">
 					<form method="post" action="options.php">
 						<?php settings_fields( 'rsvp-option-group' ); ?>
 						<table class="form-table">
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_opendate"><?php echo esc_html__( 'RSVP Open Date:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_opendate"><?php echo esc_html__( 'RSVP Open Date:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="text" name="rsvp_opendate" id="rsvp_opendate"
 														value="<?php echo esc_attr( get_option( OPTION_OPENDATE ) ); ?>"/>
@@ -578,7 +578,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_deadline"><?php echo esc_html__( 'RSVP Deadline:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_deadline"><?php echo esc_html__( 'RSVP Deadline:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="text" name="rsvp_deadline" id="rsvp_deadline"
 														value="<?php echo esc_attr( get_option( OPTION_DEADLINE ) ); ?>"/>
@@ -586,18 +586,18 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_num_additional_guests"><?php echo esc_html__( 'Number of Additional Guests Allowed:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_num_additional_guests"><?php echo esc_html__( 'Number of Additional Guests Allowed:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="text" name="rsvp_num_additional_guests"
 														id="rsvp_num_additional_guests"
 														value="<?php echo esc_attr( get_option( OPTION_RSVP_NUM_ADDITIONAL_GUESTS ) ); ?>"/>
 									<br/>
-									<span class="description"><?php esc_html_e( 'Default is three', 'rsvp-plugin' ); ?></span>
+									<span class="description"><?php esc_html_e( 'Default is three', 'rsvp' ); ?></span>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_custom_greeting"><?php echo esc_html__( 'Custom Greeting:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_custom_greeting"><?php echo esc_html__( 'Custom Greeting:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><textarea name="rsvp_custom_greeting" id="rsvp_custom_greeting"
 														   rows="5"
@@ -606,73 +606,73 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_custom_welcome"><?php echo esc_html__( 'Custom Welcome:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_custom_welcome"><?php echo esc_html__( 'Custom Welcome:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left">
 						<textarea name="rsvp_custom_welcome" id="rsvp_custom_welcome" rows="5"
 								  cols="60"><?php echo esc_html( get_option( OPTION_WELCOME_TEXT ) ); ?></textarea>
 									<br/>
-									<span class="description"><?php esc_html_e( 'Default is: &quot;There are a few more questions we need to ask you if you could please fill them out below to finish up the RSVP process.&quot;', 'rsvp-plugin' ); ?></span>
+									<span class="description"><?php esc_html_e( 'Default is: &quot;There are a few more questions we need to ask you if you could please fill them out below to finish up the RSVP process.&quot;', 'rsvp' ); ?></span>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="<?php echo esc_attr( OPTION_RSVP_EMAIL_TEXT ); ?>"><?php echo wp_kses_post( __('Email Text: <br />Sent to guests in confirmation, at top of email', 'rsvp-plugin' ) ); ?></label>
+											for="<?php echo esc_attr( OPTION_RSVP_EMAIL_TEXT ); ?>"><?php echo wp_kses_post( __('Email Text: <br />Sent to guests in confirmation, at top of email', 'rsvp' ) ); ?></label>
 								</th>
 								<td align="left"><textarea name="<?php echo esc_attr( OPTION_RSVP_EMAIL_TEXT ); ?>"
 														   id="<?php echo esc_attr( OPTION_RSVP_EMAIL_TEXT ); ?>" rows="5"
-														   cols="60"><?php echo esc_html__( get_option( OPTION_RSVP_EMAIL_TEXT ) ); ?></textarea>
+														   cols="60"><?php echo esc_html( get_option( OPTION_RSVP_EMAIL_TEXT ) ); ?></textarea>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_custom_question_text"><?php echo esc_html__( 'RSVP Question Verbiage:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_custom_question_text"><?php echo esc_html__( 'RSVP Question Verbiage:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left">
 									<input type="text" name="rsvp_custom_question_text" id="rsvp_custom_question_text"
 										   value="<?php echo esc_attr( get_option( OPTION_RSVP_QUESTION ) ); ?>"
 										   size="65"/>
 									<br/>
-									<span class="description"><?php echo esc_html__( 'Default is: &quot;So, how about it?&quot;', 'rsvp-plugin' ); ?></span>
+									<span class="description"><?php echo esc_html__( 'Default is: &quot;So, how about it?&quot;', 'rsvp' ); ?></span>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_yes_verbiage"><?php echo esc_html__( 'RSVP Yes Verbiage:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_yes_verbiage"><?php echo esc_html__( 'RSVP Yes Verbiage:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="text" name="rsvp_yes_verbiage" id="rsvp_yes_verbiage"
 														value="<?php echo esc_attr( get_option( OPTION_YES_VERBIAGE ) ); ?>"
 														size="65"/>
 									<br/>
-									<span class="description"><?php esc_html_e( 'Default is: &quot;Yes, I will attend.&quot;', 'rsvp-plugin' ); ?></span>
+									<span class="description"><?php esc_html_e( 'Default is: &quot;Yes, I will attend.&quot;', 'rsvp' ); ?></span>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_no_verbiage"><?php echo esc_html__( 'RSVP No Verbiage:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_no_verbiage"><?php echo esc_html__( 'RSVP No Verbiage:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="text" name="rsvp_no_verbiage" id="rsvp_no_verbiage"
 														value="<?php echo esc_attr( get_option( OPTION_NO_VERBIAGE ) ); ?>"
 														size="65"/>
 									<br/>
-									<span class="description"><?php esc_html_e( 'Default is: &quot;No, I will not be able to attend.&quot;', 'rsvp-plugin' ); ?></span>
+									<span class="description"><?php esc_html_e( 'Default is: &quot;No, I will not be able to attend.&quot;', 'rsvp' ); ?></span>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_kids_meal_verbiage"><?php echo esc_html__( 'RSVP Kids Meal Verbiage:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_kids_meal_verbiage"><?php echo esc_html__( 'RSVP Kids Meal Verbiage:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="text" name="rsvp_kids_meal_verbiage"
 														id="rsvp_kids_meal_verbiage"
 														value="<?php echo esc_attr( get_option( OPTION_KIDS_MEAL_VERBIAGE ) ); ?>"
 														size="65"/>
 									<br/>
-									<span class="description"><?php esc_html_e( 'Default is: &quot;We have the option of getting cheese pizza for the kids (and only kids). Do you want pizza instead of \'adult food?\'&quot;', 'rsvp-plugin' ); ?></span>
+									<span class="description"><?php esc_html_e( 'Default is: &quot;We have the option of getting cheese pizza for the kids (and only kids). Do you want pizza instead of \'adult food?\'&quot;', 'rsvp' ); ?></span>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_hide_kids_meal"><?php echo esc_html__( 'Hide Kids Meal Question:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_hide_kids_meal"><?php echo esc_html__( 'Hide Kids Meal Question:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox" name="rsvp_hide_kids_meal"
 														id="rsvp_hide_kids_meal"
@@ -681,19 +681,19 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_veggie_meal_verbiage"><?php echo esc_html__( 'RSVP Vegetarian Meal Verbiage:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_veggie_meal_verbiage"><?php echo esc_html__( 'RSVP Vegetarian Meal Verbiage:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="text" name="rsvp_veggie_meal_verbiage"
 														id="rsvp_veggie_meal_verbiage"
 														value="<?php echo esc_attr( get_option( OPTION_VEGGIE_MEAL_VERBIAGE ) ); ?>"
 														size="65"/>
 									<br/>
-									<span class="description"><?php esc_html_e( 'Default is: &quot;We also have the option of getting individual vegetarian meals instead of the fish or meat. Would you like a vegetarian dinner?&quot;', 'rsvp-plugin' ); ?></span>
+									<span class="description"><?php esc_html_e( 'Default is: &quot;We also have the option of getting individual vegetarian meals instead of the fish or meat. Would you like a vegetarian dinner?&quot;', 'rsvp' ); ?></span>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_hide_veggie"><?php echo esc_html__( 'Hide Vegetarian Meal Question:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_hide_veggie"><?php echo esc_html__( 'Hide Vegetarian Meal Question:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox" name="rsvp_hide_veggie" id="rsvp_hide_veggie"
 														value="Y" <?php echo( ( get_option( OPTION_HIDE_VEGGIE ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
@@ -701,7 +701,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_note_verbiage"><?php echo esc_html__( 'Note Verbiage:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_note_verbiage"><?php echo esc_html__( 'Note Verbiage:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><textarea name="rsvp_note_verbiage" id="rsvp_note_verbiage" rows="3"
 														   cols="60">
@@ -710,12 +710,12 @@ if ( ! class_exists( 'RSVP' ) ) {
 															?>
 										</textarea>
 									<br/>
-									<span class="description"><?php esc_html_e( 'Default is: &quot;If you have any food allergies, please indicate what they are in the &quot;notes&quot; section below. Or, if you just want to send us a note, please feel free. If you have any questions, please send us an email.&quot;', 'rsvp-plugin' ); ?></span>
+									<span class="description"><?php esc_html_e( 'Default is: &quot;If you have any food allergies, please indicate what they are in the &quot;notes&quot; section below. Or, if you just want to send us a note, please feel free. If you have any questions, please send us an email.&quot;', 'rsvp' ); ?></span>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_hide_note_field"><?php echo esc_html__( 'Hide Note Field:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_hide_note_field"><?php echo esc_html__( 'Hide Note Field:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox" name="rsvp_hide_note_field"
 														id="rsvp_hide_note_field"
@@ -725,7 +725,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="<?php echo esc_attr( OPTION_RSVP_HIDE_EMAIL_FIELD ); ?>"><?php echo esc_html__( 'Hide email field on rsvp form:', 'rsvp-plugin' ); ?></label>
+											for="<?php echo esc_attr( OPTION_RSVP_HIDE_EMAIL_FIELD ); ?>"><?php echo esc_html__( 'Hide email field on rsvp form:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox"
 														name="<?php echo esc_attr( OPTION_RSVP_HIDE_EMAIL_FIELD ); ?>"
@@ -735,7 +735,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_custom_thankyou"><?php echo esc_html__( 'Custom Thank You:', 'rsvp-plugin' ); ?></label>
+											for="rsvp_custom_thankyou"><?php echo esc_html__( 'Custom Thank You:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><textarea name="rsvp_custom_thankyou" id="rsvp_custom_thankyou"
 														   rows="5"
@@ -744,7 +744,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr>
 								<th scope="row"><label
-											for="rsvp_hide_add_additional"><?php echo esc_html__( 'Do not allow additional guests', 'rsvp-plugin' ); ?></label>
+											for="rsvp_hide_add_additional"><?php echo esc_html__( 'Do not allow additional guests', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox" name="rsvp_hide_add_additional"
 														id="rsvp_hide_add_additional" value="Y"
@@ -753,7 +753,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="<?php echo esc_attr( OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE ); ?>"><?php echo esc_html__( 'Add Additional Verbiage:', 'rsvp-plugin' ); ?></label>
+											for="<?php echo esc_attr( OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE ); ?>"><?php echo esc_html__( 'Add Additional Verbiage:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="text"
 														name="<?php echo esc_attr( OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE ); ?>"
@@ -761,12 +761,12 @@ if ( ! class_exists( 'RSVP' ) ) {
 														value="<?php echo esc_attr( get_option( OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE ) ); ?>"
 														size="65"/>
 									<br/>
-									<span class="description"><?php esc_html_e( 'Default is: &quot;Did we slip up and forget to invite someone? If so, please add him or her here:&quot;', 'rsvp-plugin' ); ?></span>
+									<span class="description"><?php esc_html_e( 'Default is: &quot;Did we slip up and forget to invite someone? If so, please add him or her here:&quot;', 'rsvp' ); ?></span>
 								</td>
 							</tr>
 							<tr>
 								<th scope="row"><label
-											for="rsvp_notify_when_rsvp"><?php echo esc_html__( 'Notify When Guest RSVPs', 'rsvp-plugin' ); ?></label>
+											for="rsvp_notify_when_rsvp"><?php echo esc_html__( 'Notify When Guest RSVPs', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox" name="rsvp_notify_when_rsvp"
 														id="rsvp_notify_when_rsvp"
@@ -776,7 +776,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr>
 								<th scope="row"><label
-											for="rsvp_notify_email_address"><?php echo esc_html__( 'Email address to notify', 'rsvp-plugin' ); ?></label>
+											for="rsvp_notify_email_address"><?php echo esc_html__( 'Email address to notify', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="text" name="rsvp_notify_email_address"
 														id="rsvp_notify_email_address"
@@ -785,7 +785,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="rsvp_guest_email_confirmation"><?php echo esc_html__( 'Send email to main guest when they RSVP', 'rsvp-plugin' ); ?></label>
+											for="rsvp_guest_email_confirmation"><?php echo esc_html__( 'Send email to main guest when they RSVP', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox" name="rsvp_guest_email_confirmation"
 														id="rsvp_guest_email_confirmation" value="Y"
@@ -794,7 +794,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr>
 								<th scope="ropw"><label
-											for="<?php echo esc_attr( OPTION_RSVP_PASSCODE ); ?>"><?php echo esc_html__( 'Require a Passcode to RSVP:', 'rsvp-plugin' ); ?></label>
+											for="<?php echo esc_attr( OPTION_RSVP_PASSCODE ); ?>"><?php echo esc_html__( 'Require a Passcode to RSVP:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox" name="<?php echo esc_attr( OPTION_RSVP_PASSCODE ); ?>"
 														id="<?php echo esc_attr( OPTION_RSVP_PASSCODE ); ?>" value="Y"
@@ -803,7 +803,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr>
 								<th scope="ropw"><label
-											for="<?php echo esc_attr( OPTION_RSVP_ONLY_PASSCODE ); ?>"><?php echo wp_kses_post( __('Require only a Passcode to RSVP<br />(requires that passcodes are unique):', 'rsvp-plugin') ); ?></label>
+											for="<?php echo esc_attr( OPTION_RSVP_ONLY_PASSCODE ); ?>"><?php echo wp_kses_post( __('Require only a Passcode to RSVP<br />(requires that passcodes are unique):', 'rsvp') ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox" name="<?php echo esc_attr( OPTION_RSVP_ONLY_PASSCODE ); ?>"
 														id="<?php echo esc_attr( OPTION_RSVP_ONLY_PASSCODE ); ?>" value="Y"
@@ -812,7 +812,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="<?php echo esc_attr( OPTION_RSVP_OPEN_REGISTRATION ); ?>"><?php echo esc_html__( 'Allow Open Registration (note - this will force passcodes for attendees):', 'rsvp-plugin' ); ?></label>
+											for="<?php echo esc_attr( OPTION_RSVP_OPEN_REGISTRATION ); ?>"><?php echo esc_html__( 'Allow Open Registration (note - this will force passcodes for attendees):', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox"
 														name="<?php echo esc_attr( OPTION_RSVP_OPEN_REGISTRATION ); ?>"
@@ -822,7 +822,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="<?php echo esc_attr( OPTION_RSVP_DONT_USE_HASH ); ?>"><?php echo esc_html__( 'Do not scroll page to the top of the RSVP form:', 'rsvp-plugin' ); ?></label>
+											for="<?php echo esc_attr( OPTION_RSVP_DONT_USE_HASH ); ?>"><?php echo esc_html__( 'Do not scroll page to the top of the RSVP form:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox" name="<?php echo esc_attr( OPTION_RSVP_DONT_USE_HASH ); ?>"
 														id="<?php echo esc_attr( OPTION_RSVP_DONT_USE_HASH ); ?>" value="Y"
@@ -831,7 +831,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="<?php echo esc_attr( OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM ); ?>"><?php echo wp_kses_post( __( 'Do not use the specified notification email as the from email<br /> (if you are not receiving email notifications try this):', 'rsvp-plugin' ) ); ?></label>
+											for="<?php echo esc_attr( OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM ); ?>"><?php echo wp_kses_post( __( 'Do not use the specified notification email as the from email<br /> (if you are not receiving email notifications try this):', 'rsvp' ) ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox"
 														name="<?php echo esc_attr( OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM ); ?>"
@@ -841,7 +841,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="<?php echo esc_attr( OPTION_RSVP_DISABLE_USER_SEARCH ); ?>"><?php echo esc_html__( 'Disable searching for a user when no user is found:', 'rsvp-plugin' ); ?></label>
+											for="<?php echo esc_attr( OPTION_RSVP_DISABLE_USER_SEARCH ); ?>"><?php echo esc_html__( 'Disable searching for a user when no user is found:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox"
 														name="<?php echo esc_attr( OPTION_RSVP_DISABLE_USER_SEARCH ); ?>"
@@ -851,7 +851,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="<?php echo esc_attr( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ); ?>"><?php echo esc_html__( 'Delete all data on uninstall:', 'rsvp-plugin' ); ?></label>
+											for="<?php echo esc_attr( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ); ?>"><?php echo esc_html__( 'Delete all data on uninstall:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><input type="checkbox"
 														name="<?php echo esc_attr( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ); ?>"
@@ -861,20 +861,20 @@ if ( ! class_exists( 'RSVP' ) ) {
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
-											for="<?php echo esc_attr( RSVP_OPTION_CSS_STYLING ); ?>"><?php echo esc_html__( 'Custom Styling:', 'rsvp-plugin' ); ?></label>
+											for="<?php echo esc_attr( RSVP_OPTION_CSS_STYLING ); ?>"><?php echo esc_html__( 'Custom Styling:', 'rsvp' ); ?></label>
 								</th>
 								<td align="left"><textarea name="<?php echo esc_attr( RSVP_OPTION_CSS_STYLING ); ?>"
 														   id="<?php echo esc_attr( RSVP_OPTION_CSS_STYLING ); ?>" rows="5"
 														   cols="60"><?php echo esc_html( get_option( RSVP_OPTION_CSS_STYLING ) ); ?></textarea>
 									<br/>
-									<span class="description"><?php echo wp_kses_post( __( 'Add custom CSS for the RSVP plugin. More details <a href="https://www.rsvpproplugin.com/knowledge-base/customizing-the-rsvp-pro-front-end/">here</a>', 'rsvp-plugin' ) ); ?></span>
+									<span class="description"><?php echo wp_kses_post( __( 'Add custom CSS for the RSVP plugin. More details <a href="https://www.rsvpproplugin.com/knowledge-base/customizing-the-rsvp-pro-front-end/">here</a>', 'rsvp' ) ); ?></span>
 								</td>
 							</tr>
 						</table>
 						<input type="hidden" name="action" value="update"/>
 						<p class="submit">
 							<input type="submit" class="button-primary"
-								   value="<?php echo esc_html__( 'Save Changes', 'rsvp-plugin' ); ?>"/>
+								   value="<?php echo esc_html__( 'Save Changes', 'rsvp' ); ?>"/>
 						</p>
 					</form>
 				</div>

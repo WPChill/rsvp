@@ -25,7 +25,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 	 * @access public
 	 */
 	public function no_items() {
-		esc_html_e( 'No events found.', 'rsvp-plugin' );
+		esc_html_e( 'No events found.', 'rsvp' );
 	}
 
 	public function prepare_items( $data = array() ) {
@@ -37,15 +37,15 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
 		$this->items = array(
-			'event_name' => esc_html__( 'General event', 'rsvp-plugin' ),
+			'event_name' => esc_html__( 'General event', 'rsvp' ),
 		);
 	}
 
 	public function get_columns() {
 
 		$columns = array(
-			'event_name' => esc_html__( 'Event Name', 'rsvp-plugin' ),
-			'attendees'  => esc_html__( 'Attendees', 'rsvp-plugin' ),
+			'event_name' => esc_html__( 'Event Name', 'rsvp' ),
+			'attendees'  => esc_html__( 'Attendees', 'rsvp' ),
 		);
 
 		return $columns;
@@ -109,12 +109,12 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 		<form id="posts-filter" method="get">
 			<p class="search-box">
 				<label class="screen-reader-text"
-					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp-plugin' ); ?></label>
+					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp' ); ?></label>
 				<input type="hidden" name="page" value="rsvp-pro-top-level">
 				<input type="search" id="post-search-input" name="s"
 					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['s'] ) ) ) : '' ); ?>">
 				<input type="submit" id="search-submit" class="button"
-					   value="<?php esc_attr_e( 'Search event', 'rsvp-plugin' ); ?>">
+					   value="<?php esc_attr_e( 'Search event', 'rsvp' ); ?>">
 
 			</p>
 			<?php
@@ -168,7 +168,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 		);
 		?>
 		<a href="<?php echo esc_url( $url ); ?>"
-		   title="Manage Attendees"><?php esc_html_e( 'Manage Attendees', 'rsvp-plugin' ); ?></a>
+		   title="Manage Attendees"><?php esc_html_e( 'Manage Attendees', 'rsvp' ); ?></a>
 		<?php
 		$actions = array();
 		$actions = apply_filters( 'rsvp_pro_attendees_actions', $actions, $item );
@@ -186,7 +186,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 
 		$links = array(
 			'custom_questions' => array(
-				'placeholder' => esc_html__( 'Custom Questions', 'rsvp-plugin' ),
+				'placeholder' => esc_html__( 'Custom Questions', 'rsvp' ),
 				'url_vals'    => array(
 					'page' => 'rsvp-admin-questions',
 				),

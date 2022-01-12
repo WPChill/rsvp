@@ -19,10 +19,10 @@ class RSVP_Review {
 	function __construct() {
 
 		$this->messages = array(
-			'notice'  => esc_html__( "Hi there! Stoked to see you're using RSVP for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'rsvp-plugin' ),
-			'rate'    => esc_html__( 'Rate the plugin', 'rsvp-plugin' ),
-			'rated'   => esc_html__( 'Remind me later', 'rsvp-plugin' ),
-			'no_rate' => esc_html__( 'Don\'t show again', 'rsvp-plugin' ),
+			'notice'  => esc_html__( "Hi there! Stoked to see you're using RSVP for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'rsvp' ),
+			'rate'    => esc_html__( 'Rate the plugin', 'rsvp' ),
+			'rated'   => esc_html__( 'Remind me later', 'rsvp' ),
+			'no_rate' => esc_html__( 'Don\'t show again', 'rsvp' ),
 		);
 
 		if ( isset( $args['messages'] ) ) {
