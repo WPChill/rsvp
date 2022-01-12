@@ -209,8 +209,8 @@ class RSVP_Helper {
 	 */
 	public function rsvp_admin_export() {
 
-		if ( ( isset( $_GET['page'] ) && ( strToLower( $_GET['page'] ) == 'rsvp-admin-export' ) ) ||
-			 ( isset( $_POST['rsvp-bulk-action'] ) && ( 'export' === strToLower( $_POST['rsvp-bulk-action'] ) ) ) ) {
+		if ( ( isset( $_GET['page'] ) && ( strToLower( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) == 'rsvp-admin-export' ) ) ||
+			 ( isset( $_POST['rsvp-bulk-action'] ) && ( 'export' === strToLower( sanitize_text_field( wp_unslash( $_POST['rsvp-bulk-action'] ) ) ) ) ) ) {
 
 			global $wpdb;
 
@@ -243,11 +243,11 @@ class RSVP_Helper {
 			$order   = 'ASC';
 
 			if ( isset( $_POST['orderby'] ) && 'attendee' != $_POST['orderby'] && '' != $_POST['orderby'] ) {
-				$orderby = wp_unslash( $_POST['orderby'] );
+				$orderby = sanitize_sql_orderby( wp_unslash( $_POST['orderby'] ) );
 			}
 
 			if ( isset( $_POST['order'] ) && '' != $_POST['order'] ) {
-				$order = wp_unslash( $_POST['order'] );
+				$order = sanitize_text_field( wp_unslash( $_POST['order'] ) );
 			}
 
 			$attendees = $this->get_attendees( $orderby, $order );
@@ -351,14 +351,14 @@ class RSVP_Helper {
 				}
 				$csv .= "\r\n";
 			}
-			if ( isset( $_SERVER['HTTP_USER_AGENT'] ) && preg_match( '/MSIE/', $_SERVER['HTTP_USER_AGENT'] ) ) {
+			if ( isset( $_SERVER['HTTP_USER_AGENT'] ) && preg_match( '/MSIE/', sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) ) ) {
 				// IE Bug in download name workaround
 				ini_set( 'zlib.output_compression', 'Off' );
 			}
 			header( 'Content-Description: RSVP Export' );
 			header( 'Content-Type: application/vnd.ms-excel', true );
 			header( 'Content-Disposition: attachment; filename="rsvpEntries.csv"' );
-			echo $csv;
+			echo esc_html( $csv );
 			exit();
 		}
 	}
@@ -374,7 +374,7 @@ class RSVP_Helper {
 			check_admin_referer( 'rsvp-import' );
 			require RSVP_PLUGIN_PATH . '/external-libs/spout/src/Spout/Autoloader/autoload.php';
 
-			$file_type = rsvp_free_import_get_file_type( wp_unslash( $_FILES['importFile']['name'] ) );
+			$file_type = ( isset( $_FILES['importFile']['name'] ) ) ? rsvp_free_import_get_file_type( sanitize_file_name( wp_unslash( $_FILES['importFile']['name'] ) ) ) : null;
 
 			if ( null === $file_type ) {
 				?>
@@ -387,7 +387,7 @@ class RSVP_Helper {
 			$i         = 0;
 			$count     = 0;
 			$headerRow = array();
-			$reader->open( wp_unslash( $_FILES['importFile']['tmp_name'] ) );
+			$reader->open( sanitize_file_name( wp_unslash( $_FILES['importFile']['tmp_name'] ) ) );
 			foreach ( $reader->getSheetIterator() as $sheet ) {
 				foreach ( $sheet->getRowIterator() as $row ) {
 					if ( count( $row ) <= 2 ) {
@@ -630,7 +630,9 @@ class RSVP_Helper {
 
 		global $wpdb;
 
-		parse_str( $_POST['order'], $data );
+		if ( isset( $_POST['order'] ) ){
+			parse_str( sanitize_text_field( wp_unslash( $_POST['order'] ) ), $data );
+		}
 
 		if ( ! is_array( $data ) ) {
 			return false;
@@ -675,14 +677,13 @@ class RSVP_Helper {
 
 			if ( isset( $_GET['_wpnonce'] ) && ! empty( $_GET['_wpnonce'] ) ) {
 
-				$nonce  = wp_unslash ( $_GET['_wpnonce'] );
 				$action = 'rsvp-bulk-attendees';
-				if ( ! wp_verify_nonce( $nonce, $action ) ) {
+				if ( ! wp_verify_nonce( $_GET['_wpnonce'], $action ) ) {
 					wp_die( 'Nope! Security check failed!' );
 				}
 			}
 
-			foreach ( $_GET['attendee'] as $attendee ) {
+			foreach ( array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_GET['attendee'] ) ) as $attendee ) {
 
 				if ( is_numeric( $attendee ) && ( $attendee > 0 ) ) {
 					$this->delete_attendee( $attendee );
@@ -702,16 +703,15 @@ class RSVP_Helper {
 
 			if ( isset( $_GET['_wpnonce'] ) && ! empty( $_GET['_wpnonce'] ) ) {
 
-				$nonce  = wp_unslash( $_GET['_wpnonce'] );
 				$action = 'rsvp-bulk-questions';
-				if ( ! wp_verify_nonce( $nonce, $action ) ) {
+				if ( ! wp_verify_nonce( $_GET['_wpnonce'], $action ) ) {
 					wp_die( 'Nope! Security check failed!' );
 				}
 			}
 
 			global $wpdb;
 
-			foreach ( $_GET['q'] as $q ) {
+			foreach ( array_map( 'absint', $_GET['q'] ) as $q ) {
 
 				if ( is_numeric( $q ) && ( $q > 0 ) ) {
 					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d', absint( $q ) ) );

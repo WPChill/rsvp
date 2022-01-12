@@ -214,17 +214,17 @@ if ( ! class_exists( 'RSVP' ) ) {
 			echo '<div class="wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Add guest', 'rsvp-plugin' ) . '</h1><hr class="wp-header-end">';
 			if ( ( count( $_POST ) > 0 ) && ! empty( $_POST['firstName'] ) && ! empty( $_POST['lastName'] ) ) {
 				check_admin_referer( 'rsvp_add_guest' );
-				$passcode = ( isset( $_POST['passcode'] ) ) ? $_POST['passcode'] : '';
+				$passcode = ( isset( $_POST['passcode'] ) ) ? sanitize_text_field( wp_unslash( $_POST['passcode'] ) ) : '';
 
 				if ( isset( $_POST['attendeeId'] ) && is_numeric( $_POST['attendeeId'] ) && ( $_POST['attendeeId'] > 0 ) ) {
 					$wpdb->update(
 						ATTENDEES_TABLE,
 						array(
-							'firstName'        => rsvp_smart_quote_replace( sanitize_text_field( wp_unslash( $_POST['firstName'] ) ) ),
-							'lastName'         => rsvp_smart_quote_replace( sanitize_text_field( wp_unslash( $_POST['lastName'] ) ) ),
-							'email'            => trim( wp_unslash( $_POST['email'] ) ),
-							'personalGreeting' => trim( wp_unslash( $_POST['personalGreeting'] ) ),
-							'rsvpStatus'       => trim( wp_unslash( $_POST['rsvpStatus'] ) ),
+							'firstName'        => ( isset( $_POST['firstName'] ) ) ? rsvp_smart_quote_replace( sanitize_text_field( wp_unslash( $_POST['firstName'] ) ) ) : '',
+							'lastName'         => ( isset( $_POST['lastName'] ) ) ? rsvp_smart_quote_replace( sanitize_text_field( wp_unslash( $_POST['lastName'] ) ) ) : '',
+							'email'            => ( isset( $_POST['email'] ) ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '',
+							'personalGreeting' => ( isset( $_POST['personalGreeting'] ) ) ? sanitize_text_field( wp_unslash( $_POST['personalGreeting'] ) ) : '',
+							'rsvpStatus'       => ( isset( $_POST['rsvpStatus'] ) ) ? sanitize_text_field( wp_unslash( $_POST['rsvpStatus'] ) ) : '',
 						),
 						array( 'id' => absint( $_POST['attendeeId'] ) ),
 						array( '%s', '%s', '%s', '%s', '%s' ),
@@ -237,11 +237,11 @@ if ( ! class_exists( 'RSVP' ) ) {
 					$wpdb->insert(
 						ATTENDEES_TABLE,
 						array(
-							'firstName'        => rsvp_smart_quote_replace( trim( $_POST['firstName'] ) ),
-							'lastName'         => rsvp_smart_quote_replace( trim( $_POST['lastName'] ) ),
-							'email'            => trim( $_POST['email'] ),
-							'personalGreeting' => trim( $_POST['personalGreeting'] ),
-							'rsvpStatus'       => trim( $_POST['rsvpStatus'] ),
+							'firstName'        => ( isset( $_POST['firstName'] ) ) ? rsvp_smart_quote_replace( sanitize_text_field( wp_unslash( $_POST['firstName'] ) ) ) : '',
+							'lastName'         => ( isset( $_POST['lastName'] ) ) ? rsvp_smart_quote_replace( sanitize_text_field( wp_unslash( $_POST['lastName'] ) ) ): '',
+							'email'            => ( isset( $_POST['email'] ) ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '',
+							'personalGreeting' => ( isset( $_POST['pesonalGreeting'] ) ) ? sanitize_text_field( wp_unslash( $_POST['personalGreeting'] ) ) : '',
+							'rsvpStatus'       => ( isset( $_POST['rsvpStatus'] ) ) ? sanitize_text_field( wp_unslash( $_POST['rsvpStatus'] ) ) : '',
 						),
 						array( '%s', '%s', '%s', '%s', '%s' )
 					);
@@ -249,7 +249,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 					$attendeeId = $wpdb->insert_id;
 				}
 				if ( isset( $_POST['associatedAttendees'] ) && is_array( $_POST['associatedAttendees'] ) ) {
-					foreach ( $_POST['associatedAttendees'] as $aid ) {
+					foreach ( array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST['associatedAttendees'] ) ) as $aid ) {
 						if ( is_numeric( $aid ) && ( $aid > 0 ) ) {
 							$wpdb->insert(
 								ASSOCIATED_ATTENDEES_TABLE,
@@ -280,7 +280,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 					}
 					$wpdb->update(
 						ATTENDEES_TABLE,
-						array( 'passcode' => trim( $passcode ) ),
+						array( 'passcode' => sanitize_text_field( $passcode ) ),
 						array( 'id' => $attendeeId ),
 						array( '%s' ),
 						array( '%d' )
@@ -291,8 +291,8 @@ if ( ! class_exists( 'RSVP' ) ) {
 				<?php
 				echo sprintf(
 					esc_html__( 'Attendee %1$s %2$s has been successfully saved.', 'rsvp-plugin' ),
-					esc_html( stripslashes( $_POST['firstName'] ) ),
-					esc_html( stripslashes( $_POST['lastName'] ) )
+					esc_html( sanitize_text_field( wp_unslash( $_POST['firstName'] ) ) ),
+					esc_html( sanitize_text_field( wp_unslash( $_POST['lastName'] ) ) )
 				);
 				?>
 					</p>
@@ -327,9 +327,9 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 						// Get the associated attendees and add them to an array
 						$associations = $wpdb->get_results(
-							'SELECT associatedAttendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeId = ' . $attendee->id .
+							'SELECT associatedAttendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeId = ' . absint( $attendee->id ) .
 								' UNION ' .
-								'SELECT attendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE associatedAttendeeID = ' . $attendee->id
+								'SELECT attendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE associatedAttendeeID = ' . absint( $attendee->id )
 						);
 						foreach ( $associations as $aId ) {
 							$associatedAttendees[] = $aId->associatedAttendeeID;
@@ -494,7 +494,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 			global $wpdb;
 			$rsvp_helper = RSVP_Helper::get_instance();
 
-			if ( isset( $_GET['action'] ) && ( 'add' === strtolower( $_GET['action'] ) ) ) {
+			if ( isset( $_GET['action'] ) && ( 'add' === strtolower( sanitize_text_field( wp_unslash( $_GET['action'] ) ) ) ) ) {
 				rsvp_admin_custom_question();
 
 				return;

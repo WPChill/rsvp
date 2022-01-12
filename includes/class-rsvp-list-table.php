@@ -365,23 +365,23 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			$input_id = $input_id . '-search-input';
 
 			if ( ! empty( $_REQUEST['orderby'] ) ) {
-				echo '<input type="hidden" name="orderby" value="' . esc_attr( wp_unslash( $_REQUEST['orderby'] ) ) . '">';
+				echo '<input type="hidden" name="orderby" value="' . esc_attr( sanitize_sql_orderby( wp_unslash( $_REQUEST['orderby'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['order'] ) ) {
-				echo '<input type="hidden" name="order" value="' . esc_attr( wp_unslash( $_REQUEST['order'] ) ) . '">';
+				echo '<input type="hidden" name="order" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-				echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( wp_unslash( $_REQUEST['post_mime_type'] ) ) . '">';
+				echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( sanitize_mime_type( wp_unslash( $_REQUEST['post_mime_type'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['detached'] ) ) {
-				echo '<input type="hidden" name="detached" value="' . esc_attr( wp_unslash( $_REQUEST['detached'] ) ) . '">';
+				echo '<input type="hidden" name="detached" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['detached'] ) ) ) . '">';
 			}
 			?>
 			<p class="search-box">
 				<label class="screen-reader-text"
 					   for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
 				<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s"
-					   value="<?php esc_Attr( _admin_search_query() ); ?>">
+					   value="<?php esc_attr( _admin_search_query() ); ?>">
 				<?php submit_button( $text, 'button', '', false, array( 'id' => 'search-submit' ) ); ?>
 			</p>
 			<?php
@@ -517,11 +517,11 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			}
 
 			if ( isset( $_REQUEST['action'] ) && - 1 != $_REQUEST['action'] ) {
-				return wp_unslashb( $_REQUEST['action'] );
+				return sanitize_text_field( wp_unslash( $_REQUEST['action'] ) );
 			}
 
 			if ( isset( $_REQUEST['action2'] ) && - 1 != $_REQUEST['action2'] ) {
-				return wp_unslash( $_REQUEST['action2'] );
+				return sanitize_text_field( wp_unslash( $_REQUEST['action2'] ) );
 			}
 
 			return false;
@@ -667,7 +667,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 			$current = $this->get_pagenum();
 
-			$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+			$current_url = set_url_scheme( 'http://' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] )  ) . '/' . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 
 			$current_url = remove_query_arg(
 				array(
@@ -745,7 +745,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			}
 			$this->_pagination = "<div class='tablenav-pages" . esc_attr( $page_class ) . "'>" . wp_kses_post( $output ) . "</div>";
 
-			echo $this->_pagination;
+			echo wp_kses_post( $this->_pagination );
 		}
 
 		/**
@@ -855,11 +855,11 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		public function print_column_headers( $with_id = true ) {
 			list( $columns, $hidden, $sortable ) = $this->get_column_info();
 
-			$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+			$current_url = set_url_scheme( 'http://' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . '/' . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 			$current_url = remove_query_arg( 'paged', $current_url );
 
 			if ( isset( $_GET['orderby'] ) ) {
-				$current_orderby = wp_unslash( $_GET['orderby'] );
+				$current_orderby = sanitize_sql_orderby( wp_unslash( $_GET['orderby'] ) );
 			} else {
 				$current_orderby = '';
 			}
@@ -924,7 +924,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 					$class = "class='" . esc_attr( implode( ' ', $class ) ) . "'";
 				}
 
-				echo "<$tag $scope $id $class>$column_display_name</$tag>";
+				echo wp_kses_post( "<$tag $scope $id $class>$column_display_name</$tag>" );
 			}
 		}
 
@@ -1097,11 +1097,11 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 					echo esc_html( $this->column_cb( $item ) );
 					echo '</th>';
 				} elseif ( method_exists( $this, 'column_' . $column_name ) ) {
-					echo "<td $attributes>";
-					echo call_user_func( array( $this, 'column_' . $column_name ), $item );
+					echo wp_kses_post( "<td $attributes>" );
+					echo wp_kses_post( call_user_func( array( $this, 'column_' . $column_name ), $item ) );
 					echo '</td>';
 				} else {
-					echo "<td $attributes>";
+					echo wp_kses_post( "<td $attributes>" );
 					echo esc_html( $this->column_default( $item, $column_name ) );
 					echo '</td>';
 				}

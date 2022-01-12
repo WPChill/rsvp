@@ -112,7 +112,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp-plugin' ); ?></label>
 				<input type="hidden" name="page" value="rsvp-pro-top-level">
 				<input type="search" id="post-search-input" name="s"
-					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? esc_attr( wp_unslash( $_GET['s'] ) ) : '' ); ?>">
+					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['s'] ) ) ) : '' ); ?>">
 				<input type="submit" id="search-submit" class="button"
 					   value="<?php esc_attr_e( 'Search event', 'rsvp-plugin' ); ?>">
 
@@ -172,7 +172,7 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 		<?php
 		$actions = array();
 		$actions = apply_filters( 'rsvp_pro_attendees_actions', $actions, $item );
-		echo $this->row_actions( $actions );
+		echo wp_kses_post( $this->row_actions( $actions ) );
 	}
 
 	/**
@@ -201,8 +201,8 @@ class RSVP_Events_List_Table extends RSVP_List_Table {
 		}
 
 		$actions = apply_filters( 'rsvp_event_name_actions', $actions, $item );
-		echo $item;
-		echo $this->row_actions( $actions );
+		echo wp_kses_post( $item );
+		echo wp_kses_post( $this->row_actions( $actions ) );
 	}
 
 }

@@ -58,7 +58,7 @@ function rsvp_frontend_handler( $text ) {
 
 	if ( isset( $_POST['rsvpStep'] ) ) {
 		$output = '';
-		switch ( strtolower( $_POST['rsvpStep'] ) ) {
+		switch ( strtolower( sanitize_text_field( wp_unslash($_POST['rsvpStep'] ) ) ) ) {
 			case ( 'newattendee' ):
 				return rsvp_handlenewattendee( $output, $text );
 				break;
@@ -555,11 +555,11 @@ function rsvp_find( &$output, &$text ) {
 	$first_name = '';
 	$last_name  = '';
 	if ( isset( $_REQUEST['firstName'] ) ) {
-		$first_name = stripslashes_deep( $_REQUEST['firstName'] );
+		$first_name = sanitize_text_field( stripslashes_deep( $_REQUEST['firstName'] ) );
 	}
 
 	if ( isset( $_REQUEST['lastName'] ) ) {
-		$last_name = stripslashes_deep( $_REQUEST['lastName'] );
+		$last_name = sanitize_text_field( stripslashes_deep( $_REQUEST['lastName'] ) );
 	}
 
 	if ( ! $passcode_only_option && ( ( strlen( $first_name ) <= 1 ) || ( strlen( $last_name ) <= 1 ) ) ) {
@@ -680,13 +680,13 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 
 	$rsvp_password = '';
 	$rsvp_status   = 'No';
-	if ( strToUpper( $_POST['mainRsvp'] ) == 'Y' ) {
+	if ( strToUpper( sanitize_text_field( wp_unslash( $_POST['mainRsvp'] ) ) ) == 'Y' ) {
 		$rsvp_status = 'Yes';
 	}
-	$kids_meal         = ( ( isset( $_POST['mainKidsMeal'] ) && ( strToUpper( $_POST['mainKidsMeal'] ) === 'Y' ) ) ? 'Y' : 'N' );
-	$veggie_meal       = ( ( isset( $_POST['mainVeggieMeal'] ) && ( strToUpper( $_POST['mainVeggieMeal'] ) === 'Y' ) ) ? 'Y' : 'N' );
-	$thank_you_primary = $_POST['attendeeFirstName'];
-	$email             = $_POST['mainEmail'];
+	$kids_meal         = ( ( isset( $_POST['mainKidsMeal'] ) && ( strToUpper( sanitize_text_field( wp_unslash( $_POST['mainKidsMeal'] ) ) ) === 'Y' ) ) ? 'Y' : 'N' );
+	$veggie_meal       = ( ( isset( $_POST['mainVeggieMeal'] ) && ( strToUpper( sanitize_text_field( wp_unslash( $_POST['mainVeggieMeal'] ) ) ) === 'Y' ) ) ? 'Y' : 'N' );
+	$thank_you_primary = sanitize_text_field( wp_unslash( $_POST['attendeeFirstName'] ) );
+	$email             = sanitize_email( wp_unslash( $_POST['mainEmail'] ) );
 	if ( get_option( OPTION_RSVP_HIDE_EMAIL_FIELD ) === 'Y' ) {
 		$email = '';
 	}
@@ -695,13 +695,13 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 		ATTENDEES_TABLE,
 		array(
 			'rsvpDate'   => date( 'Y-m-d' ),
-			'firstName'  => trim( $_POST['attendeeFirstName'] ),
-			'lastName'   => trim( $_POST['attendeeLastName'] ),
-			'email'      => trim( $email ),
-			'rsvpStatus' => $rsvp_status,
-			'note'       => sanitize_text_field( $_POST['rsvp_note'] ),
-			'kidsMeal'   => $kids_meal,
-			'veggieMeal' => $veggie_meal,
+			'firstName'  => sanitize_text_field( wp_unslash( $_POST['attendeeFirstName'] ) ),
+			'lastName'   => sanitize_text_field( wp_unslash( $_POST['attendeeLastName'] ) ),
+			'email'      => sanitize_email( wp_unslash( $email ) ),
+			'rsvpStatus' => sanitize_text_field( wp_unslash( $rsvp_status ) ),
+			'note'       => sanitize_text_field( wp_unslash( $_POST['rsvp_note'] ) ),
+			'kidsMeal'   => sanitize_text_field( wp_unslash( $kids_meal ) ),
+			'veggieMeal' => sanitize_text_field( wp_unslash( $veggie_meal ) ),
 		),
 		array(
 			'%s',
@@ -720,8 +720,8 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 		$rsvp_password = trim( rsvp_generate_passcode() );
 		$wpdb->update(
 			ATTENDEES_TABLE,
-			array( 'passcode' => $rsvp_password ),
-			array( 'id' => $attendee_id ),
+			array( 'passcode' => sanitize_text_field( $rsvp_password ) ),
+			array( 'id' => absint( $attendee_id ) ),
 			array( '%s' ),
 			array( '%d' )
 		);
@@ -747,9 +747,9 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 					array(
 						'rsvpDate'   => date( 'Y-m-d' ),
 						'rsvpStatus' => sanitize_text_field( $rsvp_status ),
-						'email'      => sanitize_email( $_POST[ 'attending' . $a->id . 'Email' ] ),
-						'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? $_POST[ 'attending' . $a->id . 'KidsMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
-						'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? $_POST[ 'attending' . $a->id . 'VeggieMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
+						'email'      => sanitize_email( wp_unslash ( $_POST[ 'attending' . $a->id . 'Email' ] ) ),
+						'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ) : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
+						'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ) : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 					),
 					array( 'id' => absint( $a->id ) ),
 					array(
@@ -767,8 +767,8 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 					array(
 						'rsvpDate'   => date( 'Y-m-d' ),
 						'rsvpStatus' => $rsvp_status,
-						'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? $_POST[ 'attending' . $a->id . 'KidsMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
-						'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? $_POST[ 'attending' . $a->id . 'VeggieMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
+						'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ) : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
+						'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ) : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 					),
 					array( 'id' => absint( $a->id ) ),
 					array(
@@ -785,8 +785,8 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 	}
 
 	if ( get_option( OPTION_HIDE_ADD_ADDITIONAL ) != 'Y' ) {
-		if ( is_numeric( $_POST['additionalRsvp'] ) && ( $_POST['additionalRsvp'] > 0 ) ) {
-			for ( $i = 1; $i <= $_POST['additionalRsvp']; $i ++ ) {
+		if ( is_numeric( $_POST['additionalRsvp'] ) && ( absint( $_POST['additionalRsvp'] ) > 0 ) ) {
+			for ( $i = 1; $i <= absint( $_POST['additionalRsvp'] ); $i ++ ) {
 				$num_guests = 3;
 				if ( get_option( OPTION_RSVP_NUM_ADDITIONAL_GUESTS ) != '' ) {
 					$num_guests = get_optioN( OPTION_RSVP_NUM_ADDITIONAL_GUESTS );
@@ -798,22 +798,22 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 				if ( ( $i <= $num_guests ) &&
 					 ! empty( $_POST[ 'newAttending' . $i . 'FirstName' ] ) &&
 					 ! empty( $_POST[ 'newAttending' . $i . 'LastName' ] ) ) {
-					$email = trim( $_POST[ 'newAttending' . $i . 'Email' ] );
+					$email = sanitize_email( wp_unslash( $_POST[ 'newAttending' . $i . 'Email' ] ) );
 					if ( get_option( OPTION_RSVP_HIDE_EMAIL_FIELD ) != 'Y' ) {
 						$email = '';
 					}
 
-					$thank_you_associated[] = $_POST[ 'newAttending' . $i . 'FirstName' ];
+					$thank_you_associated[] = sanitize_text_field( wp_unslash( $_POST[ 'newAttending' . $i . 'FirstName' ] ) );
 					$wpdb->insert(
 						ATTENDEES_TABLE,
 						array(
-							'firstName'          => trim( $_POST[ 'newAttending' . $i . 'FirstName' ] ),
-							'lastName'           => trim( $_POST[ 'newAttending' . $i . 'LastName' ] ),
+							'firstName'          => sanitize_text_field( wp_unslash( $_POST[ 'newAttending' . $i . 'FirstName' ] ) ),
+							'lastName'           => sanitize_text_field( wp_unslash( $_POST[ 'newAttending' . $i . 'LastName' ] ) ),
 							'email'              => sanitize_email( $email ),
 							'rsvpDate'           => date( 'Y-m-d' ),
-							'rsvpStatus'         => ( ( $_POST[ 'newAttending' . $i ] == 'Y' ) ? 'Yes' : 'No' ),
-							'kidsMeal'           => ( isset( $_POST[ 'newAttending' . $i . 'KidsMeal' ] ) ? sanitize_text_field( $_POST[ 'newAttending' . $i . 'KidsMeal' ] ) : 'N' ),
-							'veggieMeal'         => ( isset( $_POST[ 'newAttending' . $i . 'VeggieMeal' ] ) ? sanitize_text_field( $_POST[ 'newAttending' . $i . 'VeggieMeal' ] ) : 'N' ),
+							'rsvpStatus'         => ( ( sanitize_text_field( wp_unslash( $_POST[ 'newAttending' . $i ] ) ) == 'Y' ) ? 'Yes' : 'No' ),
+							'kidsMeal'           => ( isset( $_POST[ 'newAttending' . $i . 'KidsMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'newAttending' . $i . 'KidsMeal' ] ) ) : 'N' ),
+							'veggieMeal'         => ( isset( $_POST[ 'newAttending' . $i . 'VeggieMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'newAttending' . $i . 'VeggieMeal' ] ) ) : 'N' ),
 							'additionalAttendee' => 'Y',
 						),
 						array(
@@ -833,8 +833,8 @@ function rsvp_handleNewRsvp( &$output, &$text ) {
 					$wpdb->insert(
 						ASSOCIATED_ATTENDEES_TABLE,
 						array(
-							'attendeeID'           => $new_aid,
-							'associatedAttendeeID' => $attendee_id,
+							'attendeeID'           => absint( $new_aid ),
+							'associatedAttendeeID' => absint( $attendee_id ),
 						),
 						array(
 							'%d',
@@ -872,25 +872,25 @@ function rsvp_handle_notifications( $attendee_id ) {
 
 			$body .= sprintf(
 				__( '%1$s %2$s has submitted their RSVP and has RSVP\'d with %3$s.', 'rsvp-plugin' ),
-				wp_unslash( $attendee->firstName ),
-				wp_unslash( $attendee->lastName ),
+				esc_html( wp_unslash( $attendee->firstName ) ),
+				esc_html( wp_unslash( $attendee->lastName ) ),
 				$attendee->rsvpStatus
 			) . "\r\n";
 
 			if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ) {
-				$body .= __( 'Kids Meal: ', 'rsvp-plugin' ) . $attendee->kidsMeal . "\r\n";
+				$body .= __( 'Kids Meal: ', 'rsvp-plugin' ) . esc_html( $attendee->kidsMeal ) . "\r\n";
 			}
 
 			if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ) {
-				$body .= __( 'Vegetarian Meal: ', 'rsvp-plugin' ) . $attendee->veggieMeal . "\r\n";
+				$body .= __( 'Vegetarian Meal: ', 'rsvp-plugin' ) . esc_html( $attendee->veggieMeal ) . "\r\n";
 			}
 
 			if ( get_option( OPTION_RSVP_HIDE_EMAIL_FIELD ) != 'Y' ) {
-				$body .= __( 'Email: ', 'rsvp-plugin' ) . stripslashes_deep( $attendee->email ) . "\r\n";
+				$body .= __( 'Email: ', 'rsvp-plugin' ) . sanitize_email( stripslashes_deep( $attendee->email ) ) . "\r\n";
 			}
 
 			if ( get_option( RSVP_OPTION_HIDE_NOTE ) != 'Y' ) {
-				$body .= __( 'Note: ', 'rsvp-plugin' ) . stripslashes_deep( $attendee->note ) . "\r\n";
+				$body .= __( 'Note: ', 'rsvp-plugin' ) . esc_html( stripslashes_deep( $attendee->note ) ) . "\r\n";
 			}
 
 			$sql = 'SELECT q.id, question, answer, q.sortOrder FROM ' . QUESTIONS_TABLE . ' q
@@ -899,10 +899,10 @@ function rsvp_handle_notifications( $attendee_id ) {
 			  		(q.permissionLevel = \'private\' AND q.id IN (SELECT questionID FROM ' . QUESTION_ATTENDEES_TABLE . ' WHERE attendeeID = %d)))
 				ORDER BY q.sortOrder, q.id';
 
-			$a_rs = $wpdb->get_results( $wpdb->prepare( $sql, $attendee_id, $attendee_id ) );
+			$a_rs = $wpdb->get_results( $wpdb->prepare( $sql, absint( $attendee_id ), absint( $attendee_id ) ) );
 			if ( count( $a_rs ) > 0 ) {
 				foreach ( $a_rs as $a ) {
-					$body .= stripslashes_deep( $a->question ) . ': ' . stripslashes_deep( $a->answer ) . "\r\n";
+					$body .= esc_html( stripslashes_deep( $a->question ) ) . ': ' . esc_html( stripslashes_deep( $a->answer ) ) . "\r\n";
 				}
 			}
 
@@ -910,14 +910,14 @@ function rsvp_handle_notifications( $attendee_id ) {
 				   ' WHERE id IN (SELECT attendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE associatedAttendeeID = %d)
 					OR id in (SELECT associatedAttendeeID FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d)';
 
-			$associations = $wpdb->get_results( $wpdb->prepare( $sql, $attendee_id, $attendee_id ) );
+			$associations = $wpdb->get_results( $wpdb->prepare( $sql, absint( $attendee_id ) , absint( $attendee_id ) ) );
 			if ( count( $associations ) > 0 ) {
 				$body .= "\r\n\r\n--== " . __( 'Associated Attendees', 'rsvp-plugin' ) . " ==--\r\n";
 				foreach ( $associations as $a ) {
 					$body .= sprintf(
 						__( '%1$s %2$s rsvp status: %3$s', 'rsvp-plugin' ),
-						wp_unslash( $a->firstName ),
-						wp_unslash( $a->lastName ),
+						esc_html( wp_unslash( $a->firstName ) ),
+						esc_html( wp_unslash( $a->lastName ) ),
 						$a->rsvpStatus
 					) . "\r\n";
 
@@ -929,7 +929,7 @@ function rsvp_handle_notifications( $attendee_id ) {
 					$a_rs = $wpdb->get_results( $wpdb->prepare( $sql, $a->id, $a->id ) );
 					if ( count( $a_rs ) > 0 ) {
 						foreach ( $a_rs as $ans ) {
-							$body .= stripslashes_deep( $ans->question ) . ': ' . stripslashes_deep( $ans->answer ) . "\r\n";
+							$body .= esc_html( stripslashes_deep( $ans->question ) ) . ': ' . esc_html( stripslashes_deep( $ans->answer ) ) . "\r\n";
 						}
 						$body .= "\r\n";
 					}
@@ -939,7 +939,7 @@ function rsvp_handle_notifications( $attendee_id ) {
 			$email_addy = get_option( OPTION_NOTIFY_EMAIL );
 			$headers    = '';
 			if ( get_option( OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM ) != 'Y' ) {
-				$headers = 'From: ' . $email_addy . "\r\n";
+				$headers = 'From: ' . sanitize_email( wp_unslash( $email_addy ) ) . "\r\n";
 			}
 
 			wp_mail( $email_addy, __( 'New RSVP Submission', 'rsvp-plugin' ), $body, $headers );
@@ -948,41 +948,41 @@ function rsvp_handle_notifications( $attendee_id ) {
 
 	if ( ( 'Y' === get_option( OPTION_RSVP_GUEST_EMAIL_CONFIRMATION ) ) && ! empty( $_POST['mainEmail'] ) ) {
 		$sql      = 'SELECT firstName, lastName, email, rsvpStatus, passcode, kidsMeal, veggieMeal, note FROM ' . ATTENDEES_TABLE . ' WHERE id = %d';
-		$attendee = $wpdb->get_row( $wpdb->prepare( $sql, $attendee_id ) );
+		$attendee = $wpdb->get_row( $wpdb->prepare( $sql, absint( $attendee_id ) ) );
 		if ( null !== $attendee ) {
 			$body = sprintf(
 				__( 'Hello %1$s %2$s,', 'rsvp-plugin' ),
-				stripslashes_deep( $attendee->firstName ),
-				stripslashes_deep( $attendee->lastName )
+				esc_html( stripslashes_deep( $attendee->firstName ) ),
+				esc_html( stripslashes_deep( $attendee->lastName ) )
 			) . '<br /><br />';
 
 			if ( get_option( OPTION_RSVP_EMAIL_TEXT ) != '' ) {
 				$body .= '<br />';
-				$body .= get_option( OPTION_RSVP_EMAIL_TEXT );
+				$body .= wp_kses_post( get_option( OPTION_RSVP_EMAIL_TEXT ) );
 				$body .= '<br />';
 			}
 
 			if ( rsvp_require_passcode() ) {
-				$body .= __( 'Passcode', 'rsvp-plugin' ) . ': ' . stripslashes_deep( $attendee->passcode ) . '<br />';
+				$body .= __( 'Passcode', 'rsvp-plugin' ) . ': ' . sanitize_text_field( stripslashes_deep( $attendee->passcode ) ) . '<br />';
 			}
 
 			if ( get_option( OPTION_HIDE_KIDS_MEAL ) != 'Y' ) {
-				$body .= __( 'Kids Meal: ', 'rsvp-plugin' ) . $attendee->kidsMeal . '<br />';
+				$body .= __( 'Kids Meal: ', 'rsvp-plugin' ) . esc_html( $attendee->kidsMeal ) . '<br />';
 			}
 
 			if ( get_option( OPTION_HIDE_VEGGIE ) != 'Y' ) {
-				$body .= __( 'Vegetarian Meal: ', 'rsvp-plugin' ) . $attendee->veggieMeal . '<br />';
+				$body .= __( 'Vegetarian Meal: ', 'rsvp-plugin' ) . esc_html( $attendee->veggieMeal ) . '<br />';
 			}
 
 			if ( get_option( OPTION_RSVP_HIDE_EMAIL_FIELD ) != 'Y' ) {
-				$body .= __( 'Email: ', 'rsvp-plugin' ) . stripslashes_deep( $attendee->email ) . '<br />';
+				$body .= __( 'Email: ', 'rsvp-plugin' ) . sanitize_email( stripslashes_deep( $attendee->email ) ) . '<br />';
 			}
 
 			if ( get_option( RSVP_OPTION_HIDE_NOTE ) != 'Y' ) {
-				$body .= __( 'Note: ', 'rsvp-plugin' ) . stripslashes_deep( $attendee->note ) . '<br />';
+				$body .= __( 'Note: ', 'rsvp-plugin' ) . esc_html( stripslashes_deep( $attendee->note ) ) . '<br />';
 			}
 
-			$body .= __( 'You have successfully RSVP\'d with', 'rsvp-plugin' ) . ' \'' . $attendee->rsvpStatus . '\'.<br /><br />';
+			$body .= __( 'You have successfully RSVP\'d with', 'rsvp-plugin' ) . ' \'' . esc_html( $attendee->rsvpStatus ) . '\'.<br /><br />';
 
 			$sql  = 'SELECT question, answer FROM ' . QUESTIONS_TABLE . ' q
 				LEFT JOIN ' . ATTENDEE_ANSWERS . ' ans ON q.id = ans.questionID AND ans.attendeeID = %d
@@ -1049,28 +1049,28 @@ function rsvp_handlersvp( &$output, &$text ) {
 		return rsvp_handle_output( $text, rsvp_frontend_greeting() );
 	}
 
-	if ( is_numeric( $_POST['attendeeID'] ) && ( $_POST['attendeeID'] > 0 ) ) {
+	if ( is_numeric( $_POST['attendeeID'] ) && ( absint( $_POST['attendeeID'] ) > 0 ) ) {
 		// update their information and what not....
-		if ( strToUpper( $_POST['mainRsvp'] ) == 'Y' ) {
+		if ( strToUpper( sanitize_text_field( wp_unslash( $_POST['mainRsvp'] ) ) ) == 'Y' ) {
 			$rsvp_status = 'Yes';
 		} else {
 			$rsvp_status = 'No';
 		}
 		$attendee_id = absint( $_POST['attendeeID'] );
 		// Get Attendee first name.
-		$thank_you_primary = $wpdb->get_var( $wpdb->prepare( 'SELECT firstName FROM ' . ATTENDEES_TABLE . ' WHERE id = %d', $attendee_id ) );
+		$thank_you_primary = $wpdb->get_var( $wpdb->prepare( 'SELECT firstName FROM ' . ATTENDEES_TABLE . ' WHERE id = %d', absint( $attendee_id ) ) );
 		if ( get_option( OPTION_RSVP_HIDE_EMAIL_FIELD ) != 'Y' ) {
 			$wpdb->update(
 				ATTENDEES_TABLE,
 				array(
 					'rsvpDate'   => date( 'Y-m-d' ),
 					'rsvpStatus' => $rsvp_status,
-					'note'       => isset( $_POST['rsvp_note'] ) ? sanitize_text_field( $_POST['rsvp_note'] ) : '',
-					'email'      => isset( $_POST['mainEmail'] ) ? sanitize_email( $_POST['mainEmail'] ) : '',
-					'kidsMeal'   => ( ( isset( $_POST['mainKidsMeal'] ) && ( strToUpper( $_POST['mainKidsMeal'] ) == 'Y' ) ) ? 'Y' : 'N' ),
-					'veggieMeal' => ( ( isset( $_POST['mainVeggieMeal'] ) && ( strToUpper( $_POST['mainVeggieMeal'] ) == 'Y' ) ) ? 'Y' : 'N' ),
+					'note'       => isset( $_POST['rsvp_note'] ) ? sanitize_text_field( wp_unslash( $_POST['rsvp_note'] ) ) : '',
+					'email'      => isset( $_POST['mainEmail'] ) ? sanitize_email( wp_unslash( $_POST['mainEmail'] ) ) : '',
+					'kidsMeal'   => ( ( isset( $_POST['mainKidsMeal'] ) && ( strToUpper( sanitize_text_field( wp_unslash( $_POST['mainKidsMeal'] ) ) ) == 'Y' ) ) ? 'Y' : 'N' ),
+					'veggieMeal' => ( ( isset( $_POST['mainVeggieMeal'] ) && ( strToUpper( sanitize_text_field( wp_unslash( $_POST['mainVeggieMeal'] ) ) ) == 'Y' ) ) ? 'Y' : 'N' ),
 				),
-				array( 'id' => $attendee_id ),
+				array( 'id' => absint( $attendee_id ) ),
 				array(
 					'%s',
 					'%s',
@@ -1087,11 +1087,11 @@ function rsvp_handlersvp( &$output, &$text ) {
 				array(
 					'rsvpDate'   => date( 'Y-m-d' ),
 					'rsvpStatus' => sanitize_text_field( $rsvp_status ),
-					'note'       => isset( $_POST['rsvp_note'] ) ? sanitize_text_field( $_POST['rsvp_note'] ) : '',
-					'kidsMeal'   => ( ( isset( $_POST['mainKidsMeal'] ) && ( strToUpper( $_POST['mainKidsMeal'] ) == 'Y' ) ) ? 'Y' : 'N' ),
-					'veggieMeal' => ( ( isset( $_POST['mainVeggieMeal'] ) && ( strToUpper( $_POST['mainVeggieMeal'] ) == 'Y' ) ) ? 'Y' : 'N' ),
+					'note'       => isset( $_POST['rsvp_note'] ) ? sanitize_text_field( wp_unslash( $_POST['rsvp_note'] ) ) : '',
+					'kidsMeal'   => ( ( isset( $_POST['mainKidsMeal'] ) && ( strToUpper( sanitize_text_field( wp_unslash( $_POST['mainKidsMeal'] ) ) ) == 'Y' ) ) ? 'Y' : 'N' ),
+					'veggieMeal' => ( ( isset( $_POST['mainVeggieMeal'] ) && ( strToUpper( sanitize_text_field( wp_unslash( $_POST['mainVeggieMeal'] ) ) ) == 'Y' ) ) ? 'Y' : 'N' ),
 				),
-				array( 'id' => $attendee_id ),
+				array( 'id' => absint( $attendee_id ) ),
 				array(
 					'%s',
 					'%s',
@@ -1112,10 +1112,10 @@ function rsvp_handlersvp( &$output, &$text ) {
         			INNER JOIN ' . ASSOCIATED_ATTENDEES_TABLE . ' waa2 ON waa2.attendeeID = waa1.attendeeID  OR
                     waa1.associatedAttendeeID = waa2.attendeeID
       				WHERE waa2.associatedAttendeeID = %d AND waa1.attendeeID <> %d))';
-		$associations = $wpdb->get_results( $wpdb->prepare( $sql, $attendee_id, $attendee_id, $attendee_id, $attendee_id ) );
+		$associations = $wpdb->get_results( $wpdb->prepare( $sql, absint( $attendee_id ), absint( $attendee_id ), absint( $attendee_id ), absint( $attendee_id ) ) );
 		foreach ( $associations as $a ) {
-			if ( isset( $_POST[ 'attending' . $a->id ] ) && ( ( $_POST[ 'attending' . $a->id ] == 'Y' ) || ( $_POST[ 'attending' . $a->id ] == 'N' ) ) ) {
-				$thank_you_associated[] = stripslashes_deep( $a->firstName );
+			if ( isset( $_POST[ 'attending' . $a->id ] ) && ( ( sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id ] ) ) == 'Y' ) || ( sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id ] ) ) == 'N' ) ) ) {
+				$thank_you_associated[] = sanitize_text_field( stripslashes_deep( $a->firstName ) );
 				if ( $_POST[ 'attending' . $a->id ] == 'Y' ) {
 					$rsvp_status = 'Yes';
 				} else {
@@ -1127,10 +1127,10 @@ function rsvp_handlersvp( &$output, &$text ) {
 						ATTENDEES_TABLE,
 						array(
 							'rsvpDate'   => date( 'Y-m-d' ),
-							'rsvpStatus' => sanitizie_text_field( $rsvp_status ),
-							'email'      => sanitize_email( $_POST[ 'attending' . $a->id . 'Email' ] ),
-							'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? $_POST[ 'attending' . $a->id . 'KidsMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
-							'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? $_POST[ 'attending' . $a->id . 'VeggieMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
+							'rsvpStatus' => sanitizie_text_field( wp_unslash( $rsvp_status ) ),
+							'email'      => sanitize_email( wp_unslash( $_POST[ 'attending' . $a->id . 'Email' ] ) ),
+							'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ) : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
+							'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ) : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 						),
 						array( 'id' => absint( $a->id ) ),
 						array(
@@ -1147,9 +1147,9 @@ function rsvp_handlersvp( &$output, &$text ) {
 						ATTENDEES_TABLE,
 						array(
 							'rsvpDate'   => date( 'Y-m-d' ),
-							'rsvpStatus' => sanitize_text_field( $rsvp_status ),
-							'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? $_POST[ 'attending' . $a->id . 'KidsMeal' ] : 'N' ) == 'Y' ) ? 'Y' : 'N' ) ),
-							'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? $_POST[ 'attending' . $a->id . 'VeggieMeal' ] : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
+							'rsvpStatus' => sanitize_text_field( wp_unslash( $rsvp_status ) ),
+							'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ) : 'N' ) == 'Y' ) ? 'Y' : 'N' ) ),
+							'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ) : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 						),
 						array( 'id' => absint( $a->id ) ),
 						array(
@@ -1167,8 +1167,8 @@ function rsvp_handlersvp( &$output, &$text ) {
 		}
 
 		if ( get_option( OPTION_HIDE_ADD_ADDITIONAL ) != 'Y' ) {
-			if ( is_numeric( $_POST['additionalRsvp'] ) && ( $_POST['additionalRsvp'] > 0 ) ) {
-				for ( $i = 1; $i <= $_POST['additionalRsvp']; $i ++ ) {
+			if ( is_numeric( $_POST['additionalRsvp'] ) && ( absint( $_POST['additionalRsvp'] ) > 0 ) ) {
+				for ( $i = 1; $i <= absint( $_POST['additionalRsvp'] ); $i ++ ) {
 					$num_guests = 3;
 					if ( get_option( OPTION_RSVP_NUM_ADDITIONAL_GUESTS ) != '' ) {
 						$num_guests = get_optioN( OPTION_RSVP_NUM_ADDITIONAL_GUESTS );
@@ -1180,17 +1180,17 @@ function rsvp_handlersvp( &$output, &$text ) {
 					if ( ( $i <= $num_guests ) &&
 						 ! empty( $_POST[ 'newAttending' . $i . 'FirstName' ] ) &&
 						 ! empty( $_POST[ 'newAttending' . $i . 'LastName' ] ) ) {
-						$thank_you_associated[] = $_POST[ 'newAttending' . $i . 'FirstName' ];
+						$thank_you_associated[] = sanitize_text_field( wp_unslash( $_POST[ 'newAttending' . $i . 'FirstName' ] ) );
 						$wpdb->insert(
 							ATTENDEES_TABLE,
 							array(
-								'firstName'          => trim( $_POST[ 'newAttending' . $i . 'FirstName' ] ),
-								'lastName'           => trim( $_POST[ 'newAttending' . $i . 'LastName' ] ),
-								'email'              => trim( $_POST[ 'newAttending' . $i . 'Email' ] ),
+								'firstName'          => sanitize_text_field( wp_unslash( $_POST[ 'newAttending' . $i . 'FirstName' ] ) ),
+								'lastName'           => sanitize_text_field( wp_unslash( $_POST[ 'newAttending' . $i . 'LastName' ] ) ),
+								'email'              => sanitize_email( wp_unslash( $_POST[ 'newAttending' . $i . 'Email' ] ) ),
 								'rsvpDate'           => date( 'Y-m-d' ),
 								'rsvpStatus'         => ( ( $_POST[ 'newAttending' . $i ] == 'Y' ) ? 'Yes' : 'No' ),
-								'kidsMeal'           => ( isset( $_POST[ 'newAttending' . $i . 'KidsMeal' ] ) ? $_POST[ 'newAttending' . $i . 'KidsMeal' ] : 'N' ),
-								'veggieMeal'         => ( isset( $_POST[ 'newAttending' . $i . 'VeggieMeal' ] ) ? $_POST[ 'newAttending' . $i . 'VeggieMeal' ] : 'N' ),
+								'kidsMeal'           => ( isset( $_POST[ 'newAttending' . $i . 'KidsMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'newAttending' . $i . 'KidsMeal' ] ) ) : 'N' ),
+								'veggieMeal'         => ( isset( $_POST[ 'newAttending' . $i . 'VeggieMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'newAttending' . $i . 'VeggieMeal' ] ) ) : 'N' ),
 								'additionalAttendee' => 'Y',
 							),
 							array(
@@ -1210,7 +1210,7 @@ function rsvp_handlersvp( &$output, &$text ) {
 							ASSOCIATED_ATTENDEES_TABLE,
 							array(
 								'attendeeID'           => absint( $new_aid ),
-								'associatedAttendeeID' => $attendee_id,
+								'associatedAttendeeID' => absint( $attendee_id ),
 							),
 							array(
 								'%d',
@@ -1222,7 +1222,7 @@ function rsvp_handlersvp( &$output, &$text ) {
 							SELECT ' . $new_aid . ', associatedAttendeeID
 							FROM ' . ASSOCIATED_ATTENDEES_TABLE .
 							   ' WHERE attendeeID = %d';
-						$wpdb->query( $wpdb->prepare( $sql, $attendee_id ) );
+						$wpdb->query( $wpdb->prepare( $sql, absint( $attendee_id ) ) );
 					}
 				}
 			}
@@ -1247,19 +1247,19 @@ function rsvp_handlersvp( &$output, &$text ) {
 function rsvp_editAttendee( &$output, &$text ) {
 	global $wpdb;
 
-	if ( is_numeric( $_POST['attendeeID'] ) && ( $_POST['attendeeID'] > 0 ) ) {
+	if ( is_numeric( $_POST['attendeeID'] ) && ( absint( $_POST['attendeeID'] ) > 0 ) ) {
 		// Try to find the user.
 		$attendee = $wpdb->get_row(
 			$wpdb->prepare(
 				'SELECT id, firstName, lastName, rsvpStatus
 		FROM ' . ATTENDEES_TABLE .
 				' WHERE id = %d',
-				asint( $_POST['attendeeID'] )
+				absint( $_POST['attendeeID'] )
 			)
 		);
 		if ( $attendee != null ) {
 			$output .= RSVP_START_CONTAINER;
-			$output .= RSVP_START_PARA . sprintf( __( 'Welcome back %s!', 'rsvp-plugin' ), htmlspecialchars( stripslashes_deep( $attendee->firstName . ' ' . $attendee->lastName ) ) ) . RSVP_END_PARA;
+			$output .= RSVP_START_PARA . sprintf( __( 'Welcome back %s!', 'rsvp-plugin' ), esc_html( stripslashes_deep( $attendee->firstName . ' ' . $attendee->lastName ) ) ) . RSVP_END_PARA;
 			$output .= rsvp_frontend_main_form( $attendee->id );
 
 			return rsvp_handle_output( $text, $output . RSVP_END_CONTAINER );
@@ -1278,7 +1278,7 @@ function rsvp_editAttendee( &$output, &$text ) {
 function rsvp_foundAttendee( &$output, &$text ) {
 	global $wpdb;
 
-	if ( is_numeric( $_POST['attendeeID'] ) && ( $_POST['attendeeID'] > 0 ) ) {
+	if ( is_numeric( $_POST['attendeeID'] ) && ( absint( $_POST['attendeeID'] ) > 0 ) ) {
 		$sql      = 'SELECT id, firstName, lastName, rsvpStatus FROM ' . ATTENDEES_TABLE . ' WHERE id = %d';
 		$attendee = $wpdb->get_row( $wpdb->prepare( $sql, absint( $_POST['attendeeID'] ) ) );
 		if ( $attendee != null ) {
@@ -1527,6 +1527,6 @@ function rsvp_inject_add_guests_js( $attendee_id ) {
                 jQuery(\"#additionalRsvp\").val(numAdditional);
               }
 						</script>\r\n";
-		echo $form;
+		echo wp_kses_post( $form );
 	}
 }

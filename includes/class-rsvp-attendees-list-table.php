@@ -45,8 +45,8 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 
 		if ( isset( $_GET['s'] ) ) {
 			$sql     .= " WHERE (firstName LIKE '%%%s%%'  OR  lastName LIKE '%%%s%%')";
-			$values[] = wp_unslash( $_GET['s'] );
-			$values[] = wp_unslash( $_GET['s'] );
+			$values[] = sanitize_text_field( wp_unslash( $_GET['s'] ) );
+			$values[] = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 			$operator = 'AND';
 		}
 
@@ -135,10 +135,10 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 	 */
 	public function usort_reorder( $a, $b ) {
 		// If no sort, default to name
-		$orderby = ( ! empty( $_GET['orderby'] ) ) ? wp_unslash( $_GET['orderby'] ) : 'attendee';
+		$orderby = ( ! empty( $_GET['orderby'] ) ) ? sanitize_sql_orderby( wp_unslash( $_GET['orderby'] ) ) : 'attendee';
 
 		// If no order, default to asc
-		$order = ( ! empty( $_GET['order'] ) ) ? wp_unslash( $_GET['order'] ) : 'asc';
+		$order = ( ! empty( $_GET['order'] ) ) ? sanitize_text_field( wp_unslash( $_GET['order'] ) ) : 'asc';
 
 		// Determine sort order
 		if ( 'attendee' == $orderby ) {
@@ -206,7 +206,7 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 
 		$actions = apply_filters( 'rsvp_attendees_actions', $actions, $item );
 
-		echo $this->row_actions( $actions );
+		echo wp_kses_post( $this->row_actions( $actions ) );
 	}
 
 	public function column_default( $item, $column_name ) {
@@ -279,10 +279,10 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 				<label class="screen-reader-text"
 					   for="post-search-input"><?php esc_html_e( 'Search', 'rsvp-plugin' ); ?></label>
 				<input type="search" id="post-search-input" name="s"
-					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? esc_attr( wp_unslash( $_GET['s'] ) ) : '' ); ?>">
+					   value="<?php echo( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['s'] ) ) ) : '' ); ?>">
 				<input type="hidden" name="page" value="rsvp-top-level">
 				<input type="hidden" id="post-pagesize" name="pagesize"
-					   value="<?php echo( isset( $_GET['pagesize'] ) && ! empty( $_GET['pagesize'] ) ? esc_attr( wp_unslash( $_GET['pagesize'] ) ) : esc_attr( $pagesize ) ); ?>">
+					   value="<?php echo( isset( $_GET['pagesize'] ) && ! empty( $_GET['pagesize'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['pagesize'] ) ) ) : esc_attr( $pagesize ) ); ?>">
 				<input type="submit" id="search-submit" class="button"
 					   value="<?php esc_html_e( 'Search attendee', 'rsvp-plugin' ); ?>">
 			</p>
@@ -399,8 +399,8 @@ class RSVP_Attendees_List_Table extends RSVP_List_Table {
 		$veggieMeals       = $wpdb->get_results( 'SELECT COUNT(*) AS veggieMealCount FROM ' . ATTENDEES_TABLE . " WHERE veggieMeal = 'Y'" );
 		$all               = $wpdb->get_results( 'SELECT COUNT(*) AS allCount FROM ' . ATTENDEES_TABLE );
 
-		if ( isset( $_GET['event_list'] ) && '' != $_GET['event_list'] ) {
-			$class = wp_unslash( $_GET['event_list'] );
+		if ( isset( $_GET['event_list'] ) && '' != santize_text_field( wp_unslash( $_GET['event_list'] ) ) ) {
+			$class = santize_text_field( wp_unslash( $_GET['event_list'] ) );
 		} else {
 			$class = 'all';
 		}
