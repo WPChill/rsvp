@@ -487,6 +487,9 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 				return;
 			}
 
+			// Temp fix for bottom bulk actions
+			$two = '';
+
 			echo "<label for='bulk-action-selector-" . esc_attr( $which ) . "' class='screen-reader-text'>" . esc_html__( 'Select bulk action', 'rsvp' ) . '</label>';
 			echo "<select name='rsvp-bulk-action" . esc_attr( $two ) . "' id='rsvp-bulk-action-selector-" . esc_attr( $which ) . "'>\n";
 			echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions', 'rsvp' ) . "</option>\n";
@@ -1102,7 +1105,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 					echo '</td>';
 				} else {
 					echo wp_kses_post( "<td $attributes>" );
-					echo esc_html( $this->column_default( $item, $column_name ) );
+					echo wp_kses_post( $this->column_default( $item, $column_name ) );
 					echo '</td>';
 				}
 			}

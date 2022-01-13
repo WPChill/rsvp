@@ -74,12 +74,12 @@ class RSVP_Helper {
 	 * @since 2.7.2
 	 */
 	public function delete_attendee( $attendee_id = false ) {
-
+		
 		if ( ! $attendee_id ) {
 
-			check_admin_referer( 'delete-rsvp-attendee_' . absint( $_REQUEST['id'] ) );
-
 			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-attendee' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
+
+				check_admin_referer( 'delete-rsvp-attendee_' . absint( $_REQUEST['id'] ) );
 
 				global $wpdb;
 				$attendee_id = absint( $_REQUEST['id'] );
@@ -358,7 +358,7 @@ class RSVP_Helper {
 			header( 'Content-Description: RSVP Export' );
 			header( 'Content-Type: application/vnd.ms-excel', true );
 			header( 'Content-Disposition: attachment; filename="rsvpEntries.csv"' );
-			echo esc_html( $csv );
+			echo $csv;
 			exit();
 		}
 	}
@@ -374,7 +374,7 @@ class RSVP_Helper {
 			check_admin_referer( 'rsvp-import' );
 			require RSVP_PLUGIN_PATH . '/external-libs/spout/src/Spout/Autoloader/autoload.php';
 
-			$file_type = ( isset( $_FILES['importFile']['name'] ) ) ? rsvp_free_import_get_file_type( sanitize_file_name( wp_unslash( $_FILES['importFile']['name'] ) ) ) : null;
+			$file_type = ( isset( $_FILES['importFile']['name'] ) ) ? rsvp_free_import_get_file_type( $_FILES['importFile']['name'] ) : null;
 
 			if ( null === $file_type ) {
 				?>
@@ -387,7 +387,7 @@ class RSVP_Helper {
 			$i         = 0;
 			$count     = 0;
 			$headerRow = array();
-			$reader->open( sanitize_file_name( wp_unslash( $_FILES['importFile']['tmp_name'] ) ) );
+			$reader->open( $_FILES['importFile']['tmp_name'] );
 			foreach ( $reader->getSheetIterator() as $sheet ) {
 				foreach ( $sheet->getRowIterator() as $row ) {
 					if ( count( $row ) <= 2 ) {
@@ -530,9 +530,11 @@ class RSVP_Helper {
 							if ( $numCols >= 9 ) {
 								$private_questions = array();
 								for ( $qid = 9; $qid <= $numCols; $qid ++ ) {
-									$pqid = str_replace( 'pq_', '', $headerRow[ $qid ] );
-									if ( is_numeric( $pqid ) ) {
-										$private_questions[ $qid ] = $pqid;
+									if ( isset( $headerRow[ $qid ] ) ) {
+										$pqid = str_replace( 'pq_', '', $headerRow[ $qid ] );
+										if ( is_numeric( $pqid ) ) {
+											$private_questions[ $qid ] = $pqid;
+										}
 									}
 								} // for($qid = 6...
 
@@ -673,6 +675,7 @@ class RSVP_Helper {
 	 * @since 2.7.2
 	 */
 	public function bulk_delete_attendees() {
+
 		if ( count( $_GET ) > 0 && isset( $_GET['rsvp-bulk-action'] ) && isset( $_GET['attendee'] ) && $_GET['rsvp-bulk-action'] == 'delete' && ( is_array( $_GET['attendee'] ) && ( count( $_GET['attendee'] ) > 0 ) ) ) {
 
 			if ( isset( $_GET['_wpnonce'] ) && ! empty( $_GET['_wpnonce'] ) ) {
@@ -682,9 +685,9 @@ class RSVP_Helper {
 					wp_die( 'Nope! Security check failed!' );
 				}
 			}
-
+	
 			foreach ( array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_GET['attendee'] ) ) as $attendee ) {
-
+				
 				if ( is_numeric( $attendee ) && ( $attendee > 0 ) ) {
 					$this->delete_attendee( $attendee );
 				}

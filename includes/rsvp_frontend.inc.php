@@ -1127,7 +1127,7 @@ function rsvp_handlersvp( &$output, &$text ) {
 						ATTENDEES_TABLE,
 						array(
 							'rsvpDate'   => date( 'Y-m-d' ),
-							'rsvpStatus' => sanitizie_text_field( wp_unslash( $rsvp_status ) ),
+							'rsvpStatus' => sanitize_text_field( wp_unslash( $rsvp_status ) ),
 							'email'      => sanitize_email( wp_unslash( $_POST[ 'attending' . $a->id . 'Email' ] ) ),
 							'kidsMeal'   => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id . 'KidsMeal' ] ) ) : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
 							'veggieMeal' => ( ( strToUpper( ( isset( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'attending' . $a->id . 'VeggieMeal' ] ) ) : 'N' ) ) == 'Y' ) ? 'Y' : 'N' ),
@@ -1465,7 +1465,7 @@ function rsvp_inject_add_guests_js( $attendee_id ) {
 		}
 		echo '<script type="text/javascript" language="javascript">';
 		echo 'function handleAddRsvpClick(){';
-		echo 'var numAdditional = jQuery("additionalRsvp").val();numAdditional++;';
+		echo 'var numAdditional = jQuery("#additionalRsvp").val();numAdditional++;';
 		echo 'if( numAdditional > ' . absint( $num_guests ) . ' ){ alert("' . sprintf( esc_html__( 'You have already added %1$d additional rsvp\\\'s you can add no more.', 'rsvp' ), absint( $num_guests ) ) . '") }';
 		echo 'else {';
 		echo 'jQuery("#additionalRsvpContainer").append("<div class=\"rsvpAdditionalAttendee\"><div class=\"rsvpAdditionalAttendeeQuestions\"><label for=\"newAttending" + numAdditional + "FirstName\">' . esc_html__( 'Person\'s first name', 'rsvp') . '&nbsp;</label>';
