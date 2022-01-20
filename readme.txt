@@ -55,11 +55,6 @@ What?! You found a bug, well we'd love to have a patch or issue posted at our <a
 
 == Frequently Asked Questions ==
 
-= Why can't this plugin do X? =
-
-Good question, maybe I didn't think about having this feature or didn't feel anyone would use it.  Contact me at mike AT mde DASH dev.com and
-I will see if I can get it added for you.
-
 = Can I style the plugin? =
 
 Yes. Below are the styles for the plugin:
@@ -75,10 +70,6 @@ Yes. Below are the styles for the plugin:
 * rsvpClear - A class for div elements that we want to use to set clear both. Currently used only next to rsvpCheckboxCustomQs as they are floated
 * rsvpAdditionalAttendeeQuestions - Class name for the div that wraps around all additional attendee questions
 * rsvpCustomQuestions - Class name for the div that wraps around all custom questions for each attendee
-
-= I need help =
-
-I am here to help, contact me at mike@mde-dev.com
 
 = Is there a GitHub Repository? =
 
