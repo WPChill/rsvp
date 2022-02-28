@@ -616,13 +616,13 @@ function rsvp_hide_untill_loaded() {
 		echo '<style type="text/css">.rsvpArea, .rsvpParagraph, #rsvpPlugin {display:none;} </style>';
 }
 
-function rsvp_add_css() {
+function enqueue_rsvp_custom_css() {
 	$css = get_option( RSVP_OPTION_CSS_STYLING );
 
 	if ( ! empty( $css ) ) {
+		$output = wp_kses( $css, 'strip' );
 
-		echo '<!-- RSVP Free Styling -->
-		<style id="rsvp_plugin-custm-style" type="text/css">' . wp_kses_post( $css ) . '</style>';
+		wp_add_inline_style( 'rsvp_css', $output );
 	}
 }
 
