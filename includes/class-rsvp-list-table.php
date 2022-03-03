@@ -670,7 +670,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 			$current = $this->get_pagenum();
 
-			$current_url = set_url_scheme( 'http://' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] )  ) . '/' . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+			$current_url = set_url_scheme( 'http://' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] )  ) . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 
 			$current_url = remove_query_arg(
 				array(
@@ -858,7 +858,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		public function print_column_headers( $with_id = true ) {
 			list( $columns, $hidden, $sortable ) = $this->get_column_info();
 
-			$current_url = set_url_scheme( 'http://' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . '/' . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+			$current_url = set_url_scheme( 'http://' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 			$current_url = remove_query_arg( 'paged', $current_url );
 
 			if ( isset( $_GET['orderby'] ) ) {
