@@ -620,10 +620,9 @@ function rsvp_add_css() {
 	$css = get_option( RSVP_OPTION_CSS_STYLING );
 
 	if ( ! empty( $css ) ) {
-		$output  = '<!-- RSVP Free Styling -->';
-		$output .= '<style id="rsvp_plugin-custm-style" type="text/css">' . $css . '</style>';
 
-		echo wp_kses_post( $output );
+		echo '<!-- RSVP Free Styling -->
+		<style id="rsvp_plugin-custm-style" type="text/css">' . wp_kses_post( $css ) . '</style>';
 	}
 }
 
