@@ -676,7 +676,15 @@ class RSVP_Helper {
 	 */
 	public function bulk_delete_attendees() {
 
-		if ( count( $_GET ) > 0 && isset( $_GET['rsvp-bulk-action'] ) && isset( $_GET['attendee'] ) && $_GET['rsvp-bulk-action'] == 'delete' && ( is_array( $_GET['attendee'] ) && ( count( $_GET['attendee'] ) > 0 ) ) ) {
+		if( isset( $_GET['rsvp-bulk-action'] ) && -1 != $_GET['rsvp-bulk-action'] ){
+			$rsvp_bulk_action = $_GET['rsvp-bulk-action'];
+		}elseif( isset( $_GET['rsvp-bulk-action2'] ) && -1 != $_GET['rsvp-bulk-action2'] ){
+			$rsvp_bulk_action = $_GET['rsvp-bulk-action2'];
+		}else{
+			$rsvp_bulk_action = false;
+		}
+
+		if ( count( $_GET ) > 0 && $rsvp_bulk_action && isset( $_GET['attendee'] ) && $rsvp_bulk_action == 'delete' && ( is_array( $_GET['attendee'] ) && ( count( $_GET['attendee'] ) > 0 ) ) ) {
 
 			if ( isset( $_GET['_wpnonce'] ) && ! empty( $_GET['_wpnonce'] ) ) {
 
@@ -702,7 +710,15 @@ class RSVP_Helper {
 	 */
 	public function bulk_delete_questions() {
 
-		if ( count( $_GET ) > 0 && isset( $_GET['rsvp-bulk-action'] ) && isset( $_GET['q'] ) && $_GET['rsvp-bulk-action'] == 'delete' && ( is_array( $_GET['q'] ) && ( count( $_GET['q'] ) > 0 ) ) ) {
+		if( isset( $_GET['rsvp-bulk-action'] ) && -1 != $_GET['rsvp-bulk-action'] ){
+			$rsvp_bulk_action = $_GET['rsvp-bulk-action'];
+		}elseif( isset( $_GET['rsvp-bulk-action2'] ) && -1 != $_GET['rsvp-bulk-action2'] ){
+			$rsvp_bulk_action = $_GET['rsvp-bulk-action2'];
+		}else{
+			$rsvp_bulk_action = false;
+		}
+
+		if ( count( $_GET ) > 0 && $rsvp_bulk_action && isset( $_GET['q'] ) && $rsvp_bulk_action == 'delete' && ( is_array( $_GET['q'] ) && ( count( $_GET['q'] ) > 0 ) ) ) {
 
 			if ( isset( $_GET['_wpnonce'] ) && ! empty( $_GET['_wpnonce'] ) ) {
 
