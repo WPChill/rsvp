@@ -81,7 +81,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp' ); ?></a><a
 							target="_blank"
-							href="https://rsvpproplugin.com/"
+							href="https://rsvpproplugin.com/pricing/"
 							class="button-primary button"><?php echo esc_html__( 'Get RSVP PRO!', 'rsvp' ); ?></a>
 				</p>
 			</div>
@@ -99,13 +99,30 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 			?>
 			<div class="rsvp-upsell">
 				<h3><?php echo esc_html__( 'Customize all', 'rsvp' ); ?></h3>
-				<p class="rsvp-upsell-description"><?php echo esc_html__( 'Everything here is customizable - from events, number of attendees, lists to texts, buttons, titles, and much more. With RSVP Pro, you can customize each slice of your form.', 'rsvp' ); ?></p>
+				<p class="rsvp-upsell-description"><?php echo esc_html__( 'In RSVP PRO everything is customisable: ', 'rsvp' ); ?></p>
+				<ul class="rsvp-upsell-description">
+					<li>
+						<?php esc_html_e( 'From Events', 'rsvp' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'Number of Attendees', 'rsvp' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'Texts', 'rsvp' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'Buttons', 'rsvp' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'etc.', 'rsvp' ); ?>
+					</li>
+				</ul>
 				<p>
 					<a target="_blank"
 					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp' ); ?></a><a
 							target="_blank"
-							href="https://rsvpproplugin.com/"
+							href="https://rsvpproplugin.com/pricing/"
 							class="button-primary button"><?php echo esc_html__( 'Get RSVP PRO!', 'rsvp' ); ?></a>
 				</p>
 			</div>
@@ -129,7 +146,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp' ); ?></a><a
 							target="_blank"
-							href="https://rsvpproplugin.com/"
+							href="https://rsvpproplugin.com/pricing/"
 							class="button-primary button"><?php echo esc_html__( 'Get RSVP PRO!', 'rsvp' ); ?></a>
 				</p>
 			</div>
@@ -146,23 +163,31 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 
 			?>
 			<div class="rsvp-upsell">
-				<h3><?php echo esc_html__( 'Separate attendees for each event', 'rsvp' ); ?></h3>
-				<p class="rsvp-upsell-description">
-				<?php
-				echo esc_html__(
-					'If you want to keep in touch with your guests, upgrade to RSVP Pro to send messages, reset attendees’ responses, and add as many participants as you please. You can also increase your workflow by creating reminders and automated emails.
-',
-					'rsvp'
-				);
-				?>
-													</p>
+				<h3><?php echo esc_html__( 'Upgrade to unlock more functionality', 'rsvp' ); ?></h3>
+				<ul class="rsvp-upsell-description">
+					<li>
+						<?php esc_html_e( 'Keep in touch with your guests by sending messages', 'rsvp' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'Reset attendees’ responses', 'rsvp' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'Add as many participants as you please', 'rsvp' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'Improve your workflow by creating reminders and automated emails', 'rsvp' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'Import and export attendees and events data', 'rsvp' ); ?>
+					</li>
+				</ul>
 				<p class="rsvp-upsell-description"><?php echo esc_html__( 'We know how important it is to keep everything stored in a safe place, so we made everything easy for you to import and export attendees and events data.', 'rsvp' ); ?></p>
 				<p>
 					<a target="_blank"
 					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp' ); ?></a><a
 							target="_blank"
-							href="https://rsvpproplugin.com/"
+							href="https://rsvpproplugin.com/pricing/"
 							class="button-primary button"><?php echo esc_html__( 'Get RSVP PRO!', 'rsvp' ); ?></a>
 				</p>
 			</div>
