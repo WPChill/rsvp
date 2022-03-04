@@ -93,6 +93,13 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 
+= 2.7.6 - TBA =
+* Fixed: Sorting attendees no longer logs out the user (https://github.com/WPChill/rsvp/issues/76)
+* Changed: Moved upsell in "Events" page under the table. (https://github.com/WPChill/rsvp/issues/55)
+* Fixed: Bulk select attendees and custom questions (https://github.com/WPChill/rsvp/issues/63)
+* Fixed: Sanitization removing <style> wrapper of custom plugin css (https://github.com/WPChill/rsvp/issues/77)
+* Changed: Improved some upsells readability (https://github.com/WPChill/rsvp/issues/53)
+
 = 2.7.5 - 11.01.2022 =
 * Fixed: Sanitizations
 * Changed: Text Domain - now same with plugin permalink
