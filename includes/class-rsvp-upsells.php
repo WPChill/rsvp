@@ -24,7 +24,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 		 * @since 2.7.2
 		 */
 		function __construct() {
-			add_action( 'rsvp_events_before_table', array( $this, 'events_table_upsells' ) );
+			add_action( 'rsvp_events_after_table', array( $this, 'events_table_upsells' ) );
 			add_action( 'rsvp_settings_page', array( $this, 'settings_upsells' ) );
 			add_action( 'rsvp_after_question_table', array( $this, 'questions_upsells' ) );
 			add_action( 'rsvp_after_add_guest', array( $this, 'add_guest_upsells' ) );
