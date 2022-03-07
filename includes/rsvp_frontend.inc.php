@@ -477,26 +477,30 @@ function rsvp_buildAdditionalQuestions( $attendee_id, $prefix ) {
 	if ( count( $questions ) > 0 ) {
 		foreach ( $questions as $q ) {
 			$oldAnswer = rsvp_revtrievePreviousAnswer( $attendee_id, $q->id );
+			$questionText = esc_html( stripslashes_deep( $q->question ) );
 
-			$output .= rsvp_BeginningFormField( '', '' ) . '<label>' . esc_html( stripslashes_deep( $q->question ) ) . '</label>';
+			$output .= rsvp_BeginningFormField( '', '' );
 
 			if ( $q->questionType == QT_MULTI ) {
 				$oldAnswers = explode( '||', $oldAnswer );
 
 				$sql     = 'SELECT id, answer FROM ' . QUESTION_ANSWERS_TABLE . ' WHERE questionID = %d';
 				$answers = $wpdb->get_results( $wpdb->prepare( $sql, $q->id ) );
+
+				$output  .= '<div class="row justify-content-center mb-3"><div class="col-12"><label class="form-label">' . __( $questionText, 'rsvp' ) . '</label>';
 				if ( count( $answers ) > 0 ) {
 					$i = 0;
 					foreach ( $answers as $a ) {
 						$output .= rsvp_BeginningFormField( '', 'rsvpCheckboxCustomQ' ) .
 								   '<input type="checkbox" name="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . '[]" id="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . absint( $a->id ) . '" value="' . absint( $a->id ) . '" ' .
 								   ( ( in_array( stripslashes_deep( $a->answer ), $oldAnswers ) ) ? ' checked="checked"' : '' ) . ' />' .
-								   '<label for="' . esc_attr( $prefix ) . 'question' . absint( $q->id )  . absint( $a->id ) . '">' . esc_html( $a->answer ) . '</label>' . "\r\n" . RSVP_END_FORM_FIELD;
+								   '<label for="' . esc_attr( $prefix ) . 'question' . absint( $q->id )  . absint( $a->id ) . '">' . esc_html( $a->answer, 'rsvp' ) . '</label>' . "\r\n" . RSVP_END_FORM_FIELD;
 						$i ++;
 					}
 					$output .= '<div class="rsvpClear">&nbsp;</div>' . "\r\n";
 				}
 			} elseif ( $q->questionType == QT_DROP ) {
+				$output  .= '<label>' . __( $questionText, 'rsvp' ) . '</label>';
 				$output .= '<select name="' . esc_attr( $prefix ) . 'question' . esc_attr( $q->id ) . '" size="1">' . "\r\n" .
 							'<option value="">--</option>' . "\r\n";
 				$sql     = 'SELECT id, answer FROM ' . QUESTION_ANSWERS_TABLE . ' WHERE questionID = %d';
@@ -508,22 +512,28 @@ function rsvp_buildAdditionalQuestions( $attendee_id, $prefix ) {
 				}
 				$output .= "</select>\r\n";
 			} elseif ( $q->questionType == QT_LONG ) {
-				$output .= '<textarea name="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . '" rows="5" cols="35">' . esc_html( $oldAnswer ) . '</textarea>';
+				$output  .= '<label class="form-label">' . __( $questionText, 'rsvp' ) . '</label>';
+				$output .= '<textarea class="form-control" name="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . '" rows="5" cols="35">' . esc_html( $oldAnswer ) . '</textarea>';
 			} elseif ( $q->questionType == QT_RADIO ) {
+				$output  .= '<label class="form-label">' . __( $questionText, 'rsvp-fork' ) . '</label>';
 				$sql     = 'SELECT id, answer FROM ' . QUESTION_ANSWERS_TABLE . ' WHERE questionID = %d';
 				$answers = $wpdb->get_results( $wpdb->prepare( $sql, $q->id ) );
 				if ( count( $answers ) > 0 ) {
 					$i       = 0;
 					$output .= RSVP_START_PARA;
 					foreach ( $answers as $a ) {
-						$output .= '<input type="radio" name="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . '" id="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . absint( $a->id ) . '" value="' . absint( $a->id ) . '" '
-								   . ( ( stripslashes( $a->answer ) == $oldAnswer ) ? ' checked="checked"' : '' ) . ' /> ' .
-								   '<label for="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . absint( $a->id ) . '">' . esc_html( stripslashes_deep( $a->answer ) ) . "</label>\r\n";
+						$answer_string = stripslashes( $a->answer );
+						$answer_id = absint( $a->id );
+
+						$output .= '<input type="radio" name="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . '" id="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . $answer_id . '" value="' . $answer_id . '" '
+								   . ( ( $answer_string == $oldAnswer ) ? ' checked="checked"' : '' ) . ' /> ' .
+								   '<label for="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . $answer_id . '">' . __( $answer_string, 'rsvp' ) . "</label>\r\n";
 						$i ++;
 					}
 					$output .= RSVP_END_PARA;
 				}
 			} else {
+				$output  .= '<label class="form-label">' . __( $questionText, 'rsvp' ) . '</label>';
 				$output .= '<input type="text" name="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . '" value="' . esc_attr( $oldAnswer ) . '" size="25" />';
 			}
 
