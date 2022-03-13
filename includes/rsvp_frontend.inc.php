@@ -478,8 +478,7 @@ function rsvp_buildAdditionalQuestions( $attendee_id, $prefix ) {
 		foreach ( $questions as $q ) {
 			$oldAnswer = rsvp_revtrievePreviousAnswer( $attendee_id, $q->id );
 			$questionText = esc_html( stripslashes_deep( $q->question ) );
-
-			$output .= rsvp_BeginningFormField( '', '' );
+			$output .= rsvp_BeginningFormField( '', '' ) . '<label>' . $__( $questionText, 'rsvp' ) . '</label>';
 
 			if ( $q->questionType == QT_MULTI ) {
 				$oldAnswers = explode( '||', $oldAnswer );
@@ -487,7 +486,6 @@ function rsvp_buildAdditionalQuestions( $attendee_id, $prefix ) {
 				$sql     = 'SELECT id, answer FROM ' . QUESTION_ANSWERS_TABLE . ' WHERE questionID = %d';
 				$answers = $wpdb->get_results( $wpdb->prepare( $sql, $q->id ) );
 
-				$output  .= '<div class="row justify-content-center mb-3"><div class="col-12"><label class="form-label">' . __( $questionText, 'rsvp' ) . '</label>';
 				if ( count( $answers ) > 0 ) {
 					$i = 0;
 					foreach ( $answers as $a ) {
@@ -500,7 +498,6 @@ function rsvp_buildAdditionalQuestions( $attendee_id, $prefix ) {
 					$output .= '<div class="rsvpClear">&nbsp;</div>' . "\r\n";
 				}
 			} elseif ( $q->questionType == QT_DROP ) {
-				$output  .= '<label>' . __( $questionText, 'rsvp' ) . '</label>';
 				$output .= '<select name="' . esc_attr( $prefix ) . 'question' . esc_attr( $q->id ) . '" size="1">' . "\r\n" .
 							'<option value="">--</option>' . "\r\n";
 				$sql     = 'SELECT id, answer FROM ' . QUESTION_ANSWERS_TABLE . ' WHERE questionID = %d';
@@ -512,10 +509,8 @@ function rsvp_buildAdditionalQuestions( $attendee_id, $prefix ) {
 				}
 				$output .= "</select>\r\n";
 			} elseif ( $q->questionType == QT_LONG ) {
-				$output  .= '<label class="form-label">' . __( $questionText, 'rsvp' ) . '</label>';
-				$output .= '<textarea class="form-control" name="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . '" rows="5" cols="35">' . esc_html( $oldAnswer ) . '</textarea>';
+				$output .= '<textarea name="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . '" rows="5" cols="35">' . esc_html( $oldAnswer ) . '</textarea>';
 			} elseif ( $q->questionType == QT_RADIO ) {
-				$output  .= '<label class="form-label">' . __( $questionText, 'rsvp-fork' ) . '</label>';
 				$sql     = 'SELECT id, answer FROM ' . QUESTION_ANSWERS_TABLE . ' WHERE questionID = %d';
 				$answers = $wpdb->get_results( $wpdb->prepare( $sql, $q->id ) );
 				if ( count( $answers ) > 0 ) {
@@ -533,7 +528,6 @@ function rsvp_buildAdditionalQuestions( $attendee_id, $prefix ) {
 					$output .= RSVP_END_PARA;
 				}
 			} else {
-				$output  .= '<label class="form-label">' . __( $questionText, 'rsvp' ) . '</label>';
 				$output .= '<input type="text" name="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . '" value="' . esc_attr( $oldAnswer ) . '" size="25" />';
 			}
 
