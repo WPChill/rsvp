@@ -81,7 +81,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp' ); ?></a><a
 							target="_blank"
-							href="https://rsvpproplugin.com/pricing/"
+							href="https://rsvpproplugin.com/pricing/?utm_source=upsell&utm_medium=events-metabox&utm_campaign=rsvp-pro"
 							class="button-primary button"><?php echo esc_html__( 'Get RSVP PRO!', 'rsvp' ); ?></a>
 				</p>
 			</div>
@@ -122,7 +122,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp' ); ?></a><a
 							target="_blank"
-							href="https://rsvpproplugin.com/pricing/"
+							href="https://rsvpproplugin.com/pricing/?utm_source=upsell&utm_medium=settings-page&utm_campaign=rsvp-pro"
 							class="button-primary button"><?php echo esc_html__( 'Get RSVP PRO!', 'rsvp' ); ?></a>
 				</p>
 			</div>
@@ -146,7 +146,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp' ); ?></a><a
 							target="_blank"
-							href="https://rsvpproplugin.com/pricing/"
+							href="https://rsvpproplugin.com/pricing/?utm_source=upsell&utm_medium=questions-metabox&utm_campaign=rsvp-pro"
 							class="button-primary button"><?php echo esc_html__( 'Get RSVP PRO!', 'rsvp' ); ?></a>
 				</p>
 			</div>
@@ -187,7 +187,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 					   href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-upgrade-to-pro' ) ); ?>"
 					   class="button"><?php echo esc_html__( 'See PRO Features', 'rsvp' ); ?></a><a
 							target="_blank"
-							href="https://rsvpproplugin.com/pricing/"
+							href="https://rsvpproplugin.com/pricing/?utm_source=upsell&utm_medium=attendees-metabox&utm_campaign=rsvp-pro"
 							class="button-primary button"><?php echo esc_html__( 'Get RSVP PRO!', 'rsvp' ); ?></a>
 				</p>
 			</div>
