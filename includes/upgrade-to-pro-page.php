@@ -128,7 +128,7 @@
 			</div>
 			<div class="wpchill-pricing-package wpchill-title wpchill-modula-grid-gallery-business">
 
-				<a href="https://chl.so/lite-vs-premium" target="_blank"
+				<a href="https://rsvpproplugin.com/pricing/?utm_source=rsvp-lite&utm_medium=lite-vs-premium-page&utm_campaign=upsell" target="_blank"
 					class="button button-primary button-hero "><span class="dashicons dashicons-cart"></span>
 					<?php esc_html_e( 'Upgrade now!', 'rsvp' ); ?> </a>
 
