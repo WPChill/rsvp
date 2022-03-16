@@ -100,6 +100,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 * Fixed: Sanitization removing <style> wrapper of custom plugin css (https://github.com/WPChill/rsvp/issues/77)
 * Changed: Improved some upsells readability (https://github.com/WPChill/rsvp/issues/53)
 * Added: UTM codes to upsells links (https://github.com/WPChill/rsvp/issues/52)
+* Added: Upgrade to PRO action link in the plugins page (https://github.com/WPChill/rsvp/issues/80)
 
 = 2.7.5 - 11.01.2022 =
 * Fixed: Sanitizations
