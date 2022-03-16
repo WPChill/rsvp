@@ -28,6 +28,9 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 			add_action( 'rsvp_settings_page', array( $this, 'settings_upsells' ) );
 			add_action( 'rsvp_after_question_table', array( $this, 'questions_upsells' ) );
 			add_action( 'rsvp_after_add_guest', array( $this, 'add_guest_upsells' ) );
+
+			// Upgrade to PRO plugin action link
+			add_filter( 'plugin_action_links_' . RSVP_FILE, array( $this, 'filter_action_links' ), 60 );
 		}
 
 		/**
@@ -193,6 +196,22 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 			</div>
 			<?php
 
+		}
+
+		/**
+		 * Add the Upgrade to PRO plugin action link
+		 *
+		 * @param $links
+		 *
+		 * @return array
+		 *
+		 * @since 2.7.6
+		 */
+		public function filter_action_links( $links ) {
+
+			$upgrade = array( '<a style="color: orange;font-weight: bold;" class="rsvp-lite-vs-pro" href="https://rsvpproplugin.com/pricing/?utm_source=upsell&utm_medium=plugins-page&utm_campaign=rsvp-pro">' . esc_html__( 'Upgrade to PRO!', 'rsvp' ) . '</a>' );
+
+			return array_merge( $upgrade, $links );
 		}
 
 	}

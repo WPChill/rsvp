@@ -49,7 +49,7 @@ if ( isset( $plugin ) ) {
 
 define( 'RSVP_PLUGIN_FILE', $my_plugin_file );
 define( 'RSVP_PLUGIN_PATH', WP_PLUGIN_DIR . '/' . basename( dirname( $my_plugin_file ) ) );
-
+define( 'RSVP_FILE' , plugin_basename( __FILE__ ) );
 require_once 'includes/rsvp-constants.php';
 
 require_once 'external-libs/wp-simple-nonce/wp-simple-nonce.php';
