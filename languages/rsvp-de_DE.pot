@@ -109,7 +109,7 @@ msgstr ""
 "reservieren."
 
 #: rsvp_frontend.inc.php:289
-msgid " Will %s be attending?"
+msgid "Will %s be attending?"
 msgstr "Wird %s teilnehmen?"
 
 #: rsvp_frontend.inc.php:302 ../rsvp_frontend.inc.php:368

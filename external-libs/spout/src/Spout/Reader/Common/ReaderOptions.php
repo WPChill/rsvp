@@ -8,51 +8,47 @@ namespace Box\Spout\Reader\Common;
  *
  * @package Box\Spout\Reader\Common
  */
-class ReaderOptions
-{
-    /** @var bool Whether date/time values should be returned as PHP objects or be formatted as strings */
-    protected $shouldFormatDates = false;
+class ReaderOptions {
 
-    /** @var bool Whether empty rows should be returned or skipped */
-    protected $shouldPreserveEmptyRows = false;
+	/** @var bool Whether date/time values should be returned as PHP objects or be formatted as strings */
+	protected $shouldFormatDates = false;
 
-    /**
-     * @return bool Whether date/time values should be returned as PHP objects or be formatted as strings.
-     */
-    public function shouldFormatDates()
-    {
-        return $this->shouldFormatDates;
-    }
+	/** @var bool Whether empty rows should be returned or skipped */
+	protected $shouldPreserveEmptyRows = false;
 
-    /**
-     * Sets whether date/time values should be returned as PHP objects or be formatted as strings.
-     *
-     * @param bool $shouldFormatDates
-     * @return ReaderOptions
-     */
-    public function setShouldFormatDates($shouldFormatDates)
-    {
-        $this->shouldFormatDates = $shouldFormatDates;
-        return $this;
-    }
+	/**
+	 * @return bool Whether date/time values should be returned as PHP objects or be formatted as strings.
+	 */
+	public function shouldFormatDates() {
+		return $this->shouldFormatDates;
+	}
 
-    /**
-     * @return bool Whether empty rows should be returned or skipped.
-     */
-    public function shouldPreserveEmptyRows()
-    {
-        return $this->shouldPreserveEmptyRows;
-    }
+	/**
+	 * Sets whether date/time values should be returned as PHP objects or be formatted as strings.
+	 *
+	 * @param bool $shouldFormatDates
+	 * @return ReaderOptions
+	 */
+	public function setShouldFormatDates( $shouldFormatDates ) {
+		$this->shouldFormatDates = $shouldFormatDates;
+		return $this;
+	}
 
-    /**
-     * Sets whether empty rows should be returned or skipped.
-     *
-     * @param bool $shouldPreserveEmptyRows
-     * @return ReaderOptions
-     */
-    public function setShouldPreserveEmptyRows($shouldPreserveEmptyRows)
-    {
-        $this->shouldPreserveEmptyRows = $shouldPreserveEmptyRows;
-        return $this;
-    }
+	/**
+	 * @return bool Whether empty rows should be returned or skipped.
+	 */
+	public function shouldPreserveEmptyRows() {
+		 return $this->shouldPreserveEmptyRows;
+	}
+
+	/**
+	 * Sets whether empty rows should be returned or skipped.
+	 *
+	 * @param bool $shouldPreserveEmptyRows
+	 * @return ReaderOptions
+	 */
+	public function setShouldPreserveEmptyRows( $shouldPreserveEmptyRows ) {
+		$this->shouldPreserveEmptyRows = $shouldPreserveEmptyRows;
+		return $this;
+	}
 }

@@ -18,9 +18,9 @@
 		<!-- Multiple forms -->
 		<div class="wpchill-plans-table">
 			<div class="wpchill-pricing-package feature-name">
-				<h3><?php esc_html_e( 'Form customizations', 'rsvp-plugin' ); ?></h3>
+				<h3><?php esc_html_e( 'Form customizations', 'rsvp' ); ?></h3>
 				<p class="tab-header-description modula-tooltip-content">
-					<?php esc_html_e( 'Hundreds of options to make the RSVP Pro plugin work for your event(s).', 'rsvp-plugin' ); ?>
+					<?php esc_html_e( 'Hundreds of options to make the RSVP Pro plugin work for your event(s).', 'rsvp' ); ?>
 				</p>
 			</div>
 
@@ -34,9 +34,9 @@
 		<!-- Multiple events -->
 		<div class="wpchill-plans-table">
 			<div class="wpchill-pricing-package feature-name">
-				<h3><?php esc_html_e( 'Multiple events', 'rsvp-plugin' ); ?></h3>
+				<h3><?php esc_html_e( 'Multiple events', 'rsvp' ); ?></h3>
 				<p class="tab-header-description modula-tooltip-content">
-					<?php esc_html_e( 'RSVP Pro is powerful enough to handle invitee information for hundreds of events AND sub-events.', 'rsvp-plugin' ); ?>
+					<?php esc_html_e( 'RSVP Pro is powerful enough to handle invitee information for hundreds of events AND sub-events.', 'rsvp' ); ?>
 				</p>
 			</div>
 
@@ -50,9 +50,9 @@
 		<!-- Import/Export -->
 		<div class="wpchill-plans-table">
 			<div class="wpchill-pricing-package feature-name">
-				<h3><?php esc_html_e( 'Import/Export', 'rsvp-plugin' ); ?></h3>
+				<h3><?php esc_html_e( 'Import/Export', 'rsvp' ); ?></h3>
 				<p class="tab-header-description modula-tooltip-content">
-					<?php esc_html_e( 'We believe your data is your data. We make it easy for you to export and import attendee and event information.', 'rsvp-plugin' ); ?>
+					<?php esc_html_e( 'We believe your data is your data. We make it easy for you to export and import attendee and event information.', 'rsvp' ); ?>
 				</p>
 			</div>
 
@@ -66,9 +66,9 @@
 		<!-- Reminders -->
 		<div class="wpchill-plans-table">
 			<div class="wpchill-pricing-package feature-name">
-				<h3><?php esc_html_e( 'Stay Connected With Attendees', 'rsvp-plugin' ); ?></h3>
+				<h3><?php esc_html_e( 'Stay Connected With Attendees', 'rsvp' ); ?></h3>
 				<p class="tab-header-description modula-tooltip-content">
-					<?php esc_html_e( 'The RSVP Pro plugin makes it easy for you to keep in contact with your guests.', 'rsvp-plugin' ); ?>
+					<?php esc_html_e( 'The RSVP Pro plugin makes it easy for you to keep in contact with your guests.', 'rsvp' ); ?>
 				</p>
 			</div>
 
@@ -82,9 +82,9 @@
 		<!-- Events & Attendee lists -->
 		<div class="wpchill-plans-table">
 			<div class="wpchill-pricing-package feature-name">
-				<h3><?php esc_html_e( 'Attendee and Event Lists', 'rsvp-plugin' ); ?></h3>
+				<h3><?php esc_html_e( 'Attendee and Event Lists', 'rsvp' ); ?></h3>
 				<p class="tab-header-description modula-tooltip-content">
-					<?php esc_html_e( 'With the RSVP Pro plugin, you can display an event’s attendee list on a page on your site.', 'rsvp-plugin' ); ?>
+					<?php esc_html_e( 'With the RSVP Pro plugin, you can display an event’s attendee list on a page on your site.', 'rsvp' ); ?>
 				</p>
 			</div>
 
@@ -98,9 +98,9 @@
 		<!-- Recurring events -->
 		<div class="wpchill-plans-table">
 			<div class="wpchill-pricing-package feature-name">
-				<h3><?php esc_html_e( 'Recurring Events', 'rsvp-plugin' ); ?></h3>
+				<h3><?php esc_html_e( 'Recurring Events', 'rsvp' ); ?></h3>
 				<p class="tab-header-description modula-tooltip-content">
-					<?php esc_html_e( 'If you have an event, such as a monthly meet-up, that repeats this functionality allows you to get RSVPs each time without having to set up separate entries for each.', 'rsvp-plugin' ); ?>
+					<?php esc_html_e( 'If you have an event, such as a monthly meet-up, that repeats this functionality allows you to get RSVPs each time without having to set up separate entries for each.', 'rsvp' ); ?>
 				</p>
 			</div>
 
@@ -128,9 +128,9 @@
 			</div>
 			<div class="wpchill-pricing-package wpchill-title wpchill-modula-grid-gallery-business">
 
-				<a href="https://chl.so/lite-vs-premium" target="_blank"
+				<a href="https://rsvpproplugin.com/pricing/?utm_source=rsvp-lite&utm_medium=lite-vs-premium-page&utm_campaign=upsell" target="_blank"
 					class="button button-primary button-hero "><span class="dashicons dashicons-cart"></span>
-					<?php esc_html_e( 'Upgrade now!', 'rsvp-plugin' ); ?> </a>
+					<?php esc_html_e( 'Upgrade now!', 'rsvp' ); ?> </a>
 
 			</div>
 			<div class="wpchill-pricing-package wpchill-title wpchill-modula-lite">

@@ -8,6 +8,6 @@ namespace Box\Spout\Reader\Exception;
  * @api
  * @package Box\Spout\Reader\Exception
  */
-class NoSheetsFoundException extends ReaderException
-{
+class NoSheetsFoundException extends ReaderException {
+
 }

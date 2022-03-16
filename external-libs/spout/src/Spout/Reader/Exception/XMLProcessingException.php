@@ -7,6 +7,6 @@ namespace Box\Spout\Reader\Exception;
  *
  * @package Box\Spout\Reader\Exception
  */
-class XMLProcessingException extends ReaderException
-{
+class XMLProcessingException extends ReaderException {
+
 }

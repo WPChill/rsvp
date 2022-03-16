@@ -8,6 +8,6 @@ namespace Box\Spout\Reader\Exception;
  * @api
  * @package Box\Spout\Reader\Exception
  */
-class IteratorNotRewindableException extends ReaderException
-{
+class IteratorNotRewindableException extends ReaderException {
+
 }

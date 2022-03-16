@@ -4,7 +4,7 @@ Tags: rsvp, event, event management, attendee management, event planning, weddin
 Requires at least: 5.6
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 2.7.4
+Stable tag: 2.7.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -55,11 +55,6 @@ What?! You found a bug, well we'd love to have a patch or issue posted at our <a
 
 == Frequently Asked Questions ==
 
-= Why can't this plugin do X? =
-
-Good question, maybe I didn't think about having this feature or didn't feel anyone would use it.  Contact me at mike AT mde DASH dev.com and
-I will see if I can get it added for you.
-
 = Can I style the plugin? =
 
 Yes. Below are the styles for the plugin:
@@ -75,10 +70,6 @@ Yes. Below are the styles for the plugin:
 * rsvpClear - A class for div elements that we want to use to set clear both. Currently used only next to rsvpCheckboxCustomQs as they are floated
 * rsvpAdditionalAttendeeQuestions - Class name for the div that wraps around all additional attendee questions
 * rsvpCustomQuestions - Class name for the div that wraps around all custom questions for each attendee
-
-= I need help =
-
-I am here to help, contact me at mike@mde-dev.com
 
 = Is there a GitHub Repository? =
 
@@ -101,6 +92,18 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.7.6 - TBA =
+* Fixed: Sorting attendees no longer logs out the user (https://github.com/WPChill/rsvp/issues/76)
+* Changed: Moved upsell in "Events" page under the table. (https://github.com/WPChill/rsvp/issues/55)
+* Fixed: Bulk select attendees and custom questions (https://github.com/WPChill/rsvp/issues/63)
+* Fixed: Sanitization removing <style> wrapper of custom plugin css (https://github.com/WPChill/rsvp/issues/77)
+* Changed: Improved some upsells readability (https://github.com/WPChill/rsvp/issues/53)
+* Added: UTM codes to upsells links (https://github.com/WPChill/rsvp/issues/52)
+
+= 2.7.5 - 11.01.2022 =
+* Fixed: Sanitizations
+* Changed: Text Domain - now same with plugin permalink
 
 = 2.7.4 - 10.01.2022 =
 * Fixed: Custom style loading on all pages. ( https://github.com/WPChill/rsvp/issues/66 )

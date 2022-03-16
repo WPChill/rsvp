@@ -8,6 +8,6 @@ namespace Box\Spout\Writer\Exception;
  * @api
  * @package Box\Spout\Writer\Exception
  */
-class WriterAlreadyOpenedException extends WriterException
-{
+class WriterAlreadyOpenedException extends WriterException {
+
 }

@@ -8,9 +8,9 @@ namespace Box\Spout\Common;
  *
  * @api
  */
-abstract class Type
-{
-    const CSV = 'csv';
-    const XLSX = 'xlsx';
-    const ODS = 'ods';
+abstract class Type {
+
+	const CSV  = 'csv';
+	const XLSX = 'xlsx';
+	const ODS  = 'ods';
 }

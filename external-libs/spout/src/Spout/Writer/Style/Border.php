@@ -5,81 +5,75 @@ namespace Box\Spout\Writer\Style;
 /**
  * Class Border
  */
-class Border
-{
-    const LEFT = 'left';
-    const RIGHT = 'right';
-    const TOP = 'top';
-    const BOTTOM = 'bottom';
+class Border {
 
-    const STYLE_NONE = 'none';
-    const STYLE_SOLID = 'solid';
-    const STYLE_DASHED = 'dashed';
-    const STYLE_DOTTED = 'dotted';
-    const STYLE_DOUBLE = 'double';
+	const LEFT   = 'left';
+	const RIGHT  = 'right';
+	const TOP    = 'top';
+	const BOTTOM = 'bottom';
 
-    const WIDTH_THIN = 'thin';
-    const WIDTH_MEDIUM = 'medium';
-    const WIDTH_THICK = 'thick';
+	const STYLE_NONE   = 'none';
+	const STYLE_SOLID  = 'solid';
+	const STYLE_DASHED = 'dashed';
+	const STYLE_DOTTED = 'dotted';
+	const STYLE_DOUBLE = 'double';
 
-    /**
-     * @var array A list of BorderPart objects for this border.
-     */
-    protected $parts = [];
+	const WIDTH_THIN   = 'thin';
+	const WIDTH_MEDIUM = 'medium';
+	const WIDTH_THICK  = 'thick';
 
-    /**
-     * @param array|void $borderParts
-     */
-    public function __construct(array $borderParts = [])
-    {
-        $this->setParts($borderParts);
-    }
+	/**
+	 * @var array A list of BorderPart objects for this border.
+	 */
+	protected $parts = array();
 
-    /**
-     * @param $name The name of the border part
-     * @return null|BorderPart
-     */
-    public function getPart($name)
-    {
-        return $this->hasPart($name) ? $this->parts[$name] : null;
-    }
+	/**
+	 * @param array|void $borderParts
+	 */
+	public function __construct( array $borderParts = array() ) {
+		$this->setParts( $borderParts );
+	}
 
-    /**
-     * @param $name The name of the border part
-     * @return bool
-     */
-    public function hasPart($name)
-    {
-        return isset($this->parts[$name]);
-    }
+	/**
+	 * @param $name The name of the border part
+	 * @return null|BorderPart
+	 */
+	public function getPart( $name ) {
+		return $this->hasPart( $name ) ? $this->parts[ $name ] : null;
+	}
 
-    /**
-     * @return array
-     */
-    public function getParts()
-    {
-        return $this->parts;
-    }
+	/**
+	 * @param $name The name of the border part
+	 * @return bool
+	 */
+	public function hasPart( $name ) {
+		return isset( $this->parts[ $name ] );
+	}
 
-    /**
-     * Set BorderParts
-     * @param array $parts
-     */
-    public function setParts($parts)
-    {
-        unset($this->parts);
-        foreach ($parts as $part) {
-            $this->addPart($part);
-        }
-    }
+	/**
+	 * @return array
+	 */
+	public function getParts() {
+		return $this->parts;
+	}
 
-    /**
-     * @param BorderPart $borderPart
-     * @return self
-     */
-    public function addPart(BorderPart $borderPart)
-    {
-        $this->parts[$borderPart->getName()] = $borderPart;
-        return $this;
-    }
+	/**
+	 * Set BorderParts
+	 * @param array $parts
+	 */
+	public function setParts( $parts ) {
+		unset( $this->parts );
+		foreach ( $parts as $part ) {
+			$this->addPart( $part );
+		}
+	}
+
+	/**
+	 * @param BorderPart $borderPart
+	 * @return self
+	 */
+	public function addPart( BorderPart $borderPart ) {
+		 $this->parts[ $borderPart->getName() ] = $borderPart;
+		return $this;
+	}
 }

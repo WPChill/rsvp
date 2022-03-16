@@ -87,20 +87,20 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		protected $compat_fields = array( '_args', '_pagination_args', 'screen', '_actions', '_pagination' );
 
 		protected $compat_methods = array(
-				'set_pagination_args',
-				'get_views',
-				'get_bulk_actions',
-				'bulk_actions',
-				'row_actions',
-				'view_switcher',
-				'get_items_per_page',
-				'pagination',
-				'get_sortable_columns',
-				'get_column_info',
-				'get_table_classes',
-				'display_tablenav',
-				'extra_tablenav',
-				'single_row_columns',
+			'set_pagination_args',
+			'get_views',
+			'get_bulk_actions',
+			'bulk_actions',
+			'row_actions',
+			'view_switcher',
+			'get_items_per_page',
+			'pagination',
+			'get_sortable_columns',
+			'get_column_info',
+			'get_table_classes',
+			'display_tablenav',
+			'extra_tablenav',
+			'single_row_columns',
 		);
 
 		/**
@@ -131,13 +131,13 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		 */
 		public function __construct( $args = array() ) {
 			$args = wp_parse_args(
-					$args,
-					array(
-							'plural'   => '',
-							'singular' => '',
-							'ajax'     => false,
-							'screen'   => null,
-					)
+				$args,
+				array(
+					'plural'   => '',
+					'singular' => '',
+					'ajax'     => false,
+					'screen'   => null,
+				)
 			);
 
 			$this->screen = convert_to_screen( $args['screen'] );
@@ -160,8 +160,8 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 			if ( empty( $this->modes ) ) {
 				$this->modes = array(
-						'list'    => __( 'List View', 'rsvp-plugin' ),
-						'excerpt' => __( 'Excerpt View', 'rsvp-plugin' ),
+					'list'    => __( 'List View', 'rsvp' ),
+					'excerpt' => __( 'Excerpt View', 'rsvp' ),
 				);
 			}
 		}
@@ -283,12 +283,12 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		 */
 		protected function set_pagination_args( $args ) {
 			$args = wp_parse_args(
-					$args,
-					array(
-							'total_items' => 0,
-							'total_pages' => 0,
-							'per_page'    => 0,
-					)
+				$args,
+				array(
+					'total_items' => 0,
+					'total_pages' => 0,
+					'per_page'    => 0,
+				)
 			);
 
 			if ( ! $args['total_pages'] && $args['per_page'] > 0 ) {
@@ -344,7 +344,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		 * @access public
 		 */
 		public function no_items() {
-			esc_html_e( 'No items found.', 'rsvp-plugin' );
+			esc_html_e( 'No items found.', 'rsvp' );
 		}
 
 		/**
@@ -365,23 +365,23 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			$input_id = $input_id . '-search-input';
 
 			if ( ! empty( $_REQUEST['orderby'] ) ) {
-				echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '">';
+				echo '<input type="hidden" name="orderby" value="' . esc_attr( sanitize_sql_orderby( wp_unslash( $_REQUEST['orderby'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['order'] ) ) {
-				echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '">';
+				echo '<input type="hidden" name="order" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-				echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '">';
+				echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( sanitize_mime_type( wp_unslash( $_REQUEST['post_mime_type'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['detached'] ) ) {
-				echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '">';
+				echo '<input type="hidden" name="detached" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['detached'] ) ) ) . '">';
 			}
 			?>
 			<p class="search-box">
 				<label class="screen-reader-text"
 					   for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
 				<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s"
-					   value="<?php _admin_search_query(); ?>">
+					   value="<?php esc_attr( _admin_search_query() ); ?>">
 				<?php submit_button( $text, 'button', '', false, array( 'id' => 'search-submit' ) ); ?>
 			</p>
 			<?php
@@ -428,7 +428,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			echo "<ul class='subsubsub'>\n";
 			$i = count( $views );
 			foreach ( $views as $class => $view ) {
-				echo "<li class='$class'>$view</li>";
+				echo "<li class='" . esc_attr( $class) . "'>" . wp_kses_post( $view ) . "</li>";
 				if ( $i - 1 > 0 ) {
 					echo ' | ';
 				}
@@ -487,19 +487,19 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 				return;
 			}
 
-			echo "<label for='bulk-action-selector-" . esc_attr( $which ) . "' class='screen-reader-text'>" . esc_html__( 'Select bulk action', 'rsvp-plugin' ) . '</label>';
+			echo "<label for='bulk-action-selector-" . esc_attr( $which ) . "' class='screen-reader-text'>" . esc_html__( 'Select bulk action', 'rsvp' ) . '</label>';
 			echo "<select name='rsvp-bulk-action" . esc_attr( $two ) . "' id='rsvp-bulk-action-selector-" . esc_attr( $which ) . "'>\n";
-			echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions', 'rsvp-plugin' ) . "</option>\n";
+			echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions', 'rsvp' ) . "</option>\n";
 
 			foreach ( $this->_actions as $name => $title ) {
-				$class = 'edit' == $name ? ' class="hide-if-no-js"' : '';
+				$class = 'edit' == $name ? 'hide-if-no-js' : '';
 
-				echo "\t<option value='$name'$class>$title</option>\n";
+				echo "\t<option value='" . esc_attr( $name ) . "' class='" . esc_attr( $class ) . "'>" . esc_html( $title ) . "</option>\n";
 			}
 
 			echo "</select>\n";
 
-			submit_button( __( 'Apply', 'rsvp-plugin' ), 'action', '', false, array( 'id' => "doaction$two" ) );
+			submit_button( __( 'Apply', 'rsvp' ), 'action', '', false, array( 'id' => "doaction$two" ) );
 			echo "\n";
 		}
 
@@ -517,11 +517,11 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			}
 
 			if ( isset( $_REQUEST['action'] ) && - 1 != $_REQUEST['action'] ) {
-				return $_REQUEST['action'];
+				return sanitize_text_field( wp_unslash( $_REQUEST['action'] ) );
 			}
 
 			if ( isset( $_REQUEST['action2'] ) && - 1 != $_REQUEST['action2'] ) {
-				return $_REQUEST['action2'];
+				return sanitize_text_field( wp_unslash( $_REQUEST['action2'] ) );
 			}
 
 			return false;
@@ -550,7 +550,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			foreach ( $actions as $action => $link ) {
 				++ $i;
 				( $i == $action_count ) ? $sep = '' : $sep = ' | ';
-				$out .= "<span class='$action'>$link$sep</span>";
+				$out                          .= "<span class='$action'>$link$sep</span>";
 			}
 			$out .= '</div>';
 
@@ -578,10 +578,10 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 						$classes[] = 'current';
 					}
 					printf(
-							"<a href='%s' class='%s' id='view-switch-$mode'><span class='screen-reader-text'>%s</span></a>\n",
-							esc_url( add_query_arg( 'mode', $mode ) ),
-							implode( ' ', $classes ),
-							$title
+						"<a href='%s' class='%s' id='view-switch-". esc_attr( $mode ) . "'><span class='screen-reader-text'>%s</span></a>\n",
+						esc_url( add_query_arg( 'mode', $mode ) ),
+						esc_attr( implode( ' ', $classes ) ),
+						esc_html( $title )
 					);
 				}
 				?>
@@ -663,16 +663,19 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 				$infinite_scroll = $this->_pagination_args['infinite_scroll'];
 			}
 
-			$output = '<span class="displaying-num">' . sprintf( _n( '1 item', '%s items', $total_items, 'rsvp-plugin' ), number_format_i18n( $total_items ) ) . '</span>';
+			$output = '<span class="displaying-num">' . sprintf( _n( '1 item', '%s items', $total_items, 'rsvp' ), number_format_i18n( $total_items ) ) . '</span>';
 
 			$current = $this->get_pagenum();
 
-			$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+			$current_url = set_url_scheme( 'http://' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] )  ) . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 
-			$current_url = remove_query_arg( array(
+			$current_url = remove_query_arg(
+				array(
 					'hotkeys_highlight_last',
-					'hotkeys_highlight_first'
-			), $current_url );
+					'hotkeys_highlight_first',
+				),
+				$current_url
+			);
 
 			$page_links = array();
 
@@ -684,49 +687,49 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 				$disable_last = ' disabled';
 			}
 			$page_links[] = sprintf(
-					"<a class='%s' title='%s' href='%s'>%s</a>",
-					'first-page' . $disable_first,
-					esc_attr__( 'Go to the first page', 'rsvp-plugin' ),
-					esc_url( remove_query_arg( 'paged', $current_url ) ),
-					'&laquo;'
+				"<a class='%s' title='%s' href='%s'>%s</a>",
+				'first-page' . $disable_first,
+				esc_attr__( 'Go to the first page', 'rsvp' ),
+				esc_url( remove_query_arg( 'paged', $current_url ) ),
+				'&laquo;'
 			);
 
 			$page_links[] = sprintf(
-					"<a class='%s' title='%s' href='%s'>%s</a>",
-					'prev-page' . $disable_first,
-					esc_attr__( 'Go to the previous page', 'rsvp-plugin' ),
-					esc_url( add_query_arg( 'paged', max( 1, $current - 1 ), $current_url ) ),
-					'&lsaquo;'
+				"<a class='%s' title='%s' href='%s'>%s</a>",
+				'prev-page' . $disable_first,
+				esc_attr__( 'Go to the previous page', 'rsvp' ),
+				esc_url( add_query_arg( 'paged', max( 1, $current - 1 ), $current_url ) ),
+				'&lsaquo;'
 			);
 
 			if ( 'bottom' == $which ) {
 				$html_current_page = $current;
 			} else {
 				$html_current_page = sprintf(
-						"%s<input class='current-page' id='current-page-selector' title='%s' type='text' name='paged' value='%s' size='%d'>",
-						'<label for="current-page-selector" class="screen-reader-text">' . __( 'Select Page', 'rsvp-plugin' ) . '</label>',
-						esc_attr__( 'Current page', 'rsvp-plugin' ),
-						$current,
-						strlen( $total_pages )
+					"%s<input class='current-page' id='current-page-selector' title='%s' type='text' name='paged' value='%s' size='%d'>",
+					'<label for="current-page-selector" class="screen-reader-text">' . __( 'Select Page', 'rsvp' ) . '</label>',
+					esc_attr__( 'Current page', 'rsvp' ),
+					$current,
+					strlen( $total_pages )
 				);
 			}
 			$html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
-			$page_links[]     = '<span class="paging-input">' . sprintf( _x( '%1$s of %2$s', 'paging', 'rsvp-plugin' ), $html_current_page, $html_total_pages ) . '</span>';
+			$page_links[]     = '<span class="paging-input">' . sprintf( _x( '%1$s of %2$s', 'paging', 'rsvp' ), $html_current_page, $html_total_pages ) . '</span>';
 
 			$page_links[] = sprintf(
-					"<a class='%s' title='%s' href='%s'>%s</a>",
-					'next-page' . $disable_last,
-					esc_attr__( 'Go to the next page', 'rsvp-plugin' ),
-					esc_url( add_query_arg( 'paged', min( $total_pages, $current + 1 ), $current_url ) ),
-					'&rsaquo;'
+				"<a class='%s' title='%s' href='%s'>%s</a>",
+				'next-page' . $disable_last,
+				esc_attr__( 'Go to the next page', 'rsvp' ),
+				esc_url( add_query_arg( 'paged', min( $total_pages, $current + 1 ), $current_url ) ),
+				'&rsaquo;'
 			);
 
 			$page_links[] = sprintf(
-					"<a class='%s' title='%s' href='%s'>%s</a>",
-					'last-page' . $disable_last,
-					esc_attr__( 'Go to the last page', 'rsvp-plugin' ),
-					esc_url( add_query_arg( 'paged', $total_pages, $current_url ) ),
-					'&raquo;'
+				"<a class='%s' title='%s' href='%s'>%s</a>",
+				'last-page' . $disable_last,
+				esc_attr__( 'Go to the last page', 'rsvp' ),
+				esc_url( add_query_arg( 'paged', $total_pages, $current_url ) ),
+				'&raquo;'
 			);
 
 			$pagination_links_class = 'pagination-links';
@@ -740,9 +743,9 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			} else {
 				$page_class = ' no-pages';
 			}
-			$this->_pagination = "<div class='tablenav-pages{$page_class}'>$output</div>";
+			$this->_pagination = "<div class='tablenav-pages" . esc_attr( $page_class ) . "'>" . wp_kses_post( $output ) . "</div>";
 
-			echo $this->_pagination;
+			echo wp_kses_post( $this->_pagination );
 		}
 
 		/**
@@ -835,7 +838,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		 */
 		public function get_column_count() {
 			list ( $columns, $hidden ) = $this->get_column_info();
-			$hidden = array_intersect( array_keys( $columns ), array_filter( $hidden ) );
+			$hidden                    = array_intersect( array_keys( $columns ), array_filter( $hidden ) );
 
 			return count( $columns ) - count( $hidden );
 		}
@@ -852,11 +855,11 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		public function print_column_headers( $with_id = true ) {
 			list( $columns, $hidden, $sortable ) = $this->get_column_info();
 
-			$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+			$current_url = set_url_scheme( 'http://' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 			$current_url = remove_query_arg( 'paged', $current_url );
 
 			if ( isset( $_GET['orderby'] ) ) {
-				$current_orderby = $_GET['orderby'];
+				$current_orderby = sanitize_sql_orderby( wp_unslash( $_GET['orderby'] ) );
 			} else {
 				$current_orderby = '';
 			}
@@ -869,8 +872,8 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 			if ( ! empty( $columns['cb'] ) ) {
 				static $cb_counter = 1;
-				$columns['cb'] = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All' ) . '</label>'
-								 . '<input id="cb-select-all-' . $cb_counter . '" type="checkbox" />';
+				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . esc_attr( $cb_counter ) . '">' . esc_html__( 'Select All', 'rsvp' ) . '</label>'
+								 . '<input id="cb-select-all-' . esc_attr( $cb_counter ) . '" type="checkbox" />';
 				$cb_counter ++;
 			}
 
@@ -907,20 +910,21 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 					}
 
 					$column_display_name = sprintf(
-							'<a href="%s"><span>%s</span><span class="sorting-indicator"></span></a>',
-							esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ),
-							$column_display_name
+						'<a href="%s"><span>%s</span><span class="sorting-indicator"></span></a>',
+						esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ),
+						esc_html( $column_display_name )
 					);
 				}
 
 				$tag   = ( 'cb' === $column_key ) ? 'td' : 'th';
 				$scope = ( 'th' === $tag ) ? 'scope="col"' : '';
-				$id    = $with_id ? "id='$column_key'" : '';
+				$id    = $with_id ? "id='".esc_attr( $column_key ) ."'" : '';
 
 				if ( ! empty( $class ) ) {
-					$class = "class='" . implode( ' ', $class ) . "'";
+					$class = "class='" . esc_attr( implode( ' ', $class ) ) . "'";
 				}
 
+				//phpcs not required, each value is escaped individually
 				echo "<$tag $scope $id $class>$column_display_name</$tag>";
 			}
 		}
@@ -937,7 +941,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			$this->display_tablenav( 'top' );
 
 			?>
-			<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+			<table class="wp-list-table <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>">
 				<thead>
 				<tr>
 					<?php $this->print_column_headers(); ?>
@@ -947,7 +951,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 				<tbody id="the-list"
 						<?php
 						if ( $singular ) {
-							echo " data-wp-lists='list:$singular'";
+							echo " data-wp-lists='list:" . esc_attr( $singular ) . "'";
 						}
 						?>
 				>
@@ -1027,7 +1031,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			if ( $this->has_items() ) {
 				$this->display_rows();
 			} else {
-				echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
+				echo '<tr class="no-items"><td class="colspanchange" colspan="' . esc_attr( $this->get_column_count() ) . '">';
 				$this->no_items();
 				echo '</td></tr>';
 			}
@@ -1080,7 +1084,7 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 			list( $columns, $hidden ) = $this->get_column_info();
 
 			foreach ( $columns as $column_name => $column_display_name ) {
-				$class = "class='$column_name column-$column_name'";
+				$class = "class='" . esc_attr( $column_name) . " column-" . esc_attr( $column_name ) . "'";
 
 				$style = '';
 				if ( in_array( $column_name, $hidden ) ) {
@@ -1091,15 +1095,15 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 				if ( 'cb' == $column_name ) {
 					echo '<th scope="row" class="check-column">';
-					echo $this->column_cb( $item );
+					echo esc_html( $this->column_cb( $item ) );
 					echo '</th>';
 				} elseif ( method_exists( $this, 'column_' . $column_name ) ) {
-					echo "<td $attributes>";
-					echo call_user_func( array( $this, 'column_' . $column_name ), $item );
+					echo wp_kses_post( "<td $attributes>" );
+					echo wp_kses_post( call_user_func( array( $this, 'column_' . $column_name ), $item ) );
 					echo '</td>';
 				} else {
-					echo "<td $attributes>";
-					echo $this->column_default( $item, $column_name );
+					echo wp_kses_post( "<td $attributes>" );
+					echo wp_kses_post( $this->column_default( $item, $column_name ) );
 					echo '</td>';
 				}
 			}
@@ -1127,8 +1131,8 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 
 			if ( isset( $this->_pagination_args['total_items'] ) ) {
 				$response['total_items_i18n'] = sprintf(
-						_n( '1 item', '%s items', $this->_pagination_args['total_items'], 'rsvp-plugin' ),
-						number_format_i18n( $this->_pagination_args['total_items'] )
+					_n( '1 item', '%s items', $this->_pagination_args['total_items'], 'rsvp' ),
+					number_format_i18n( $this->_pagination_args['total_items'] )
 				);
 			}
 			if ( isset( $this->_pagination_args['total_pages'] ) ) {
@@ -1146,11 +1150,11 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 		 */
 		public function _js_vars() {
 			$args = array(
-					'class'  => get_class( $this ),
-					'screen' => array(
-							'id'   => $this->screen->id,
-							'base' => $this->screen->base,
-					),
+				'class'  => get_class( $this ),
+				'screen' => array(
+					'id'   => $this->screen->id,
+					'base' => $this->screen->base,
+				),
 			);
 
 			printf( "<script type='text/javascript'>list_args = %s;</script>\n", wp_json_encode( $args ) );

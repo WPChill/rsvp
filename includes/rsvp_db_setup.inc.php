@@ -171,7 +171,7 @@ if ( (int) $installed_ver < 11 || ( $wpdb->get_var( "SHOW COLUMNS FROM `$table` 
 
 $table    = $wpdb->prefix . 'attendees';
 $col_info = $wpdb->get_row( 'SHOW FULL COLUMNS FROM ' . $table . ' WHERE Field="note" AND Collation<>"utf8mb4_unicode_520_ci"' );
-if ( ( int ) $installed_ver < 12 || ( $col_info !== null ) ) {
+if ( (int) $installed_ver < 12 || ( $col_info !== null ) ) {
 	$sql = 'ALTER TABLE ' . $table . ' MODIFY note text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci';
 	$wpdb->query( $sql );
 }

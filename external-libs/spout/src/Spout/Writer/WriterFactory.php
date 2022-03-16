@@ -13,36 +13,35 @@ use Box\Spout\Common\Type;
  *
  * @package Box\Spout\Writer
  */
-class WriterFactory
-{
-    /**
-     * This creates an instance of the appropriate writer, given the type of the file to be read
-     *
-     * @api
-     * @param  string $writerType Type of the writer to instantiate
-     * @return WriterInterface
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
-     */
-    public static function create($writerType)
-    {
-        $writer = null;
+class WriterFactory {
 
-        switch ($writerType) {
-            case Type::CSV:
-                $writer = new CSV\Writer();
-                break;
-            case Type::XLSX:
-                $writer = new XLSX\Writer();
-                break;
-            case Type::ODS:
-                $writer = new ODS\Writer();
-                break;
-            default:
-                throw new UnsupportedTypeException('No writers supporting the given type: ' . $writerType);
-        }
+	/**
+	 * This creates an instance of the appropriate writer, given the type of the file to be read
+	 *
+	 * @api
+	 * @param  string $writerType Type of the writer to instantiate
+	 * @return WriterInterface
+	 * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+	 */
+	public static function create( $writerType ) {
+		$writer = null;
 
-        $writer->setGlobalFunctionsHelper(new GlobalFunctionsHelper());
+		switch ( $writerType ) {
+			case Type::CSV:
+				$writer = new CSV\Writer();
+				break;
+			case Type::XLSX:
+				$writer = new XLSX\Writer();
+				break;
+			case Type::ODS:
+				$writer = new ODS\Writer();
+				break;
+			default:
+				throw new UnsupportedTypeException( 'No writers supporting the given type: ' . $writerType );
+		}
 
-        return $writer;
-    }
+		$writer->setGlobalFunctionsHelper( new GlobalFunctionsHelper() );
+
+		return $writer;
+	}
 }

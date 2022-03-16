@@ -8,3 +8,6 @@
 .DS_Store
 .distignore
 .gitignore
+Gruntfile.js
+package.json
+package-lock.json

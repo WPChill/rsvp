@@ -123,7 +123,7 @@ msgstr ""
 
 #: rsvp_frontend.inc.php:289
 #, php-format
-msgid " Will %s be attending?"
+msgid "Will %s be attending?"
 msgstr " Kommer %s?"
 
 #: rsvp_frontend.inc.php:302

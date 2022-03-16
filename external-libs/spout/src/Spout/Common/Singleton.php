@@ -8,34 +8,32 @@ namespace Box\Spout\Common;
  *
  * @package Box\Spout\Common
  */
-trait Singleton
-{
-    protected static $instance;
+trait Singleton {
 
-    /**
-     * @return static
-     */
-    final public static function getInstance()
-    {
-        return isset(static::$instance)
-            ? static::$instance
-            : static::$instance = new static;
-    }
+	protected static $instance;
 
-    /**
-     * Singleton constructor.
-     */
-    final private function __construct()
-    {
-        $this->init();
-    }
+	/**
+	 * @return static
+	 */
+	final public static function getInstance() {
+		return isset( static::$instance )
+			? static::$instance
+			: static::$instance = new static();
+	}
 
-    /**
-     * Initializes the singleton
-     * @return void
-     */
-    protected function init() {}
+	/**
+	 * Singleton constructor.
+	 */
+	final private function __construct() {
+		$this->init();
+	}
 
-    final private function __wakeup() {}
-    final private function __clone() {}
+	/**
+	 * Initializes the singleton
+	 * @return void
+	 */
+	protected function init() {}
+
+	final private function __wakeup() {}
+	final private function __clone() {}
 }

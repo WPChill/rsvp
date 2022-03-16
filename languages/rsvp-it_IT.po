@@ -116,7 +116,7 @@ msgstr ""
 "loro ora, salva e poi rifai la procedura inserendo il loro nome."
 
 #: rsvp_frontend.inc.php:267
-msgid " Will %s be attending?"
+msgid "Will %s be attending?"
 msgstr "%s sarà presente?"
 
 #: rsvp_frontend.inc.php:280
