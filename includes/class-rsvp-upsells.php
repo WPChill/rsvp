@@ -209,7 +209,7 @@ if ( ! class_exists( 'RSVP_Upsells' ) ) {
 		 */
 		public function filter_action_links( $links ) {
 
-			$upgrade = array( '<a target="_BLANK" style="color: orange;font-weight: bold;" class="rsvp-lite-vs-pro" href="https://rsvpproplugin.com/pricing/?utm_source=upsell&utm_medium=plugins-page&utm_campaign=rsvp-pro">' . esc_html__( 'Upgrade to PRO!', 'rsvp' ) . '</a>' );
+			$upgrade = array( '<a target="_blank" style="color: orange;font-weight: bold;" class="rsvp-lite-vs-pro" href="https://rsvpproplugin.com/pricing/?utm_source=upsell&utm_medium=plugins-page&utm_campaign=rsvp-pro">' . esc_html__( 'Upgrade to PRO!', 'rsvp' ) . '</a>' );
 
 			return array_merge( $upgrade, $links );
 		}
