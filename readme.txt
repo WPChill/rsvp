@@ -2,9 +2,9 @@
 Contributors: wpchill, silkalns, giucu91
 Tags: rsvp, event, event management, attendee management, event planning, wedding planning, event registration, events, events management, events registration, reserve, wedding, guestlist
 Requires at least: 5.6
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 5.6
-Stable tag: 2.7.5
+Stable tag: 2.7.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -93,13 +93,14 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 
-= 2.7.6 - TBA =
+= 2.7.6 - 21.03.2022 =
 * Fixed: Sorting attendees no longer logs out the user (https://github.com/WPChill/rsvp/issues/76)
 * Changed: Moved upsell in "Events" page under the table. (https://github.com/WPChill/rsvp/issues/55)
 * Fixed: Bulk select attendees and custom questions (https://github.com/WPChill/rsvp/issues/63)
 * Fixed: Sanitization removing <style> wrapper of custom plugin css (https://github.com/WPChill/rsvp/issues/77)
 * Changed: Improved some upsells readability (https://github.com/WPChill/rsvp/issues/53)
 * Added: UTM codes to upsells links (https://github.com/WPChill/rsvp/issues/52)
+* Added: Upgrade to PRO action link in the plugins page (https://github.com/WPChill/rsvp/issues/80)
 
 = 2.7.5 - 11.01.2022 =
 * Fixed: Sanitizations
