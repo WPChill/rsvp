@@ -101,7 +101,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 				'RSVP Export',
 				'RSVP Export',
 				'publish_posts',
-				'rsvp-admin-export',
+				'rsvp-admin-export/' . wp_create_nonce( 'rsvp-export-attendees' ),
 				array( $rsvp_helper, 'rsvp_admin_export' )
 			);
 			add_submenu_page(

@@ -28,7 +28,7 @@ class RSVP_Helper {
 		add_action( 'admin_init', array( $this, 'bulk_delete_attendees' ) );
 		add_action( 'admin_init', array( $this, 'bulk_delete_questions' ) );
 
-		add_action( 'init', array( $this, 'rsvp_admin_export' ) );
+		add_action( 'admin_init', array( $this, 'rsvp_admin_export' ) );
 
 	}
 
@@ -209,8 +209,13 @@ class RSVP_Helper {
 	 */
 	public function rsvp_admin_export() {
 
-		if ( ( isset( $_GET['page'] ) && ( strToLower( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) == 'rsvp-admin-export' ) ) ||
-			 ( isset( $_POST['rsvp-bulk-action'] ) && ( 'export' === strToLower( sanitize_text_field( wp_unslash( $_POST['rsvp-bulk-action'] ) ) ) ) ) ) {
+		if ( isset( $_GET['page'] ) ) {
+
+			$page = explode( '/', strToLower( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) );
+
+			if ( 'rsvp-admin-export' !== $page[0] || ! wp_verify_nonce( $page[1], 'rsvp-export-attendees' ) ) {
+				return;
+			}
 
 			global $wpdb;
 
