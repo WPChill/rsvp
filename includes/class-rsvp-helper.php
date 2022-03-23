@@ -682,9 +682,9 @@ class RSVP_Helper {
 	public function bulk_delete_attendees() {
 
 		if( isset( $_GET['rsvp-bulk-action'] ) && -1 != $_GET['rsvp-bulk-action'] ){
-			$rsvp_bulk_action = $_GET['rsvp-bulk-action'];
+			$rsvp_bulk_action = sanitize_text_field( wp_unslash( $_GET['rsvp-bulk-action'] ) );
 		}elseif( isset( $_GET['rsvp-bulk-action2'] ) && -1 != $_GET['rsvp-bulk-action2'] ){
-			$rsvp_bulk_action = $_GET['rsvp-bulk-action2'];
+			$rsvp_bulk_action = sanitize_text_field( wp_unslash($_GET['rsvp-bulk-action2'] ) );
 		}else{
 			$rsvp_bulk_action = false;
 		}
@@ -716,9 +716,9 @@ class RSVP_Helper {
 	public function bulk_delete_questions() {
 
 		if( isset( $_GET['rsvp-bulk-action'] ) && -1 != $_GET['rsvp-bulk-action'] ){
-			$rsvp_bulk_action = $_GET['rsvp-bulk-action'];
+			sanitize_text_field( wp_unslash( $rsvp_bulk_action = $_GET['rsvp-bulk-action'] ) );
 		}elseif( isset( $_GET['rsvp-bulk-action2'] ) && -1 != $_GET['rsvp-bulk-action2'] ){
-			$rsvp_bulk_action = $_GET['rsvp-bulk-action2'];
+			sanitize_text_field( wp_unslash( $rsvp_bulk_action = $_GET['rsvp-bulk-action2'] ) );
 		}else{
 			$rsvp_bulk_action = false;
 		}

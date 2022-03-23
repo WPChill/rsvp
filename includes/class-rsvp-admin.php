@@ -249,7 +249,7 @@ if ( ! class_exists( 'RSVP' ) ) {
 					$attendeeId = $wpdb->insert_id;
 				}
 				if ( isset( $_POST['associatedAttendees'] ) && is_array( $_POST['associatedAttendees'] ) ) {
-					foreach ( array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST['associatedAttendees'] ) ) as $aid ) {
+					foreach ( array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST['associatedAttendees'] ) ) as $aid ) { //phpcs:ignore
 						if ( is_numeric( $aid ) && ( $aid > 0 ) ) {
 							$wpdb->insert(
 								ASSOCIATED_ATTENDEES_TABLE,
