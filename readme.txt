@@ -95,6 +95,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 = 2.7.7 - 23.03.2022 =
 * Fixed: Security exploit
+* Fixed: Sanitizations
 
 = 2.7.6 - 21.03.2022 =
 * Fixed: Sorting attendees no longer logs out the user (https://github.com/WPChill/rsvp/issues/76)
