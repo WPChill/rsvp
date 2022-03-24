@@ -209,6 +209,10 @@ class RSVP_Helper {
 	 */
 	public function rsvp_admin_export() {
 
+		if ( ! current_user_can('manage_options') ) {
+			return;
+		}
+
 		if ( isset( $_GET['page'] ) ) {
 
 			$page = explode( '/', strToLower( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) );
