@@ -1,7 +1,7 @@
 {
   "name": "rsvp",
   "main": "Gruntfile.js",
-  "version": "2.7.8",
+  "version": "2.7.9",
   "author": "WPChill",
   "license": "GPL v3",
   "repository": "https://github.com/WPChill/rsvp",
