@@ -4,7 +4,7 @@
  * @author WPChill
  * @version 2.7.8
  * Plugin Name: RSVP
- * Text Domain: rsvp-plugin
+ * Text Domain: rsvp
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: WPChill
@@ -829,3 +829,5 @@ add_action( 'init', 'rsvp_init' );
 add_action( 'wp_head', 'rsvp_hide_untill_loaded' );
 add_filter( 'the_content', 'rsvp_frontend_handler' );
 register_activation_hook( __FILE__, 'rsvp_database_setup' );
+// Load plugin text domain.
+load_plugin_textdomain( 'rsvp', false, basename( dirname( __FILE__ ) ) . '/languages' );
