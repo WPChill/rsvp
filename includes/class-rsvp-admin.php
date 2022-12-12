@@ -98,8 +98,8 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 			add_submenu_page(
 				'rsvp-events',
-				__( 'RSVP Export', 'rsvp' ),
-				__( 'RSVP Export', 'rsvp' ),
+				esc_html__( 'RSVP Export', 'rsvp' ),
+				esc_html__( 'RSVP Export', 'rsvp' ),
 				'publish_posts',
 				'rsvp-admin-export/' . wp_create_nonce( 'rsvp-export-attendees' ),
 				array( $rsvp_helper, 'rsvp_admin_export' )

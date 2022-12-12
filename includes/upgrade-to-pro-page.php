@@ -114,9 +114,9 @@
 		<!-- Support -->
 		<div class="wpchill-plans-table">
 			<div class="wpchill-pricing-package feature-name">
-				<h3>Support</h3>
+				<h3><?php echo esc_html__( 'Support', 'rsvp' ); ?></h3>
 			</div>
-			<div class="wpchill-pricing-package">Priority</div>
+			<div class="wpchill-pricing-package"><?php echo esc_html__( 'Priority', 'rsvp' ); ?></div>
 			<div class="wpchill-pricing-package"><a href="https://wordpress.org/support/plugin/rsvp/"
 					target="_blank">wp.org</a>
 			</div>
