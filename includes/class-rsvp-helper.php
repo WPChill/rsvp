@@ -625,7 +625,7 @@ class RSVP_Helper {
 				</p>
 				<p><?php echo esc_html__( 'A header row is always expected.', 'rsvp' ); ?></p>
 				<p><input type="file" name="importFile" id="importFile"/></p>
-				<p><input type="submit" value="Import File" name="goRsvp"/></p>
+				<p><input type="submit" value="<?php esc_attr_e( 'Import File', 'rsvp' ); ?>'" name="goRsvp"/></p>
 			</form>
 			<?php
 		}
