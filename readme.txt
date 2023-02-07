@@ -93,6 +93,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 
+= 2.7.11 - TBD =
+* Added: Classes to h3 tags ( https://github.com/WPChill/rsvp/issues/85 )
+
 = 2.7.10 - 13.12.2022 =
 * Fixed: Translations & .pot file update
 

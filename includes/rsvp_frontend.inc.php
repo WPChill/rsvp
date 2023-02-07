@@ -359,7 +359,7 @@ function rsvp_frontend_main_form( $attendee_id, $rsvp_step = 'handleRsvp' ) {
 
 	$associations = $wpdb->get_results( $wpdb->prepare( $sql, $attendee_id, $attendee_id, $attendee_id, $attendee_id ) );
 	if ( count( $associations ) > 0 ) {
-		$form .= '<h3>' . __( 'The following people are associated with you.  At this time you can RSVP for them as well.', 'rsvp' ) . '</h3>';
+		$form .= '<h3 class="rsvpAdditionalAttendeeTitle">' . __( 'The following people are associated with you.  At this time you can RSVP for them as well.', 'rsvp' ) . '</h3>';
 		foreach ( $associations as $a ) {
 			if ( $a->id != $attendee_id ) {
 				$form .= "<div class=\"rsvpAdditionalAttendee\">\r\n";
@@ -419,7 +419,7 @@ function rsvp_frontend_main_form( $attendee_id, $rsvp_step = 'handleRsvp' ) {
 			$text = get_option( OPTION_RSVP_ADD_ADDITIONAL_VERBIAGE );
 		}
 
-		$form .= "<h3>$text</h3>\r\n";
+		$form .= '<h3 class="additionalRsvpText">' . $text . '</h3>'. "\r\n";
 		$form .= '<div id="additionalRsvpContainer">' . "\r\n" .
 				 '<input type="hidden" name="additionalRsvp" id="additionalRsvp" value="' . count( $new_rsvps ) . '" />
 			<div style="text-align:right" id="addRsvpButtonContainer">
