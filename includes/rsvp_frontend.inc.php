@@ -130,13 +130,14 @@ function rsvp_handlenewattendee( $output, $text ) {
 function rsvp_handleAdditionalQuestions( $attendee_id, $form_name ) {
 	global $wpdb;
 
-	$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE attendeeID = %d', $attendee_id ) );
+	$wpdb->query( $wpdb->get_results( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE attendeeID = %d', absint( $attendee_id ) ) );
 
 	$q_rs = $wpdb->get_results(
 		'SELECT q.id, questionType FROM ' . QUESTIONS_TABLE . ' q
 		INNER JOIN ' . QUESTION_TYPE_TABLE . ' qt ON qt.id = q.questionTypeID
 		ORDER BY q.sortOrder'
 	);
+
 	if ( count( $q_rs ) > 0 ) {
 		foreach ( $q_rs as $q ) {
 			if ( isset( $_POST[ $form_name . $q->id ] ) && ! empty( $_POST[ $form_name . $q->id ] ) ) {
@@ -1042,7 +1043,6 @@ function rsvp_handlersvp( &$output, &$text ) {
 	global $wpdb;
 	$thank_you_primary    = '';
 	$thank_you_associated = array();
-
 	if ( ! isset( $_POST['rsvp_nonce_name'] ) || ! isset( $_POST['rsvp_nonce_value'] ) ||
 		 ! WPSimpleNonce::checkNonce( $_POST['rsvp_nonce_name'], $_POST['rsvp_nonce_value'] )
 	) {
@@ -1485,9 +1485,8 @@ function rsvp_inject_add_guests_js( $attendee_id ) {
 		if ( 'Y' !== get_option( OPTION_HIDE_VEGGIE ) ) {
 			echo '<div class=\"rsvpFormField\"><p>' . esc_html__( 'Does this person need a vegetarian meal?', 'rsvp' ) . '</p><input type=\"radio\" name=\"newAttending" + numAdditional + "VeggieMeal\" value=\"Y\" id=\"newAttending" + numAdditional + "VeggieMealY\" /><label for=\"newAttending" + numAdditional + "VeggieMealY\">' . esc_html( $yes_text ) . '</label><input type=\"radio\" name=\"newAttending" + numAdditional + "VeggieMeal\" value=\"N\" id=\"newAttending" + numAdditional + "VeggieMealN\" checked=\"checked\" /><label for=\"newAttending" + numAdditional + "VeggieMealN\">' . esc_html( $no_text ) . '</label></div>';
 		}
-
 		// output sanitized in rsvp_buildAdditionalQuestions()
-		echo str_replace( "\r\n", '', str_replace( '||', '\"', addSlashes( rsvp_buildAdditionalQuestions( $attendee_id, '|| + numAdditional + ||' ) ) ) );
+		echo str_replace( "\r\n", '', str_replace( '||', '"', addSlashes( rsvp_buildAdditionalQuestions( $attendee_id, '|| + numAdditional + ||' ) ) ) );
 		echo '<p><button onclick=\"removeAdditionalRSVP(event, this);\">' . esc_html__( 'Remove Guest', 'rsvp' ) . '</button></p></div>");';
 		echo 'jQuery("#additionalRsvp").val(numAdditional); } }';
 		echo 'function removeAdditionalRSVP(e, rsvp) {e.preventDefault(); var numAdditional = jQuery("#additionalRsvp").val();numAdditional--;jQuery(rsvp).parent().parent().remove();jQuery("#additionalRsvp").val(numAdditional); }</script>';
