@@ -2,9 +2,9 @@
 Contributors: wpchill, silkalns, giucu91
 Tags: rsvp, event, event management, attendee management, event planning, wedding planning, event registration, events, events management, events registration, reserve, wedding, guestlist
 Requires at least: 5.6
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 2.7.8
+Stable tag: 2.7.11
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,6 +92,16 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+
+= 2.7.11 - 16.02.2023 =
+* Added: Classes to h3 tags ( [#85](https://github.com/WPChill/rsvp/issues/85) )
+* Fixed: Custom question saving ( [#84](https://github.com/WPChill/rsvp/issues/84) )
+
+= 2.7.10 - 13.12.2022 =
+* Fixed: Translations & .pot file update
+
+= 2.7.9 - 12.12.2022 =
+* Fixed: Translations & .pot file update
 
 = 2.7.8 - 28.03.2022 =
 * Fixed: Added capability check when exporting ( https://github.com/WPChill/rsvp/issues/82 )

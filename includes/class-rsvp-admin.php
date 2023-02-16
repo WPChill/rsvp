@@ -68,8 +68,8 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 			$page = add_submenu_page(
 				'rsvp-events',
-				'Events',
-				'Events',
+				esc_html__( 'Events', 'rsvp' ),
+				esc_html__( 'Events', 'rsvp' ),
 				'publish_posts',
 				'rsvp-events',
 				array( $this, 'rsvp_admin_events' )
@@ -78,8 +78,8 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 			$page = add_submenu_page(
 				'rsvp-events',
-				'Attendees',
-				'Attendees',
+				esc_html__( 'Attendees', 'rsvp' ),
+				esc_html__( 'Attendees', 'rsvp' ),
 				'publish_posts',
 				'rsvp-top-level',
 				array( $this, 'rsvp_admin_guestlist' )
@@ -88,8 +88,8 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 			$page = add_submenu_page(
 				'rsvp-events',
-				'Add Guest',
-				'Add Guest',
+				esc_html__( 'Add Guest', 'rsvp' ),
+				esc_html__( 'Add Guest', 'rsvp' ),
 				'publish_posts',
 				'rsvp-admin-guest',
 				array( $this, 'rsvp_admin_guest' )
@@ -98,24 +98,24 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 			add_submenu_page(
 				'rsvp-events',
-				'RSVP Export',
-				'RSVP Export',
+				esc_html__( 'RSVP Export', 'rsvp' ),
+				esc_html__( 'RSVP Export', 'rsvp' ),
 				'publish_posts',
 				'rsvp-admin-export/' . wp_create_nonce( 'rsvp-export-attendees' ),
 				array( $rsvp_helper, 'rsvp_admin_export' )
 			);
 			add_submenu_page(
 				'rsvp-events',
-				'RSVP Import',
-				'RSVP Import',
+				esc_html__( 'RSVP Import', 'rsvp' ),
+				esc_html__( 'RSVP Import', 'rsvp' ),
 				'publish_posts',
 				'rsvp-admin-import',
 				array( $rsvp_helper, 'rsvp_admin_import' )
 			);
 			$page = add_submenu_page(
 				'rsvp-events',
-				'Custom Questions',
-				'Custom Questions',
+				esc_html__( 'Custom Questions', 'rsvp' ),
+				esc_html__( 'Custom Questions', 'rsvp' ),
 				'publish_posts',
 				'rsvp-admin-questions',
 				array( $this, 'rsvp_admin_questions' )
@@ -124,8 +124,8 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 			$page = add_submenu_page(
 				'rsvp-events',
-				'RSVP Settings',       // page title
-				'RSVP Settings',       // subpage title
+				esc_html__( 'RSVP Settings', 'rsvp' ),       // page title
+				esc_html__( 'RSVP Settings', 'rsvp' ),      // subpage title
 				'manage_options',      // access
 				'rsvp-options',        // current file
 				array( $this, 'rsvp_admin_guestlist_options' )    // options function above)
@@ -134,8 +134,8 @@ if ( ! class_exists( 'RSVP' ) ) {
 
 			$page = add_submenu_page(
 				'rsvp-events',
-				'LITE vs Premium',
-				'<span id="rsvp_upgrade_to_pro_link">LITE vs Premium</span>',
+				esc_html__( 'LITE vs Premium', 'rsvp' ),
+				'<span id="rsvp_upgrade_to_pro_link">' .esc_html__( 'LITE vs Premium', 'rsvp' ) . '</span>',
 				'publish_posts',
 				'rsvp-upgrade-to-pro',
 				array( $this, 'rsvp_lite_vs_premium' )

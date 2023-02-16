@@ -1,5 +1,5 @@
 <div class="wrap rsvp-lite-vs-premium">
-	<h1>LITE vs Premium </h1>
+	<h1><?php esc_html_e( 'LITE vs Premium', 'rsvp' ); ?> </h1>
 	<hr class="wp-header-end" />
 	<div class="free-vs-premium">
 		<!--  Table header -->
@@ -8,10 +8,10 @@
 				<!--This is an empty div so that we can have an empty corner-->
 			</div>
 			<div class="wpchill-pricing-package wpchill-title wpchill-modula-grid-gallery-business">
-				<p class="wpchill-name"><strong>PRO</strong></p>
+				<p class="wpchill-name"><strong><?php esc_html_e( 'PRO', 'rsvp' ); ?></strong></p>
 			</div>
 			<div class="wpchill-pricing-package wpchill-title wpchill-modula-lite">
-				<p class="wpchill-name"><strong>LITE</strong></p>
+				<p class="wpchill-name"><strong><?php esc_html_e( 'LITE', 'rsvp' ); ?></strong></p>
 			</div>
 		</div>
 		<!--  Table content -->
@@ -114,9 +114,9 @@
 		<!-- Support -->
 		<div class="wpchill-plans-table">
 			<div class="wpchill-pricing-package feature-name">
-				<h3>Support</h3>
+				<h3><?php echo esc_html__( 'Support', 'rsvp' ); ?></h3>
 			</div>
-			<div class="wpchill-pricing-package">Priority</div>
+			<div class="wpchill-pricing-package"><?php echo esc_html__( 'Priority', 'rsvp' ); ?></div>
 			<div class="wpchill-pricing-package"><a href="https://wordpress.org/support/plugin/rsvp/"
 					target="_blank">wp.org</a>
 			</div>
