@@ -130,7 +130,7 @@ function rsvp_handlenewattendee( $output, $text ) {
 function rsvp_handleAdditionalQuestions( $attendee_id, $form_name ) {
 	global $wpdb;
 
-	$wpdb->query( $wpdb->get_results( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE attendeeID = %d', absint( $attendee_id ) ) );
+	$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE attendeeID = %d', absint( $attendee_id ) ) );
 
 	$q_rs = $wpdb->get_results(
 		'SELECT q.id, questionType FROM ' . QUESTIONS_TABLE . ' q
