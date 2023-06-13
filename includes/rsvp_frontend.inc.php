@@ -524,6 +524,8 @@ function rsvp_buildAdditionalQuestions( $attendee_id, $prefix ) {
 					}
 					$output .= RSVP_END_PARA;
 				}
+			} elseif ( $q->questionType == QT_SHORT ) {
+				$output .= '<input type="text" name="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . '" value="' . esc_attr( $oldAnswer ) . '" maxlength="150" size="25" />';
 			} else {
 				$output .= '<input type="text" name="' . esc_attr( $prefix ) . 'question' . absint( $q->id ) . '" value="' . esc_attr( $oldAnswer ) . '" size="25" />';
 			}
