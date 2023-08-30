@@ -92,6 +92,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+= 2.7.13 - TBD =
+* Changed: Email address is now required to rsvp if there are several guest with the same name. ( [#69](https://github.com/WPChill/rsvp/issues/69) )
+
 = 2.7.12 - 13.06.2023 =
 * Fixed: Add max length to short answer ( [#61](https://github.com/WPChill/rsvp/issues/61) )
 
