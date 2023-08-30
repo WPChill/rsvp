@@ -674,9 +674,22 @@ if ( ! class_exists( 'RSVP' ) ) {
 								<th scope="row"><label
 											for="rsvp_hide_kids_meal"><?php echo esc_html__( 'Hide Kids Meal Question:', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox" name="rsvp_hide_kids_meal"
+								<td align="left">
+									<div class="rsvp-toggle"> 
+										<input type="checkbox" name="rsvp_hide_kids_meal" class="rsvp-toggle__input"
 														id="rsvp_hide_kids_meal"
 														value="Y" <?php echo( ( get_option( OPTION_HIDE_KIDS_MEAL ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr valign="top">
@@ -695,8 +708,21 @@ if ( ! class_exists( 'RSVP' ) ) {
 								<th scope="row"><label
 											for="rsvp_hide_veggie"><?php echo esc_html__( 'Hide Vegetarian Meal Question:', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox" name="rsvp_hide_veggie" id="rsvp_hide_veggie"
+								<td align="left">
+									<div class="rsvp-toggle"> 
+										<input type="checkbox" class="rsvp-toggle__input" name="rsvp_hide_veggie" id="rsvp_hide_veggie"
 														value="Y" <?php echo( ( get_option( OPTION_HIDE_VEGGIE ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr valign="top">
@@ -717,20 +743,46 @@ if ( ! class_exists( 'RSVP' ) ) {
 								<th scope="row"><label
 											for="rsvp_hide_note_field"><?php echo esc_html__( 'Hide Note Field:', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox" name="rsvp_hide_note_field"
+								<td align="left">
+									<div class="rsvp-toggle"> 	
+										<input type="checkbox" class="rsvp-toggle__input" name="rsvp_hide_note_field"
 														id="rsvp_hide_note_field"
 														value="Y"
 											<?php echo( ( get_option( RSVP_OPTION_HIDE_NOTE ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>	
+									</div>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
 											for="<?php echo esc_attr( OPTION_RSVP_HIDE_EMAIL_FIELD ); ?>"><?php echo esc_html__( 'Hide email field on rsvp form:', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox"
+								<td align="left">
+									<div class="rsvp-toggle"> 
+										<input type="checkbox" class="rsvp-toggle__input"
 														name="<?php echo esc_attr( OPTION_RSVP_HIDE_EMAIL_FIELD ); ?>"
 														id="<?php echo esc_attr( OPTION_RSVP_HIDE_EMAIL_FIELD ); ?>"
 														value="Y" <?php echo( ( get_option( OPTION_RSVP_HIDE_EMAIL_FIELD ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr valign="top">
@@ -746,9 +798,22 @@ if ( ! class_exists( 'RSVP' ) ) {
 								<th scope="row"><label
 											for="rsvp_hide_add_additional"><?php echo esc_html__( 'Do not allow additional guests', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox" name="rsvp_hide_add_additional"
+								<td align="left">
+									<div class="rsvp-toggle"> 
+										<input type="checkbox" class="rsvp-toggle__input" name="rsvp_hide_add_additional"
 														id="rsvp_hide_add_additional" value="Y"
 											<?php echo( ( get_option( OPTION_HIDE_ADD_ADDITIONAL ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr valign="top">
@@ -768,10 +833,23 @@ if ( ! class_exists( 'RSVP' ) ) {
 								<th scope="row"><label
 											for="rsvp_notify_when_rsvp"><?php echo esc_html__( 'Notify When Guest RSVPs', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox" name="rsvp_notify_when_rsvp"
+								<td align="left">
+									<div class="rsvp-toggle"> 
+										<input type="checkbox" class="rsvp-toggle__input" name="rsvp_notify_when_rsvp"
 														id="rsvp_notify_when_rsvp"
 														value="Y"
 											<?php echo( ( get_option( OPTION_NOTIFY_ON_RSVP ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -787,76 +865,180 @@ if ( ! class_exists( 'RSVP' ) ) {
 								<th scope="row"><label
 											for="rsvp_guest_email_confirmation"><?php echo esc_html__( 'Send email to main guest when they RSVP', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox" name="rsvp_guest_email_confirmation"
+								<td align="left">
+									<div class="rsvp-toggle"> 
+										<input type="checkbox" class="rsvp-toggle__input" name="rsvp_guest_email_confirmation"
 														id="rsvp_guest_email_confirmation" value="Y"
 											<?php echo( ( get_option( OPTION_RSVP_GUEST_EMAIL_CONFIRMATION ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr>
 								<th scope="ropw"><label
 											for="<?php echo esc_attr( OPTION_RSVP_PASSCODE ); ?>"><?php echo esc_html__( 'Require a Passcode to RSVP:', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox" name="<?php echo esc_attr( OPTION_RSVP_PASSCODE ); ?>"
+								<td align="left">
+									<div class="rsvp-toggle"> 
+										<input type="checkbox" class="rsvp-toggle__input" name="<?php echo esc_attr( OPTION_RSVP_PASSCODE ); ?>"
 														id="<?php echo esc_attr( OPTION_RSVP_PASSCODE ); ?>" value="Y"
 											<?php echo( ( get_option( OPTION_RSVP_PASSCODE ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr>
 								<th scope="ropw"><label
 											for="<?php echo esc_attr( OPTION_RSVP_ONLY_PASSCODE ); ?>"><?php echo wp_kses_post( __('Require only a Passcode to RSVP<br />(requires that passcodes are unique):', 'rsvp') ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox" name="<?php echo esc_attr( OPTION_RSVP_ONLY_PASSCODE ); ?>"
+								<td align="left">
+									<div class="rsvp-toggle"> 
+										<input type="checkbox" class="rsvp-toggle__input" name="<?php echo esc_attr( OPTION_RSVP_ONLY_PASSCODE ); ?>"
 														id="<?php echo esc_attr( OPTION_RSVP_ONLY_PASSCODE ); ?>" value="Y"
 											<?php echo( ( get_option( OPTION_RSVP_ONLY_PASSCODE ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
 											for="<?php echo esc_attr( OPTION_RSVP_OPEN_REGISTRATION ); ?>"><?php echo esc_html__( 'Allow Open Registration (note - this will force passcodes for attendees):', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox"
+								<td align="left">
+									<div class="rsvp-toggle"> 
+										<input type="checkbox" class="rsvp-toggle__input"
 														name="<?php echo esc_attr( OPTION_RSVP_OPEN_REGISTRATION ); ?>"
 														id="<?php echo esc_attr( OPTION_RSVP_OPEN_REGISTRATION ); ?>" value="Y"
 											<?php echo( ( get_option( OPTION_RSVP_OPEN_REGISTRATION ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
 											for="<?php echo esc_attr( OPTION_RSVP_DONT_USE_HASH ); ?>"><?php echo esc_html__( 'Do not scroll page to the top of the RSVP form:', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox" name="<?php echo esc_attr( OPTION_RSVP_DONT_USE_HASH ); ?>"
+								<td align="left">
+									<div class="rsvp-toggle"> 
+										<input type="checkbox" class="rsvp-toggle__input" name="<?php echo esc_attr( OPTION_RSVP_DONT_USE_HASH ); ?>"
 														id="<?php echo esc_attr( OPTION_RSVP_DONT_USE_HASH ); ?>" value="Y"
 											<?php echo( ( get_option( OPTION_RSVP_DONT_USE_HASH ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
 											for="<?php echo esc_attr( OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM ); ?>"><?php echo wp_kses_post( __( 'Do not use the specified notification email as the from email<br /> (if you are not receiving email notifications try this):', 'rsvp' ) ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox"
+								<td align="left">
+									<div class="rsvp-toggle"> 	
+										<input type="checkbox" class="rsvp-toggle__input"
 														name="<?php echo esc_attr( OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM ); ?>"
 														id="<?php echo esc_attr( OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM ); ?>"
 														value="Y" <?php echo( ( get_option( OPTION_RSVP_DISABLE_CUSTOM_EMAIL_FROM ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
 											for="<?php echo esc_attr( OPTION_RSVP_DISABLE_USER_SEARCH ); ?>"><?php echo esc_html__( 'Disable searching for a user when no user is found:', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox"
+								<td align="left">
+									<div class="rsvp-toggle"> 	
+										<input type="checkbox" class="rsvp-toggle__input"
 														name="<?php echo esc_attr( OPTION_RSVP_DISABLE_USER_SEARCH ); ?>"
 														id="<?php echo esc_attr( OPTION_RSVP_DISABLE_USER_SEARCH ); ?>"
 														value="Y" <?php echo( ( get_option( OPTION_RSVP_DISABLE_USER_SEARCH ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><label
 											for="<?php echo esc_attr( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ); ?>"><?php echo esc_html__( 'Delete all data on uninstall:', 'rsvp' ); ?></label>
 								</th>
-								<td align="left"><input type="checkbox"
+								<td align="left">
+									<div class="rsvp-toggle"> 	
+										<input type="checkbox" class="rsvp-toggle__input"
 														name="<?php echo esc_attr( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ); ?>"
 														id="<?php echo esc_attr( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ); ?>"
 														value="Y" <?php echo( ( get_option( RSVP_OPTION_DELETE_DATA_ON_UNINSTALL ) == 'Y' ) ? ' checked="checked"' : '' ); ?> />
+										<div class="rsvp-toggle__items">
+											<span class="rsvp-toggle__track"></span>
+											<span class="rsvp-toggle__thumb"></span>
+											<svg class="rsvp-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+												<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+											</svg>
+											<svg class="rsvp-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+												<path d="M0 0h2v6H0z"></path>
+											</svg>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr valign="top">
