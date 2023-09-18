@@ -555,14 +555,19 @@ function rsvp_find( &$output, &$text ) {
 		$passcode = sanitize_text_field( wp_unslash( $_REQUEST['passcode'] ) );
 	}
 
-	$first_name = '';
-	$last_name  = '';
+	$first_name    = '';
+	$last_name     = '';
+	$email_address = false;
 	if ( isset( $_REQUEST['firstName'] ) ) {
 		$first_name = sanitize_text_field( stripslashes_deep( $_REQUEST['firstName'] ) );
 	}
 
 	if ( isset( $_REQUEST['lastName'] ) ) {
 		$last_name = sanitize_text_field( stripslashes_deep( $_REQUEST['lastName'] ) );
+	}
+
+	if ( isset( $_REQUEST['emailAddress'] ) ) {
+		$email_address = sanitize_text_field( stripslashes_deep( $_REQUEST['emailAddress'] ) );
 	}
 
 	if ( ! $passcode_only_option && ( ( strlen( $first_name ) <= 1 ) || ( strlen( $last_name ) <= 1 ) ) ) {
@@ -584,9 +589,36 @@ function rsvp_find( &$output, &$text ) {
 			$attendee = $wpdb->get_row( $wpdb->prepare( $sql, $first_name, $last_name, $passcode ) );
 		}
 	} else {
-		$sql      = 'SELECT id, firstName, lastName, rsvpStatus
+
+
+		$sql = 'SELECT id, firstName, lastName, rsvpStatus
 					FROM ' . ATTENDEES_TABLE . ' WHERE firstName = %s AND lastName = %s';
-		$attendee = $wpdb->get_row( $wpdb->prepare( $sql, $first_name, $last_name ) );
+
+		if( $email_address ){
+			$sql .= ' AND email = %s';
+			$attendee = $wpdb->get_row( $wpdb->prepare( $sql, $first_name, $last_name, $email_address ) );
+
+			// If no attendees are found, ask again for email and name.
+			if( null == $attendee ){
+				$output = RSVP_START_PARA . __( 'Apologies, your e-mail address does not match. Please check the entered information and try again or contact the organiser for help.', 'rsvp' ) . RSVP_END_PARA;
+				$output .= rsvp_frontend_greeting( true );
+				return rsvp_handle_output( $text, $output );
+			}
+		}else{
+
+			// Check for multiple attendees with the exact same name.
+			$count = $wpdb->get_var( $wpdb->prepare( 'SELECT count(*) FROM ' . ATTENDEES_TABLE . ' WHERE firstName = %s AND lastName = %s' , $first_name, $last_name ) );
+
+			// Require the email address to distinguish between same name attendees.
+			if( absint( $count ) > 1 ){
+
+				$output = RSVP_START_PARA . __( 'Several people with this name were found. Please insert your e-mail address to ensure you RSVP correctly.', 'rsvp' ) . RSVP_END_PARA;
+				$output .= rsvp_frontend_greeting( true );
+				return rsvp_handle_output( $text, $output );
+			}
+
+			$attendee = $wpdb->get_row( $wpdb->prepare( $sql, $first_name, $last_name ) );
+		}
 	}
 
 	if ( $attendee != null ) {
@@ -1400,13 +1432,19 @@ function rsvp_BeginningFormField( $id, $additional_classes ) {
  *
  * @return string The HTML that will be used to greet the user.
  */
-function rsvp_frontend_greeting() {
+function rsvp_frontend_greeting( $email = false ) {
 	global $rsvp_form_action;
 	$custom_greeting = get_option( OPTION_GREETING );
+
+	$fname = isset( $_REQUEST['firstName'] ) ? $_REQUEST['firstName'] : "";
+	$lname = isset( $_REQUEST['lastName'] ) ? $_REQUEST['lastName'] : "";
+
 	if ( rsvp_require_only_passcode_to_register() ) {
 		$output = RSVP_START_PARA . __( 'Please enter your passcode to RSVP.', 'rsvp' ) . RSVP_END_PARA;
 	} elseif ( rsvp_require_passcode() ) {
 		$output = RSVP_START_PARA . __( 'Please enter your first name, last name and passcode to RSVP.', 'rsvp' ) . RSVP_END_PARA;
+	} elseif ( $email ) {
+		$output = RSVP_START_PARA . __( 'Please enter your first name, last name and email address to RSVP.', 'rsvp' ) . RSVP_END_PARA;
 	} else {
 		$output = RSVP_START_PARA . __( 'Please enter your first and last name to RSVP.', 'rsvp' ) . RSVP_END_PARA;
 	}
@@ -1431,13 +1469,17 @@ function rsvp_frontend_greeting() {
 	$output .= '	<input type="hidden" name="rsvpStep" value="find" />';
 	if ( ! rsvp_require_only_passcode_to_register() ) {
 		$output .= RSVP_START_PARA . '<label for="firstName">' . __( 'First Name', 'rsvp' ) . '</label>
-		<input type="text" name="firstName" id="firstName" size="30" value="" class="required" />' . RSVP_END_PARA;
+		<input type="text" name="firstName" id="firstName" size="30" value="' . esc_attr( $fname ) . '" class="required" />' . RSVP_END_PARA;
 		$output .= RSVP_START_PARA . '<label for="lastName">' . __( 'Last Name', 'rsvp' ) . '</label>
-		<input type="text" name="lastName" id="lastName" size="30" value="" class="required" />' . RSVP_END_PARA;
+		<input type="text" name="lastName" id="lastName" size="30" value="' . esc_attr( $lname ) . '" class="required" />' . RSVP_END_PARA;
 	}
 	if ( rsvp_require_passcode() ) {
 		$output .= RSVP_START_PARA . '<label for="passcode">' . __( 'Passcode', 'rsvp' ) . '</label>
 		<input type="password" name="passcode" id="passcode" size="30" value="" class="required" autocomplete="off" />' . RSVP_END_PARA;
+	}
+	if ( $email ) {
+		$output .= RSVP_START_PARA . '<label for="email_address">' . __( 'Email Address', 'rsvp' ) . '</label>
+		<input type="email" name="emailAddress" id="email_address" value="" class="required" />' . RSVP_END_PARA;
 	}
 	$output .= RSVP_START_PARA . '<input type="submit" value="' . __( 'Complete your RSVP!', 'rsvp' ) . '" />' . RSVP_END_PARA;
 	$output .= "</form>\r\n";

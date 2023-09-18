@@ -4,7 +4,7 @@ Tags: rsvp, event, event management, attendee management, event planning, weddin
 Requires at least: 5.6
 Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 2.7.12
+Stable tag: 2.7.13
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,6 +92,11 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+= 2.7.13 - 18.09.2023 =
+* Changed: Email address is now required to rsvp if there are several guest with the same name. ( [#69](https://github.com/WPChill/rsvp/issues/69) )
+* Changed: Settings checkboxes transformed into toggles ( [#64](https://github.com/WPChill/rsvp/issues/64) )
+* Fixed: Hidden radio/checkbox inputs with Go theme by GoDaddy ( [#57](https://github.com/WPChill/rsvp/issues/57) )
+
 = 2.7.12 - 13.06.2023 =
 * Fixed: Add max length to short answer ( [#61](https://github.com/WPChill/rsvp/issues/61) )
 

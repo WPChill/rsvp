@@ -43,6 +43,7 @@ input.error, textarea.error {
 
 #rsvpPlugin #rsvpForm .rsvpFormField input[type="radio"], #rsvpPlugin #rsvpForm .rsvpFormField input[type="checkbox"] {
 	display : inline-block;
+	opacity: 1;
 }
 
 .rsvpFormField label {
