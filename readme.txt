@@ -2,7 +2,7 @@
 Contributors: wpchill, silkalns, giucu91
 Tags: rsvp, event, event management, attendee management, event planning, wedding planning, event registration, events, events management, events registration, reserve, wedding, guestlist
 Requires at least: 5.6
-Tested up to: 6.1
+Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: 2.7.13
 License: GPLv3 or later
