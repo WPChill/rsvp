@@ -86,7 +86,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 * Added: Classes to h3 tags ( [#85](https://github.com/WPChill/rsvp/issues/85) )
 * Fixed: Custom question saving ( [#84](https://github.com/WPChill/rsvp/issues/84) )
 
-You can read the complete changelog [here](https://github.com/WPChill/rsvp)
+You can read the complete changelog [here](https://github.com/WPChill/rsvp/blob/master/changelog.txt)
 
 == Upgrade Notice ==
 = 2.7.13 =
