@@ -29,7 +29,7 @@ The RSVP Plugin offers a comprehensive solution for event registration and manag
 * Record event attendance with a [check-in functionality](https://rsvpproplugin.com/knowledge-base/setup-checking-attendees-rsvp-pro-plugin/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description)
 * Display [attendees list in the front-end](https://rsvpproplugin.com/knowledge-base/public-attendee-lists/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description)
 * [Setup a Waiting list](https://rsvpproplugin.com/knowledge-base/waitlist/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description) for your events
-* Priority support
+* Receive priority support
 
 == Installation ==
 
@@ -50,7 +50,7 @@ Activate the plugin. Look for "RSVP" in the admin menu.
 The free version includes basic RSVP features for a single event, while the Pro version offers advanced functionalities such as multiple event management, attendance recording, and a better interaction with attendees through notifications and reminders.
 
 = How can I upgrade to the Pro version? =
-You can upgrade to the Pro version by purchasing a license from our website: [https://rsvpproplugin.com/knowledge-base/migrating-from-free-to-pro/](https://rsvpproplugin.com/knowledge-base/migrating-from-free-to-pro/?utm_source=wordpress.org&utm_medium=web&utm_campaign=faq)
+You can upgrade to the Pro version by [purchasing a license](https://rsvpproplugin.com/pricing/?utm_source=wordpress.org&utm_medium=web&utm_campaign=faq) from our website, then folowing the [instructions provided in this article](https://rsvpproplugin.com/knowledge-base/migrating-from-free-to-pro/?utm_source=wordpress.org&utm_medium=web&utm_campaign=faq).
 
 = How do I allow users to RSVP? =
 This can be easily done by adding the [rsvp] shortcode to one of your pages.
