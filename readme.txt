@@ -1,5 +1,5 @@
 === RSVP and Event Management ===
-Contributors: wpchill, silkalns, giucu91
+Contributors: wpchill, silkalns
 Tags: rsvp, event management, planning, event registration, calendar
 Requires at least: 5.6
 Tested up to: 6.6
@@ -16,19 +16,19 @@ The RSVP Plugin offers a comprehensive solution for event registration and manag
 
 **In the Free version of RSVP you can::**
 * Manage a single event
-* [Define the questions that will be used during the RSVP process](https://rsvpproplugin.com/knowledge-base/using-custom-questions/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description)
-* [Setup email notifications to the event owner and the responding user](https://rsvpproplugin.com/knowledge-base/rsvp-email-notifications/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description)
+* [Define the questions that will be used during the RSVP process](https://rsvpproplugin.com/knowledge-base/using-custom-questions/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Define+questions)
+* [Setup email notifications to the event owner and the responding user](https://rsvpproplugin.com/knowledge-base/rsvp-email-notifications/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Email+notifications)
 * Export or Import the RSVP list to CSV
 
 **With the Pro Version you can:**
 * Manage multiple events
-* [Setup sub-events](https://rsvpproplugin.com/knowledge-base/sub-events/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description), for example if you have an event spanning multiple days and you wish to create a separate event on each day
-* Provide a [calendar invite for events](https://rsvpproplugin.com/knowledge-base/calendar-invite-download/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description)
-* [Create reminder emails](https://rsvpproplugin.com/knowledge-base/reminder-notifications/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description ) for your attendees
-* [Generate QR Codes](https://rsvpproplugin.com/knowledge-base/qr-code-tickets/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description)
-* Record event attendance with a [check-in functionality](https://rsvpproplugin.com/knowledge-base/setup-checking-attendees-rsvp-pro-plugin/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description)
-* Display [attendees list in the front-end](https://rsvpproplugin.com/knowledge-base/public-attendee-lists/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description)
-* [Setup a Waiting list](https://rsvpproplugin.com/knowledge-base/waitlist/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description) for your events
+* [Setup sub-events](https://rsvpproplugin.com/knowledge-base/sub-events/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Sub+events), for example if you have an event spanning multiple days and you wish to create a separate event on each day
+* Provide a [calendar invite for events](https://rsvpproplugin.com/knowledge-base/calendar-invite-download/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Calendar+invite)
+* [Create reminder emails](https://rsvpproplugin.com/knowledge-base/reminder-notifications/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Reminder+emails) for your attendees
+* [Generate QR Codes](https://rsvpproplugin.com/knowledge-base/qr-code-tickets/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=QR+codes)
+* Record event attendance with a [check-in functionality](https://rsvpproplugin.com/knowledge-base/setup-checking-attendees-rsvp-pro-plugin/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Check+in)
+* Display [attendees list in the front-end](https://rsvpproplugin.com/knowledge-base/public-attendee-lists/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Display+attendees)
+* [Setup a Waiting list](https://rsvpproplugin.com/knowledge-base/waitlist/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Waiting+list) for your events
 * Receive priority support
 
 == Installation ==
@@ -50,13 +50,13 @@ Activate the plugin. Look for "RSVP" in the admin menu.
 The free version includes basic RSVP features for a single event, while the Pro version offers advanced functionalities such as multiple event management, attendance recording, and a better interaction with attendees through notifications and reminders.
 
 = How can I upgrade to the Pro version? =
-You can upgrade to the Pro version by [purchasing a license](https://rsvpproplugin.com/pricing/?utm_source=wordpress.org&utm_medium=web&utm_campaign=faq) from our website, then folowing the [instructions provided in this article](https://rsvpproplugin.com/knowledge-base/migrating-from-free-to-pro/?utm_source=wordpress.org&utm_medium=web&utm_campaign=faq).
+You can upgrade to the Pro version by [purchasing a license](https://rsvpproplugin.com/pricing/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=purchase+license) from our website, then folowing the [instructions provided in this article](https://rsvpproplugin.com/knowledge-base/migrating-from-free-to-pro/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=upgrade+to+pro).
 
 = How do I allow users to RSVP? =
 This can be easily done by adding the [rsvp] shortcode to one of your pages.
 
 = Can users register to the event themselves? =
-Yes, with the help of the [Open Registrations option](https://rsvpproplugin.com/knowledge-base/using-open-registrations/?utm_source=wordpress.org&utm_medium=web&utm_campaign=faq).
+Yes, with the help of the [Open Registrations option](https://rsvpproplugin.com/knowledge-base/using-open-registrations/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=open+registration).
 
 = Can I Prefill Attendee Information? =
 Yes, go to the page associated with the RSVP form and add to the query string the following parameters.
