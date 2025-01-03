@@ -104,7 +104,7 @@ module.exports = function( grunt ) {
 					'!composer.json',
 					'!composer.lock',
 					'!set_tags.sh',
-					'!rsvp.zip',
+					'!*.zip',
 					'!nbproject/**'
 				],
 				dest: 'build/'

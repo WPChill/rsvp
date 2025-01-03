@@ -75,7 +75,7 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 
 == Changelog ==
 = 2.7.14 – 03.01.2025 =
-* Fixed: vulnerbility in the admin area
+* Fixed: Vulnerability in the admin area
 
 = 2.7.13 – 18.09.2023 =
 * Changed: Email address is now required to rsvp if there are several guest with the same name. ( [#69](https://github.com/WPChill/rsvp/issues/69) )
