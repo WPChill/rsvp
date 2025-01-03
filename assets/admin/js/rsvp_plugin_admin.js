@@ -11,6 +11,7 @@ jQuery( document ).ready( function () {
 			$.post( ajaxurl, {
 				action: 'update-questions-menu-order',
 				order : $( '#the-list' ).sortable( 'serialize' ),
+				nonce : rsvp_ajax.nonce,
 			} );
 		}
 	} );

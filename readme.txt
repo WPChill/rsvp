@@ -4,7 +4,7 @@ Tags: rsvp, event management, planning, event registration, calendar
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.7.13
+Stable tag: 2.7.14
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -74,6 +74,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+= 2.7.14 – 03.01.2025 =
+* Fixed: vulnerbility in the admin area
+
 = 2.7.13 – 18.09.2023 =
 * Changed: Email address is now required to rsvp if there are several guest with the same name. ( [#69](https://github.com/WPChill/rsvp/issues/69) )
 * Changed: Settings checkboxes transformed into toggles ( [#64](https://github.com/WPChill/rsvp/issues/64) )

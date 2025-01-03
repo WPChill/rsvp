@@ -2,13 +2,13 @@
 /**
  * @package rsvp
  * @author WPChill
- * @version 2.7.13
+ * @version 2.7.14
  * Plugin Name: RSVP
  * Text Domain: rsvp
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: WPChill
- * Version: 2.7.13
+ * Version: 2.7.14
  * Author URI: https://wpchill.com
  * License: GPLv3
  * Copyright 2010-2020      Mike de Libero      mikede@mde-dev.com
@@ -49,7 +49,7 @@ if ( isset( $plugin ) ) {
 
 define( 'RSVP_PLUGIN_FILE', $my_plugin_file );
 define( 'RSVP_PLUGIN_PATH', WP_PLUGIN_DIR . '/' . basename( dirname( $my_plugin_file ) ) );
-define( 'RSVP_FILE' , plugin_basename( __FILE__ ) );
+define( 'RSVP_FILE', plugin_basename( __FILE__ ) );
 require_once 'includes/rsvp-constants.php';
 
 require_once 'external-libs/wp-simple-nonce/wp-simple-nonce.php';
@@ -149,7 +149,7 @@ function rsvp_generate_passcode() {
 	$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
 	$passcode   = '';
 
-	for ( $p = 0; $p < $length; $p ++ ) {
+	for ( $p = 0; $p < $length; $p++ ) {
 		$passcode .= $characters[ mt_rand( 0, strlen( $characters ) ) ];
 	}
 
@@ -293,8 +293,8 @@ function rsvp_admin_custom_question() {
 		}
 
 		if ( isset( $_POST['numNewAnswers'] ) && is_numeric( $_POST['numNewAnswers'] ) &&
-			 in_array( absint( $_POST['questionTypeID'] ), $answerQuestionTypes ) ) {
-			for ( $i = 0; $i < absint( $_POST['numNewAnswers'] ); $i ++ ) {
+			in_array( absint( $_POST['questionTypeID'] ), $answerQuestionTypes ) ) {
+			for ( $i = 0; $i < absint( $_POST['numNewAnswers'] ); $i++ ) {
 				if ( isset( $_POST[ 'newAnswer' . $i ] ) && ! empty( $_POST[ 'newAnswer' . $i ] ) ) {
 					$wpdb->insert(
 						QUESTION_ANSWERS_TABLE,
@@ -328,19 +328,21 @@ function rsvp_admin_custom_question() {
 		<p><?php echo esc_html__( 'Custom Question saved', 'rsvp' ); ?></p>
 		<p>
 			<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'rsvp-admin-questions' ), admin_url( 'admin.php' ) ) ); ?>"
-			   class="button button-secondary"><?php echo esc_html__( 'Continue to Question List', 'rsvp' ); ?></a>
+				class="button button-secondary"><?php echo esc_html__( 'Continue to Question List', 'rsvp' ); ?></a>
 			<a href="
 			<?php
-			echo esc_url( add_query_arg(
-				array(
-					'page'   => 'rsvp-admin-questions',
-					'action' => 'add',
-				),
-				admin_url( 'admin.php' )
-			) );
+			echo esc_url(
+				add_query_arg(
+					array(
+						'page'   => 'rsvp-admin-questions',
+						'action' => 'add',
+					),
+					admin_url( 'admin.php' )
+				)
+			);
 			?>
 			"
-			   class="button button-primary"><?php echo esc_html__( 'Add another Question', 'rsvp' ); ?></a>
+				class="button button-primary"><?php echo esc_html__( 'Add another Question', 'rsvp' ); ?></a>
 		</p>
 		<?php
 	} else {
@@ -435,7 +437,7 @@ function rsvp_admin_custom_question() {
 			<?php wp_nonce_field( 'rsvp_add_custom_question' ); ?>
 			<p class="submit">
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=rsvp-admin-questions' ) ); ?>"
-				   class="button button-secondary"><?php esc_html_e( 'Back to custom question list', 'rsvp' ); ?></a>
+					class="button button-secondary"><?php esc_html_e( 'Back to custom question list', 'rsvp' ); ?></a>
 				<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save', 'rsvp' ); ?>"/>
 			</p>
 			<table id="customQuestions" class="form-table">
@@ -477,7 +479,7 @@ function rsvp_admin_custom_question() {
 							<tr>
 								<th><?php echo esc_html__( 'Answers', 'rsvp' ); ?></th>
 								<th align="right"><a href="#"
-													 onclick="return addAnswer();"><?php echo esc_html__( 'Add new Answer', 'rsvp' ); ?></a>
+													onclick="return addAnswer();"><?php echo esc_html__( 'Add new Answer', 'rsvp' ); ?></a>
 								</th>
 							</tr>
 							<?php
@@ -491,12 +493,12 @@ function rsvp_admin_custom_question() {
 														for="answer<?php echo esc_attr( $answer->id ); ?>"><?php echo esc_html__( 'Answer', 'rsvp' ); ?>
 													:</label></td>
 											<td><input type="text" name="answer<?php echo esc_attr( $answer->id ); ?>"
-													   id="answer<?php echo esc_attr( $answer->id ); ?>" size="40"
-													   value="<?php echo esc_attr( stripslashes( $answer->answer ) ); ?>"/>
+														id="answer<?php echo esc_attr( $answer->id ); ?>" size="40"
+														value="<?php echo esc_attr( stripslashes( $answer->answer ) ); ?>"/>
 												&nbsp; <input type="checkbox"
-															  name="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"
-															  id="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"
-															  value="Y"/><label
+																name="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"
+																id="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"
+																value="Y"/><label
 														for="deleteAnswer<?php echo esc_attr( $answer->id ); ?>"><?php echo esc_html__( 'Delete', 'rsvp' ); ?></label>
 											</td>
 										</tr>
@@ -552,13 +554,21 @@ function rsvp_admin_scripts() {
 
 	wp_register_script( 'rsvp_admin', plugins_url( 'assets/admin/js/rsvp_plugin_admin.js', RSVP_PLUGIN_FILE ), array( 'jquery-ui-sortable' ), '', true );
 	wp_enqueue_script( 'rsvp_admin' );
+	wp_localize_script(
+		'rsvp_admin',
+		'rsvp_ajax',
+		array(
+			'nonce'   => wp_create_nonce( 'rsvp_admin_script' ),
+			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+		)
+	);
 }
 
 /**
  * Function for loading the needed assets for the plugin.
  */
 function rsvp_init() {
-	$result = load_plugin_textdomain( 'rsvp', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+	$result = load_plugin_textdomain( 'rsvp', false, basename( __DIR__ ) . '/languages/' );
 }
 
 /**
@@ -691,7 +701,7 @@ function rsvp_data_eraser_handler( $email_address, $page = 1 ) {
 	$attendees   = $wpdb->get_results( $wpdb->prepare( $sql, $email_address ) );
 	foreach ( $attendees as $a ) {
 		$rsvp_helper->delete_attendee( $a->id );
-		$num_deleted ++;
+		++$num_deleted;
 	}
 
 	return array(
@@ -830,4 +840,4 @@ add_action( 'wp_head', 'rsvp_hide_untill_loaded' );
 add_filter( 'the_content', 'rsvp_frontend_handler' );
 register_activation_hook( __FILE__, 'rsvp_database_setup' );
 // Load plugin text domain.
-load_plugin_textdomain( 'rsvp', false, basename( dirname( __FILE__ ) ) . '/languages' );
+load_plugin_textdomain( 'rsvp', false, basename( __DIR__ ) . '/languages' );

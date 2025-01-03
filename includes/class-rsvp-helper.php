@@ -5,6 +5,7 @@ use Box\Spout\Common\Type;
 
 class RSVP_Helper {
 
+
 	/**
 	 * Holds the class object.
 	 *
@@ -20,16 +21,16 @@ class RSVP_Helper {
 	 *
 	 * @since 2.7.2
 	 */
-	function __construct() {
+	public function __construct() {
 
 		add_action( 'admin_action_delete-rsvp-attendee', array( $this, 'delete_attendee' ) );
 		add_action( 'admin_action_delete-rsvp-question', array( $this, 'delete_question' ) );
 		add_action( 'wp_ajax_update-questions-menu-order', array( $this, 'update_questions_order' ) );
+		add_action( 'wp_ajax_nopriv_update-questions-menu-order', array( $this, 'denied' ) );
 		add_action( 'admin_init', array( $this, 'bulk_delete_attendees' ) );
 		add_action( 'admin_init', array( $this, 'bulk_delete_questions' ) );
 
 		add_action( 'admin_init', array( $this, 'rsvp_admin_export' ) );
-
 	}
 
 	/**
@@ -45,7 +46,10 @@ class RSVP_Helper {
 		}
 
 		return self::$instance;
+	}
 
+	public function denied() {
+		wp_send_json_error( 'Access denied' );
 	}
 
 	/**
@@ -70,15 +74,18 @@ class RSVP_Helper {
 	/**
 	 * Delete Attendee
 	 *
-	 *
+	 * @param int|false $attendee_id The ID of the attendee to delete
 	 * @since 2.7.2
 	 */
 	public function delete_attendee( $attendee_id = false ) {
-		
+		// Check if user has permission
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( __( 'You do not have sufficient permissions to access this page.', 'rsvp' ) );
+		}
+
 		if ( ! $attendee_id ) {
-
 			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-attendee' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
-
+				// Verify nonce
 				check_admin_referer( 'delete-rsvp-attendee_' . absint( $_REQUEST['id'] ) );
 
 				global $wpdb;
@@ -87,8 +94,8 @@ class RSVP_Helper {
 				$wpdb->query(
 					$wpdb->prepare(
 						'DELETE FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d OR associatedAttendeeID = %d',
-						 $attendee_id,
-						 $attendee_id
+						$attendee_id,
+						$attendee_id
 					)
 				);
 
@@ -101,19 +108,18 @@ class RSVP_Helper {
 					)
 				);
 
-				wp_redirect( wp_get_referer() );
-				exit;
+					wp_redirect( wp_get_referer() );
+					exit;
 			}
 		} else {
-
 			global $wpdb;
 
 			if ( is_numeric( $attendee_id ) && ( $attendee_id > 0 ) ) {
 				$wpdb->query(
 					$wpdb->prepare(
 						'DELETE FROM ' . ASSOCIATED_ATTENDEES_TABLE . ' WHERE attendeeID = %d OR associatedAttendeeID = %d',
-						 $attendee_id,
-						 $attendee_id
+						$attendee_id,
+						$attendee_id
 					)
 				);
 
@@ -132,22 +138,34 @@ class RSVP_Helper {
 	/**
 	 * Delete Question
 	 *
-	 *
+	 * @param int|false $question_id The ID of the question to delete
 	 * @since 2.7.2
 	 */
 	public function delete_question( $question_id = false ) {
+		// Check if user has permission
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( __( 'You do not have sufficient permissions to access this page.', 'rsvp' ) );
+		}
 
 		if ( ! $question_id ) {
-
-			check_admin_referer( 'delete-rsvp-question_' . absint( $_REQUEST['id'] ) );
-
 			if ( isset( $_REQUEST['action'] ) && 'delete-rsvp-question' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
+				// Verify nonce
+				check_admin_referer( 'delete-rsvp-question_' . absint( $_REQUEST['id'] ) );
 
 				global $wpdb;
 				$question_id = absint( $_REQUEST['id'] );
+
+				// Delete the question and its answers
 				$wpdb->query(
 					$wpdb->prepare(
 						'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d',
+						$question_id
+					)
+				);
+
+				$wpdb->query(
+					$wpdb->prepare(
+						'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE questionID = %d',
 						$question_id
 					)
 				);
@@ -156,13 +174,19 @@ class RSVP_Helper {
 				exit;
 			}
 		} else {
-
 			global $wpdb;
-
 			if ( is_numeric( $question_id ) && ( $question_id > 0 ) ) {
+				// Delete the question and its answers
 				$wpdb->query(
 					$wpdb->prepare(
 						'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d',
+						$question_id
+					)
+				);
+
+				$wpdb->query(
+					$wpdb->prepare(
+						'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE questionID = %d',
 						$question_id
 					)
 				);
@@ -209,7 +233,7 @@ class RSVP_Helper {
 	 */
 	public function rsvp_admin_export() {
 
-		if ( ! current_user_can('manage_options') ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
@@ -453,7 +477,7 @@ class RSVP_Helper {
 									),
 									array( '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
 								);
-								$count ++;
+								++$count;
 							} elseif ( empty( $res->email ) && empty( $res->passcode ) ) {
 								// More than likely the attendee was inserted via an
 								// associated attendee and we will want to update this record...
@@ -510,7 +534,7 @@ class RSVP_Helper {
 														array( '%s', '%s' )
 													);
 													$newUserId = $wpdb->insert_id;
-													$count ++;
+													++$count;
 												}
 
 												$wpdb->insert(
@@ -538,7 +562,7 @@ class RSVP_Helper {
 
 							if ( $numCols >= 9 ) {
 								$private_questions = array();
-								for ( $qid = 9; $qid <= $numCols; $qid ++ ) {
+								for ( $qid = 9; $qid <= $numCols; $qid++ ) {
 									if ( isset( $headerRow[ $qid ] ) ) {
 										$pqid = str_replace( 'pq_', '', $headerRow[ $qid ] );
 										if ( is_numeric( $pqid ) ) {
@@ -572,7 +596,7 @@ class RSVP_Helper {
 					} else {
 						$headerRow = $row;
 					}
-					$i ++;
+					++$i;
 				}
 				break;
 			}
@@ -580,14 +604,14 @@ class RSVP_Helper {
 			<p><strong><?php echo esc_html( $count ); ?></strong> <?php echo esc_html__( 'total records were imported', 'rsvp' ); ?>.
 			</p>
 			<p><?php echo esc_html__( 'Continue to the RSVP', 'rsvp' ); ?> <a
-						href="admin.php?page=rsvp-top-level"><?php echo esc_html__( 'list', 'rsvp' ); ?></a></p>
+					href="admin.php?page=rsvp-top-level"><?php echo esc_html__( 'list', 'rsvp' ); ?></a></p>
 			<?php
 		} else {
 			?>
 			<form name="rsvp_import" method="post" enctype="multipart/form-data">
 				<?php wp_nonce_field( 'rsvp-import' ); ?>
 				<p><?php echo esc_html__( 'Select a file in the following file format: XLSX, CSV and ODS. It has to have the following layout:', 'rsvp' ); ?>
-					<br/>
+					<br />
 					<strong><?php echo esc_html__( 'First Name', 'rsvp' ); ?></strong> |
 					<strong><?php echo esc_html__( 'Last Name', 'rsvp' ); ?></strong> |
 					<strong><?php echo esc_html__( 'Email', 'rsvp' ); ?></strong> |
@@ -624,8 +648,8 @@ class RSVP_Helper {
 				</ul>
 				</p>
 				<p><?php echo esc_html__( 'A header row is always expected.', 'rsvp' ); ?></p>
-				<p><input type="file" name="importFile" id="importFile"/></p>
-				<p><input type="submit" value="<?php esc_attr_e( 'Import File', 'rsvp' ); ?>'" name="goRsvp"/></p>
+				<p><input type="file" name="importFile" id="importFile" /></p>
+				<p><input type="submit" value="<?php esc_attr_e( 'Import File', 'rsvp' ); ?>'" name="goRsvp" /></p>
 			</form>
 			<?php
 		}
@@ -634,19 +658,29 @@ class RSVP_Helper {
 	/**
 	 * Update questions order
 	 *
-	 * @return false
+	 * @return void
 	 * @Since 2.7.2
 	 */
 	public function update_questions_order() {
+		// Verify nonce and check capabilities
+		if ( ! check_ajax_referer( 'rsvp_admin_script', 'nonce', false ) ) {
+			wp_send_json_error( 'Invalid security token' );
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( 'Insufficient permissions' );
+		}
 
 		global $wpdb;
 
-		if ( isset( $_POST['order'] ) ){
-			parse_str( sanitize_text_field( wp_unslash( $_POST['order'] ) ), $data );
+		if ( ! isset( $_POST['order'] ) ) {
+			wp_send_json_error( 'Missing order parameter' );
 		}
 
+		parse_str( sanitize_text_field( wp_unslash( $_POST['order'] ) ), $data );
+
 		if ( ! is_array( $data ) ) {
-			return false;
+			wp_send_json_error( 'Invalid data format' );
 		}
 
 		$id_arr = array();
@@ -658,7 +692,12 @@ class RSVP_Helper {
 
 		$menu_order_arr = array();
 		foreach ( $id_arr as $key => $id ) {
-			$results = $wpdb->get_results( 'SELECT sortOrder FROM ' . QUESTIONS_TABLE . ' WHERE id = ' . (int) $id );
+			$results = $wpdb->get_results(
+				$wpdb->prepare(
+					'SELECT sortOrder FROM ' . QUESTIONS_TABLE . ' WHERE id = %d',
+					(int) $id
+				)
+			);
 
 			foreach ( $results as $result ) {
 				$menu_order_arr[] = $result->sortOrder;
@@ -668,14 +707,16 @@ class RSVP_Helper {
 		sort( $menu_order_arr );
 
 		foreach ( $data as $key => $values ) {
-
 			foreach ( $values as $position => $id ) {
-
-				$wpdb->update( QUESTIONS_TABLE, array( 'sortOrder' => $position ), array( 'id' => (int) $id ) );
+				$wpdb->update(
+					QUESTIONS_TABLE,
+					array( 'sortOrder' => $position ),
+					array( 'id' => (int) $id )
+				);
 			}
 		}
 
-		die();
+		wp_send_json_success( 'Questions order updated successfully' );
 	}
 
 	/**
@@ -684,27 +725,26 @@ class RSVP_Helper {
 	 * @since 2.7.2
 	 */
 	public function bulk_delete_attendees() {
+		// Check if user has permission
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( __( 'You do not have sufficient permissions to access this page.', 'rsvp' ) );
+		}
 
-		if( isset( $_GET['rsvp-bulk-action'] ) && -1 != $_GET['rsvp-bulk-action'] ){
+		if ( isset( $_GET['rsvp-bulk-action'] ) && -1 != $_GET['rsvp-bulk-action'] ) {
 			$rsvp_bulk_action = sanitize_text_field( wp_unslash( $_GET['rsvp-bulk-action'] ) );
-		}elseif( isset( $_GET['rsvp-bulk-action2'] ) && -1 != $_GET['rsvp-bulk-action2'] ){
-			$rsvp_bulk_action = sanitize_text_field( wp_unslash($_GET['rsvp-bulk-action2'] ) );
-		}else{
+		} elseif ( isset( $_GET['rsvp-bulk-action2'] ) && -1 != $_GET['rsvp-bulk-action2'] ) {
+			$rsvp_bulk_action = sanitize_text_field( wp_unslash( $_GET['rsvp-bulk-action2'] ) );
+		} else {
 			$rsvp_bulk_action = false;
 		}
 
 		if ( count( $_GET ) > 0 && 'delete' === $rsvp_bulk_action && isset( $_GET['attendee'] ) && is_array( $_GET['attendee'] ) && ( count( $_GET['attendee'] ) > 0 ) ) {
-
-			if ( isset( $_GET['_wpnonce'] ) && ! empty( $_GET['_wpnonce'] ) ) {
-
-				$action = 'rsvp-bulk-attendees';
-				if ( ! wp_verify_nonce( $_GET['_wpnonce'], $action ) ) {
-					wp_die( 'Nope! Security check failed!' );
-				}
+			// Verify nonce
+			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'rsvp-bulk-attendees' ) ) {
+				wp_die( __( 'Security check failed', 'rsvp' ) );
 			}
-	
+
 			foreach ( array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_GET['attendee'] ) ) as $attendee ) {
-				
 				if ( is_numeric( $attendee ) && ( $attendee > 0 ) ) {
 					$this->delete_attendee( $attendee );
 				}
@@ -713,41 +753,39 @@ class RSVP_Helper {
 	}
 
 	/**
-	 * Bulk delete our questions
+	 * Bulk delete questions
 	 *
 	 * @since 2.7.2
 	 */
 	public function bulk_delete_questions() {
+		// Check if user has permission
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( __( 'You do not have sufficient permissions to access this page.', 'rsvp' ) );
+		}
 
-		if( isset( $_GET['rsvp-bulk-action'] ) && -1 != $_GET['rsvp-bulk-action'] ){
-			sanitize_text_field( wp_unslash( $rsvp_bulk_action = $_GET['rsvp-bulk-action'] ) );
-		}elseif( isset( $_GET['rsvp-bulk-action2'] ) && -1 != $_GET['rsvp-bulk-action2'] ){
-			sanitize_text_field( wp_unslash( $rsvp_bulk_action = $_GET['rsvp-bulk-action2'] ) );
-		}else{
+		if ( isset( $_GET['rsvp-bulk-action'] ) && -1 != $_GET['rsvp-bulk-action'] ) {
+			$rsvp_bulk_action = sanitize_text_field( wp_unslash( $_GET['rsvp-bulk-action'] ) );
+		} elseif ( isset( $_GET['rsvp-bulk-action2'] ) && -1 != $_GET['rsvp-bulk-action2'] ) {
+			$rsvp_bulk_action = sanitize_text_field( wp_unslash( $_GET['rsvp-bulk-action2'] ) );
+		} else {
 			$rsvp_bulk_action = false;
 		}
 
 		if ( count( $_GET ) > 0 && 'delete' === $rsvp_bulk_action && isset( $_GET['q'] ) && is_array( $_GET['q'] ) && ( count( $_GET['q'] ) > 0 ) ) {
-
-			if ( isset( $_GET['_wpnonce'] ) && ! empty( $_GET['_wpnonce'] ) ) {
-
-				$action = 'rsvp-bulk-questions';
-				if ( ! wp_verify_nonce( $_GET['_wpnonce'], $action ) ) {
-					wp_die( 'Nope! Security check failed!' );
-				}
+			// Verify nonce
+			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'rsvp-bulk-questions' ) ) {
+				wp_die( __( 'Security check failed', 'rsvp' ) );
 			}
 
 			global $wpdb;
 
 			foreach ( array_map( 'absint', $_GET['q'] ) as $q ) {
-
 				if ( is_numeric( $q ) && ( $q > 0 ) ) {
 					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . QUESTIONS_TABLE . ' WHERE id = %d', absint( $q ) ) );
 					$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . ATTENDEE_ANSWERS . ' WHERE questionID = %d', absint( $q ) ) );
 				}
 			}
 		}
-
 	}
 }
 
