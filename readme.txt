@@ -2,7 +2,7 @@
 Contributors: wpchill, silkalns
 Tags: rsvp, event management, planning, event registration, calendar
 Requires at least: 5.6
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 5.6
 Stable tag: 2.7.15
 License: GPLv3 or later
