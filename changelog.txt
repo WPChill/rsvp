@@ -1,4 +1,7 @@
 == Changelog ==
+= 2.7.15 – 09.01.2025 =
+* Fixed: Vulnerability in the admin area
+
 = 2.7.14 - 03.01.2025 =
 * Fixed: Vulnerability in the admin area
 

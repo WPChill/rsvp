@@ -205,10 +205,42 @@ class RSVP_Helper {
 	 * @since 2.7.2
 	 */
 	public function get_attendees( $orderby = 'lastName, firstName', $order = 'ASC' ) {
-
 		global $wpdb;
 
-		$sql = 'SELECT id, firstName, lastName, rsvpStatus, note, kidsMeal, additionalAttendee, veggieMeal, personalGreeting, passcode, email, rsvpDate FROM ' . ATTENDEES_TABLE . ' ORDER BY ' . $orderby . ' ' . $order;
+		$allowed_orderby = array(
+			'firstName',
+			'lastName',
+			'rsvpStatus',
+			'email',
+			'rsvpDate',
+		);
+
+		$orderby_parts           = array_map( 'trim', explode( ',', $orderby ) );
+		$sanitized_orderby_parts = array();
+
+		foreach ( $orderby_parts as $part ) {
+			if ( in_array( $part, $allowed_orderby, true ) ) {
+				$sanitized_orderby_parts[] = $part;
+			}
+		}
+
+		// Use default if no valid columns
+		$sanitized_orderby = ! empty( $sanitized_orderby_parts ) ?
+			implode( ', ', $sanitized_orderby_parts ) :
+			'lastName, firstName';
+
+		// Validate order parameter
+		$order           = strtoupper( $order );
+		$sanitized_order = in_array( $order, array( 'ASC', 'DESC' ), true ) ? $order : 'ASC';
+
+		$sql = $wpdb->prepare(
+			'SELECT id, firstName, lastName, rsvpStatus, note, kidsMeal, additionalAttendee, 
+			veggieMeal, personalGreeting, passcode, email, rsvpDate 
+			FROM ' . ATTENDEES_TABLE . ' 
+			ORDER BY %s %s',
+			$sanitized_orderby,
+			$sanitized_order
+		);
 
 		return $wpdb->get_results( $sql );
 	}
