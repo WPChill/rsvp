@@ -1,6 +1,6 @@
 === RSVP and Event Management ===
 Contributors: wpchill, silkalns
-Tags: rsvp, event management, planning, event registration, calendar
+Tags: rsvp, event management, rsvp management, event registration, calendar
 Requires at least: 5.6
 Tested up to: 6.7
 Requires PHP: 5.6
@@ -8,19 +8,11 @@ Stable tag: 2.7.15
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-The RSVP Plugin is ideal for managing event registrations, offering powerful features to streamline the RSVP process for any type of event.
-
 == Description ==
+## Simple Event Registration & RSVP Management for WordPress
+The RSVP Plugin helps you handle event sign-ups easily. It lets people say if they are coming to your event. There are two versions: Free and Pro. The Free version has basic tools to manage one event. The Pro version gives you extra features for bigger and more detailed events.
 
-The RSVP Plugin offers a comprehensive solution for event registration and management, providing an easy way for users to RSVP to your events. The plugin comes in two versions: Free and Pro. The free version includes essential features for managing registration for one event, while the Pro version goes one step further and offers advanced functionalities for more complex scenarios.
-
-**In the Free version of RSVP you can::**
-* Manage a single event
-* [Define the questions that will be used during the RSVP process](https://rsvpproplugin.com/knowledge-base/using-custom-questions/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Define+questions)
-* [Setup email notifications to the event owner and the responding user](https://rsvpproplugin.com/knowledge-base/rsvp-email-notifications/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Email+notifications)
-* Export or Import the RSVP list to CSV
-
-**With the Pro Version you can:**
+## Here are the premium features available in the paid version of RSVP
 * Manage multiple events
 * [Setup sub-events](https://rsvpproplugin.com/knowledge-base/sub-events/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Sub+events), for example if you have an event spanning multiple days and you wish to create a separate event on each day
 * Provide a [calendar invite for events](https://rsvpproplugin.com/knowledge-base/calendar-invite-download/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Calendar+invite)
