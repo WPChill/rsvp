@@ -1,4 +1,7 @@
 == Changelog ==
+= 2.7.16 – 17.04.2025 =
+* Fixed: Load texdomain just in time.
+
 = 2.7.15 – 09.01.2025 =
 * Fixed: Vulnerability in the admin area
 

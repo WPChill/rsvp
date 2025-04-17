@@ -2,9 +2,9 @@
 Contributors: wpchill, silkalns
 Tags: rsvp, event management, rsvp management, event registration, calendar
 Requires at least: 5.6
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 5.6
-Stable tag: 2.7.15
+Stable tag: 2.7.16
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -66,6 +66,9 @@ For example if you have a page that is /rsvp for domain example.com your URL mig
 1. The text you need to add for the rsvp front-end
 
 == Changelog ==
+= 2.7.16 – 17.04.2025 =
+* Fixed: Load texdomain just in time.
+
 = 2.7.15 – 09.01.2025 =
 * Fixed: Vulnerability in the admin area
 

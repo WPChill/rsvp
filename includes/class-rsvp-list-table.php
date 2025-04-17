@@ -1099,7 +1099,10 @@ if ( ! class_exists( 'RSVP_List_Table' ) ) :
 					echo '</th>';
 				} elseif ( method_exists( $this, 'column_' . $column_name ) ) {
 					echo wp_kses_post( "<td $attributes>" );
-					echo wp_kses_post( call_user_func( array( $this, 'column_' . $column_name ), $item ) );
+					$column = call_user_func( array( $this, 'column_' . $column_name ), $item );
+					if( ! empty( $column ) ) {
+						echo wp_kses_post( $column  );
+					}
 					echo '</td>';
 				} else {
 					echo wp_kses_post( "<td $attributes>" );
