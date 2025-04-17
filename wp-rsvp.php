@@ -2,13 +2,13 @@
 /**
  * @package rsvp
  * @author WPChill
- * @version 2.7.15
+ * @version 2.7.16
  * Plugin Name: RSVP
  * Text Domain: rsvp
  * Plugin URI: http://wordpress.org/extend/plugins/rsvp/
  * Description: This plugin allows guests to RSVP to an event.  It was made initially for weddings but could be used for other things.
  * Author: WPChill
- * Version: 2.7.15
+ * Version: 2.7.16
  * Author URI: https://wpchill.com
  * License: GPLv3
  * Copyright 2010-2020      Mike de Libero      mikede@mde-dev.com
@@ -50,25 +50,6 @@ if ( isset( $plugin ) ) {
 define( 'RSVP_PLUGIN_FILE', $my_plugin_file );
 define( 'RSVP_PLUGIN_PATH', WP_PLUGIN_DIR . '/' . basename( dirname( $my_plugin_file ) ) );
 define( 'RSVP_FILE', plugin_basename( __FILE__ ) );
-require_once 'includes/rsvp-constants.php';
-
-require_once 'external-libs/wp-simple-nonce/wp-simple-nonce.php';
-require_once __DIR__ . '/includes/rsvp_frontend.inc.php';
-
-if ( is_admin() ) {
-	require_once __DIR__ . '/includes/class-rsvp-review.php';
-	require_once 'includes/class-rsvp-admin.php';
-	require_once 'includes/class-rsvp-list-table.php';
-	require_once 'includes/class-rsvp-events-list-table.php';
-	require_once 'includes/class-rsvp-attendees-list-table.php';
-	require_once 'includes/class-rsvp-questions-list-table.php';
-	require_once 'includes/class-rsvp-helper.php';
-	require_once 'includes/class-rsvp-upsells.php';
-
-	if ( apply_filters( 'rsvp_show_upsells', true ) ) {
-		RSVP_Upsells::get_instance();
-	}
-}
 
 /**
  * Database setup for the rsvp plug-in.
@@ -568,6 +549,26 @@ function rsvp_admin_scripts() {
  * Function for loading the needed assets for the plugin.
  */
 function rsvp_init() {
+	require_once 'includes/rsvp-constants.php';
+
+	require_once 'external-libs/wp-simple-nonce/wp-simple-nonce.php';
+	require_once __DIR__ . '/includes/rsvp_frontend.inc.php';
+	
+	if ( is_admin() ) {
+		require_once __DIR__ . '/includes/class-rsvp-review.php';
+		require_once 'includes/class-rsvp-admin.php';
+		require_once 'includes/class-rsvp-list-table.php';
+		require_once 'includes/class-rsvp-events-list-table.php';
+		require_once 'includes/class-rsvp-attendees-list-table.php';
+		require_once 'includes/class-rsvp-questions-list-table.php';
+		require_once 'includes/class-rsvp-helper.php';
+		require_once 'includes/class-rsvp-upsells.php';
+	
+		if ( apply_filters( 'rsvp_show_upsells', true ) ) {
+			RSVP_Upsells::get_instance();
+		}
+	}
+
 	$result = load_plugin_textdomain( 'rsvp', false, basename( __DIR__ ) . '/languages/' );
 }
 
@@ -839,5 +840,4 @@ add_action( 'init', 'rsvp_init' );
 add_action( 'wp_head', 'rsvp_hide_untill_loaded' );
 add_filter( 'the_content', 'rsvp_frontend_handler' );
 register_activation_hook( __FILE__, 'rsvp_database_setup' );
-// Load plugin text domain.
-load_plugin_textdomain( 'rsvp', false, basename( __DIR__ ) . '/languages' );
+
