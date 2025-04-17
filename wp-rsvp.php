@@ -50,6 +50,7 @@ if ( isset( $plugin ) ) {
 define( 'RSVP_PLUGIN_FILE', $my_plugin_file );
 define( 'RSVP_PLUGIN_PATH', WP_PLUGIN_DIR . '/' . basename( dirname( $my_plugin_file ) ) );
 define( 'RSVP_FILE', plugin_basename( __FILE__ ) );
+require_once 'includes/rsvp-constants.php';
 
 /**
  * Database setup for the rsvp plug-in.
@@ -549,8 +550,6 @@ function rsvp_admin_scripts() {
  * Function for loading the needed assets for the plugin.
  */
 function rsvp_init() {
-	require_once 'includes/rsvp-constants.php';
-
 	require_once 'external-libs/wp-simple-nonce/wp-simple-nonce.php';
 	require_once __DIR__ . '/includes/rsvp_frontend.inc.php';
 	
